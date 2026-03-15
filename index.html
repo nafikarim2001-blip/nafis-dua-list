@@ -7,7 +7,16 @@
 <meta name="keywords" content="Nafi dua list, Ramadan duas, Laylatul Qadr dua, Islamic supplications, duas from Quran, last 10 nights Ramadan">
 <meta property="og:title" content="Nafi's Dua List — Ramadan Supplications">
 <meta property="og:description" content="Authentic duas from the Qur'an and Sunnah for Ramadan and beyond. Arabic, transliteration and translation. Free to share for the sake of Allah.">
-<title>Nafi's Dua List — Ramadan Supplications from Qur'an &amp; Sunnah</title>
+<title>Nafi's Dua List</title>
+<meta name="theme-color" content="#C9A84C">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Dua List">
+<link rel="manifest" href="manifest.json">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Scheherazade+New:wght@400;700&display=swap" rel="stylesheet">
 <style>
 /* ========================================
    MOBILE-FIRST STANDALONE DUA CARD
@@ -19,7 +28,7 @@
   --text:#F0E6D0; --text-d:#A89470; --text-m:#6B5E48;
   --bdr:rgba(201,168,76,0.2); --bdr-h:rgba(201,168,76,0.5);
   --green:#52B788; --gbg:rgba(82,183,136,0.1); --gbd:rgba(82,183,136,0.28);
-  --fa:'Arabic Typesetting','Traditional Arabic','Scheherazade New','Amiri','Noto Naskh Arabic','Al Bayan','Geeza Pro','Simplified Arabic',serif;
+  --fa:'Scheherazade New','Arabic Typesetting','Traditional Arabic','Amiri','Noto Naskh Arabic','Al Bayan','Geeza Pro','Simplified Arabic',serif;
   --fs:'Palatino Linotype','Palatino','Book Antiqua','Georgia','Times New Roman',serif;
   --fn:'Gill Sans','Optima','Segoe UI','Helvetica Neue','Arial',sans-serif;
   --radius:4px;
@@ -268,8 +277,25 @@ body::before{
   .tl::before{left:5px;}
 }
 
+/* ---- BACK TO TOP ---- */
+.btt{
+  position:fixed;bottom:24px;right:20px;z-index:300;
+  width:44px;height:44px;
+  background:var(--gold-d);border:1px solid var(--gold);
+  border-radius:50%;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  font-size:20px;color:var(--gold-l);
+  opacity:0;pointer-events:none;
+  transition:opacity .25s,transform .25s;
+  transform:translateY(8px);
+  -webkit-tap-highlight-color:transparent;
+  box-shadow:0 2px 12px rgba(0,0,0,.4);
+}
+.btt.visible{opacity:1;pointer-events:auto;transform:translateY(0);}
+.btt:active{transform:scale(.92);}
+
 @media print{
-  body::before,.nav{display:none;}
+  body::before,.nav,.btt,.search-wrap,.copy-btn{display:none;}
   body{background:#fff;color:#1a1a1a;}
   .dua,.dhikr,.tc,.tl-box,.pcard,.note,.expand-body,.step-item{background:#f7f5f0!important;border-color:#ccc!important;}
   .ar,.da,.far,.bismillah,.et-ar,.step-ar{color:#7B5C10!important;}
@@ -283,6 +309,98 @@ body::before{
 }
 
 @keyframes fadeIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+
+/* ---- SEARCH BAR ---- */
+.search-wrap{
+  position:sticky;top:44px;z-index:190;
+  background:rgba(12,16,24,0.97);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--bdr);
+  padding:8px 16px;
+}
+.search-inner{
+  max-width:760px;margin:0 auto;
+  position:relative;display:flex;align-items:center;
+}
+.search-icon{
+  position:absolute;left:12px;
+  font-size:14px;color:var(--text-m);
+  pointer-events:none;
+}
+#duaSearch{
+  width:100%;
+  background:var(--card);
+  border:1px solid var(--bdr);
+  border-radius:var(--radius);
+  padding:9px 36px 9px 36px;
+  font-family:var(--fn);font-size:13px;
+  color:var(--text);
+  outline:none;
+  transition:border-color .2s,box-shadow .2s;
+  -webkit-appearance:none;
+}
+#duaSearch:focus{
+  border-color:var(--gold-d);
+  box-shadow:0 0 0 2px rgba(201,168,76,.12);
+}
+#duaSearch::placeholder{color:var(--text-m);}
+.search-clear{
+  position:absolute;right:10px;
+  background:none;border:none;cursor:pointer;
+  color:var(--text-m);font-size:16px;line-height:1;
+  padding:4px;display:none;
+  -webkit-tap-highlight-color:transparent;
+}
+.search-clear.visible{display:flex;align-items:center;}
+.search-count{
+  font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--gold);padding:2px 0 0;margin-left:10px;
+  white-space:nowrap;flex-shrink:0;display:none;
+}
+.search-count.visible{display:block;}
+
+/* Search hidden cards */
+.dua.search-hidden,.expand-wrap.search-hidden{display:none;}
+
+/* Search highlight */
+.search-hl{background:rgba(201,168,76,.22);border-radius:2px;padding:0 1px;}
+
+/* No results message */
+.search-empty{
+  display:none;text-align:center;padding:40px 20px;
+  color:var(--text-m);font-size:14px;
+}
+.search-empty.visible{display:block;}
+
+/* ---- COPY BUTTON ---- */
+.copy-btn{
+  position:absolute;top:10px;right:10px;
+  background:rgba(201,168,76,.06);
+  border:1px solid rgba(201,168,76,.18);
+  border-radius:var(--radius);
+  cursor:pointer;
+  padding:5px 9px;
+  font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--text-m);
+  font-family:var(--fn);
+  transition:background .2s,color .2s,border-color .2s;
+  -webkit-tap-highlight-color:transparent;
+  min-height:30px;
+  white-space:nowrap;
+}
+.copy-btn:hover{background:rgba(201,168,76,.14);color:var(--gold);border-color:rgba(201,168,76,.4);}
+.copy-btn.copied{
+  background:rgba(82,183,136,.12);
+  border-color:rgba(82,183,136,.35);
+  color:var(--green);
+}
+/* Expand-body copy button (bottom-right) */
+.expand-body{position:relative;}
+.expand-body .copy-btn{
+  top:auto;bottom:10px;right:10px;
+}
+/* Push source text away from copy btn on small cards */
+.dua{padding-right:80px;}
 </style>
 </head>
 <body>
@@ -308,6 +426,24 @@ body::before{
     <button class="nav-btn" data-target="personal">🤲 Personal</button>
   </div>
 </nav>
+
+<!-- SEARCH BAR -->
+<div class="search-wrap" id="searchWrap" role="search" aria-label="Search duas">
+  <div class="search-inner">
+    <span class="search-icon" aria-hidden="true">🔍</span>
+    <input
+      type="search"
+      id="duaSearch"
+      placeholder="Search duas, transliteration, topics…"
+      autocomplete="off"
+      autocorrect="off"
+      spellcheck="false"
+      aria-label="Search duas"
+    >
+    <button class="search-clear" id="searchClear" aria-label="Clear search">✕</button>
+    <span class="search-count" id="searchCount" aria-live="polite"></span>
+  </div>
+</div>
 
 <div class="page">
 
@@ -2068,12 +2204,27 @@ body::before{
 
 </div>
 
+<button class="btt" id="btt" aria-label="Back to top" title="Back to top">↑</button>
+
 <script>
 // ============================================================
-//  ALL JAVASCRIPT — no external libraries, no URLs, no fetch
+//  ALL JAVASCRIPT — no external libraries
+//  Phase 2: Search, Copy Buttons, PWA / Service Worker
 // ============================================================
 
-// ---- SMOOTH SCROLL NAV (no href="#..." anchors) ----
+// ---- SERVICE WORKER REGISTRATION ----
+// Only register when hosted on your own domain — SW files aren't served in preview sandboxes
+if ('serviceWorker' in navigator && !location.hostname.includes('claudeusercontent.com')) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('./sw.js').then(function(reg) {
+      console.log('SW registered:', reg.scope);
+    }).catch(function(err) {
+      console.warn('SW registration failed:', err);
+    });
+  });
+}
+
+// ---- SMOOTH SCROLL NAV + AUTO-SCROLL ACTIVE TAB ----
 (function(){
   var nav = document.querySelector('.nav');
   var btns = document.querySelectorAll('.nav-btn');
@@ -2084,8 +2235,8 @@ body::before{
       var id = btn.getAttribute('data-target');
       var el = document.getElementById(id);
       if(!el) return;
-      var navH = nav ? nav.offsetHeight : 0;
-      var top = el.getBoundingClientRect().top + window.pageYOffset - navH - 12;
+      var offset = getScrollOffset();
+      var top = el.getBoundingClientRect().top + window.pageYOffset - offset - 12;
       window.scrollTo({top: top, behavior: 'smooth'});
     });
   });
@@ -2097,18 +2248,44 @@ body::before{
   });
 
   function onScroll(){
-    var navH = nav ? nav.offsetHeight : 0;
-    var scrollY = window.pageYOffset + navH + 20;
+    var offset = getScrollOffset();
+    var scrollY = window.pageYOffset + offset + 20;
     var current = null;
     sections.forEach(function(s){
       if(s.el.offsetTop <= scrollY) current = s;
     });
     btns.forEach(function(b){ b.classList.remove('active'); });
-    if(current) current.btn.classList.add('active');
+    if(current){
+      current.btn.classList.add('active');
+      if(nav){
+        var btnLeft = current.btn.offsetLeft;
+        var btnW = current.btn.offsetWidth;
+        var navW = nav.offsetWidth;
+        var target = btnLeft - (navW / 2) + (btnW / 2);
+        nav.scrollTo({left: target, behavior: 'smooth'});
+      }
+    }
+    var btt = document.getElementById('btt');
+    if(btt){
+      if(window.pageYOffset > 300){
+        btt.classList.add('visible');
+      } else {
+        btt.classList.remove('visible');
+      }
+    }
   }
 
   window.addEventListener('scroll', onScroll, {passive:true});
   onScroll();
+})();
+
+// ---- BACK TO TOP ----
+(function(){
+  var btt = document.getElementById('btt');
+  if(!btt) return;
+  btt.addEventListener('click', function(){
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  });
 })();
 
 // ---- TAP TO EXPAND ----
@@ -2125,13 +2302,214 @@ function toggleExpand(trigger){
     trigger.setAttribute('aria-expanded','true');
     body.classList.add('open');
     setTimeout(function(){
-      var nav = document.querySelector('.nav');
-      var navH = nav ? nav.offsetHeight : 0;
-      var top = trigger.getBoundingClientRect().top + window.pageYOffset - navH - 8;
+      var offset = getScrollOffset();
+      var top = trigger.getBoundingClientRect().top + window.pageYOffset - offset - 8;
       window.scrollTo({top: top, behavior: 'smooth'});
     }, 50);
   }
 }
+
+// ---- HELPER: get combined sticky header height ----
+function getScrollOffset(){
+  var nav = document.querySelector('.nav');
+  var sw = document.getElementById('searchWrap');
+  return (nav ? nav.offsetHeight : 0) + (sw ? sw.offsetHeight : 0);
+}
+
+// ---- COPY BUTTONS ----
+(function(){
+  // Build text from a dua card or expand-body
+  function extractText(el){
+    var parts = [];
+    // label / dlabel
+    var label = el.querySelector('.dlabel,.feat-badge');
+    if(label) parts.push(label.textContent.trim());
+    // Arabic
+    var ar = el.querySelector('.ar,.da,.step-ar,.et-ar');
+    if(ar) parts.push(ar.textContent.trim());
+    // Transliteration
+    var tr = el.querySelector('.tr,.dt,.step-tr');
+    if(tr) parts.push(tr.textContent.trim());
+    // English meaning
+    var en = el.querySelector('.en,.de,.step-en');
+    if(en) parts.push(en.textContent.trim());
+    // Source
+    var src = el.querySelector('.src,.step-src,.dr');
+    if(src) parts.push('Source: ' + src.textContent.replace(/^Source:\s*/,'').trim());
+    return parts.filter(Boolean).join('\n');
+  }
+
+  function makeCopyBtn(targetEl){
+    var btn = document.createElement('button');
+    btn.className = 'copy-btn';
+    btn.setAttribute('aria-label', 'Copy this dua');
+    btn.innerHTML = '&#x2398; Copy';
+    btn.addEventListener('click', function(e){
+      e.stopPropagation();
+      var text = extractText(targetEl);
+      if(!text) return;
+      navigator.clipboard.writeText(text).then(function(){
+        btn.innerHTML = '✓ Copied';
+        btn.classList.add('copied');
+        setTimeout(function(){
+          btn.innerHTML = '&#x2398; Copy';
+          btn.classList.remove('copied');
+        }, 2000);
+      }).catch(function(){
+        // Fallback for older browsers
+        var ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.cssText = 'position:fixed;opacity:0;';
+        document.body.appendChild(ta);
+        ta.select();
+        try{ document.execCommand('copy'); } catch(e){}
+        document.body.removeChild(ta);
+        btn.innerHTML = '✓ Copied';
+        btn.classList.add('copied');
+        setTimeout(function(){
+          btn.innerHTML = '&#x2398; Copy';
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    });
+    return btn;
+  }
+
+  // Add copy button to every .dua card
+  document.querySelectorAll('.dua').forEach(function(dua){
+    dua.appendChild(makeCopyBtn(dua));
+  });
+
+  // Add copy button to every expand-body
+  document.querySelectorAll('.expand-body').forEach(function(body){
+    body.appendChild(makeCopyBtn(body));
+  });
+})();
+
+// ---- REAL-TIME SEARCH ----
+(function(){
+  var input = document.getElementById('duaSearch');
+  var clearBtn = document.getElementById('searchClear');
+  var countEl = document.getElementById('searchCount');
+  if(!input) return;
+
+  // Collect all searchable units: .dua cards and .expand-wrap blocks
+  // We also search section titles to keep whole sections visible when matching
+  var duaCards   = Array.from(document.querySelectorAll('.dua'));
+  var expandWraps = Array.from(document.querySelectorAll('.expand-wrap'));
+
+  // Build a "no results" placeholder per section
+  var sections = Array.from(document.querySelectorAll('section.sec'));
+  var emptyMsgs = {};
+  sections.forEach(function(sec){
+    var msg = document.createElement('div');
+    msg.className = 'search-empty';
+    msg.setAttribute('aria-live','polite');
+    msg.textContent = 'No duas found in this section.';
+    sec.appendChild(msg);
+    emptyMsgs[sec.id] = msg;
+  });
+
+  function getSearchText(el){
+    return (el.textContent || '').toLowerCase();
+  }
+
+  function highlight(el, query){
+    // Only highlight text nodes inside .ar, .tr, .en, .dlabel, .et-en, .et-ar
+    var targets = el.querySelectorAll('.ar,.tr,.en,.dlabel,.et-en,.da,.dt,.de,.feat-badge,.step-en,.step-tr');
+    targets.forEach(function(t){
+      // Remove old highlights
+      t.innerHTML = t.innerHTML.replace(/<mark class="search-hl">(.*?)<\/mark>/gi, '$1');
+      if(!query) return;
+      // Simple text highlight (avoid breaking Arabic RTL)
+      var escaped = query.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+      var re = new RegExp('(' + escaped + ')', 'gi');
+      t.innerHTML = t.innerHTML.replace(re, '<mark class="search-hl">$1</mark>');
+    });
+  }
+
+  function clearHighlights(){
+    document.querySelectorAll('.search-hl').forEach(function(m){
+      var parent = m.parentNode;
+      if(parent){ parent.replaceChild(document.createTextNode(m.textContent), m); parent.normalize(); }
+    });
+  }
+
+  function doSearch(query){
+    query = query.trim().toLowerCase();
+    clearHighlights();
+
+    if(!query){
+      // Show everything
+      duaCards.forEach(function(c){ c.classList.remove('search-hidden'); });
+      expandWraps.forEach(function(w){ w.classList.remove('search-hidden'); });
+      sections.forEach(function(sec){ if(emptyMsgs[sec.id]) emptyMsgs[sec.id].classList.remove('visible'); });
+      countEl.classList.remove('visible');
+      clearBtn.classList.remove('visible');
+      return;
+    }
+
+    clearBtn.classList.add('visible');
+    var total = 0;
+
+    duaCards.forEach(function(card){
+      if(getSearchText(card).indexOf(query) > -1){
+        card.classList.remove('search-hidden');
+        highlight(card, query);
+        total++;
+      } else {
+        card.classList.add('search-hidden');
+      }
+    });
+
+    expandWraps.forEach(function(wrap){
+      var body = wrap.querySelector('.expand-body');
+      var trigger = wrap.querySelector('.expand-trigger');
+      if(getSearchText(wrap).indexOf(query) > -1){
+        wrap.classList.remove('search-hidden');
+        if(body && trigger){
+          body.classList.add('open');
+          trigger.classList.add('open');
+          trigger.setAttribute('aria-expanded','true');
+        }
+        if(body) highlight(body, query);
+        total++;
+      } else {
+        wrap.classList.add('search-hidden');
+      }
+    });
+
+    // Show/hide empty messages per section
+    sections.forEach(function(sec){
+      var visibleItems = sec.querySelectorAll('.dua:not(.search-hidden), .expand-wrap:not(.search-hidden)');
+      if(emptyMsgs[sec.id]){
+        emptyMsgs[sec.id].classList.toggle('visible', visibleItems.length === 0);
+      }
+    });
+
+    countEl.textContent = total + ' result' + (total !== 1 ? 's' : '');
+    countEl.classList.add('visible');
+  }
+
+  input.addEventListener('input', function(){
+    doSearch(input.value);
+  });
+
+  clearBtn.addEventListener('click', function(){
+    input.value = '';
+    input.focus();
+    doSearch('');
+  });
+
+  // ESC to clear
+  input.addEventListener('keydown', function(e){
+    if(e.key === 'Escape'){
+      input.value = '';
+      doSearch('');
+      input.blur();
+    }
+  });
+})();
 </script>
 </body>
 </html>
