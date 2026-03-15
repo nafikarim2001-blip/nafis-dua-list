@@ -33,7 +33,190 @@
   --fn:'Gill Sans','Optima','Segoe UI','Helvetica Neue','Arial',sans-serif;
   --radius:4px;
   --tap-min:48px;
+  --ar-scale:1;
 }
+
+/* ---- LIGHT MODE ---- */
+body.light{
+  --deep:#FAF6EE; --card:#F5EFE0; --card2:#EDE4CF;
+  --text:#2C1E0F; --text-d:#6B4C2A; --text-m:#9A7A56;
+  --bdr:rgba(122,92,18,0.25); --bdr-h:rgba(122,92,18,0.5);
+  --gold-f:rgba(201,168,76,0.12);
+  --gbg:rgba(52,130,90,0.1); --gbd:rgba(52,130,90,0.28);
+}
+body.light::before{
+  background-image:
+    radial-gradient(1px 1px at  8% 12%,rgba(122,92,18,.18)  0%,transparent 100%),
+    radial-gradient(1px 1px at 22% 58%,rgba(100,70,20,.1)  0%,transparent 100%),
+    radial-gradient(1px 1px at 38% 22%,rgba(122,92,18,.12)  0%,transparent 100%),
+    radial-gradient(1px 1px at 55% 78%,rgba(100,70,20,.08) 0%,transparent 100%),
+    radial-gradient(1px 1px at 70%  8%,rgba(122,92,18,.15)  0%,transparent 100%),
+    radial-gradient(1px 1px at 84% 44%,rgba(100,70,20,.10) 0%,transparent 100%),
+    radial-gradient(1px 1px at 92% 68%,rgba(122,92,18,.1)   0%,transparent 100%),
+    radial-gradient(1px 1px at 15% 88%,rgba(100,70,20,.08) 0%,transparent 100%);
+}
+body.light .nav{background:rgba(250,246,238,0.97);}
+body.light .search-wrap{background:rgba(250,246,238,0.99);}
+body.light #duaSearch{background:var(--card);color:var(--text);}
+body.light #duaSearch::placeholder{color:var(--text-m);}
+body.light .dua.feat{background:linear-gradient(135deg,rgba(201,168,76,.10) 0%,var(--card) 60%);}
+body.light .note{background:rgba(201,168,76,.06);}
+body.light .expand-trigger:active{background:var(--card2);}
+body.light .step-item{background:var(--card);}
+body.light .tl-box{background:var(--card);}
+body.light .pcard{border-color:var(--bdr);}
+body.light .tc{background:var(--card);}
+body.light .dhikr{background:var(--card);}
+
+/* ---- FONT SIZE CONTROLS ---- */
+.ar{
+  font-family:var(--fa);
+  font-size:calc(clamp(20px,5.5vw,28px) * var(--ar-scale));
+  color:var(--gold-l);text-align:right;direction:rtl;
+  line-height:2.1;margin-bottom:12px;
+  text-shadow:0 0 20px rgba(201,168,76,.1);
+}
+.ar.sm{font-size:calc(clamp(17px,4.5vw,22px) * var(--ar-scale));}
+.ar.xs{font-size:calc(clamp(15px,3.8vw,19px) * var(--ar-scale));}
+.da{font-family:var(--fa);font-size:calc(18px * var(--ar-scale));color:var(--gold-l);text-align:right;direction:rtl;line-height:1.9;margin-bottom:7px;}
+.step-ar{font-family:var(--fa);font-size:calc(clamp(16px,4vw,20px) * var(--ar-scale));color:var(--gold-l);text-align:right;direction:rtl;line-height:2;margin-bottom:5px;}
+.bismillah{
+  font-family:var(--fa);
+  font-size:calc(clamp(26px,7vw,42px) * var(--ar-scale));
+  color:var(--gold-l);direction:rtl;line-height:2;
+  margin-bottom:22px;
+  text-shadow:0 0 40px rgba(201,168,76,.22);
+}
+.et-ar{font-family:var(--fa);font-size:calc(18px * var(--ar-scale));color:var(--gold-l);direction:rtl;text-align:right;line-height:1.8;}
+.far{font-family:var(--fa);font-size:calc(clamp(18px,5vw,26px) * var(--ar-scale));color:var(--gold-l);direction:rtl;margin-bottom:10px;line-height:2;}
+
+/* Font size control buttons in header */
+.font-controls{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  margin-top:14px;
+}
+.fc-btn{
+  background:rgba(201,168,76,.07);border:1px solid rgba(201,168,76,.22);
+  border-radius:var(--radius);cursor:pointer;
+  color:var(--gold-l);font-family:var(--fn);
+  min-height:36px;min-width:36px;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .2s,border-color .2s;
+  -webkit-tap-highlight-color:transparent;
+}
+.fc-btn:hover{background:rgba(201,168,76,.16);border-color:rgba(201,168,76,.45);}
+.fc-btn:disabled{opacity:.3;cursor:default;}
+.fc-label{font-size:11px;color:var(--text-m);letter-spacing:.1em;}
+.fc-btn.fc-large{font-size:18px;font-weight:600;}
+.fc-btn.fc-small{font-size:12px;}
+
+/* Theme toggle button */
+.theme-toggle{
+  background:rgba(201,168,76,.07);border:1px solid rgba(201,168,76,.22);
+  border-radius:var(--radius);cursor:pointer;
+  font-size:18px;line-height:1;
+  min-height:36px;min-width:36px;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .2s,border-color .2s;
+  -webkit-tap-highlight-color:transparent;
+}
+.theme-toggle:hover{background:rgba(201,168,76,.16);border-color:rgba(201,168,76,.45);}
+.header-controls{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  margin-top:14px;flex-wrap:wrap;
+}
+
+/* ---- FAVOURITES STAR ---- */
+.fav-star{
+  position:absolute;top:10px;left:10px;
+  background:none;border:none;cursor:pointer;
+  font-size:16px;line-height:1;padding:5px;
+  color:var(--text-m);
+  transition:color .2s,transform .15s;
+  -webkit-tap-highlight-color:transparent;
+  z-index:2;
+}
+.fav-star:hover{color:var(--gold-l);}
+.fav-star.starred{color:var(--gold);}
+.fav-star:active{transform:scale(1.3);}
+/* On dua cards, shift content right to make room for star */
+.dua{padding-left:40px;}
+/* Expand triggers */
+.expand-wrap .fav-star{
+  position:static;
+  font-size:15px;padding:0 8px;
+  flex-shrink:0;
+}
+
+/* Favourites view */
+#favView{
+  display:none;
+  padding-bottom:60px;
+}
+#favView.active{display:block;}
+#favView .fav-section-title{
+  font-family:var(--fs);font-size:clamp(17px,5vw,21px);
+  color:var(--gold-l);margin:0 0 18px;font-weight:400;
+}
+#favView .fav-empty{
+  text-align:center;padding:60px 20px;
+  color:var(--text-m);font-size:14px;line-height:2;
+}
+.fav-item-wrap{margin-bottom:12px;position:relative;}
+.page.fav-active > *:not(#favView):not(.header):not(.moon-wrap){display:none;}
+
+/* Favourites nav button active state */
+.nav-btn.fav-active{color:var(--gold-l);border-bottom-color:var(--gold);background:rgba(201,168,76,.07);}
+
+/* ---- DHIKR COUNTER ---- */
+.dhikr-counter{
+  margin-top:10px;
+  border-top:1px solid rgba(201,168,76,.12);
+  padding-top:10px;
+  display:flex;align-items:center;gap:8px;
+}
+.dc-tap{
+  flex:1;
+  background:rgba(201,168,76,.07);
+  border:1px solid rgba(201,168,76,.2);
+  border-radius:var(--radius);
+  cursor:pointer;padding:10px 14px;
+  font-family:var(--fn);
+  display:flex;align-items:center;justify-content:space-between;
+  transition:background .15s,border-color .15s;
+  -webkit-tap-highlight-color:transparent;
+  min-height:44px;
+}
+.dc-tap:active{background:rgba(201,168,76,.16);}
+.dc-tap.target-hit{
+  background:rgba(201,168,76,.2);
+  border-color:var(--gold);
+  animation:pulse-gold .4s ease;
+}
+@keyframes pulse-gold{
+  0%{box-shadow:0 0 0 0 rgba(201,168,76,.6);}
+  70%{box-shadow:0 0 0 10px rgba(201,168,76,0);}
+  100%{box-shadow:0 0 0 0 rgba(201,168,76,0);}
+}
+.dc-count-display{font-family:var(--fs);font-size:18px;color:var(--gold-l);}
+.dc-count-display .dc-current{font-size:22px;font-weight:600;}
+.dc-count-display .dc-sep{color:var(--text-m);margin:0 3px;font-size:14px;}
+.dc-count-display .dc-target{color:var(--text-d);font-size:14px;}
+.dc-tap-hint{font-size:10px;color:var(--text-m);letter-spacing:.1em;text-transform:uppercase;}
+.dc-reset{
+  background:none;border:1px solid rgba(201,168,76,.14);
+  border-radius:var(--radius);
+  cursor:pointer;color:var(--text-m);font-size:11px;
+  padding:6px 10px;font-family:var(--fn);letter-spacing:.08em;
+  transition:border-color .2s,color .2s;
+  -webkit-tap-highlight-color:transparent;
+  min-height:36px;white-space:nowrap;
+}
+.dc-reset:hover{border-color:rgba(201,168,76,.4);color:var(--gold);}
+.dc-done{font-size:14px;color:var(--gold);}
+
+/* Hide original .dc watermark (replaced by counter) */
+.dc{display:none!important;}
 
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 html{scroll-behavior:smooth;font-size:16px;}
@@ -95,13 +278,7 @@ body::before{
 
 .moon-wrap{text-align:center;padding-top:40px;}
 .header{text-align:center;padding:18px 16px 44px;}
-.bismillah{
-  font-family:var(--fa);
-  font-size:clamp(26px,7vw,42px);
-  color:var(--gold-l);direction:rtl;line-height:2;
-  margin-bottom:22px;
-  text-shadow:0 0 40px rgba(201,168,76,.22);
-}
+/* .bismillah — defined above in font-scale block */
 .eyebrow{font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
 .htitle{font-family:var(--fs);font-size:clamp(28px,8vw,48px);font-weight:400;line-height:1.1;margin-bottom:14px;}
 .htitle em{color:var(--gold-l);font-style:italic;}
@@ -139,15 +316,7 @@ body::before{
   padding:2px 8px;margin-bottom:12px;text-transform:uppercase;
 }
 .dlabel{font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;}
-.ar{
-  font-family:var(--fa);
-  font-size:clamp(20px,5.5vw,28px);
-  color:var(--gold-l);text-align:right;direction:rtl;
-  line-height:2.1;margin-bottom:12px;
-  text-shadow:0 0 20px rgba(201,168,76,.1);
-}
-.ar.sm{font-size:clamp(17px,4.5vw,22px);}
-.ar.xs{font-size:clamp(15px,3.8vw,19px);}
+/* .ar, .ar.sm, .ar.xs — defined above in the font-scale block */
 .tr{font-family:var(--fs);font-style:italic;font-size:13.5px;color:var(--text-d);margin-bottom:9px;line-height:1.65;}
 .en{font-size:13px;color:var(--text);line-height:1.75;padding-top:9px;border-top:1px solid rgba(201,168,76,.1);}
 .src{font-size:10px;color:var(--text-m);margin-top:8px;line-height:1.5;}
@@ -188,7 +357,7 @@ body::before{
   border-radius:var(--radius);
 }
 .et-info{flex:1;}
-.et-ar{font-family:var(--fa);font-size:18px;color:var(--gold-l);direction:rtl;text-align:right;line-height:1.8;}
+/* .et-ar — defined above in font-scale block */
 .et-en{font-size:12px;color:var(--text-d);margin-top:2px;}
 .et-virtue{font-size:11px;color:var(--text-d);margin-top:4px;line-height:1.5;}
 .et-arrow{
@@ -222,7 +391,7 @@ body::before{
 }
 .step-body{flex:1;}
 .step-label{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;}
-.step-ar{font-family:var(--fa);font-size:clamp(16px,4vw,20px);color:var(--gold-l);text-align:right;direction:rtl;line-height:2;margin-bottom:5px;}
+/* .step-ar — defined above in font-scale block */
 .step-tr{font-family:var(--fs);font-style:italic;font-size:12px;color:var(--text-d);margin-bottom:4px;line-height:1.5;}
 .step-en{font-size:12px;color:var(--text);line-height:1.65;}
 .step-src{font-size:10px;color:var(--text-m);margin-top:5px;}
@@ -242,7 +411,7 @@ body::before{
 .dgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:10px;}
 .dhikr{background:var(--card);border:1px solid var(--bdr);border-radius:var(--radius);padding:18px;position:relative;}
 .dc{position:absolute;top:10px;right:12px;font-family:var(--fs);font-size:24px;color:rgba(201,168,76,.16);}
-.da{font-family:var(--fa);font-size:18px;color:var(--gold-l);text-align:right;direction:rtl;line-height:1.9;margin-bottom:7px;}
+/* .da — defined above in font-scale block */
 .dt{font-family:var(--fs);font-style:italic;font-size:12px;color:var(--text-d);margin-bottom:5px;line-height:1.5;}
 .de{font-size:12px;color:var(--text);opacity:.85;line-height:1.6;margin-bottom:5px;}
 .dr{font-size:10.5px;color:var(--green);line-height:1.5;padding-top:5px;border-top:1px solid rgba(82,183,136,.15);}
@@ -262,14 +431,14 @@ body::before{
 
 /* ---- FOOTER ---- */
 .footer{text-align:center;padding:48px 16px 20px;border-top:1px solid var(--bdr);margin-top:56px;}
-.far{font-family:var(--fa);font-size:clamp(18px,5vw,26px);color:var(--gold-l);direction:rtl;margin-bottom:10px;line-height:2;}
+/* .far — defined above in font-scale block */
 .ftr{font-family:var(--fs);font-style:italic;font-size:15px;color:var(--text-d);margin-bottom:5px;}
 .fsrc{font-size:11px;color:var(--text-m);letter-spacing:.06em;}
 .fcopy{margin-top:24px;font-size:11px;color:var(--text-m);opacity:.5;letter-spacing:.08em;line-height:1.8;}
 
 @media(max-width:480px){
-  .dua{padding:16px 14px 14px;}
-  .ar{font-size:clamp(19px,6vw,26px);}
+  .dua{padding:16px 14px 14px;padding-left:40px;padding-right:80px;}
+  .ar{font-size:calc(clamp(19px,6vw,26px) * var(--ar-scale));}
   .tgrid,.dgrid,.pgrid{grid-template-columns:1fr;}
   .nav-btn{padding:0 10px;font-size:9px;letter-spacing:.14em;}
   .tl{padding-left:22px;}
@@ -400,7 +569,13 @@ body::before{
   top:auto;bottom:10px;right:10px;
 }
 /* Push source text away from copy btn on small cards */
-.dua{padding-right:80px;}
+.dua{padding-right:80px;padding-left:40px;}
+
+/* Also ensure .dc old element (watermark) inside dhikr is hidden — done above */
+
+/* Expand-wrap flex row for star button */
+.expand-trigger{position:relative;}
+.expand-wrap{position:relative;}
 </style>
 </head>
 <body>
@@ -424,6 +599,7 @@ body::before{
     <button class="nav-btn" data-target="jumua">🕌 Jumu'ah</button>
     <button class="nav-btn" data-target="surahs">📜 Surahs</button>
     <button class="nav-btn" data-target="personal">🤲 Personal</button>
+    <button class="nav-btn" id="favNavBtn" onclick="toggleFavView()">⭐ My Duas</button>
   </div>
 </nav>
 
@@ -461,6 +637,14 @@ body::before{
     <p class="eyebrow">Nafi's Dua List &nbsp;·&nbsp; Ramadan &amp; Beyond</p>
     <h1 class="htitle">Nafi's <em>Dua List</em></h1>
     <p class="hsub">Authentic supplications from the Qur'an &amp; Sunnah — for Ramadan, the last 10 nights, and every day of the year. Tap any surah or long dua to read in full with transliteration.</p>
+    <div class="header-controls">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle light/dark mode" title="Toggle light/dark mode">🌙</button>
+      <div class="font-controls" role="group" aria-label="Arabic font size">
+        <button class="fc-btn fc-small" id="fcDown" aria-label="Decrease Arabic font size" title="Smaller Arabic">A</button>
+        <span class="fc-label" id="fcLabel">Arabic</span>
+        <button class="fc-btn fc-large" id="fcUp" aria-label="Increase Arabic font size" title="Larger Arabic">A</button>
+      </div>
+    </div>
   </header>
 
   <div class="divider"><div class="dl"></div><div class="dg"></div><div class="dgo"></div><div class="dg"></div><div class="dl"></div></div>
@@ -2192,6 +2376,17 @@ body::before{
   </section>
 
   <!-- FOOTER -->
+  <!-- ═══════════════════════════════════
+       FAVOURITES VIEW
+  ═══════════════════════════════════ -->
+  <div id="favView">
+    <div class="sec-h" style="margin-bottom:20px;">
+      <div class="si">⭐</div>
+      <div><span class="st">My Duas</span><span class="ss">Your starred supplications</span></div>
+    </div>
+    <div id="favList"></div>
+  </div>
+
   <footer class="footer">
     <div class="far">اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي</div>
     <div class="ftr">"O Allah, You are the Pardoner, You love to pardon, so pardon me."</div>
@@ -2508,6 +2703,320 @@ function getScrollOffset(){
       doSearch('');
       input.blur();
     }
+  });
+})();
+
+// ============================================================
+//  FEATURE 1: DHIKR COUNTER
+// ============================================================
+(function(){
+  // Parse target from .dc text content
+  function parseTarget(dcText){
+    var t = (dcText||'').trim();
+    if(t === '∞') return Infinity;
+    // "33+34" style — sum them
+    if(t.indexOf('+') > -1){
+      return t.split('+').reduce(function(a,b){ return a + parseInt(b,10); },0);
+    }
+    // "100×" or "3×"
+    var m = t.match(/(\d+)/);
+    return m ? parseInt(m[1],10) : Infinity;
+  }
+
+  function storageKey(idx){ return 'dhikr_count_' + idx; }
+
+  document.querySelectorAll('.dhikr').forEach(function(card, idx){
+    var dcEl = card.querySelector('.dc');
+    if(!dcEl) return;
+    var targetRaw = dcEl.textContent.trim();
+    var target = parseTarget(targetRaw);
+    var targetLabel = target === Infinity ? '∞' : target;
+    var saved = parseInt(localStorage.getItem(storageKey(idx))||'0', 10);
+    var count = isNaN(saved) ? 0 : saved;
+
+    // Build counter UI
+    var wrap = document.createElement('div');
+    wrap.className = 'dhikr-counter';
+
+    var tapBtn = document.createElement('button');
+    tapBtn.className = 'dc-tap';
+    tapBtn.setAttribute('aria-label', 'Count dhikr');
+
+    var display = document.createElement('span');
+    display.className = 'dc-count-display';
+
+    var hint = document.createElement('span');
+    hint.className = 'dc-tap-hint';
+    hint.textContent = 'Tap to count';
+
+    tapBtn.appendChild(display);
+    tapBtn.appendChild(hint);
+
+    var resetBtn = document.createElement('button');
+    resetBtn.className = 'dc-reset';
+    resetBtn.textContent = 'Reset';
+    resetBtn.setAttribute('aria-label', 'Reset counter');
+
+    wrap.appendChild(tapBtn);
+    wrap.appendChild(resetBtn);
+    card.appendChild(wrap);
+
+    function render(){
+      var done = (target !== Infinity && count >= target);
+      var cur = document.createElement('span');
+      cur.className = 'dc-current';
+      cur.textContent = count;
+      var sep = document.createElement('span');
+      sep.className = 'dc-sep';
+      sep.textContent = '/';
+      var tgt = document.createElement('span');
+      tgt.className = 'dc-target';
+      tgt.textContent = targetLabel;
+
+      display.innerHTML = '';
+      display.appendChild(cur);
+      if(target !== Infinity){
+        display.appendChild(sep);
+        display.appendChild(tgt);
+      }
+      hint.textContent = done ? '✓ Done' : 'Tap to count';
+      tapBtn.classList.toggle('target-hit', done);
+    }
+
+    render();
+
+    tapBtn.addEventListener('click', function(){
+      if(target !== Infinity && count >= target) return;
+      count++;
+      localStorage.setItem(storageKey(idx), count);
+      if(navigator.vibrate) navigator.vibrate(40);
+      if(target !== Infinity && count === target){
+        tapBtn.classList.add('target-hit');
+        if(navigator.vibrate) navigator.vibrate([40,60,80]);
+      }
+      render();
+    });
+
+    resetBtn.addEventListener('click', function(e){
+      e.stopPropagation();
+      count = 0;
+      localStorage.setItem(storageKey(idx), 0);
+      tapBtn.classList.remove('target-hit');
+      render();
+    });
+  });
+})();
+
+// ============================================================
+//  FEATURE 2: FAVOURITES SYSTEM
+// ============================================================
+var favState = {};
+try{ favState = JSON.parse(localStorage.getItem('dua_favourites')||'{}'); }catch(e){}
+
+function saveFavs(){ localStorage.setItem('dua_favourites', JSON.stringify(favState)); }
+
+function genId(el){
+  // Generate a stable ID from first arabic text + position
+  var ar = el.querySelector('.ar,.da,.step-ar,.et-ar');
+  var text = ar ? ar.textContent.trim().substring(0,20) : '';
+  var idx = Array.from(el.parentNode.children).indexOf(el);
+  return 'fav_' + (text + idx).split('').reduce(function(a,c){ return ((a<<5)-a)+c.charCodeAt(0); },0).toString(36);
+}
+
+function makeStar(targetEl, wrappedLabel){
+  var btn = document.createElement('button');
+  btn.className = 'fav-star';
+  btn.setAttribute('aria-label', 'Favourite this dua');
+  var id = genId(targetEl);
+  targetEl.dataset.favId = id;
+  btn.dataset.favId = id;
+
+  function update(){
+    btn.textContent = favState[id] ? '★' : '☆';
+    btn.classList.toggle('starred', !!favState[id]);
+    btn.setAttribute('aria-pressed', favState[id] ? 'true' : 'false');
+  }
+  update();
+
+  btn.addEventListener('click', function(e){
+    e.stopPropagation();
+    if(favState[id]){
+      delete favState[id];
+    } else {
+      // Capture snapshot of card content
+      var label = targetEl.querySelector('.dlabel,.feat-badge,.et-en,.step-label');
+      var ar = targetEl.querySelector('.ar,.da,.step-ar,.et-ar');
+      var tr = targetEl.querySelector('.tr,.dt,.step-tr');
+      var en = targetEl.querySelector('.en,.de,.step-en');
+      var src = targetEl.querySelector('.src,.step-src,.dr');
+      favState[id] = {
+        label: label ? label.textContent.trim() : (wrappedLabel||''),
+        ar: ar ? ar.outerHTML : '',
+        tr: tr ? tr.outerHTML : '',
+        en: en ? en.outerHTML : '',
+        src: src ? src.outerHTML : ''
+      };
+    }
+    saveFavs();
+    update();
+    if(document.getElementById('favView').classList.contains('active')) renderFavView();
+  });
+  return btn;
+}
+
+// Attach stars to .dua cards
+document.querySelectorAll('.dua').forEach(function(card){
+  var star = makeStar(card);
+  card.insertBefore(star, card.firstChild);
+});
+
+// Attach stars to .expand-wrap blocks — insert into trigger row
+document.querySelectorAll('.expand-wrap').forEach(function(wrap){
+  var trigger = wrap.querySelector('.expand-trigger');
+  if(!trigger) return;
+  var label = wrap.querySelector('.et-en');
+  var star = makeStar(wrap, label ? label.textContent : '');
+  // Insert star before the arrow
+  var arrow = trigger.querySelector('.et-arrow');
+  if(arrow){ trigger.insertBefore(star, arrow); }
+  else { trigger.appendChild(star); }
+});
+
+function renderFavView(){
+  var list = document.getElementById('favList');
+  list.innerHTML = '';
+  var ids = Object.keys(favState);
+  if(ids.length === 0){
+    list.innerHTML = '<div class="fav-empty">No favourites yet.<br>Tap the ☆ on any dua or surah to star it.</div>';
+    return;
+  }
+  ids.forEach(function(id){
+    var d = favState[id];
+    var card = document.createElement('div');
+    card.className = 'dua fav-item-wrap';
+    card.style.paddingLeft = '20px';
+    var html = '';
+    if(d.label) html += '<div class="dlabel">' + escapeHtml(d.label) + '</div>';
+    if(d.ar) html += d.ar;
+    if(d.tr) html += d.tr;
+    if(d.en) html += d.en;
+    if(d.src) html += d.src;
+    // Unstar button
+    html += '<button class="fav-star starred" style="position:absolute;top:10px;left:10px;" aria-label="Remove from favourites" data-remove-id="' + id + '">★</button>';
+    card.innerHTML = html;
+    // Wire up remove
+    var removeBtn = card.querySelector('[data-remove-id]');
+    if(removeBtn){
+      removeBtn.addEventListener('click', function(){
+        delete favState[id];
+        saveFavs();
+        // Also update any star on the original card
+        var orig = document.querySelector('[data-fav-id="' + id + '"]');
+        if(orig){
+          var origStar = orig.querySelector ? orig.querySelector('.fav-star') : null;
+          // If orig is the card itself find its star
+          origStar = origStar || document.querySelector('.fav-star[data-fav-id="' + id + '"]');
+          if(origStar){ origStar.textContent = '☆'; origStar.classList.remove('starred'); }
+        }
+        renderFavView();
+      });
+    }
+    list.appendChild(card);
+  });
+}
+
+function escapeHtml(s){
+  return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+var favViewActive = false;
+function toggleFavView(){
+  favViewActive = !favViewActive;
+  var favView = document.getElementById('favView');
+  var favBtn = document.getElementById('favNavBtn');
+  var pageDiv = document.querySelector('.page');
+  var allSections = pageDiv.querySelectorAll('section.sec, .divider, #searchWrap ~ .page > *');
+
+  if(favViewActive){
+    // Hide all sections, show fav view
+    Array.from(pageDiv.children).forEach(function(child){
+      if(child.id !== 'favView' && !child.classList.contains('header') && !child.classList.contains('moon-wrap')){
+        child.style.display = 'none';
+      }
+    });
+    favView.style.display = 'block';
+    favView.classList.add('active');
+    favBtn.classList.add('fav-active');
+    renderFavView();
+    // Also hide search bar
+    var sw = document.getElementById('searchWrap');
+    if(sw) sw.style.display = 'none';
+  } else {
+    // Restore all
+    Array.from(pageDiv.children).forEach(function(child){
+      child.style.display = '';
+    });
+    favView.style.display = 'none';
+    favView.classList.remove('active');
+    favBtn.classList.remove('fav-active');
+    var sw = document.getElementById('searchWrap');
+    if(sw) sw.style.display = '';
+  }
+}
+
+// ============================================================
+//  FEATURE 3: ARABIC FONT SIZE CONTROL
+// ============================================================
+(function(){
+  var STEPS = [0.8, 0.9, 1.0, 1.1, 1.2, 1.3, 1.4];
+  var DEFAULT_IDX = 2; // 1.0×
+  var saved = parseFloat(localStorage.getItem('ar_scale'));
+  var currentIdx = DEFAULT_IDX;
+  if(!isNaN(saved)){
+    var found = STEPS.indexOf(saved);
+    if(found > -1) currentIdx = found;
+  }
+
+  function applyScale(idx){
+    currentIdx = idx;
+    var scale = STEPS[idx];
+    document.documentElement.style.setProperty('--ar-scale', scale);
+    localStorage.setItem('ar_scale', scale);
+    var label = document.getElementById('fcLabel');
+    if(label) label.textContent = scale === 1 ? 'Arabic' : (scale > 1 ? 'Arabic +' : 'Arabic −');
+    document.getElementById('fcDown').disabled = (idx === 0);
+    document.getElementById('fcUp').disabled = (idx === STEPS.length - 1);
+  }
+
+  applyScale(currentIdx);
+
+  document.getElementById('fcDown').addEventListener('click', function(){
+    if(currentIdx > 0) applyScale(currentIdx - 1);
+  });
+  document.getElementById('fcUp').addEventListener('click', function(){
+    if(currentIdx < STEPS.length - 1) applyScale(currentIdx + 1);
+  });
+})();
+
+// ============================================================
+//  FEATURE 4: LIGHT / DARK MODE TOGGLE
+// ============================================================
+(function(){
+  // Determine initial preference
+  var saved = localStorage.getItem('theme');
+  var preferLight = saved ? (saved === 'light') : window.matchMedia('(prefers-color-scheme: light)').matches;
+
+  function applyTheme(light){
+    document.body.classList.toggle('light', light);
+    var btn = document.getElementById('themeToggle');
+    if(btn) btn.textContent = light ? '☀️' : '🌙';
+    localStorage.setItem('theme', light ? 'light' : 'dark');
+  }
+
+  applyTheme(preferLight);
+
+  document.getElementById('themeToggle').addEventListener('click', function(){
+    applyTheme(!document.body.classList.contains('light'));
   });
 })();
 </script>
