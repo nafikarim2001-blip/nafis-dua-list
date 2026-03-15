@@ -23,10 +23,9 @@
   --fs:'Palatino Linotype','Palatino','Book Antiqua','Georgia','Times New Roman',serif;
   --fn:'Gill Sans','Optima','Segoe UI','Helvetica Neue','Arial',sans-serif;
   --radius:4px;
-  --tap-min:48px; /* minimum tap target height */
+  --tap-min:48px;
 }
 
-/* ---- RESET ---- */
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 html{scroll-behavior:smooth;font-size:16px;}
 body{
@@ -39,7 +38,6 @@ body{
   -webkit-font-smoothing:antialiased;
 }
 
-/* ---- STARFIELD ---- */
 body::before{
   content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
   background-image:
@@ -55,10 +53,8 @@ body::before{
     radial-gradient(1px 1px at 76% 26%,rgba(201,168,76,.22)  0%,transparent 100%);
 }
 
-/* ---- LAYOUT ---- */
 .page{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:0 16px 80px;}
 
-/* ---- STICKY NAV ---- */
 .nav{
   position:sticky;top:0;z-index:200;
   background:rgba(12,16,24,0.95);
@@ -88,7 +84,6 @@ body::before{
 }
 .nav-btn:hover,.nav-btn.active{color:var(--gold-l);border-bottom-color:var(--gold);}
 
-/* ---- HEADER ---- */
 .moon-wrap{text-align:center;padding-top:40px;}
 .header{text-align:center;padding:18px 16px 44px;}
 .bismillah{
@@ -103,13 +98,11 @@ body::before{
 .htitle em{color:var(--gold-l);font-style:italic;}
 .hsub{font-size:13px;color:var(--text-d);line-height:1.8;max-width:480px;margin:0 auto;}
 
-/* ---- DIVIDER ---- */
 .divider{display:flex;align-items:center;gap:10px;margin:36px 0;}
 .dl{flex:1;height:1px;background:linear-gradient(to right,transparent,var(--gold-d) 40%,transparent);}
 .dg{width:7px;height:7px;background:var(--gold-d);transform:rotate(45deg);flex-shrink:0;}
 .dgo{width:7px;height:7px;border:1px solid var(--gold-d);transform:rotate(45deg);flex-shrink:0;}
 
-/* ---- SECTION ---- */
 .sec{margin-bottom:48px;}
 .sec-h{display:flex;align-items:center;gap:12px;margin-bottom:20px;}
 .si{
@@ -121,7 +114,6 @@ body::before{
 .st{font-family:var(--fs);font-size:clamp(17px,5vw,21px);font-weight:400;color:var(--gold-l);}
 .ss{display:block;font-size:10px;font-family:var(--fn);color:var(--text-m);letter-spacing:.12em;text-transform:uppercase;margin-top:2px;}
 
-/* ---- DUA CARD ---- */
 .dua{
   background:var(--card);border:1px solid var(--bdr);
   border-left:3px solid var(--gold-d);
@@ -165,7 +157,6 @@ body::before{
 .note strong{color:var(--gold-l);}
 .note em{color:var(--text);font-style:normal;}
 
-/* ---- EXPANDABLE (tap to reveal full content) ---- */
 .expand-wrap{margin-bottom:12px;}
 .expand-trigger{
   width:100%;background:var(--card);
@@ -176,7 +167,6 @@ body::before{
   text-align:left;
   transition:border-color .2s,background .2s;
   -webkit-tap-highlight-color:transparent;
-  /* override button defaults */
   font-family:inherit;font-size:inherit;color:inherit;
 }
 .expand-trigger:active{background:var(--card2);}
@@ -206,6 +196,28 @@ body::before{
   padding:18px 18px 16px;
 }
 .expand-body.open{display:block;}
+
+/* ---- STEP LIST (After Salah / Adhkar sequences) ---- */
+.step-list{list-style:none;padding:0;margin:0;}
+.step-item{
+  display:flex;gap:12px;align-items:flex-start;
+  background:var(--card);border:1px solid var(--bdr);
+  border-radius:var(--radius);padding:14px 16px;margin-bottom:8px;
+}
+.step-num{
+  width:28px;height:28px;flex-shrink:0;
+  border:1px solid var(--gold-d);background:var(--gold-f);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--fs);font-size:12px;color:var(--gold);
+  border-radius:var(--radius);margin-top:2px;
+}
+.step-body{flex:1;}
+.step-label{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;}
+.step-ar{font-family:var(--fa);font-size:clamp(16px,4vw,20px);color:var(--gold-l);text-align:right;direction:rtl;line-height:2;margin-bottom:5px;}
+.step-tr{font-family:var(--fs);font-style:italic;font-size:12px;color:var(--text-d);margin-bottom:4px;line-height:1.5;}
+.step-en{font-size:12px;color:var(--text);line-height:1.65;}
+.step-src{font-size:10px;color:var(--text-m);margin-top:5px;}
+.step-src b{color:var(--green);font-weight:400;}
 
 /* ---- TIMES GRID ---- */
 .tgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:10px;}
@@ -246,7 +258,6 @@ body::before{
 .fsrc{font-size:11px;color:var(--text-m);letter-spacing:.06em;}
 .fcopy{margin-top:24px;font-size:11px;color:var(--text-m);opacity:.5;letter-spacing:.08em;line-height:1.8;}
 
-/* ---- MOBILE TOUCH IMPROVEMENTS ---- */
 @media(max-width:480px){
   .dua{padding:16px 14px 14px;}
   .ar{font-size:clamp(19px,6vw,26px);}
@@ -257,13 +268,12 @@ body::before{
   .tl::before{left:5px;}
 }
 
-/* ---- PRINT ---- */
 @media print{
   body::before,.nav{display:none;}
   body{background:#fff;color:#1a1a1a;}
-  .dua,.dhikr,.tc,.tl-box,.pcard,.note,.expand-body{background:#f7f5f0!important;border-color:#ccc!important;}
-  .ar,.da,.far,.bismillah,.et-ar{color:#7B5C10!important;}
-  .tr,.dt,.ftr{color:#555!important;}
+  .dua,.dhikr,.tc,.tl-box,.pcard,.note,.expand-body,.step-item{background:#f7f5f0!important;border-color:#ccc!important;}
+  .ar,.da,.far,.bismillah,.et-ar,.step-ar{color:#7B5C10!important;}
+  .tr,.dt,.ftr,.step-tr{color:#555!important;}
   .st,.tn,.htitle em{color:#7B5C10!important;}
   .badge,.dr{color:#2D7A50!important;}
   .expand-body{display:block!important;}
@@ -277,7 +287,6 @@ body::before{
 </head>
 <body>
 
-<!-- STICKY NAV — uses JS scrollIntoView, no href anchors -->
 <nav class="nav" role="navigation" aria-label="Sections">
   <div class="nav-inner">
     <button class="nav-btn" data-target="times">⏰ Best Times</button>
@@ -285,7 +294,16 @@ body::before{
     <button class="nav-btn" data-target="quran">📖 Qur'anic</button>
     <button class="nav-btn" data-target="sunnah">☪ Prophetic</button>
     <button class="nav-btn" data-target="dhikr">📿 Dhikr</button>
+    <button class="nav-btn" data-target="salah">🕌 After Salah</button>
+    <button class="nav-btn" data-target="morning">🌅 Morning</button>
+    <button class="nav-btn" data-target="evening">🌆 Evening</button>
     <button class="nav-btn" data-target="sleep">🌙 Sleep</button>
+    <button class="nav-btn" data-target="daily">🗓 Daily Life</button>
+    <button class="nav-btn" data-target="salawat">💛 Salawat</button>
+    <button class="nav-btn" data-target="istighfar">🤍 Istighfar</button>
+    <button class="nav-btn" data-target="istikharah">🎯 Istikharah</button>
+    <button class="nav-btn" data-target="ruqyah">🛡 Ruqyah</button>
+    <button class="nav-btn" data-target="jumua">🕌 Jumu'ah</button>
     <button class="nav-btn" data-target="surahs">📜 Surahs</button>
     <button class="nav-btn" data-target="personal">🤲 Personal</button>
   </div>
@@ -293,7 +311,6 @@ body::before{
 
 <div class="page">
 
-  <!-- CRESCENT SVG (inline, no external load) -->
   <div class="moon-wrap" aria-hidden="true">
     <svg width="64" height="64" viewBox="0 0 70 70" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M35 8 C20 8 10 20 10 35 C10 50 20 62 35 62 C28 55 24 46 24 35 C24 24 28 15 35 8Z" fill="#C9A84C" opacity="0.82"/>
@@ -303,7 +320,6 @@ body::before{
     </svg>
   </div>
 
-  <!-- HEADER -->
   <header class="header">
     <div class="bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
     <p class="eyebrow">Nafi's Dua List &nbsp;·&nbsp; Ramadan &amp; Beyond</p>
@@ -355,6 +371,30 @@ body::before{
     <div class="note">
       <strong>Why ʿAfw and not Maghfirah?</strong> Maghfirah (مغفرة) = sins forgiven and covered. <em>ʿAfw (عفو)</em> goes further — sins are completely erased and pardoned as if they never existed. The Prophet ﷺ specifically chose this word for the most blessed night. Repeat it abundantly with certainty.
     </div>
+
+    <div class="dua">
+      <div class="dlabel">Seeking Forgiveness &amp; Mercy — Al-A'raf 7:23</div>
+      <div class="ar sm">رَبَّنَا ظَلَمْنَا أَنفُسَنَا وَإِن لَّمْ تَغْفِرْ لَنَا وَتَرْحَمْنَا لَنَكُونَنَّ مِنَ الْخَاسِرِينَ</div>
+      <div class="tr">Rabbanā ẓalamnā anfusanā wa in lam taghfir lanā wa tarḥamnā lanakūnanna minal-khāsirīn</div>
+      <div class="en">"Our Lord, we have wronged ourselves, and if You do not forgive us and have mercy upon us, we will surely be among the losers."</div>
+      <div class="src">Source: <b>Qur'an 7:23</b> — The dua of Adam and Hawwa (AS)</div>
+    </div>
+
+    <div class="dua">
+      <div class="dlabel">Protection from the Fire — Al-Furqan 25:65</div>
+      <div class="ar sm">رَبَّنَا اصْرِفْ عَنَّا عَذَابَ جَهَنَّمَ إِنَّ عَذَابَهَا كَانَ غَرَامًا</div>
+      <div class="tr">Rabbanāṣrif ʿannā ʿadhāba jahannama inna ʿadhābahā kāna gharāmā</div>
+      <div class="en">"Our Lord, avert from us the punishment of Hellfire. Indeed, its punishment is an inseparable, permanent torment."</div>
+      <div class="src">Source: <b>Qur'an 25:65</b></div>
+    </div>
+
+    <div class="dua">
+      <div class="dlabel">The Comprehensive Night Dua — Muslim (2721)</div>
+      <div class="ar xs">اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنَ الْخَيْرِ كُلِّهِ عَاجِلِهِ وَآجِلِهِ مَا عَلِمْتُ مِنْهُ وَمَا لَمْ أَعْلَمْ وَأَعُوذُ بِكَ مِنَ الشَّرِّ كُلِّهِ عَاجِلِهِ وَآجِلِهِ مَا عَلِمْتُ مِنْهُ وَمَا لَمْ أَعْلَمْ</div>
+      <div class="tr">Allāhumma innī as'aluka minal-khayri kullihī ʿājilihī wa ājilihī mā ʿalimtu minhu wa mā lam aʿlam, wa aʿūdhu bika minash-sharri kullihī ʿājilihī wa ājilihī mā ʿalimtu minhu wa mā lam aʿlam</div>
+      <div class="en">"O Allah, I ask You for all good, immediate and future, that which I know and that which I do not know. And I seek refuge in You from all evil, immediate and future, that which I know and that which I do not know."</div>
+      <div class="src">Source: <b>Sahih Muslim (2721)</b></div>
+    </div>
   </section>
 
   <div class="divider"><div class="dl"></div><div class="dg"></div><div class="dl"></div></div>
@@ -385,7 +425,6 @@ body::before{
       <div class="src">Source: <b>Qur'an 25:74</b></div>
     </div>
 
-    <!-- EXPANDABLE long dua -->
     <div class="expand-wrap">
       <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
         <div class="et-num">2:286</div>
@@ -438,6 +477,15 @@ body::before{
     </div>
 
     <div class="dua">
+      <div class="dlabel">Dua of Musa (AS) — For Clarity &amp; Ease — Ta-Ha 20:25–28</div>
+      <div class="ar sm">رَبِّ اشْرَحْ لِي صَدْرِي ۙ وَيَسِّرْ لِي أَمْرِي ۙ وَاحْلُلْ عُقْدَةً مِّن لِّسَانِي ۙ يَفْقَهُوا قَوْلِي</div>
+      <div class="tr">Rabbish-raḥ lī ṣadrī · wa yassir lī amrī · waḥlul ʿuqdatan min lisānī · yafqahū qawlī</div>
+      <div class="en">"My Lord, expand my chest, ease my task for me, and untie the knot from my tongue so they may understand my speech."</div>
+      <div class="src">Source: <b>Qur'an 20:25–28</b> — Perfect before an exam, interview, or presentation</div>
+      <div class="badge">Say before exams, interviews, public speaking</div>
+    </div>
+
+    <div class="dua">
       <div class="dlabel">For Entry into Paradise — Ghafir 40:8</div>
       <div class="ar sm">رَبَّنَا وَأَدْخِلْهُمْ جَنَّاتِ عَدْنٍ الَّتِي وَعَدتَّهُمْ وَمَن صَلَحَ مِنْ آبَائِهِمْ وَأَزْوَاجِهِمْ وَذُرِّيَّاتِهِمْ</div>
       <div class="tr">Rabbanā wa adkhilhum jannāti ʿadninillatī waʿadttahum wa man ṣalaḥa min ābāʾihim wa azwājihim wa dhurriyyātihim</div>
@@ -457,7 +505,6 @@ body::before{
       <div><span class="st">Prophetic Duas</span><span class="ss">Authenticated supplications of the Prophet ﷺ</span></div>
     </div>
 
-    <!-- EXPANDABLE — Sayyid al-Istighfar -->
     <div class="expand-wrap">
       <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
         <div class="et-num" style="font-size:10px;letter-spacing:.05em;">سيد</div>
@@ -542,6 +589,22 @@ body::before{
       <div class="en">"O Allah, I ask You for ʿāfiyah (wellbeing and wholeness) in this world and the next."</div>
       <div class="src">Source: <b>Ibn Majah (3871) — Sahih</b> — The Prophet ﷺ said: no dua is better than asking for ʿāfiyah</div>
     </div>
+
+    <div class="dua">
+      <div class="dlabel">Guidance, Piety &amp; Contentment — Muslim (2721)</div>
+      <div class="ar">اللَّهُمَّ إِنِّي أَسْأَلُكَ الْهُدَىٰ وَالتُّقَىٰ وَالْعَفَافَ وَالْغِنَىٰ</div>
+      <div class="tr">Allāhumma innī as'alukal-hudā wat-tuqā wal-ʿafāfa wal-ghinā</div>
+      <div class="en">"O Allah, I ask You for guidance, piety, chastity, and self-sufficiency."</div>
+      <div class="src">Source: <b>Sahih Muslim (2721)</b></div>
+    </div>
+
+    <div class="dua">
+      <div class="dlabel">Sufficiency of Allah — Al-Tawbah 9:129</div>
+      <div class="ar">حَسْبِيَ اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ عَلَيْهِ تَوَكَّلْتُ وَهُوَ رَبُّ الْعَرْشِ الْعَظِيمِ</div>
+      <div class="tr">Ḥasbiyallāhu lā ilāha illā Hu, ʿalayhi tawakkaltu wa Huwa Rabbul-ʿArshil-ʿAẓīm</div>
+      <div class="en">"Allah is sufficient for me. There is no deity except Him. Upon Him I rely, and He is the Lord of the Mighty Throne."</div>
+      <div class="src">Source: <b>Qur'an 9:129, Abu Dawud (5081)</b> — 7× every morning and evening</div>
+    </div>
   </section>
 
   <div class="divider"><div class="dl"></div><div class="dg"></div><div class="dl"></div></div>
@@ -614,6 +677,14 @@ body::before{
 
       <div class="dhikr">
         <div class="dc">∞</div>
+        <div class="da">لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ</div>
+        <div class="dt">Lā ḥawla wa lā quwwata illā billāh</div>
+        <div class="de">"There is no power and no strength except with Allah"</div>
+        <div class="dr">A treasure of Paradise — Bukhari (4205), Muslim (2704)</div>
+      </div>
+
+      <div class="dhikr">
+        <div class="dc">∞</div>
         <div class="da">اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي</div>
         <div class="dt">Allāhumma innaka ʿafuwwun tuḥibbul-ʿafwa faʿfu ʿannī</div>
         <div class="de">The Laylatul Qadr Dua — do not limit to odd nights only</div>
@@ -626,7 +697,352 @@ body::before{
   <div class="divider"><div class="dl"></div><div class="dg"></div><div class="dl"></div></div>
 
   <!-- ═══════════════════════════════════
-       6. BEFORE SLEEP
+       6. AFTER EVERY SALAH
+  ═══════════════════════════════════ -->
+  <section class="sec" id="salah">
+    <div class="sec-h">
+      <div class="si">🕌</div>
+      <div><span class="st">After Every Salah</span><span class="ss">Stay on your mat — do not rush away</span></div>
+    </div>
+
+    <div class="note">
+      The Prophet ﷺ said: <em>"Dua after the obligatory prayer is more likely to be answered."</em> Begin immediately after giving salam, before moving from your position.
+    </div>
+
+    <ul class="step-list">
+      <li class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-label">Istighfar — 3×</div>
+          <div class="step-ar">أَسْتَغْفِرُ اللَّهَ</div>
+          <div class="step-tr">Astaghfirullāh</div>
+          <div class="step-en">"I seek forgiveness from Allah." — Said immediately after salam.</div>
+          <div class="step-src">Source: <b>Muslim (591)</b></div>
+        </div>
+      </li>
+      <li class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-label">The Salam Dua — 1×</div>
+          <div class="step-ar">اللَّهُمَّ أَنْتَ السَّلَامُ وَمِنْكَ السَّلَامُ تَبَارَكْتَ يَا ذَا الْجَلَالِ وَالْإِكْرَامِ</div>
+          <div class="step-tr">Allāhumma Antas-Salāmu wa minkas-salām, tabārakta yā Dhal-Jalāli wal-Ikrām</div>
+          <div class="step-en">"O Allah, You are Peace and from You is peace. Blessed are You, O Possessor of Majesty and Honour."</div>
+          <div class="step-src">Source: <b>Muslim (592)</b></div>
+        </div>
+      </li>
+      <li class="step-item">
+        <div class="step-num">3–5</div>
+        <div class="step-body">
+          <div class="step-label">Tasbih — 33 + 33 + 34</div>
+          <div class="step-ar">سُبْحَانَ اللَّهِ ۞ الْحَمْدُ لِلَّهِ ۞ اللَّهُ أَكْبَرُ</div>
+          <div class="step-tr">Subḥānallāh ×33 · Alḥamdulillāh ×33 · Allāhu Akbar ×34 = 100</div>
+          <div class="step-en">Sins forgiven even if like the foam of the sea.</div>
+          <div class="step-src">Source: <b>Muslim (597)</b></div>
+        </div>
+      </li>
+      <li class="step-item">
+        <div class="step-num">6</div>
+        <div class="step-body">
+          <div class="step-label">Tahleel — 1×</div>
+          <div class="step-ar">لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ ۙ لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ</div>
+          <div class="step-tr">Lā ilāha illallāhu waḥdahu lā sharīka lah, lahul-mulku wa lahul-ḥamd, wa Huwa ʿalā kulli shayʾin Qadīr</div>
+          <div class="step-en">"There is no god except Allah, alone without partner. To Him belongs the dominion and all praise, and He is over all things capable."</div>
+          <div class="step-src">Source: <b>Muslim (597)</b></div>
+        </div>
+      </li>
+      <li class="step-item">
+        <div class="step-num">7</div>
+        <div class="step-body">
+          <div class="step-label">Ayatul Kursi — 1×</div>
+          <div class="step-ar">اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ...</div>
+          <div class="step-en">Recite Ayatul Kursi in full (Al-Baqarah 2:255). Whoever recites it after every obligatory prayer, nothing prevents him from entering Paradise except death.</div>
+          <div class="step-src">Source: <b>al-Nasā'i, Sahih al-Albani (972)</b></div>
+        </div>
+      </li>
+      <li class="step-item">
+        <div class="step-num">8</div>
+        <div class="step-body">
+          <div class="step-label">Dua for Worship — 1×</div>
+          <div class="step-ar">اللَّهُمَّ أَعِنِّي عَلَى ذِكْرِكَ وَشُكْرِكَ وَحُسْنِ عِبَادَتِكَ</div>
+          <div class="step-tr">Allāhumma aʿinnī ʿalā dhikrika wa shukrika wa ḥusni ʿibādatik</div>
+          <div class="step-en">"O Allah, help me to remember You, thank You, and worship You well."</div>
+          <div class="step-src">Source: <b>Abu Dawud (1522), Ahmad</b> — The Prophet ﷺ recommended this to Muʿādh (RA) after every salah</div>
+        </div>
+      </li>
+    </ul>
+
+    <div class="note" style="margin-top:16px;">
+      <strong>After Fajr only — Tawhid 10×</strong><br>
+      <span style="font-family:var(--fa);font-size:16px;direction:rtl;display:block;text-align:right;line-height:2;color:var(--gold-l);">لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ يُحْيِي وَيُمِيتُ وَهُوَ عَلَىٰ كُلِّ شَيْءٍ قَدِيرٌ</span>
+      <em style="font-family:var(--fs);font-style:italic;font-size:12px;">Lā ilāha illallāhu waḥdahu lā sharīka lah, lahul-mulku wa lahul-ḥamdu yuḥyī wa yumītu wa huwa ʿalā kulli shayʾin qadīr</em><br>
+      Say 10× after Fajr before rising. Equivalent to freeing 4 slaves, 10 good deeds written, 10 sins erased, 10 degrees raised. — <b>al-Tirmidhi (3474)</b>
+    </div>
+  </section>
+
+  <div class="divider"><div class="dl"></div><div class="dg"></div><div class="dl"></div></div>
+
+  <!-- ═══════════════════════════════════
+       7. MORNING ADHKAR
+  ═══════════════════════════════════ -->
+  <section class="sec" id="morning">
+    <div class="sec-h">
+      <div class="si">🌅</div>
+      <div><span class="st">Morning Adhkar</span><span class="ss">After Fajr · Seal the morning with remembrance</span></div>
+    </div>
+
+    <div class="note">
+      The morning adhkar are a comprehensive shield for the day. Begin after Fajr salah, ideally before sunrise. They take 10–15 minutes and provide protection, forgiveness, and gratitude all in one.
+    </div>
+
+    <ul class="step-list">
+      <li class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-label">Ayatul Kursi — 1×</div>
+          <div class="step-ar">اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ...</div>
+          <div class="step-en">Recite Ayatul Kursi in full (Al-Baqarah 2:255). A guardian is appointed; Shaytan cannot approach until evening.</div>
+          <div class="step-src">Source: <b>al-Nasāʾi, ʿAmal al-Yawm wal-Laylah (960)</b></div>
+        </div>
+      </li>
+      <li class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-label">Al-Ikhlas, Al-Falaq, An-Nas — 3× each</div>
+          <div class="step-ar">قُلْ هُوَ اللَّهُ أَحَدٌ ۞ قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ ۞ قُلْ أَعُوذُ بِرَبِّ النَّاسِ</div>
+          <div class="step-en">Recite each surah 3 times. Protection from all harm for the morning.</div>
+          <div class="step-src">Source: <b>Abu Dawud (5082), al-Tirmidhi (3575)</b></div>
+        </div>
+      </li>
+      <li class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-label">Sayyid al-Istighfar — 1×</div>
+          <div class="step-ar">اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَٰهَ إِلَّا أَنْتَ خَلَقْتَنِي وَأَنَا عَبْدُكَ...</div>
+          <div class="step-en">The Master of Forgiveness. Whoever says this in the morning believing in it, and dies that day, enters Paradise.</div>
+          <div class="step-src">Source: <b>Sahih al-Bukhari (6306)</b></div>
+        </div>
+      </li>
+      <li class="step-item">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <div class="step-label">Protection from All Harm — 3×</div>
+          <div class="step-ar">بِسْمِ اللَّهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ وَهُوَ السَّمِيعُ الْعَلِيمُ</div>
+          <div class="step-tr">Bismillāhil-ladhī lā yaḍurru maʿa ismihi shayʾun fil-arḍi wa lā fis-samāʾ wa Huwa as-Samīʿul-ʿAlīm</div>
+          <div class="step-en">"In the name of Allah with whose name nothing on earth or in heaven can cause harm. He is the All-Hearing, All-Knowing."</div>
+          <div class="step-src">Source: <b>Abu Dawud (5088), al-Tirmidhi (3388)</b> — Nothing will harm him that morning</div>
+        </div>
+      </li>
+      <li class="step-item">
+        <div class="step-num">5</div>
+        <div class="step-body">
+          <div class="step-label">Contentment &amp; Gratitude — 3×</div>
+          <div class="step-ar">رَضِيتُ بِاللَّهِ رَبًّا وَبِالْإِسْلَامِ دِينًا وَبِمُحَمَّدٍ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ نَبِيًّا</div>
+          <div class="step-tr">Raḍītu billāhi Rabbā wa bil-Islāmi dīnā wa bi-Muḥammadin ṣallallāhu ʿalayhi wa sallama nabiyyā</div>
+          <div class="step-en">"I am pleased with Allah as my Lord, with Islam as my religion, and with Muhammad ﷺ as my Prophet."</div>
+          <div class="step-src">Source: <b>Abu Dawud (5072)</b> — It is incumbent upon Allah to please him</div>
+        </div>
+      </li>
+      <li class="step-item">
+        <div class="step-num">6</div>
+        <div class="step-body">
+          <div class="step-label">Morning Declaration — 1×</div>
+          <div class="step-ar">أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ وَالْحَمْدُ لِلَّهِ لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ...</div>
+          <div class="step-tr">Aṣbaḥnā wa aṣbaḥal-mulku lillāh, wal-ḥamdu lillāh, lā ilāha illallāhu waḥdahu lā sharīka lah...</div>
+          <div class="step-en">"We have entered the morning and the dominion belongs to Allah... My Lord, I ask You for the good of this day and I seek refuge in You from the evil of this day, from laziness, the misery of old age, the punishment of the Fire, and the punishment of the grave."</div>
+          <div class="step-src">Source: <b>Sahih Muslim (2723)</b></div>
+        </div>
+      </li>
+      <li class="step-item">
+        <div class="step-num">7</div>
+        <div class="step-body">
+          <div class="step-label">Protection from the Fire — 7×</div>
+          <div class="step-ar">اللَّهُمَّ أَجِرْنِي مِنَ النَّارِ</div>
+          <div class="step-tr">Allāhumma ajirni minan-nār</div>
+          <div class="step-en">"O Allah, protect me from the Fire." — The Fire will not touch him that day.</div>
+          <div class="step-src">Source: <b>Abu Dawud (5079)</b></div>
+        </div>
+      </li>
+      <li class="step-item">
+        <div class="step-num">8</div>
+        <div class="step-body">
+          <div class="step-label">For Complete Wellbeing — 1×</div>
+          <div class="step-ar">اللَّهُمَّ إِنِّي أَسْأَلُكَ الْعَفْوَ وَالْعَافِيَةَ فِي الدُّنْيَا وَالْآخِرَةِ ۙ اللَّهُمَّ اسْتُرْ عَوْرَاتِي وَآمِنْ رَوْعَاتِي ۙ اللَّهُمَّ احْفَظْنِي مِنْ بَيْنِ يَدَيَّ وَمِنْ خَلْفِي وَعَنْ يَمِينِي وَعَنْ شِمَالِي وَمِنْ فَوْقِي</div>
+          <div class="step-tr">Allāhumma innī asʾalukal-ʿafwa wal-ʿāfiyata fid-dunyā wal-ākhirah · Allāhummastur ʿawrātī wa āmin rawʿātī · Allāhummaḥfaẓnī min bayni yadayya wa min khalfī wa ʿan yamīnī wa ʿan shimālī wa min fawqī</div>
+          <div class="step-en">"O Allah, I ask You for pardon and wellbeing in this world and the next. O Allah, conceal my faults and calm my fears. O Allah, protect me from in front of me, behind me, from my right, my left, and from above me."</div>
+          <div class="step-src">Source: <b>Abu Dawud (5074), Ibn Majah (3871)</b></div>
+        </div>
+      </li>
+      <li class="step-item">
+        <div class="step-num">9</div>
+        <div class="step-body">
+          <div class="step-label">Health in Body, Hearing &amp; Sight — 3×</div>
+          <div class="step-ar">اللَّهُمَّ عَافِنِي فِي بَدَنِي ۙ اللَّهُمَّ عَافِنِي فِي سَمْعِي ۙ اللَّهُمَّ عَافِنِي فِي بَصَرِي ۙ لَا إِلَٰهَ إِلَّا أَنْتَ</div>
+          <div class="step-tr">Allāhumma ʿāfinī fī badanī · Allāhumma ʿāfinī fī samʿī · Allāhumma ʿāfinī fī baṣarī · lā ilāha illā Ant</div>
+          <div class="step-en">"O Allah, grant me health in my body. O Allah, grant me health in my hearing. O Allah, grant me health in my sight. There is no god but You."</div>
+          <div class="step-src">Source: <b>Abu Dawud (5090)</b></div>
+        </div>
+      </li>
+      <li class="step-item">
+        <div class="step-num">10</div>
+        <div class="step-body">
+          <div class="step-label">Gratitude for Blessings — 1×</div>
+          <div class="step-ar">اللَّهُمَّ مَا أَصْبَحَ بِي مِنْ نِعْمَةٍ أَوْ بِأَحَدٍ مِنْ خَلْقِكَ فَمِنْكَ وَحْدَكَ لَا شَرِيكَ لَكَ ۙ فَلَكَ الْحَمْدُ وَلَكَ الشُّكْرُ</div>
+          <div class="step-tr">Allāhumma mā aṣbaḥa bī min niʿmatin aw bi-aḥadin min khalqik, fa minka waḥdaka lā sharīka lak, fa lakal-ḥamdu wa lakash-shukr</div>
+          <div class="step-en">"O Allah, whatever blessing I or any of Your creation have reached this morning, is from You alone — no partner. To You belongs all praise and all thanks."</div>
+          <div class="step-src">Source: <b>Abu Dawud (5073)</b> — Whoever says this has given thanks for the day</div>
+        </div>
+      </li>
+      <li class="step-item">
+        <div class="step-num">11</div>
+        <div class="step-body">
+          <div class="step-label">Tahlīl — 100×</div>
+          <div class="step-ar">لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ ۙ لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ</div>
+          <div class="step-tr">Lā ilāha illallāhu waḥdahu lā sharīka lah, lahul-mulku wa lahul-ḥamd, wa Huwa ʿalā kulli shayʾin Qadīr</div>
+          <div class="step-en">"There is no god except Allah alone, no partner. To Him belongs the dominion and all praise, and He has power over all things." — 100 good deeds, 100 sins erased, protection from Shaytan all day.</div>
+          <div class="step-src">Source: <b>al-Bukhari (3293), Muslim (2691)</b></div>
+        </div>
+      </li>
+      <li class="step-item">
+        <div class="step-num">12</div>
+        <div class="step-body">
+          <div class="step-label">SubḥānAllāh wa biḥamdih — 100×</div>
+          <div class="step-ar">سُبْحَانَ اللَّهِ وَبِحَمْدِهِ</div>
+          <div class="step-tr">Subḥānallāhi wa biḥamdih</div>
+          <div class="step-en">"Glory be to Allah and His praise." — Sins forgiven even if like the foam of the sea.</div>
+          <div class="step-src">Source: <b>al-Bukhari (6405), Muslim (2692)</b></div>
+        </div>
+      </li>
+      <li class="step-item">
+        <div class="step-num">13</div>
+        <div class="step-body">
+          <div class="step-label">Allāhumma bika aṣbaḥnā — 1×</div>
+          <div class="step-ar">اللَّهُمَّ بِكَ أَصْبَحْنَا وَبِكَ أَمْسَيْنَا وَبِكَ نَحْيَا وَبِكَ نَمُوتُ وَإِلَيْكَ النُّشُورُ</div>
+          <div class="step-tr">Allāhumma bika aṣbaḥnā wa bika amsaynā wa bika naḥyā wa bika namūtu wa ilaykan-nushūr</div>
+          <div class="step-en">"O Allah, by Your grace we have reached the morning, and by Your grace we reach the evening. By Your grace we live and die, and unto You is the resurrection."</div>
+          <div class="step-src">Source: <b>al-Tirmidhi (3391), Abu Dawud (5068)</b></div>
+        </div>
+      </li>
+      <li class="step-item">
+        <div class="step-num">14</div>
+        <div class="step-body">
+          <div class="step-label">Yā Ḥayyu Yā Qayyūm — 1×</div>
+          <div class="step-ar">يَا حَيُّ يَا قَيُّومُ بِرَحْمَتِكَ أَسْتَغِيثُ أَصْلِحْ لِي شَأْنِي كُلَّهُ وَلَا تَكِلْنِي إِلَىٰ نَفْسِي طَرْفَةَ عَيْنٍ</div>
+          <div class="step-tr">Yā Ḥayyu Yā Qayyūm, bi-raḥmatika astaghīth · Aṣliḥ lī shaʾnī kullah, wa lā takilnī ilā nafsī ṭarfata ʿayn</div>
+          <div class="step-en">"O Ever-Living, O Sustainer of All, by Your mercy I seek help. Rectify all my affairs, and do not entrust me to myself even for the blink of an eye."</div>
+          <div class="step-src">Source: <b>al-Nasāʾi in ʿAmal al-Yawm wal-Laylah (46)</b></div>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <div class="divider"><div class="dl"></div><div class="dg"></div><div class="dl"></div></div>
+
+  <!-- ═══════════════════════════════════
+       8. EVENING ADHKAR
+  ═══════════════════════════════════ -->
+  <section class="sec" id="evening">
+    <div class="sec-h">
+      <div class="si">🌆</div>
+      <div><span class="st">Evening Adhkar</span><span class="ss">After ʿAsr · Seal the evening before Maghrib</span></div>
+    </div>
+
+    <div class="note">
+      The evening adhkar mirror the morning adhkar. Begin after ʿAsr salah. They provide the same comprehensive shield for the night ahead.
+    </div>
+
+    <ul class="step-list">
+      <li class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-label">Ayatul Kursi — 1×</div>
+          <div class="step-ar">اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ...</div>
+          <div class="step-en">Recite Ayatul Kursi in full. A guardian is appointed; Shaytan cannot approach until morning.</div>
+          <div class="step-src">Source: <b>al-Nasāʾi, ʿAmal al-Yawm wal-Laylah (960)</b></div>
+        </div>
+      </li>
+      <li class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-label">Al-Ikhlas, Al-Falaq, An-Nas — 3× each</div>
+          <div class="step-ar">قُلْ هُوَ اللَّهُ أَحَدٌ ۞ قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ ۞ قُلْ أَعُوذُ بِرَبِّ النَّاسِ</div>
+          <div class="step-en">Recite each surah 3 times. Protection from all harm for the evening.</div>
+          <div class="step-src">Source: <b>Abu Dawud (5082), al-Tirmidhi (3575)</b></div>
+        </div>
+      </li>
+      <li class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-label">Evening Declaration — 1×</div>
+          <div class="step-ar">أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ وَالْحَمْدُ لِلَّهِ لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ...</div>
+          <div class="step-tr">Amsaynā wa amsal-mulku lillāh, wal-ḥamdu lillāh, lā ilāha illallāhu waḥdahu lā sharīka lah...</div>
+          <div class="step-en">"We have entered the evening and the dominion belongs to Allah... My Lord, I ask You for the good of this night and I seek refuge in You from the evil of this night, from laziness, the misery of old age, the punishment of the Fire, and the punishment of the grave."</div>
+          <div class="step-src">Source: <b>Sahih Muslim (2723)</b></div>
+        </div>
+      </li>
+      <li class="step-item">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <div class="step-label">Sayyid al-Istighfar — 1×</div>
+          <div class="step-ar">اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَٰهَ إِلَّا أَنْتَ خَلَقْتَنِي وَأَنَا عَبْدُكَ...</div>
+          <div class="step-en">The Master of Forgiveness. Whoever says this in the evening believing in it, and dies that night, enters Paradise.</div>
+          <div class="step-src">Source: <b>Sahih al-Bukhari (6306)</b></div>
+        </div>
+      </li>
+      <li class="step-item">
+        <div class="step-num">5</div>
+        <div class="step-body">
+          <div class="step-label">Protection from All Harm — 3×</div>
+          <div class="step-ar">بِسْمِ اللَّهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ وَهُوَ السَّمِيعُ الْعَلِيمُ</div>
+          <div class="step-tr">Bismillāhil-ladhī lā yaḍurru maʿa ismihi shayʾun fil-arḍi wa lā fis-samāʾ wa Huwa as-Samīʿul-ʿAlīm</div>
+          <div class="step-en">"In the name of Allah with whose name nothing on earth or in heaven can cause harm. He is the All-Hearing, All-Knowing." — Nothing will harm him that evening.</div>
+          <div class="step-src">Source: <b>Abu Dawud (5088), al-Tirmidhi (3388)</b></div>
+        </div>
+      </li>
+      <li class="step-item">
+        <div class="step-num">6</div>
+        <div class="step-body">
+          <div class="step-label">Contentment &amp; Gratitude — 3×</div>
+          <div class="step-ar">رَضِيتُ بِاللَّهِ رَبًّا وَبِالْإِسْلَامِ دِينًا وَبِمُحَمَّدٍ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ نَبِيًّا</div>
+          <div class="step-tr">Raḍītu billāhi Rabbā wa bil-Islāmi dīnā wa bi-Muḥammadin ṣallallāhu ʿalayhi wa sallama nabiyyā</div>
+          <div class="step-en">"I am pleased with Allah as my Lord, with Islam as my religion, and with Muhammad ﷺ as my Prophet."</div>
+          <div class="step-src">Source: <b>Abu Dawud (5072)</b></div>
+        </div>
+      </li>
+      <li class="step-item">
+        <div class="step-num">7</div>
+        <div class="step-body">
+          <div class="step-label">Protection from the Fire — 7×</div>
+          <div class="step-ar">اللَّهُمَّ أَجِرْنِي مِنَ النَّارِ</div>
+          <div class="step-tr">Allāhumma ajirnī minan-nār</div>
+          <div class="step-en">"O Allah, protect me from the Fire." — The Fire will not touch him that night.</div>
+          <div class="step-src">Source: <b>Abu Dawud (5079)</b></div>
+        </div>
+      </li>
+      <li class="step-item">
+        <div class="step-num">8</div>
+        <div class="step-body">
+          <div class="step-label">Gratitude for Blessings — 1×</div>
+          <div class="step-ar">اللَّهُمَّ مَا أَمْسَى بِي مِنْ نِعْمَةٍ أَوْ بِأَحَدٍ مِنْ خَلْقِكَ فَمِنْكَ وَحْدَكَ لَا شَرِيكَ لَكَ ۙ فَلَكَ الْحَمْدُ وَلَكَ الشُّكْرُ</div>
+          <div class="step-tr">Allāhumma mā amsā bī min niʿmatin aw bi-aḥadin min khalqik, fa minka waḥdaka lā sharīka lak, fa lakal-ḥamdu wa lakash-shukr</div>
+          <div class="step-en">"O Allah, whatever blessing I or any of Your creation have reached this evening upon, is from You alone. To You belongs all praise and thanks."</div>
+          <div class="step-src">Source: <b>Abu Dawud (5073)</b></div>
+        </div>
+      </li>
+      <li class="step-item">
+        <div class="step-num">9–12</div>
+        <div class="step-body">
+          <div class="step-label">Istighfar 100× · SubḥānAllāh wa biḥamdih 100× · Allāhumma bika amsaynā · Yā Ḥayyu Yā Qayyūm</div>
+          <div class="step-en">Complete the evening with 100× Istighfar, 100× SubḥānAllāh wa biḥamdih, then the evening version of the declaration (Allāhumma bika amsaynā...) and the Yā Ḥayyu Yā Qayyūm dua — same as morning adhkar 11–14, adapted for evening.</div>
+          <div class="step-src">Source: <b>Sahih al-Bukhari (6307), Abu Dawud (5073, 5068)</b></div>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <div class="divider"><div class="dl"></div><div class="dg"></div><div class="dl"></div></div>
+
+  <!-- ═══════════════════════════════════
+       9. BEFORE SLEEP
   ═══════════════════════════════════ -->
   <section class="sec" id="sleep">
     <div class="sec-h">
@@ -677,7 +1093,7 @@ body::before{
             <div class="ar xs">قُلْ أَعُوذُ بِرَبِّ النَّاسِ ۝ مَلِكِ النَّاسِ ۝ إِلَٰهِ النَّاسِ ۝ مِن شَرِّ الْوَسْوَاسِ الْخَنَّاسِ ۝ الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ ۝ مِنَ الْجِنَّةِ وَالنَّاسِ</div>
             <div class="tr">Qul aʿūdhu bi-Rabbin-nās · Malikin-nās · Ilāhin-nās · min sharril-waswāsil-khannās · alladhī yuwaswisu fī ṣudūrin-nās · minal-jinnati wan-nās</div>
             <div class="en">"Say: I seek refuge with the Lord of mankind, the Sovereign of mankind, the God of mankind, from the evil of the retreating whisperer, who whispers into the hearts of mankind — from among jinn and mankind."</div>
-            <div class="src" style="margin-top:12px;">Source: <b>Sahih al-Bukhari (5017)</b> — The Prophet ﷺ never omitted this before sleeping. Recite each 3×, blow into cupped hands, wipe from head downward. Repeat 3 times total.</div>
+            <div class="src" style="margin-top:12px;">Source: <b>Sahih al-Bukhari (5017)</b> — Recite each 3×, blow into cupped hands, wipe from head downward. Repeat 3 times total.</div>
           </div>
         </div>
       </div>
@@ -695,7 +1111,7 @@ body::before{
           <div class="expand-body">
             <div class="ar xs">آمَنَ الرَّسُولُ بِمَا أُنزِلَ إِلَيْهِ مِن رَّبِّهِ وَالْمُؤْمِنُونَ ۚ كُلٌّ آمَنَ بِاللَّهِ وَمَلَائِكَتِهِ وَكُتُبِهِ وَرُسُلِهِ ۚ لَا نُفَرِّقُ بَيْنَ أَحَدٍ مِّن رُّسُلِهِ ۚ وَقَالُوا سَمِعْنَا وَأَطَعْنَا ۖ غُفْرَانَكَ رَبَّنَا وَإِلَيْكَ الْمَصِيرُ ۝ لَا يُكَلِّفُ اللَّهُ نَفْسًا إِلَّا وُسْعَهَا ۚ لَهَا مَا كَسَبَتْ وَعَلَيْهَا مَا اكْتَسَبَتْ ۗ رَبَّنَا لَا تُؤَاخِذْنَا إِن نَّسِينَا أَوْ أَخْطَأْنَا ۚ رَبَّنَا وَلَا تَحْمِلْ عَلَيْنَا إِصْرًا كَمَا حَمَلْتَهُ عَلَى الَّذِينَ مِن قَبْلِنَا ۚ رَبَّنَا وَلَا تُحَمِّلْنَا مَا لَا طَاقَةَ لَنَا بِهِ ۖ وَاعْفُ عَنَّا وَاغْفِرْ لَنَا وَارْحَمْنَا ۚ أَنتَ مَوْلَانَا فَانصُرْنَا عَلَى الْقَوْمِ الْكَافِرِينَ</div>
             <div class="tr">Āmanar-Rasūlu bimā unzila ilayhi mir-Rabbihī wal-muʾminūn · kullun āmana billāhi wa malāʾikatihī wa kutubihī wa rusulih · lā nufarriqu bayna aḥadim-mir-rusulih · wa qālū samiʿnā wa aṭaʿnā · ghufrānaka Rabbanā wa ilaykal-maṣīr · Lā yukallifullāhu nafsan illā wusʿahā · lahā mā kasabat wa ʿalayhā mak-tasabat · Rabbanā lā tuʾākhidhnā in nasīnā aw akhṭaʾnā · Rabbanā wa lā taḥmil ʿalaynā iṣran kamā ḥamaltahu ʿalal-ladhīna min qablinā · Rabbanā wa lā tuḥammilnā mā lā ṭāqata lanā bih · waʿfu ʿannā waghfir lanā warḥamnā · Anta mawlānā fanṣurnā ʿalal-qawmil-kāfirīn</div>
-            <div class="en">"The Messenger has believed in what was revealed to him from his Lord, and so have the believers. All of them have believed in Allah and His angels and His books and His messengers. We make no distinction between any of His messengers. And they say: We hear and we obey. Grant us Your forgiveness, our Lord, and to You is the final destination. Allah does not burden a soul beyond that it can bear..."</div>
+            <div class="en">"The Messenger has believed in what was revealed to him from his Lord, and so have the believers... Our Lord, do not hold us accountable if we forget or err... Pardon us, forgive us, and have mercy upon us. You are our Protector, so help us against the disbelieving people."</div>
             <div class="src">Source: <b>Bukhari (5009), Muslim (807)</b> — "They will suffice him." Brought as a gift from beneath Allah's Throne.</div>
           </div>
         </div>
@@ -726,7 +1142,643 @@ body::before{
   <div class="divider"><div class="dl"></div><div class="dg"></div><div class="dl"></div></div>
 
   <!-- ═══════════════════════════════════
-       7. SURAHS — all expandable
+       10. DAILY LIFE DUAS
+  ═══════════════════════════════════ -->
+  <section class="sec" id="daily">
+    <div class="sec-h">
+      <div class="si">🗓</div>
+      <div><span class="st">Daily Life Duas</span><span class="ss">Every moment is an act of worship</span></div>
+    </div>
+
+    <!-- WAKING UP -->
+    <div class="expand-wrap">
+      <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
+        <div class="et-num" style="font-size:11px;">🌄</div>
+        <div class="et-info">
+          <div class="et-ar">الْحَمْدُ لِلَّهِ الَّذِي أَحْيَانَا بَعْدَ مَا أَمَاتَنَا</div>
+          <div class="et-en">Waking Up</div>
+          <div class="et-virtue">Begin every morning with praise</div>
+        </div>
+        <span class="et-arrow" aria-hidden="true">▾</span>
+      </button>
+      <div class="expand-body">
+        <div class="dlabel">Upon Waking</div>
+        <div class="ar xs">الْحَمْدُ لِلَّهِ الَّذِي أَحْيَانَا بَعْدَ مَا أَمَاتَنَا وَإِلَيْهِ النُّشُورُ</div>
+        <div class="tr">Alḥamdu lillāhil-ladhī aḥyānā baʿda mā amātanā wa ilayhin-nushūr</div>
+        <div class="en">"All praise is for Allah, who gave us life after He had caused us to die, and to Him is the resurrection."</div>
+        <div class="src">Source: <b>al-Bukhari (6312)</b></div>
+        <div style="margin-top:14px;" class="dlabel">The Waking Shahada</div>
+        <div class="ar xs">لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ ۙ لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ ۙ سُبْحَانَ اللَّهِ وَالْحَمْدُ لِلَّهِ وَلَا إِلَهَ إِلَّا اللَّهُ وَاللَّهُ أَكْبَرُ وَلَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ</div>
+        <div class="tr">Lā ilāha illallāhu waḥdahu lā sharīka lah, lahul-mulku wa lahul-ḥamd, wa huwa ʿalā kulli shayʾin qadīr. Subḥānallāh, walḥamdu lillāh, wa lā ilāha illallāh, wallāhu akbar, wa lā ḥawla wa lā quwwata illā billāh</div>
+        <div class="en">"There is no god except Allah alone with no partner. His is the dominion and His is the praise. Glory be to Allah, praise be to Allah, there is no god but Allah, Allah is the Greatest, there is no might or power except with Allah."</div>
+        <div class="src">Source: <b>al-Bukhari (1154)</b> — Sins forgiven and dua answered</div>
+        <div class="note" style="margin-top:12px;margin-bottom:0;font-size:12px;">The Prophet ﷺ would wipe the sleep from his face and recite the last ten ayat of Surah Āl-ʿImrān (3:190–200). — Bukhari (183), Muslim (763)</div>
+      </div>
+    </div>
+
+    <!-- ENTERING & LEAVING HOME -->
+    <div class="expand-wrap">
+      <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
+        <div class="et-num" style="font-size:11px;">🏠</div>
+        <div class="et-info">
+          <div class="et-ar">بِسْمِ اللَّهِ تَوَكَّلْتُ عَلَى اللَّهِ</div>
+          <div class="et-en">Entering &amp; Leaving the Home</div>
+          <div class="et-virtue">Protection every time you cross the threshold</div>
+        </div>
+        <span class="et-arrow" aria-hidden="true">▾</span>
+      </button>
+      <div class="expand-body">
+        <div class="dlabel">Upon Leaving</div>
+        <div class="ar xs">بِسْمِ اللَّهِ تَوَكَّلْتُ عَلَى اللَّهِ وَلَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ</div>
+        <div class="tr">Bismillāh, tawakkaltu ʿalallāh, wa lā ḥawla wa lā quwwata illā billāh</div>
+        <div class="en">"In the name of Allah. I place my trust in Allah. There is no power or strength except with Allah."</div>
+        <div class="src">Source: <b>Abu Dawud (5095), al-Tirmidhi (3426)</b> — You will be guided, protected, and Shaytan will leave you</div>
+        <div style="margin-top:14px;" class="dlabel">Upon Entering</div>
+        <div class="ar xs">بِسْمِ اللَّهِ وَلَجْنَا ۙ وَبِسْمِ اللَّهِ خَرَجْنَا ۙ وَعَلَى اللَّهِ رَبِّنَا تَوَكَّلْنَا</div>
+        <div class="tr">Bismillāhi walajnā, wa bismillāhi kharajnā, wa ʿalallāhi Rabbinā tawakkalnā</div>
+        <div class="en">"In the name of Allah we enter, in the name of Allah we leave, and upon Allah our Lord we place our trust."</div>
+        <div class="src">Source: <b>Abu Dawud (5096)</b></div>
+      </div>
+    </div>
+
+    <!-- MASJID -->
+    <div class="expand-wrap">
+      <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
+        <div class="et-num" style="font-size:11px;">🕌</div>
+        <div class="et-info">
+          <div class="et-ar">اللَّهُمَّ افْتَحْ لِي أَبْوَابَ رَحْمَتِكَ</div>
+          <div class="et-en">Entering &amp; Leaving the Masjid</div>
+          <div class="et-virtue">Every step to the masjid is rewarded</div>
+        </div>
+        <span class="et-arrow" aria-hidden="true">▾</span>
+      </button>
+      <div class="expand-body">
+        <div class="dlabel">Upon Entering</div>
+        <div class="ar xs">اللَّهُمَّ افْتَحْ لِي أَبْوَابَ رَحْمَتِكَ</div>
+        <div class="tr">Allāhummaftaḥ lī abwāba raḥmatik</div>
+        <div class="en">"O Allah, open for me the doors of Your mercy."</div>
+        <div class="src">Source: <b>Sahih Muslim (713)</b></div>
+        <div style="margin-top:14px;" class="dlabel">Upon Exiting</div>
+        <div class="ar xs">اللَّهُمَّ إِنِّي أَسْأَلُكَ مِن فَضْلِكَ</div>
+        <div class="tr">Allāhumma innī asʾaluka min faḍlik</div>
+        <div class="en">"O Allah, I ask You from Your bounty."</div>
+        <div class="src">Source: <b>Sahih Muslim (713)</b></div>
+      </div>
+    </div>
+
+    <!-- TRAVEL -->
+    <div class="expand-wrap">
+      <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
+        <div class="et-num" style="font-size:11px;">✈️</div>
+        <div class="et-info">
+          <div class="et-ar">سُبْحَانَ الَّذِي سَخَّرَ لَنَا هَٰذَا</div>
+          <div class="et-en">Travel — Riding &amp; Boarding</div>
+          <div class="et-virtue">Say when boarding any transport — train, bus, plane, car</div>
+        </div>
+        <span class="et-arrow" aria-hidden="true">▾</span>
+      </button>
+      <div class="expand-body">
+        <div class="dlabel">Upon Riding / Boarding — Az-Zukhruf 43:13–14</div>
+        <div class="ar xs">سُبْحَانَ الَّذِي سَخَّرَ لَنَا هَٰذَا وَمَا كُنَّا لَهُ مُقْرِنِينَ ۙ وَإِنَّا إِلَىٰ رَبِّنَا لَمُنقَلِبُونَ</div>
+        <div class="tr">Subḥānal-ladhī sakhkhara lanā hādhā wa mā kunnā lahu muqrinīn · wa innā ilā Rabbinā lamunqalibūn</div>
+        <div class="en">"Glory be to He who has subjected this to us, and we could not have done it ourselves. And indeed, to our Lord we will return."</div>
+        <div class="src">Source: <b>Abu Dawud (2602)</b></div>
+      </div>
+    </div>
+
+    <!-- EATING -->
+    <div class="expand-wrap">
+      <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
+        <div class="et-num" style="font-size:11px;">🍽</div>
+        <div class="et-info">
+          <div class="et-ar">بِسْمِ اللَّهِ</div>
+          <div class="et-en">Eating &amp; Drinking</div>
+          <div class="et-virtue">Turn every meal into worship</div>
+        </div>
+        <span class="et-arrow" aria-hidden="true">▾</span>
+      </button>
+      <div class="expand-body">
+        <div class="dlabel">Before Eating</div>
+        <div class="ar">بِسْمِ اللَّهِ</div>
+        <div class="tr">Bismillāh</div>
+        <div class="en">"In the name of Allah."</div>
+        <div class="src">Source: <b>Sahih al-Bukhari (5376)</b> — If you forget, say "Bismillāhi awwalahu wa ākhirah" when you remember</div>
+        <div style="margin-top:14px;" class="dlabel">After Eating</div>
+        <div class="ar xs">الْحَمْدُ لِلَّهِ الَّذِي أَطْعَمَنَا وَسَقَانَا وَجَعَلَنَا مُسْلِمِينَ</div>
+        <div class="tr">Alḥamdu lillāhil-ladhī aṭʿamanā wa saqānā wa jaʿalanā muslimīn</div>
+        <div class="en">"All praise is for Allah who fed us, gave us drink, and made us Muslims."</div>
+        <div class="src">Source: <b>Abu Dawud (3850)</b></div>
+      </div>
+    </div>
+
+    <!-- WUDU -->
+    <div class="expand-wrap">
+      <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
+        <div class="et-num" style="font-size:11px;">💧</div>
+        <div class="et-info">
+          <div class="et-ar">أَشْهَدُ أَن لَّا إِلَٰهَ إِلَّا اللَّهُ</div>
+          <div class="et-en">Before &amp; After Wudu</div>
+          <div class="et-virtue">The gates of Jannah open for you</div>
+        </div>
+        <span class="et-arrow" aria-hidden="true">▾</span>
+      </button>
+      <div class="expand-body">
+        <div class="dlabel">Before Wudu</div>
+        <div class="ar xs">بِسْمِ اللَّهِ</div>
+        <div class="tr">Bismillāh</div>
+        <div class="en">"In the name of Allah." — No wudu for one who does not mention Allah's name.</div>
+        <div class="src">Source: <b>Abu Dawud (101), al-Tirmidhi (25)</b></div>
+        <div style="margin-top:14px;" class="dlabel">After Wudu — Shahada</div>
+        <div class="ar xs">أَشْهَدُ أَن لَّا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ ۙ وَأَشْهَدُ أَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُولُهُ</div>
+        <div class="tr">Ash-hadu an lā ilāha illallāhu waḥdahu lā sharīka lah, wa ash-hadu anna Muḥammadan ʿabduhu wa rasūluh</div>
+        <div class="en">"I bear witness that there is no god except Allah alone, with no partner. And I bear witness that Muhammad is His servant and Messenger."</div>
+        <div class="src">Source: <b>Sahih Muslim (234)</b></div>
+        <div style="margin-top:14px;" class="dlabel">After Wudu — Full Version</div>
+        <div class="ar xs">أَشْهَدُ أَن لَّا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ ۙ وَأَشْهَدُ أَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُولُهُ ۙ اللَّهُمَّ اجْعَلْنِي مِنَ التَّوَّابِينَ وَاجْعَلْنِي مِنَ الْمُتَطَهِّرِينَ</div>
+        <div class="tr">...Allāhummajʿalnī minat-tawwābīna wajʿalnī minal-mutaṭahhirīn</div>
+        <div class="en">"...O Allah, make me of those who repent and make me of those who purify themselves." — All 8 gates of Jannah open for you.</div>
+        <div class="src">Source: <b>al-Tirmidhi (55)</b></div>
+      </div>
+    </div>
+
+    <!-- TOILET -->
+    <div class="expand-wrap">
+      <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
+        <div class="et-num" style="font-size:11px;">🚿</div>
+        <div class="et-info">
+          <div class="et-ar">اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْخُبُثِ</div>
+          <div class="et-en">Entering &amp; Leaving the Toilet</div>
+          <div class="et-virtue">Even this moment is protected by Sunnah</div>
+        </div>
+        <span class="et-arrow" aria-hidden="true">▾</span>
+      </button>
+      <div class="expand-body">
+        <div class="dlabel">Before Entering</div>
+        <div class="ar xs">بِسْمِ اللَّهِ ۙ اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْخُبُثِ وَالْخَبَائِثِ</div>
+        <div class="tr">Bismillāh · Allāhumma innī aʿūdhu bika minal-khubuthi wal-khabāʾith</div>
+        <div class="en">"In the name of Allah. O Allah, I seek refuge in You from the male and female evil ones (devils)."</div>
+        <div class="src">Source: <b>al-Bukhari (142), Muslim (375)</b></div>
+        <div style="margin-top:14px;" class="dlabel">After Leaving</div>
+        <div class="ar">غُفْرَانَكَ</div>
+        <div class="tr">Ghufrānak</div>
+        <div class="en">"I seek Your forgiveness."</div>
+        <div class="src">Source: <b>Abu Dawud (30), al-Tirmidhi (7), Ibn Majah (300)</b></div>
+      </div>
+    </div>
+
+    <!-- PUTTING ON CLOTHES -->
+    <div class="expand-wrap">
+      <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
+        <div class="et-num" style="font-size:11px;">👕</div>
+        <div class="et-info">
+          <div class="et-ar">الْحَمْدُ لِلَّهِ الَّذِي كَسَانِي</div>
+          <div class="et-en">Putting On &amp; Removing Clothes</div>
+          <div class="et-virtue">Gratitude turns routine into worship</div>
+        </div>
+        <span class="et-arrow" aria-hidden="true">▾</span>
+      </button>
+      <div class="expand-body">
+        <div class="dlabel">When Putting On a Garment</div>
+        <div class="ar xs">الْحَمْدُ لِلَّهِ الَّذِي كَسَانِي هَذَا الثَّوْبَ وَرَزَقَنِيهِ مِنْ غَيْرِ حَوْلٍ مِنِّي وَلَا قُوَّةٍ</div>
+        <div class="tr">Alḥamdu lillāhil-ladhī kasānī hādha wa razaqanīhi min ghayri ḥawlin minnī wa lā quwwah</div>
+        <div class="en">"All praise is for Allah who has clothed me with this garment and provided it for me, with no might or power on my part." — Past sins forgiven.</div>
+        <div class="src">Source: <b>Abu Dawud (4023), al-Tirmidhi (3458)</b></div>
+        <div class="note" style="margin-top:12px;margin-bottom:0;font-size:12px;">When undressing say <strong>Bismillāh</strong> — it conceals you from the eyes of the jinn. (al-Tirmidhi 606). Always start dressing from the right side (right sleeve, shoe), undressing from the left. — Bukhari (168)</div>
+      </div>
+    </div>
+
+    <!-- NEW MOON -->
+    <div class="dua">
+      <div class="dlabel">Upon Sighting the New Crescent — al-Tirmidhi (3451)</div>
+      <div class="ar sm">اللَّهُ أَكْبَرُ ۙ اللَّهُمَّ أَهِلَّهُ عَلَيْنَا بِالأَمْنِ وَالإِيمَانِ وَالسَّلَامَةِ وَالإِسْلَامِ ۙ رَبِّي وَرَبُّكَ اللَّهُ</div>
+      <div class="tr">Allāhu Akbar · Allāhumma ahillahu ʿalaynā bil-amni wal-īmān · was-salāmati wal-Islām · Rabbī wa Rabbukallāh</div>
+      <div class="en">"Allah is Greatest. O Allah, bring it over us with security, faith, safety, and Islam. My Lord and your Lord is Allah."</div>
+      <div class="src">Source: <b>al-Tirmidhi (3451)</b></div>
+    </div>
+
+    <!-- ILLNESS & HARDSHIP -->
+    <div class="expand-wrap">
+      <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
+        <div class="et-num" style="font-size:11px;">🩺</div>
+        <div class="et-info">
+          <div class="et-ar">أَذْهِبِ الْبَأْسَ رَبَّ النَّاسِ</div>
+          <div class="et-en">Illness &amp; Hardship</div>
+          <div class="et-virtue">For yourself and when visiting the sick</div>
+        </div>
+        <span class="et-arrow" aria-hidden="true">▾</span>
+      </button>
+      <div class="expand-body">
+        <div class="dlabel">When Visiting the Sick</div>
+        <div class="ar xs">أَذْهِبِ الْبَأْسَ رَبَّ النَّاسِ وَاشْفِ أَنْتَ الشَّافِي لَا شِفَاءَ إِلَّا شِفَاؤُكَ شِفَاءً لَا يُغَادِرُ سَقَمًا</div>
+        <div class="tr">Adh-hibil-baʾsa Rabban-nāsi · washfi Antash-shāfī · lā shifāʾa illā shifāʾuka · shifāʾan lā yughādiru saqamā</div>
+        <div class="en">"Remove the hardship, O Lord of mankind. Grant a cure — You are the Healer. There is no cure except Your cure, a cure that leaves no illness behind."</div>
+        <div class="src">Source: <b>Sahih al-Bukhari (5675), Muslim (2191)</b></div>
+        <div style="margin-top:14px;" class="dlabel">When in Physical Pain — Place hand on pain, say Bismillāh ×3, then 7×</div>
+        <div class="ar xs">أَعُوذُ بِعِزَّةِ اللَّهِ وَقُدْرَتِهِ مِن شَرِّ مَا أَجِدُ وَأُحَاذِرُ</div>
+        <div class="tr">Aʿūdhu biʿizzatillāhi wa qudratihī min sharri mā ajidu wa uḥādhir</div>
+        <div class="en">"I seek refuge in the might of Allah and His power from the evil of what I feel and what I fear." — Say 7 times.</div>
+        <div class="src">Source: <b>Sahih Muslim (2202)</b></div>
+      </div>
+    </div>
+
+    <!-- RAIN -->
+    <div class="dua">
+      <div class="dlabel">When It Rains — al-Bukhari (1032)</div>
+      <div class="ar">اللَّهُمَّ صَيِّبًا نَافِعًا</div>
+      <div class="tr">Allāhumma ṣayyiban nāfiʿā</div>
+      <div class="en">"O Allah, make it a beneficial rain."</div>
+      <div class="src">Source: <b>Sahih al-Bukhari (1032)</b></div>
+    </div>
+
+    <!-- ANGER -->
+    <div class="dua">
+      <div class="dlabel">When Angry — Say Immediately</div>
+      <div class="ar">أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ</div>
+      <div class="tr">Aʿūdhu billāhi minash-shayṭānir-rajīm</div>
+      <div class="en">"I seek refuge in Allah from the accursed Shaytan." — Anger will subside.</div>
+      <div class="src">Source: <b>Sahih al-Bukhari (3282), Muslim (2610)</b></div>
+    </div>
+
+    <!-- DIFFICULTY / GRIEF -->
+    <div class="expand-wrap">
+      <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
+        <div class="et-num" style="font-size:11px;">💔</div>
+        <div class="et-info">
+          <div class="et-ar">لَا إِلَهَ إِلَّا اللَّهُ الْعَظِيمُ الْحَلِيمُ</div>
+          <div class="et-en">Difficulties, Hardship &amp; Loss</div>
+          <div class="et-virtue">When life overwhelms — these are your anchor</div>
+        </div>
+        <span class="et-arrow" aria-hidden="true">▾</span>
+      </button>
+      <div class="expand-body">
+        <div class="dlabel">Dua of Distress — Bukhari (6346), Muslim (2730)</div>
+        <div class="ar xs">لَا إِلَهَ إِلَّا اللَّهُ الْعَظِيمُ الْحَلِيمُ ، لَا إِلَهَ إِلَّا اللَّهُ رَبُّ الْعَرْشِ الْعَظِيمِ ، لَا إِلَهَ إِلَّا اللَّهُ رَبُّ السَّمَاوَاتِ وَرَبُّ الْأَرْضِ وَرَبُّ الْعَرْشِ الْكَرِيمِ</div>
+        <div class="tr">Lā ilāha illallāhul-ʿAdhīmul-Ḥalīm, lā ilāha illallāhu Rabbul-ʿArshil-ʿAdhīm, lā ilāha illallāhu Rabbus-samāwāti wa Rabbul-arḍi wa Rabbul-ʿArshil-Karīm</div>
+        <div class="en">"There is no god but Allah, the Magnificent, the Forbearing. There is no god but Allah, Lord of the Mighty Throne. There is no god but Allah, Lord of the heavens, Lord of the earth, and Lord of the Noble Throne."</div>
+        <div class="src">Source: <b>al-Bukhari (6346), Muslim (2730)</b></div>
+        <div style="margin-top:14px;" class="dlabel">Innā lillāhi — Upon Loss or Calamity</div>
+        <div class="ar xs">إِنَّا لِلَّهِ وَإِنَّا إِلَيْهِ رَاجِعُونَ ، اللَّهُمَّ أْجُرْنِي فِي مُصِيبَتِي وَأَخْلِفْ لِي خَيْرًا مِنْهَا</div>
+        <div class="tr">Innā lillāhi wa innā ilayhi rājiʿūn · Allāhummʾjurnī fī muṣībatī wa akhlif lī khayran minhā</div>
+        <div class="en">"We belong to Allah and to Him we shall return. O Allah, reward me in my calamity and replace it for me with something better."</div>
+        <div class="src">Source: <b>Sahih Muslim (918)</b></div>
+        <div style="margin-top:14px;" class="dlabel">When Something Good Happens</div>
+        <div class="ar xs">الْحَمْدُ لِلَّهِ الَّذِي بِنِعْمَتِهِ تَتِمُّ الصَّالِحَاتُ</div>
+        <div class="tr">Alḥamdu lillāhil-ladhī bi niʿmatihi tatimmuṣ-ṣāliḥāt</div>
+        <div class="en">"All praise is for Allah, by Whose grace good things are completed."</div>
+        <div class="src">Source: <b>Ibn Majah (3803)</b></div>
+      </div>
+    </div>
+
+    <!-- SNEEZING -->
+    <div class="expand-wrap">
+      <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
+        <div class="et-num" style="font-size:11px;">🤧</div>
+        <div class="et-info">
+          <div class="et-ar">الْحَمْدُ لِلَّهِ ۞ يَرْحَمُكَ اللَّهُ</div>
+          <div class="et-en">Sneezing &amp; Responding — 3-step exchange</div>
+          <div class="et-virtue">A complete Sunnah interaction</div>
+        </div>
+        <span class="et-arrow" aria-hidden="true">▾</span>
+      </button>
+      <div class="expand-body">
+        <div class="dlabel">Step 1 — The One Who Sneezes</div>
+        <div class="ar">الْحَمْدُ لِلَّهِ</div>
+        <div class="tr">Alḥamdulillāh</div>
+        <div class="en">"All praise is for Allah."</div>
+        <div style="margin-top:14px;" class="dlabel">Step 2 — The Listener Responds</div>
+        <div class="ar">يَرْحَمُكَ اللَّهُ</div>
+        <div class="tr">Yarḥamukallāh</div>
+        <div class="en">"May Allah have mercy on you."</div>
+        <div style="margin-top:14px;" class="dlabel">Step 3 — The Sneezer Replies Back</div>
+        <div class="ar">يَهْدِيكُمُ اللَّهُ وَيُصْلِحُ بَالَكُمْ</div>
+        <div class="tr">Yahdīkumullāhu wa yuṣliḥu bālakum</div>
+        <div class="en">"May Allah guide you and set your affairs right."</div>
+        <div class="src" style="margin-top:10px;">Source: <b>Sahih al-Bukhari (6224)</b></div>
+      </div>
+    </div>
+
+    <!-- SEEING SOMEONE IN HARDSHIP -->
+    <div class="dua">
+      <div class="dlabel">When Seeing Someone Afflicted — al-Tirmidhi (3431)</div>
+      <div class="ar xs">الْحَمْدُ لِلَّهِ الَّذِي عَافَانِي مِمَّا ابْتَلَاكَ بِهِ وَفَضَّلَنِي عَلَى كَثِيرٍ مِّمَّنْ خَلَقَ تَفْضِيلًا</div>
+      <div class="tr">Alḥamdu lillāhil-ladhī ʿāfānī mimmab-talāka bihī wa faḍḍalanī ʿalā kathīrin mimman khalaqa tafḍīlā</div>
+      <div class="en">"All praise is for Allah who has spared me from what He has tested you with, and has favoured me greatly over many of His creation."</div>
+      <div class="src">Source: <b>al-Tirmidhi (3431)</b> — Say quietly, not in front of the afflicted person</div>
+    </div>
+
+    <!-- DECEASED / JANAZAH -->
+    <div class="expand-wrap">
+      <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
+        <div class="et-num" style="font-size:11px;">🤲</div>
+        <div class="et-info">
+          <div class="et-ar">اللَّهُمَّ اغْفِرْ لَهُ وَارْحَمْهُ</div>
+          <div class="et-en">Dua for the Deceased &amp; Janazah</div>
+          <div class="et-virtue">Pray for those who have passed</div>
+        </div>
+        <span class="et-arrow" aria-hidden="true">▾</span>
+      </button>
+      <div class="expand-body">
+        <div class="dlabel">Janazah Dua — Full Supplication</div>
+        <div class="ar xs">اللَّهُمَّ اغْفِرْ لَهُ وَارْحَمْهُ وَعَافِهِ وَاعْفُ عَنْهُ ۙ وَأَكْرِمْ نُزُلَهُ وَوَسِّعْ مُدْخَلَهُ ۙ وَاغْسِلْهُ بِالْمَاءِ وَالثَّلْجِ وَالْبَرَدِ ۙ وَنَقِّهِ مِنَ الْخَطَايَا كَمَا نَقَّيْتَ الثَّوْبَ الْأَبْيَضَ مِنَ الدَّنَسِ ۙ وَأَبْدِلْهُ دَارًا خَيْرًا مِنْ دَارِهِ وَأَهْلًا خَيْرًا مِنْ أَهْلِهِ وَزَوْجًا خَيْرًا مِنْ زَوْجِهِ ۙ وَأَدْخِلْهُ الْجَنَّةَ وَأَعِذْهُ مِنْ عَذَابِ الْقَبْرِ وَمِنْ عَذَابِ النَّارِ</div>
+        <div class="tr">Allāhummaghfir lahu warḥamhu wa ʿāfihi waʿfu ʿanh · Wa akrim nuzulahu wa wassiʿ mudkhalah · Waghsilhu bil-māʾi wath-thalji wal-barad · Wa naqqihi minal-khaṭāyā kamā naqqaytat-thawbal-abyaḍa minad-danas · Wa abdilhu dāran khayran min dārih wa ahlan khayran min ahlih wa zawjan khayran min zawjih · Wa adkhilhul-Jannah wa aʿidhhu min ʿadhābil-qabri wa min ʿadhābin-nār</div>
+        <div class="en">"O Allah, forgive him and have mercy on him, grant him wellbeing and pardon him. Make honourable his reception, and expand his entry. Wash him with water, snow, and hail. Cleanse him of sins as a white garment is cleansed of filth. Replace his home with a better home, his family with a better family, and his spouse with a better spouse. Admit him into Paradise and protect him from the punishment of the grave and the Fire."</div>
+        <div class="src">Source: <b>Sahih Muslim (963)</b></div>
+        <div style="margin-top:14px;" class="dlabel">General Janazah Dua</div>
+        <div class="ar xs">اللَّهُمَّ اغْفِرْ لِحَيِّنَا وَمَيِّتِنَا ۙ وَشَاهِدِنَا وَغَائِبِنَا ۙ وَصَغِيرِنَا وَكَبِيرِنَا ۙ وَذَكَرِنَا وَأُنْثَانَا</div>
+        <div class="tr">Allāhummaghfir liḥayyinā wa mayyitinā, wa shāhidinā wa ghāʾibinā, wa ṣaghīrinā wa kabīrinā, wa dhakarinā wa unthānā</div>
+        <div class="en">"O Allah, forgive our living and our dead, those present and those absent, our young and our old, our males and our females..."</div>
+        <div class="src">Source: <b>Abu Dawud (3201), al-Tirmidhi (1024)</b></div>
+        <div style="margin-top:14px;" class="dlabel">Upon Entering the Graveyard</div>
+        <div class="ar xs">السَّلَامُ عَلَيْكُمْ أَهْلَ الدِّيَارِ مِنَ الْمُؤْمِنِينَ وَالْمُسْلِمِينَ ۙ وَإِنَّا إِنْ شَاءَ اللَّهُ بِكُمْ لَاحِقُونَ ۙ نَسْأَلُ اللَّهَ لَنَا وَلَكُمُ الْعَافِيَةَ</div>
+        <div class="tr">As-salāmu ʿalaykum ahlad-diyāri minal-muʾminīna wal-muslimīn · Wa innā in shāʾAllāhu bikum lāḥiqūn · Nasʾalullāha lanā wa lakumul-ʿāfiyah</div>
+        <div class="en">"Peace be upon you, O inhabitants of these abodes, among the believers and Muslims. And indeed we shall — if Allah wills — be joining you. We ask Allah for wellbeing for us and for you."</div>
+        <div class="src">Source: <b>Sahih Muslim (975)</b></div>
+      </div>
+    </div>
+
+    <!-- BAD DREAMS -->
+    <div class="expand-wrap">
+      <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
+        <div class="et-num" style="font-size:11px;">😨</div>
+        <div class="et-info">
+          <div class="et-ar">أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ</div>
+          <div class="et-en">Bad Dreams &amp; Nightmares</div>
+          <div class="et-virtue">Three steps — it will not harm you</div>
+        </div>
+        <span class="et-arrow" aria-hidden="true">▾</span>
+      </button>
+      <div class="expand-body">
+        <div class="dlabel">The Sunnah Response</div>
+        <div class="ar xs">أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ</div>
+        <div class="tr">Aʿūdhu billāhi minash-shayṭānir-rajīm</div>
+        <div class="en">"I seek refuge in Allah from the accursed Shaytan."</div>
+        <div class="note" style="margin-top:10px;margin-bottom:0;font-size:12px;">
+          <strong>3 steps:</strong> (1) Spit lightly to your left 3 times. (2) Say this dua. (3) Turn to your other side. The bad dream will not harm you.<br>
+          <strong>Good dreams</strong> are from Allah — thank Him and share only with those you love.<br>
+          <strong>Bad dreams</strong> are from Shaytan — seek refuge, do not tell anyone. If disturbed, get up, make wudu, and pray 2 rak'ahs.
+        </div>
+        <div class="src" style="margin-top:8px;">Source: <b>Sahih Muslim (2262), al-Bukhari (6984)</b></div>
+      </div>
+    </div>
+
+    <!-- LEAVING A GATHERING -->
+    <div class="dua">
+      <div class="dlabel">Kaffaratul Majlis — When Leaving a Gathering</div>
+      <div class="ar sm">سُبْحَانَكَ اللَّهُمَّ وَبِحَمْدِكَ أَشْهَدُ أَنْ لَا إِلَهَ إِلَّا أَنْتَ أَسْتَغْفِرُكَ وَأَتُوبُ إِلَيْكَ</div>
+      <div class="tr">Subḥānaka Allāhumma wa biḥamdik, ash-hadu an lā ilāha illā Ant, astaghfiruka wa atūbu ilayk</div>
+      <div class="en">"Glory be to You, O Allah, and praise be to You. I bear witness that there is no god but You. I seek Your forgiveness and I repent to You."</div>
+      <div class="src">Source: <b>Abu Dawud (4859), al-Tirmidhi (3433)</b> — Expiation for whatever idle speech occurred in the gathering</div>
+    </div>
+
+  </section>
+
+  <div class="divider"><div class="dl"></div><div class="dg"></div><div class="dl"></div></div>
+
+  <!-- ═══════════════════════════════════
+       11. SALAWAT
+  ═══════════════════════════════════ -->
+  <section class="sec" id="salawat">
+    <div class="sec-h">
+      <div class="si">💛</div>
+      <div><span class="st">Salawat — Blessings on the Prophet ﷺ</span><span class="ss">1 salawat → Allah sends 10 blessings on you</span></div>
+    </div>
+
+    <div class="note">
+      "Whoever sends one blessing upon me, Allah will send ten blessings upon him, erase ten of his sins, and raise him ten degrees." — The Prophet ﷺ. <em>Say it throughout the day — commute, waiting, cooking, before sleep.</em>
+    </div>
+
+    <div class="expand-wrap">
+      <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
+        <div class="et-num" style="font-size:10px;">كامل</div>
+        <div class="et-info">
+          <div class="et-ar">اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ...</div>
+          <div class="et-en">Salawat Ibrahimiyyah — The Complete Form</div>
+          <div class="et-virtue">The full salawat as taught by the Prophet ﷺ himself — Bukhari (3370)</div>
+        </div>
+        <span class="et-arrow" aria-hidden="true">▾</span>
+      </button>
+      <div class="expand-body">
+        <div class="ar xs">اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ كَمَا صَلَّيْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ إِنَّكَ حَمِيدٌ مَجِيدٌ ، اللَّهُمَّ بَارِكْ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ كَمَا بَارَكْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ إِنَّكَ حَمِيدٌ مَجِيدٌ</div>
+        <div class="tr">Allāhumma ṣalli ʿalā Muḥammadin wa ʿalā āli Muḥammad, kamā ṣallayta ʿalā Ibrāhīma wa ʿalā āli Ibrāhīm, innaka Ḥamīdun Majīd. Allāhumma bārik ʿalā Muḥammadin wa ʿalā āli Muḥammad, kamā bārakta ʿalā Ibrāhīma wa ʿalā āli Ibrāhīm, innaka Ḥamīdun Majīd</div>
+        <div class="en">"O Allah, send Your grace upon Muhammad and upon the family of Muhammad, as You sent Your grace upon Ibrahim and the family of Ibrahim. You are Praiseworthy, Glorious. O Allah, send Your blessings upon Muhammad and upon the family of Muhammad, as You sent Your blessings upon Ibrahim and the family of Ibrahim. You are Praiseworthy, Glorious."</div>
+        <div class="src">Source: <b>al-Bukhari (3370), Muslim (406)</b></div>
+      </div>
+    </div>
+
+    <div class="dua">
+      <div class="dlabel">The Short Salawat — Say Throughout the Day</div>
+      <div class="ar">اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ</div>
+      <div class="tr">Allāhumma ṣalli wa sallim ʿalā nabiyyinā Muḥammad</div>
+      <div class="en">"O Allah, send Your grace and peace upon our Prophet Muhammad."</div>
+      <div class="src">Source: <b>Muslim (408)</b> — Say as often as you can while walking, waiting, commuting</div>
+    </div>
+
+    <div class="note">
+      <strong>Salawat on Friday — Multiplied.</strong> The Prophet ﷺ said: <em>"Increase your salawat upon me on Friday."</em> Your salawat is presented to him on that day. — Abu Dawud (1047). Every time his name ﷺ is mentioned, say ṣallallāhu ʿalayhi wa sallam. The one who hears his name and does not send salawat is called a miser.
+    </div>
+  </section>
+
+  <div class="divider"><div class="dl"></div><div class="dg"></div><div class="dl"></div></div>
+
+  <!-- ═══════════════════════════════════
+       12. ISTIGHFAR
+  ═══════════════════════════════════ -->
+  <section class="sec" id="istighfar">
+    <div class="sec-h">
+      <div class="si">🤍</div>
+      <div><span class="st">Istighfar — Seeking Forgiveness</span><span class="ss">The Prophet ﷺ sought forgiveness 100× every day</span></div>
+    </div>
+
+    <div class="note">
+      "If anyone constantly seeks forgiveness, Allah will appoint for him a way out of every distress, relief from every anxiety, and will provide for him from sources he could never imagine." — The Prophet ﷺ, Abu Dawud (1518)
+    </div>
+
+    <div class="dua feat">
+      <div class="feat-badge">★ Sayyid al-Istighfar ★</div>
+      <div class="dlabel">Master Dua of Forgiveness — say every morning and evening</div>
+      <div class="ar xs">اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَهَ إِلَّا أَنْتَ خَلَقْتَنِي وَأَنَا عَبْدُكَ وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ وَأَبُوءُ بِذَنْبِي فَاغْفِرْ لِي فَإِنَّهُ لَا يَغْفِرُ الذُّنُوبَ إِلَّا أَنْتَ</div>
+      <div class="tr">Allāhumma Anta Rabbī lā ilāha illā Ant, khalaqtanī wa ana ʿabduk, wa ana ʿalā ʿahdika wa waʿdika mastaṭaʿt. Aʿūdhu bika min sharri mā ṣanaʿt. Abūʾu laka bi niʿmatika ʿalayya wa abūʾu bidhanbī faghfirlī fa innahū lā yaghfirudh-dhunūba illā Ant</div>
+      <div class="en">"O Allah, You are my Lord. There is no deity except You. You created me, and I am Your servant. I uphold Your covenant and Your promise as best I can. I seek refuge in You from the evil I have done. I acknowledge Your blessings upon me and I acknowledge my sins, so forgive me — for none forgives sins except You."</div>
+      <div class="src">Source: <b>al-Bukhari (6306)</b></div>
+      <div class="badge">Morning or evening, believing in it, dies that day/night → enters Paradise</div>
+    </div>
+
+    <div class="dua">
+      <div class="dlabel">Simple Istighfar — 100× daily</div>
+      <div class="ar">أَسْتَغْفِرُ اللَّهَ</div>
+      <div class="tr">Astaghfirullāh</div>
+      <div class="en">"I seek forgiveness from Allah." — The simplest form. Say throughout the day.</div>
+      <div class="src">Source: <b>Muslim (2702)</b></div>
+    </div>
+
+    <div class="dua">
+      <div class="dlabel">Istighfar with Tawbah</div>
+      <div class="ar sm">أَسْتَغْفِرُ اللَّهَ الَّذِي لَا إِلَهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ وَأَتُوبُ إِلَيْهِ</div>
+      <div class="tr">Astaghfirullāhal-ladhī lā ilāha illā Huwal-Ḥayyul-Qayyūmu wa atūbu ilayh</div>
+      <div class="en">"I seek forgiveness from Allah, the One besides whom there is no god, the Ever-Living, the Sustainer of all, and I repent to Him." — Sins forgiven even if you fled from battle.</div>
+      <div class="src">Source: <b>Abu Dawud (1517), al-Tirmidhi (3577)</b></div>
+    </div>
+  </section>
+
+  <div class="divider"><div class="dl"></div><div class="dg"></div><div class="dl"></div></div>
+
+  <!-- ═══════════════════════════════════
+       13. ISTIKHARAH
+  ═══════════════════════════════════ -->
+  <section class="sec" id="istikharah">
+    <div class="sec-h">
+      <div class="si">🎯</div>
+      <div><span class="st">Istikharah — Seeking Guidance</span><span class="ss">Two rak'ahs · then this dua · then trust Allah</span></div>
+    </div>
+
+    <div class="note">
+      <strong>How to pray Istikharah:</strong> (1) Make wudu. (2) Pray two rak'ahs of voluntary prayer. (3) After the salam, raise your hands and recite the dua below, mentioning your specific matter. (4) Proceed with what feels right — you do NOT need to see a dream. Allah guides through facilitation or difficulty.
+      <br><br>
+      <em>You do NOT need to see the colour green, feel a specific emotion, or repeat it 7 times. Just pray, make dua, then proceed.</em>
+    </div>
+
+    <div class="expand-wrap">
+      <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
+        <div class="et-num" style="font-size:10px;">خير</div>
+        <div class="et-info">
+          <div class="et-ar">اللَّهُمَّ إِنِّي أَسْتَخِيرُكَ بِعِلْمِكَ...</div>
+          <div class="et-en">The Full Istikharah Dua</div>
+          <div class="et-virtue">Tap to read in full with transliteration</div>
+        </div>
+        <span class="et-arrow" aria-hidden="true">▾</span>
+      </button>
+      <div class="expand-body">
+        <div class="ar xs">اللَّهُمَّ إِنِّي أَسْتَخِيرُكَ بِعِلْمِكَ وَأَسْتَقْدِرُكَ بِقُدْرَتِكَ وَأَسْأَلُكَ مِنْ فَضْلِكَ الْعَظِيمِ فَإِنَّكَ تَقْدِرُ وَلَا أَقْدِرُ وَتَعْلَمُ وَلَا أَعْلَمُ وَأَنْتَ عَلَّامُ الْغُيُوبِ ، اللَّهُمَّ إِنْ كُنْتَ تَعْلَمُ أَنَّ هَذَا الْأَمْرَ خَيْرٌ لِي فِي دِينِي وَمَعَاشِي وَعَاقِبَةِ أَمْرِي فَاقْدُرْهُ لِي وَيَسِّرْهُ لِي ثُمَّ بَارِكْ لِي فِيهِ ، وَإِنْ كُنْتَ تَعْلَمُ أَنَّ هَذَا الْأَمْرَ شَرٌّ لِي فِي دِينِي وَمَعَاشِي وَعَاقِبَةِ أَمْرِي فَاصْرِفْهُ عَنِّي وَاصْرِفْنِي عَنْهُ وَاقْدُرْ لِيَ الْخَيْرَ حَيْثُ كَانَ ثُمَّ أَرْضِنِي بِهِ</div>
+        <div class="tr">Allāhumma innī astakhīruka bi ʿilmik, wa astaqdiruka bi qudratik, wa asʾaluka min faḍlikal-ʿaẓīm. Fa innaka taqdiru wa lā aqdir, wa taʿlamu wa lā aʿlam, wa Anta ʿallāmul-ghuyūb. Allāhumma in kunta taʿlamu anna hādhal-amra khayrun lī fī dīnī wa maʿāshī wa ʿāqibati amrī — faqdurhu lī wa yassirhu lī thumma bārik lī fīh. Wa in kunta taʿlamu anna hādhal-amra sharrun lī fī dīnī wa maʿāshī wa ʿāqibati amrī — faṣrifhu ʿannī waṣrifnī ʿanhu waqdur liyal-khayra ḥaythu kān, thumma arḍinī bih</div>
+        <div class="en">"O Allah, I seek Your guidance through Your knowledge, and I seek ability through Your power, and I ask You from Your immense bounty. For You are able and I am not, You know and I do not, and You are the Knower of the unseen. O Allah, if You know that this matter is good for me in my religion, my livelihood, and my outcome — then decree it for me, make it easy for me, and bless it for me. And if You know that this matter is harmful for me — then turn it away from me and turn me away from it, and decree for me what is good wherever it may be, then make me content with it."</div>
+        <div class="src">Source: <b>al-Bukhari (1162)</b> — At the point of "this matter" (hādhal-amra), mention your specific decision</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"><div class="dl"></div><div class="dg"></div><div class="dl"></div></div>
+
+  <!-- ═══════════════════════════════════
+       14. RUQYAH
+  ═══════════════════════════════════ -->
+  <section class="sec" id="ruqyah">
+    <div class="sec-h">
+      <div class="si">🛡</div>
+      <div><span class="st">Ruqyah — Healing &amp; Protection</span><span class="ss">Qur'an is a healing and a mercy for the believers</span></div>
+    </div>
+
+    <div class="note">
+      Ruqyah is the practice of reciting Qur'an and authentic supplications for healing and protection. It is an established Sunnah — the Prophet ﷺ performed ruqyah on himself and others. Recite over yourself by placing your hand on the area of ailment or over your chest. Recite into your cupped hands and blow gently, then wipe over the body. <em>"We send down of the Qur'an that which is a healing and a mercy for the believers." (17:82)</em>
+    </div>
+
+    <div class="dua">
+      <div class="dlabel">1. Surah Al-Fatihah — The Opener (7×)</div>
+      <div class="ar xs">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ ۝ الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ ۝ الرَّحْمَٰنِ الرَّحِيمِ ۝ مَالِكِ يَوْمِ الدِّينِ ۝ إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ ۝ اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ ۝ صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ</div>
+      <div class="tr">Bismillāhir-Raḥmānir-Raḥīm · Alḥamdu lillāhi Rabbil-ʿālamīn · Ar-Raḥmānir-Raḥīm · Māliki yawmid-dīn · Iyyāka naʿbudu wa iyyāka nastaʿīn · Ihdinaṣ-ṣirāṭal-mustaqīm · Ṣirāṭal-ladhīna anʿamta ʿalayhim ghayril-maghḍūbi ʿalayhim wa laḍ-ḍāllīn</div>
+      <div class="en">"In the name of Allah, the Most Gracious, the Most Merciful. All praise is for Allah, Lord of all worlds... Guide us along the Straight Path — the path of those You have blessed, not those who incurred wrath, nor those who have gone astray."</div>
+      <div class="src">Source: <b>Sahih al-Bukhari (5007)</b> — Al-Fatiha is Ruqyah; blow on the afflicted area</div>
+    </div>
+
+    <div class="dua">
+      <div class="dlabel">2. Ayatul Kursi — 1× (blow over the body)</div>
+      <div class="ar xs">اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ...</div>
+      <div class="en">Recite Ayatul Kursi in full, blow into cupped hands, wipe over the body from head to toe.</div>
+      <div class="src">Source: <b>Qur'an 2:255 — Sahih Muslim (810)</b></div>
+    </div>
+
+    <div class="dua">
+      <div class="dlabel">3. Al-Ikhlas, Al-Falaq, An-Nas — 3× each (blow &amp; wipe)</div>
+      <div class="ar xs">قُلْ هُوَ اللَّهُ أَحَدٌ ۞ قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ ۞ قُلْ أَعُوذُ بِرَبِّ النَّاسِ</div>
+      <div class="en">Recite each 3 times, blow into cupped hands, wipe over body. The Prophet ﷺ never omitted this before sleeping — Bukhari (5017).</div>
+      <div class="src">Source: <b>Sahih al-Bukhari (5017)</b></div>
+    </div>
+
+    <div class="dua">
+      <div class="dlabel">4. The Ruqyah Dua of the Prophet ﷺ — place hand on pain</div>
+      <div class="ar sm">اللَّهُمَّ رَبَّ النَّاسِ أَذْهِبِ الْبَأْسَ ۙ اشْفِ أَنْتَ الشَّافِي ۙ لَا شِفَاءَ إِلَّا شِفَاؤُكَ ۙ شِفَاءً لَا يُغَادِرُ سَقَمًا</div>
+      <div class="tr">Allāhumma Rabban-nāsi adh-hibil-baʾs · Ishfi Antash-Shāfī · Lā shifāʾa illā shifāʾuk · Shifāʾan lā yughādiru saqamā</div>
+      <div class="en">"O Allah, Lord of mankind, remove the affliction. Heal — for You are the Healer. There is no healing except Your healing, a healing that leaves no illness behind."</div>
+      <div class="src">Source: <b>Sahih al-Bukhari (5675, 5750), Muslim (2191)</b></div>
+    </div>
+
+    <div class="dua">
+      <div class="dlabel">5. Dua for Pain — Bismillāh ×3, then Protection Dua ×7</div>
+      <div class="ar sm">بِسْمِ اللَّهِ (×٣) ۞ أَعُوذُ بِاللَّهِ وَقُدْرَتِهِ مِن شَرِّ مَا أَجِدُ وَأُحَاذِرُ (×٧)</div>
+      <div class="tr">Bismillāh (×3) · Aʿūdhu billāhi wa qudratihī min sharri mā ajidu wa uḥādhir (×7)</div>
+      <div class="en">"In the name of Allah" (3×) — then: "I seek refuge in Allah and His power from the evil of what I feel and what I fear." (7×) — Place your hand on the painful area.</div>
+      <div class="src">Source: <b>Sahih Muslim (2202)</b></div>
+    </div>
+  </section>
+
+  <div class="divider"><div class="dl"></div><div class="dg"></div><div class="dl"></div></div>
+
+  <!-- ═══════════════════════════════════
+       15. JUMU'AH
+  ═══════════════════════════════════ -->
+  <section class="sec" id="jumua">
+    <div class="sec-h">
+      <div class="si">🕌</div>
+      <div><span class="st">Jumu'ah — Friday Sunnahs</span><span class="ss">The weekly ʿEid of the believers</span></div>
+    </div>
+
+    <div class="note">
+      "The best day on which the sun has risen is Friday. On it Adam was created, on it he was admitted to Paradise, and on it he was expelled from it. And the Hour will not be established except on a Friday." — Sahih Muslim (854). <em>Make it a day of special worship, abundant salawat, and Surah Al-Kahf.</em>
+    </div>
+
+    <div class="expand-wrap">
+      <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
+        <div class="et-num" style="font-size:10px;">⏰</div>
+        <div class="et-info">
+          <div class="et-ar">سَاعَةٌ لَا يُوَافِقُهَا عَبْدٌ مُسْلِمٌ</div>
+          <div class="et-en">The Hour of Accepted Dua on Friday</div>
+          <div class="et-virtue">No Muslim asks Allah for something in this hour except Allah gives it — Bukhari (935)</div>
+        </div>
+        <span class="et-arrow" aria-hidden="true">▾</span>
+      </button>
+      <div class="expand-body">
+        <div class="note" style="margin-bottom:10px;">
+          <strong>When is this hour?</strong><br>
+          <strong>Opinion 1 — After ʿAsr until Maghrib</strong> — The stronger opinion held by ʿAbdullah ibn Salam (RA), Abu Hurayrah (RA), Imam Ahmad, and others. "Seek it in the last hour after ʿAsr." — Abu Dawud (1048), Sahih.<br><br>
+          <strong>Opinion 2 — Between the two khutbahs</strong> — When the Imam sits briefly between the two parts of the Friday sermon. — Sahih Muslim (853).<br><br>
+          Both are well-grounded. <em>The safest practice is to make dua at both times.</em>
+        </div>
+        <div class="src">Source: <b>Bukhari (935), Muslim (852)</b></div>
+      </div>
+    </div>
+
+    <div class="dua">
+      <div class="dlabel">Salawat on Friday — Increase throughout the day</div>
+      <div class="ar xs">اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ كَمَا صَلَّيْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ إِنَّكَ حَمِيدٌ مَجِيدٌ</div>
+      <div class="tr">Allāhumma ṣalli ʿalā Muḥammadin wa ʿalā āli Muḥammad, kamā ṣallayta ʿalā Ibrāhīma wa ʿalā āli Ibrāhīm, innaka Ḥamīdun Majīd</div>
+      <div class="en">"O Allah, send Your grace upon Muhammad and upon the family of Muhammad, as You sent Your grace upon Ibrahim and the family of Ibrahim. You are Praiseworthy, Glorious."</div>
+      <div class="src">Source: <b>Bukhari (3370), Muslim (406)</b> — Say it abundantly; it is presented to the Prophet ﷺ on Friday</div>
+    </div>
+
+    <div class="note">
+      <strong>Recite Surah Al-Kahf on Friday.</strong> "Whoever reads Surah Al-Kahf on Friday, a light will shine for him from beneath his feet to the clouds of the sky, which will shine for him on the Day of Resurrection, and he will be forgiven between the two Fridays." — al-Hakim (Sahih al-Albani)
+    </div>
+
+    <div class="dua">
+      <div class="dlabel">Istighfar after Fajr on Friday — 70×</div>
+      <div class="ar">أَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ</div>
+      <div class="tr">Astaghfirullāha wa atūbu ilayh</div>
+      <div class="en">"I seek the forgiveness of Allah and I repent to Him." — 70× after Fajr on Friday.</div>
+      <div class="src">Source: <b>Ibn al-Sunni, ʿAmal al-Yawm wal-Laylah</b> — Recommended by scholars for Friday morning</div>
+    </div>
+
+    <div class="dua">
+      <div class="dlabel">Dua for Light — Going to Jumu'ah Prayer</div>
+      <div class="ar xs">اللَّهُمَّ اجْعَلْ فِي قَلْبِي نُورًا وَفِي لِسَانِي نُورًا وَفِي سَمْعِي نُورًا وَفِي بَصَرِي نُورًا وَمِنْ فَوْقِي نُورًا وَمِنْ تَحْتِي نُورًا اللَّهُمَّ أَعْطِنِي نُورًا</div>
+      <div class="tr">Allāhummaj-ʿal fī qalbī nūrā, wa fī lisānī nūrā, waj-ʿal fī samʿī nūrā, waj-ʿal fī baṣarī nūrā, waj-ʿal min fawqī nūrā, wa min taḥtī nūrā. Allāhumma aʿṭinī nūrā</div>
+      <div class="en">"O Allah, place light in my heart, light on my tongue, light in my hearing, light in my sight, light above me, and light beneath me. O Allah, grant me light."</div>
+      <div class="src">Source: <b>Bukhari (6316), Muslim (763)</b></div>
+    </div>
+  </section>
+
+  <div class="divider"><div class="dl"></div><div class="dg"></div><div class="dl"></div></div>
+
+  <!-- ═══════════════════════════════════
+       16. SURAHS
   ═══════════════════════════════════ -->
   <section class="sec" id="surahs">
     <div class="sec-h">
@@ -734,7 +1786,106 @@ body::before{
       <div><span class="st">Surahs for Ramadan &amp; Beyond</span><span class="ss">Tap any surah to read in full</span></div>
     </div>
 
-    <!-- SURAH AL-MULK -->
+    <!-- AL-FATIHAH -->
+    <div class="expand-wrap">
+      <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
+        <div class="et-num">1</div>
+        <div class="et-info">
+          <div class="et-ar">سُورَةُ الْفَاتِحَة</div>
+          <div class="et-en">Surah Al-Fatihah — 7 verses · 30 seconds</div>
+          <div class="et-virtue">"There is no prayer for one who does not recite Al-Fatihah." The mother of the Qur'an.</div>
+        </div>
+        <span class="et-arrow" aria-hidden="true">▾</span>
+      </button>
+      <div class="expand-body">
+        <div class="ar xs">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ ۝ الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ ۝ الرَّحْمَٰنِ الرَّحِيمِ ۝ مَالِكِ يَوْمِ الدِّينِ ۝ إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ ۝ اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ ۝ صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ</div>
+        <div class="tr">Bismillāhir-Raḥmānir-Raḥīm · Alḥamdu lillāhi Rabbil-ʿālamīn · Ar-Raḥmānir-Raḥīm · Māliki yawmid-dīn · Iyyāka naʿbudu wa iyyāka nastaʿīn · Ihdinaṣ-ṣirāṭal-mustaqīm · Ṣirāṭal-ladhīna anʿamta ʿalayhim ghayril-maghḍūbi ʿalayhim wa laḍ-ḍāllīn</div>
+        <div class="en">"In the name of Allah, the Most Gracious, the Most Merciful. All praise is for Allah, Lord of all worlds. The Most Gracious, the Most Merciful. Master of the Day of Judgement. You alone we worship, and You alone we ask for help. Guide us along the Straight Path — the path of those You have blessed, not those who incurred wrath, nor those who have gone astray."</div>
+        <div class="src">Source: <b>Qur'an 1:1–7 · Bukhari (756)</b> — The greatest surah in the Qur'an. Also used as Ruqyah.</div>
+      </div>
+    </div>
+
+    <!-- YA-SIN -->
+    <div class="expand-wrap">
+      <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
+        <div class="et-num">36</div>
+        <div class="et-info">
+          <div class="et-ar">سُورَةُ يَس</div>
+          <div class="et-en">Surah Ya-Sin — 83 verses · approx. 10 mins</div>
+          <div class="et-virtue">"Heart of the Qur'an. Whoever reads it for Allah's pleasure, their past sins are forgiven." — Abu Dawud (Hasan)</div>
+        </div>
+        <span class="et-arrow" aria-hidden="true">▾</span>
+      </button>
+      <div class="expand-body">
+        <div class="ar xs">يَس ۝ وَالْقُرْآنِ الْحَكِيمِ ۝ إِنَّكَ لَمِنَ الْمُرْسَلِينَ ۝ عَلَى صِرَاطٍ مُّسْتَقِيمٍ ۝ تَنزِيلَ الْعَزِيزِ الرَّحِيمِ ۝ لِتُنذِرَ قَوْمًا مَّا أُنذِرَ آبَاؤُهُمْ فَهُمْ غَافِلُونَ</div>
+        <div class="tr">Yā-Sīn · wal-Qurʾānil-ḥakīm · innaka laminal-mursalīn · ʿalā ṣirāṭim-mustaqīm · tanzīlal-ʿAzīzir-Raḥīm · li-tundhira qawman mā undhira ābāʾuhum fahum ghāfilūn</div>
+        <div class="en">"Ya-Sin. By the wise Qur'an. Indeed you, [O Muhammad], are of the messengers. On a straight path. A revelation of the Exalted in Might, the Merciful. That you may warn a people whose forefathers were not warned, so they are unaware."</div>
+        <div class="note" style="margin-top:12px;margin-bottom:0;font-size:12px;">Surah Ya-Sin is 83 verses. Opening verses shown. Recite from your Qur'an or Qur'an app.</div>
+        <div class="src">Source: <b>Abu Dawud — Hasan</b> — "Whoever reads it seeking Allah's pleasure, their past sins are forgiven."</div>
+      </div>
+    </div>
+
+    <!-- AR-RAHMAN -->
+    <div class="expand-wrap">
+      <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
+        <div class="et-num">55</div>
+        <div class="et-info">
+          <div class="et-ar">سُورَةُ الرَّحْمَن</div>
+          <div class="et-en">Surah Ar-Rahman — 78 verses · approx. 12 mins</div>
+          <div class="et-virtue">"So which of the favours of your Lord would you deny?" — Reflect on every blessing</div>
+        </div>
+        <span class="et-arrow" aria-hidden="true">▾</span>
+      </button>
+      <div class="expand-body">
+        <div class="ar xs">الرَّحْمَٰنُ ۝ عَلَّمَ الْقُرْآنَ ۝ خَلَقَ الْإِنسَانَ ۝ عَلَّمَهُ الْبَيَانَ ۝ فَبِأَيِّ آلَاءِ رَبِّكُمَا تُكَذِّبَانِ</div>
+        <div class="tr">Ar-Raḥmān · ʿAllamal-Qurʾān · Khalaqal-insān · ʿAllamahul-bayān · Fa bi-ayyi ālāʾi Rabbikumā tukadhdhibān</div>
+        <div class="en">"The Most Merciful. Taught the Quran. Created mankind. Taught him eloquence. So which of the favours of your Lord would you deny?"</div>
+        <div class="note" style="margin-top:12px;margin-bottom:0;font-size:12px;">Surah Ar-Rahman is 78 verses. Opening verses shown. Recite from your Qur'an or Qur'an app.</div>
+        <div class="src">Source: <b>Qur'an 55:1–5, 13</b></div>
+      </div>
+    </div>
+
+    <!-- AL-WAQI'AH -->
+    <div class="expand-wrap">
+      <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
+        <div class="et-num">56</div>
+        <div class="et-info">
+          <div class="et-ar">سُورَةُ الْوَاقِعَة</div>
+          <div class="et-en">Surah Al-Waqi'ah — 96 verses · approx. 8 mins</div>
+          <div class="et-virtue">"Whoever recites it every night will never be afflicted by poverty." — Ibn Mas'ud</div>
+        </div>
+        <span class="et-arrow" aria-hidden="true">▾</span>
+      </button>
+      <div class="expand-body">
+        <div class="ar xs">إِذَا وَقَعَتِ الْوَاقِعَةُ ۝ لَيْسَ لِوَقْعَتِهَا كَاذِبَةٌ ۝ خَافِضَةٌ رَّافِعَةٌ ۝ إِذَا رُجَّتِ الْأَرْضُ رَجًّا ۝ وَبُسَّتِ الْجِبَالُ بَسًّا ۝ فَكَانَتْ هَبَاءً مُّنبَثًّا ۝ وَكُنتُمْ أَزْوَاجًا ثَلَاثَةً</div>
+        <div class="tr">Idhā waqaʿatil-wāqiʿah · laysa li-waqʿatihā kādhibah · khāfiḍatur-rāfiʿah · idhā rujjatil-arḍu rajjā · wa bussatil-jibālu bassā · fakānat habāʾam-munbaththā · wa kuntum azwājān thalāthah</div>
+        <div class="en">"When the Inevitable Event occurs, there is no denial of its occurrence. It will bring down and raise up. When the earth is shaken with convulsion and the mountains are broken down, crumbling. And become dust, dispersed. And you become three kinds..."</div>
+        <div class="note" style="margin-top:12px;margin-bottom:0;font-size:12px;">Surah Al-Waqi'ah is 96 verses. Opening verses shown. Recite from your Qur'an or Qur'an app nightly.</div>
+        <div class="src">Source: <b>Ibn as-Sunni via Ibn Mas'ud (رضي الله عنه)</b> — Nightly recitation guards against poverty</div>
+      </div>
+    </div>
+
+    <!-- AL-KAHF -->
+    <div class="expand-wrap">
+      <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
+        <div class="et-num">18</div>
+        <div class="et-info">
+          <div class="et-ar">سُورَةُ الْكَهْف</div>
+          <div class="et-en">Surah Al-Kahf — 110 verses · approx. 20 mins (Fridays)</div>
+          <div class="et-virtue">"Light shining between two Fridays." — al-Hakim (Sahih). Read every Friday.</div>
+        </div>
+        <span class="et-arrow" aria-hidden="true">▾</span>
+      </button>
+      <div class="expand-body">
+        <div class="ar xs">الْحَمْدُ لِلَّهِ الَّذِي أَنزَلَ عَلَى عَبْدِهِ الْكِتَابَ وَلَمْ يَجْعَل لَّهُ عِوَجًا ۝ قَيِّمًا لِّيُنذِرَ بَأْسًا شَدِيدًا مِّن لَّدُنْهُ وَيُبَشِّرَ الْمُؤْمِنِينَ الَّذِينَ يَعْمَلُونَ الصَّالِحَاتِ أَنَّ لَهُمْ أَجْرًا حَسَنًا</div>
+        <div class="tr">Alḥamdu lillāhil-ladhī anzala ʿalā ʿabdihil-Kitāba wa lam yajʿal lahu ʿiwajā · Qayyimal-li-yundhira baʾsan shadīdam-mil-ladunhu wa yubashshiral-muʾminīnal-ladhīna yaʿmalunaṣ-ṣāliḥāti anna lahum ajran ḥasanā</div>
+        <div class="en">"Praise to Allah, who has sent down upon His Servant the Book and has not made therein any deviance. He has made it straight, to warn of severe punishment from Him and to give good tidings to the believers who do righteous deeds that they will have a good reward."</div>
+        <div class="note" style="margin-top:12px;margin-bottom:0;font-size:12px;">Surah Al-Kahf is 110 verses. Opening verses shown. Recite from your Qur'an or Qur'an app every Friday.</div>
+        <div class="src">Source: <b>al-Hakim (Sahih)</b> — A light shines between you and the Kaaba when you recite it on Friday</div>
+      </div>
+    </div>
+
+    <!-- AL-MULK -->
     <div class="expand-wrap">
       <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
         <div class="et-num">67</div>
@@ -749,12 +1900,12 @@ body::before{
         <div class="ar xs">تَبَارَكَ الَّذِي بِيَدِهِ الْمُلْكُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ ۝ الَّذِي خَلَقَ الْمَوْتَ وَالْحَيَاةَ لِيَبْلُوَكُمْ أَيُّكُمْ أَحْسَنُ عَمَلًا ۚ وَهُوَ الْعَزِيزُ الْغَفُورُ ۝ الَّذِي خَلَقَ سَبْعَ سَمَاوَاتٍ طِبَاقًا ۖ مَّا تَرَى فِي خَلْقِ الرَّحْمَٰنِ مِن تَفَاوُتٍ ۖ فَارْجِعِ الْبَصَرَ هَلْ تَرَى مِن فُطُورٍ ۝ ثُمَّ ارْجِعِ الْبَصَرَ كَرَّتَيْنِ يَنقَلِبْ إِلَيْكَ الْبَصَرُ خَاسِئًا وَهُوَ حَسِيرٌ</div>
         <div class="tr">Tabārakal-ladhī biyadihil-mulku wa Huwa ʿalā kulli shayʾin qadīr · Alladhī khalaqal-mawta wal-ḥayāta li-yabluwakum ayyukum aḥsanu ʿamalā · wa Huwal-ʿAzīzul-Ghafūr · Alladhī khalaqa sabʿa samāwātin ṭibāqā · mā tarā fī khalqir-Raḥmāni min tafāwut · farjiʿil-baṣara hal tarā min fuṭūr · Thummarjiʿil-baṣara karratayniyyanqalib ilaykal-baṣaru khāsiʾan wa huwa ḥasīr</div>
         <div class="en">"Blessed is He in whose hand is dominion, and He is over all things capable — who created death and life to test you as to which of you is best in deed... He who created seven heavens in layers. You do not see in the creation of the Most Merciful any inconsistency. Return your vision — do you see any breaks?"</div>
-        <div class="note" style="margin-top:12px;margin-bottom:0;font-size:12px;">The full surah is 30 verses. Only the opening verses are shown here. Recite the full surah from your Qur'an or Qur'an app every night before sleep.</div>
+        <div class="note" style="margin-top:12px;margin-bottom:0;font-size:12px;">Surah Al-Mulk is 30 verses. Opening verses shown. Recite from your Qur'an or Qur'an app every night before sleep.</div>
         <div class="src">Source: <b>Abu Dawud (1400), al-Tirmidhi (2891) — Hasan</b> — Intercedes for its companion until forgiven</div>
       </div>
     </div>
 
-    <!-- SURAH AL-QADR -->
+    <!-- AL-QADR -->
     <div class="expand-wrap">
       <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
         <div class="et-num">97</div>
@@ -773,7 +1924,26 @@ body::before{
       </div>
     </div>
 
-    <!-- SURAH AL-IKHLAS + QULS -->
+    <!-- AL-KAFIRUN -->
+    <div class="expand-wrap">
+      <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
+        <div class="et-num">109</div>
+        <div class="et-info">
+          <div class="et-ar">سُورَةُ الْكَافِرُون</div>
+          <div class="et-en">Surah Al-Kafirun — 6 verses · 30 seconds (before sleep &amp; in Sunnah prayers)</div>
+          <div class="et-virtue">Equal to a quarter of the Qur'an in reward. Declaration of freedom from shirk.</div>
+        </div>
+        <span class="et-arrow" aria-hidden="true">▾</span>
+      </button>
+      <div class="expand-body">
+        <div class="ar xs">قُلْ يَا أَيُّهَا الْكَافِرُونَ ۝ لَا أَعْبُدُ مَا تَعْبُدُونَ ۝ وَلَا أَنتُمْ عَابِدُونَ مَا أَعْبُدُ ۝ وَلَا أَنَا عَابِدٌ مَّا عَبَدتُّمْ ۝ وَلَا أَنتُمْ عَابِدُونَ مَا أَعْبُدُ ۝ لَكُمْ دِينُكُمْ وَلِيَ دِينِ</div>
+        <div class="tr">Qul yā ayyuhal-kāfirūn · Lā aʿbudu mā taʿbudūn · Wa lā antum ʿābidūna mā aʿbud · Wa lā ana ʿābidum mā ʿabadtum · Wa lā antum ʿābidūna mā aʿbud · Lakum dīnukum wa liya dīn</div>
+        <div class="en">"Say: O disbelievers, I do not worship what you worship. Nor are you worshippers of what I worship. Nor will I be a worshipper of what you worship. Nor will you be worshippers of what I worship. For you is your religion, and for me is my religion."</div>
+        <div class="src">Source: <b>Abu Dawud (5055), Muslim (726)</b> — Recite before sleep; it declares bara'ah (disassociation) from shirk</div>
+      </div>
+    </div>
+
+    <!-- AL-IKHLAS + QULS -->
     <div class="expand-wrap">
       <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
         <div class="et-num" style="font-size:12px;">112–114</div>
@@ -801,63 +1971,42 @@ body::before{
       </div>
     </div>
 
-    <!-- YA-SIN -->
+    <!-- LAST 3 OF AL-HASHR -->
     <div class="expand-wrap">
       <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
-        <div class="et-num">36</div>
+        <div class="et-num" style="font-size:10px;">59:22–24</div>
         <div class="et-info">
-          <div class="et-ar">سُورَةُ يَس</div>
-          <div class="et-en">Surah Ya-Sin — 83 verses · approx. 10 mins</div>
-          <div class="et-virtue">"Heart of the Qur'an. Whoever reads it for Allah's pleasure, their past sins are forgiven." — Abu Dawud (Hasan)</div>
+          <div class="et-ar">آخِرُ سُورَةِ الْحَشْر</div>
+          <div class="et-en">Last 3 Ayat of Al-Hashr — Morning &amp; Evening</div>
+          <div class="et-virtue">70,000 angels pray for you until evening/morning — al-Tirmidhi</div>
         </div>
         <span class="et-arrow" aria-hidden="true">▾</span>
       </button>
       <div class="expand-body">
-        <div class="ar xs">يَس ۝ وَالْقُرْآنِ الْحَكِيمِ ۝ إِنَّكَ لَمِنَ الْمُرْسَلِينَ ۝ عَلَى صِرَاطٍ مُّسْتَقِيمٍ ۝ تَنزِيلَ الْعَزِيزِ الرَّحِيمِ ۝ لِتُنذِرَ قَوْمًا مَّا أُنذِرَ آبَاؤُهُمْ فَهُمْ غَافِلُونَ</div>
-        <div class="tr">Yā-Sīn · wal-Qurʾānil-ḥakīm · innaka laminal-mursalīn · ʿalā ṣirāṭim-mustaqīm · tanzīlal-ʿAzīzir-Raḥīm · li-tundhira qawman mā undhira ābāʾuhum fahum ghāfilūn</div>
-        <div class="en">"Ya-Sin. By the wise Qur'an. Indeed you, [O Muhammad], are of the messengers. On a straight path. A revelation of the Exalted in Might, the Merciful. That you may warn a people whose forefathers were not warned, so they are unaware."</div>
-        <div class="note" style="margin-top:12px;margin-bottom:0;font-size:12px;">Surah Ya-Sin is 83 verses. Opening verses shown. Recite from your Qur'an or Qur'an app.</div>
-        <div class="src">Source: <b>Abu Dawud — Hasan</b> — "Whoever reads it seeking Allah's pleasure, their past sins are forgiven."</div>
+        <div class="ar xs">هُوَ اللَّهُ الَّذِي لَا إِلَٰهَ إِلَّا هُوَ ۖ عَالِمُ الْغَيْبِ وَالشَّهَادَةِ ۖ هُوَ الرَّحْمَٰنُ الرَّحِيمُ ۝ هُوَ اللَّهُ الَّذِي لَا إِلَٰهَ إِلَّا هُوَ الْمَلِكُ الْقُدُّوسُ السَّلَامُ الْمُؤْمِنُ الْمُهَيْمِنُ الْعَزِيزُ الْجَبَّارُ الْمُتَكَبِّرُ ۚ سُبْحَانَ اللَّهِ عَمَّا يُشْرِكُونَ ۝ هُوَ اللَّهُ الْخَالِقُ الْبَارِئُ الْمُصَوِّرُ ۖ لَهُ الْأَسْمَاءُ الْحُسْنَىٰ ۚ يُسَبِّحُ لَهُ مَا فِي السَّمَاوَاتِ وَالْأَرْضِ ۖ وَهُوَ الْعَزِيزُ الْحَكِيمُ</div>
+        <div class="tr">Huwallāhul-ladhī lā ilāha illā Huwa ʿĀlimul-ghaybi wash-shahādah · Huwar-Raḥmānur-Raḥīm · Huwallāhul-ladhī lā ilāha illā Huwal-Malikul-Quddūsus-Salāmul-Muʾminul-Muhayminul-ʿAzīzul-Jabbārul-Mutakabbir · Subḥānallāhi ʿammā yushrikūn · Huwallāhul-Khāliqul-Bāriʾul-Muṣawwiru lahul-Asmāʾul-Ḥusnā · Yusabbiḥu lahu mā fis-samāwāti wal-arḍ · Wa Huwal-ʿAzīzul-Ḥakīm</div>
+        <div class="en">"He is Allah, other than whom there is no deity — Knower of the unseen and the witnessed. He is the Most Merciful, the Especially Merciful. He is Allah, other than whom there is no deity — the Sovereign, the Pure, the Perfection, the Granter of Security, the Overseer, the Exalted in Might, the Compeller, the Superior. Exalted is Allah above whatever they associate with Him. He is Allah, the Creator, the Originator, the Fashioner; to Him belong the best names. Whatever is in the heavens and earth exalts Him. And He is the Exalted in Might, the Wise."</div>
+        <div class="src">Source: <b>al-Tirmidhi (2922)</b> — Whoever recites these in the morning has 70,000 angels praying for him until evening</div>
       </div>
     </div>
 
-    <!-- AL-KAHF -->
+    <!-- AL-ALAQ -->
     <div class="expand-wrap">
       <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
-        <div class="et-num">18</div>
+        <div class="et-num">96</div>
         <div class="et-info">
-          <div class="et-ar">سُورَةُ الْكَهْف</div>
-          <div class="et-en">Surah Al-Kahf — 110 verses · approx. 20 mins (Fridays)</div>
-          <div class="et-virtue">"Light shining between two Fridays." — al-Hakim (Sahih). Read every Friday.</div>
+          <div class="et-ar">سُورَةُ الْعَلَق</div>
+          <div class="et-en">Surah Al-Alaq — 19 verses · The First Revelation — Laylatul Qadr</div>
+          <div class="et-virtue">The very first words revealed to the Prophet ﷺ — recite on Laylatul Qadr</div>
         </div>
         <span class="et-arrow" aria-hidden="true">▾</span>
       </button>
       <div class="expand-body">
-        <div class="ar xs">الْحَمْدُ لِلَّهِ الَّذِي أَنزَلَ عَلَى عَبْدِهِ الْكِتَابَ وَلَمْ يَجْعَل لَّهُ عِوَجًا ۝ قَيِّمًا لِّيُنذِرَ بَأْسًا شَدِيدًا مِّن لَّدُنْهُ وَيُبَشِّرَ الْمُؤْمِنِينَ الَّذِينَ يَعْمَلُونَ الصَّالِحَاتِ أَنَّ لَهُمْ أَجْرًا حَسَنًا</div>
-        <div class="tr">Alḥamdu lillāhil-ladhī anzala ʿalā ʿabdihil-Kitāba wa lam yajʿal lahu ʿiwajā · Qayyimal-li-yundhira baʾsan shadīdam-mil-ladunhu wa yubashshiral-muʾminīnal-ladhīna yaʿmalunaṣ-ṣāliḥāti anna lahum ajran ḥasanā</div>
-        <div class="en">"Praise to Allah, who has sent down upon His Servant the Book and has not made therein any deviance. He has made it straight, to warn of severe punishment from Him and to give good tidings to the believers who do righteous deeds that they will have a good reward."</div>
-        <div class="note" style="margin-top:12px;margin-bottom:0;font-size:12px;">Surah Al-Kahf is 110 verses. Opening verses shown. Recite from your Qur'an or Qur'an app every Friday.</div>
-        <div class="src">Source: <b>al-Hakim (Sahih)</b> — A light shines between you and the Kaaba when you recite it on Friday</div>
-      </div>
-    </div>
-
-    <!-- AL-WAQI'AH -->
-    <div class="expand-wrap">
-      <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
-        <div class="et-num">56</div>
-        <div class="et-info">
-          <div class="et-ar">سُورَةُ الْوَاقِعَة</div>
-          <div class="et-en">Surah Al-Waqi'ah — 96 verses · approx. 8 mins</div>
-          <div class="et-virtue">"Whoever recites it every night will never be afflicted by poverty." — Ibn Mas'ud</div>
-        </div>
-        <span class="et-arrow" aria-hidden="true">▾</span>
-      </button>
-      <div class="expand-body">
-        <div class="ar xs">إِذَا وَقَعَتِ الْوَاقِعَةُ ۝ لَيْسَ لِوَقْعَتِهَا كَاذِبَةٌ ۝ خَافِضَةٌ رَّافِعَةٌ ۝ إِذَا رُجَّتِ الْأَرْضُ رَجًّا ۝ وَبُسَّتِ الْجِبَالُ بَسًّا ۝ فَكَانَتْ هَبَاءً مُّنبَثًّا ۝ وَكُنتُمْ أَزْوَاجًا ثَلَاثَةً</div>
-        <div class="tr">Idhā waqaʿatil-wāqiʿah · laysa li-waqʿatihā kādhibah · khāfiḍatur-rāfiʿah · idhā rujjatil-arḍu rajjā · wa bussatil-jibālu bassā · fakānat habāʾam-munbaththā · wa kuntum azwājān thalāthah</div>
-        <div class="en">"When the Inevitable Event occurs, there is no denial of its occurrence. It will bring down and raise up. When the earth is shaken with convulsion and the mountains are broken down, crumbling. And become dust, dispersed. And you become three kinds..."</div>
-        <div class="note" style="margin-top:12px;margin-bottom:0;font-size:12px;">Surah Al-Waqi'ah is 96 verses. Opening verses shown. Recite from your Qur'an or Qur'an app nightly.</div>
-        <div class="src">Source: <b>Ibn as-Sunni via Ibn Mas'ud (رضي الله عنه)</b> — Nightly recitation guards against poverty</div>
+        <div class="ar xs">اقْرَأْ بِاسْمِ رَبِّكَ الَّذِي خَلَقَ ۝ خَلَقَ الْإِنسَانَ مِنْ عَلَقٍ ۝ اقْرَأْ وَرَبُّكَ الْأَكْرَمُ ۝ الَّذِي عَلَّمَ بِالْقَلَمِ ۝ عَلَّمَ الْإِنسَانَ مَا لَمْ يَعْلَمْ</div>
+        <div class="tr">Iqraʾ bismi Rabbikal-ladhī khalaq · Khalaqal-insāna min ʿalaq · Iqraʾ wa Rabbukal-Akram · Alladhī ʿallama bil-qalam · ʿAllamal-insāna mā lam yaʿlam</div>
+        <div class="en">"Read in the name of your Lord who created — created man from a clinging substance. Read, and your Lord is the Most Generous — who taught by the pen — taught man that which he knew not."</div>
+        <div class="note" style="margin-top:12px;margin-bottom:0;font-size:12px;">Surah Al-Alaq is 19 verses. The first 5 are shown here. Recite in full from your Qur'an. Ends with a sajdah (prostration).</div>
+        <div class="src">Source: <b>Qur'an 96:1–19</b> — The first revelation, on Laylatul Qadr</div>
       </div>
     </div>
 
@@ -866,7 +2015,7 @@ body::before{
   <div class="divider"><div class="dl"></div><div class="dg"></div><div class="dl"></div></div>
 
   <!-- ═══════════════════════════════════
-       8. PERSONAL DUA
+       17. PERSONAL DUA
   ═══════════════════════════════════ -->
   <section class="sec" id="personal">
     <div class="sec-h">
@@ -941,7 +2090,6 @@ body::before{
     });
   });
 
-  // Highlight active nav button on scroll
   btns.forEach(function(btn){
     var id = btn.getAttribute('data-target');
     var el = document.getElementById(id);
@@ -976,7 +2124,6 @@ function toggleExpand(trigger){
     trigger.classList.add('open');
     trigger.setAttribute('aria-expanded','true');
     body.classList.add('open');
-    // Smooth scroll to keep trigger in view
     setTimeout(function(){
       var nav = document.querySelector('.nav');
       var navH = nav ? nav.offsetHeight : 0;
