@@ -9,6 +9,7 @@
 <meta property="og:description" content="Authentic duas from the Qur'an and Sunnah for Ramadan and beyond.">
 <meta property="og:url" content="https://nafikarim2001-blip.github.io/nafis-dua-list/">
 <meta property="og:type" content="website">
+<meta property="og:image" content="https://nafikarim2001-blip.github.io/nafis-dua-list/og-image.svg">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Nafi's Dua List">
 <meta name="twitter:description" content="Authentic duas from the Qur'an and Sunnah for Ramadan and beyond.">
@@ -555,18 +556,6 @@ body::before{
 .asma-tr{font-family:var(--fs);font-style:italic;font-size:10.5px;color:var(--text-d);margin-bottom:2px;line-height:1.4;}
 .asma-en{font-size:10px;color:var(--text);opacity:.8;line-height:1.4;}
 
-/* ---- TARAWIH SECTION ---- */
-.tarawih-structure{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));
-  gap:10px;margin:14px 0;
-}
-.tw-box{
-  background:var(--card);border:1px solid var(--bdr);
-  border-radius:var(--radius);padding:14px 16px;
-}
-.tw-title{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:7px;}
-.tw-body{font-size:12.5px;color:var(--text-d);line-height:1.75;}
 
 @media(max-width:480px){
   .asma-grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr));}
@@ -1219,7 +1208,7 @@ body.light .settings-popover { background: rgba(250,246,238,0.98); }
     <button class="view-subnav-btn" onclick="scrollToSection('evening')">🌆 Evening</button>
     <button class="view-subnav-btn" onclick="scrollToSection('sleep')">💤 Sleep</button>
     <button class="view-subnav-btn" onclick="scrollToSection('salah')">🕌 After Salah</button>
-    <button class="view-subnav-btn" onclick="scrollToSection('dhikr')">📿 Dhikr</button>
+    <button class="view-subnav-btn" onclick="showView('dhikr')">📿 Dhikr</button>
   </div>
 
 <section class="sec" id="morning">
@@ -1657,89 +1646,6 @@ body.light .settings-popover { background: rgba(250,246,238,0.98); }
     </div>
   </section>
 
-  <div class="divider"><div class="dl"></div><div class="dg"></div><div class="dl"></div></div>
-
-<section class="sec" id="dhikr">
-    <div class="sec-h">
-      <div class="si">📿</div>
-      <div><span class="st">Daily Dhikr</span><span class="ss">High reward · Do on your commute</span></div>
-    </div>
-    <div class="dgrid">
-
-      <div class="dhikr">
-        <div class="dc">100×</div>
-        <div class="da">سُبْحَانَ اللَّهِ وَبِحَمْدِهِ</div>
-        <div class="dt">Subḥānallāhi wa biḥamdih</div>
-        <div class="de">"Glory be to Allah and His praise"</div>
-        <div class="dr">100× = sins forgiven even if like the foam of the sea — Bukhari &amp; Muslim</div>
-      </div>
-
-      <div class="dhikr">
-        <div class="dc">∞</div>
-        <div class="da">سُبْحَانَ اللَّهِ الْعَظِيمِ</div>
-        <div class="dt">Subḥānallāhil-ʿAẓīm</div>
-        <div class="de">"Glory be to Allah the Magnificent"</div>
-        <div class="dr">Light on tongue · heavy on scales · beloved to the Most Merciful — Bukhari &amp; Muslim</div>
-      </div>
-
-      <div class="dhikr">
-        <div class="dc">100×</div>
-        <div class="da">لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ ۙ لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ</div>
-        <div class="dt">Lā ilāha illallāhu waḥdahu lā sharīka lah · lahul-mulku wa lahul-ḥamdu wa huwa ʿalā kulli shayʾin qadīr</div>
-        <div class="de">"No god but Allah alone, no partner. His is the dominion and praise."</div>
-        <div class="dr">100× = freeing 10 slaves + 100 good deeds + 100 sins erased + Shaytan protection all day — Bukhari</div>
-      </div>
-
-      <div class="dhikr">
-        <div class="dc">100×</div>
-        <div class="da">أَسْتَغْفِرُ اللَّهَ</div>
-        <div class="dt">Astaghfirullāh</div>
-        <div class="de">"I seek forgiveness from Allah"</div>
-        <div class="dr">The Prophet ﷺ sought forgiveness 70–100 times every single day — Bukhari</div>
-      </div>
-
-      <div class="dhikr">
-        <div class="dc">∞</div>
-        <div class="da">اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ</div>
-        <div class="dt">Allāhumma ṣalli ʿalā Muḥammad wa ʿalā āli Muḥammad</div>
-        <div class="de">"O Allah, bless Muhammad and the family of Muhammad"</div>
-        <div class="dr">1 ṣalawāt → Allah sends 10 blessings on you — Muslim. Say abundantly especially on Fridays.</div>
-      </div>
-
-      <div class="dhikr">
-        <div class="dc">33+34</div>
-        <div class="da">سُبْحَانَ اللَّهِ ۙ الْحَمْدُ لِلَّهِ ۙ اللَّهُ أَكْبَرُ</div>
-        <div class="dt">Subḥānallāh ×33 · Alḥamdulillāh ×33 · Allāhu Akbar ×34</div>
-        <div class="de">"Glory · Praise · Greatness" — After every salah</div>
-        <div class="dr">Sins forgiven even if like the foam of the sea — Muslim (597)</div>
-      </div>
-
-      <div class="dhikr">
-        <div class="dc">3×</div>
-        <div class="da">قُلْ هُوَ اللَّهُ أَحَدٌ</div>
-        <div class="dt">Qul Huwallāhu Aḥad — Surah Al-Ikhlas (full surah)</div>
-        <div class="de">Recite the complete Surah Al-Ikhlas 3 times</div>
-        <div class="dr">3× = equivalent reward of reciting the entire Qur'an — Bukhari (5013). Under 30 seconds.</div>
-      </div>
-
-      <div class="dhikr">
-        <div class="dc">∞</div>
-        <div class="da">لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ</div>
-        <div class="dt">Lā ḥawla wa lā quwwata illā billāh</div>
-        <div class="de">"There is no power and no strength except with Allah"</div>
-        <div class="dr">A treasure of Paradise — Bukhari (4205), Muslim (2704)</div>
-      </div>
-
-      <div class="dhikr">
-        <div class="dc">∞</div>
-        <div class="da">اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي</div>
-        <div class="dt">Allāhumma innaka ʿafuwwun tuḥibbul-ʿafwa faʿfu ʿannī</div>
-        <div class="de">The Laylatul Qadr Dua — do not limit to odd nights only</div>
-        <div class="dr">Make this your constant companion through all 10 nights, day and night</div>
-      </div>
-
-    </div>
-  </section>
 
   <div class="divider"><div class="dl"></div><div class="dg"></div><div class="dl"></div></div>
 
