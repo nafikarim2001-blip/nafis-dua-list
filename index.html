@@ -13,6 +13,7 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Nafi's Dua List">
 <meta name="twitter:description" content="Authentic duas from the Qur'an and Sunnah for Ramadan and beyond.">
+<meta name="twitter:image" content="https://nafikarim2001-blip.github.io/nafis-dua-list/og-image.svg">
 <link rel="canonical" href="https://nafikarim2001-blip.github.io/nafis-dua-list/">
 <title>Nafi's Dua List</title>
 <meta name="theme-color" content="#C9A84C">
@@ -595,6 +596,14 @@ body::before{
 .btt.visible{opacity:1;pointer-events:auto;transform:translateY(0);}
 .btt:active{transform:scale(.92);}
 
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 @media print{
   body::before,.nav,.btt,.search-wrap,.copy-btn{display:none;}
   body{background:#fff;color:#1a1a1a;}
@@ -731,6 +740,10 @@ body::before{
   font-size:9px;letter-spacing:.18em;text-transform:uppercase;
   color:var(--text-m);margin-bottom:14px;
 }
+
+/* ---- SKIP TO CONTENT ---- */
+.skip-link{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;}
+.skip-link:focus{position:static;width:auto;height:auto;padding:8px 16px;background:var(--gold);color:var(--deep);font-family:var(--fn);font-size:13px;font-weight:600;border-radius:var(--radius);z-index:10000;text-decoration:none;}
 
 /* ================================================
    SPA OVERRIDE — applied after original CSS
@@ -1020,6 +1033,7 @@ body.light .settings-popover { background: rgba(250,246,238,0.98); }
 </style>
 </head>
 <body>
+<a href="#home-view" class="skip-link">Skip to content</a>
 
 <!-- SEARCH OVERLAY -->
 <div class="search-overlay" id="searchOverlay">
@@ -3166,6 +3180,13 @@ function toggleAllExpands(sectionId, btn){
   btn.setAttribute('data-state', isCollapsed ? 'expanded' : 'collapsed');
   btn.textContent = isCollapsed ? '▼ Collapse all steps' : '▶ Expand all steps';
 }
+
+// ---- SCROLL HANDLER (back-to-top visibility) ----
+function onScroll(){
+  var btt = document.getElementById('btt');
+  if(btt) btt.classList.toggle('visible', window.pageYOffset > 300);
+}
+window.addEventListener('scroll', onScroll, {passive:true});
 
 // ---- BACK TO TOP ----
 (function(){
