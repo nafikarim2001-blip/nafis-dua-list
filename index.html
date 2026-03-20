@@ -1031,7 +1031,6 @@ body.light .settings-popover { background: rgba(250,246,238,0.98); }
 }
 
 /* Seasonal Qadr tile — hidden by default, shown via JS */
-#tileQadr { display: none; }
 
 /* Intention prompt chips */
 .intention-wrap { margin: 0 0 4px; }
@@ -1630,7 +1629,6 @@ body.light .guided-overlay { background: var(--deep); }
   <div class="divider"><div class="dl"></div><div class="dg"></div><div class="dgo"></div><div class="dg"></div><div class="dl"></div></div>
 
   <div class="hijri-date" id="hijriDisplay"></div>
-  <div class="season-banner" id="seasonBanner"></div>
 
 
   <!-- DUA OF THE DAY -->
@@ -1694,9 +1692,6 @@ body.light .guided-overlay { background: var(--deep); }
     </div>
     <div class="home-tile" onclick="toggleMyDuasOverlay()">
       <span class="tile-icon">⭐</span><span class="tile-label">My Duas</span>
-    </div>
-    <div class="home-tile" id="tileQadr" style="display:none" onclick="startGuidedSession('qadr')">
-      <span class="tile-icon">🌟</span><span class="tile-label">Laylatul Qadr</span>
     </div>
   </div>
 
@@ -3561,6 +3556,40 @@ body.light .guided-overlay { background: var(--deep); }
     </div>
   </section>
 
+<section class="sec" id="marriage">
+    <div class="sec-h">
+      <div class="si">💍</div>
+      <div><span class="st">Marriage Duas</span><span class="ss">For the nikah, the new couple, and married life</span></div>
+    </div>
+
+    <div class="dua">
+      <div class="dlabel">Congratulations for the newlyweds — said to the groom</div>
+      <div class="ar">بَارَكَ اللَّهُ لَكَ وَبَارَكَ عَلَيْكَ وَجَمَعَ بَيْنَكُمَا فِي خَيْرٍ</div>
+      <div class="tr">Bārakallāhu laka wa bāraka ʿalayka wa jamaʿa baynakumā fī khayr</div>
+      <div class="en">"May Allah bless you and bestow blessings upon you and unite you both in goodness."</div>
+      <div class="src">Source: <b>Abu Dawud (2130) — Sahih</b></div>
+      <div class="badge">Say this to a newly married couple — the sunnah congratulation</div>
+    </div>
+
+    <div class="dua">
+      <div class="dlabel">Dua when a husband sees his wife for the first time</div>
+      <div class="ar">اللَّهُمَّ إِنِّي أَسْأَلُكَ خَيْرَهَا وَخَيْرَ مَا جَبَلْتَهَا عَلَيْهِ وَأَعُوذُ بِكَ مِنْ شَرِّهَا وَشَرِّ مَا جَبَلْتَهَا عَلَيْهِ</div>
+      <div class="tr">Allāhumma innī asʾaluka khayrahā wa khayra mā jabaltahā ʿalayhi wa aʿūdhu bika min sharrihā wa sharri mā jabaltahā ʿalayh</div>
+      <div class="en">"O Allah, I ask You for the good in her and the good of what You have created in her nature, and I seek refuge in You from her evil and the evil of what You have created in her nature."</div>
+      <div class="src">Source: <b>Abu Dawud (2160) — Hasan</b></div>
+      <div class="badge">Place your hand on her forehead, face qiblah, and recite</div>
+    </div>
+
+    <div class="dua">
+      <div class="dlabel">Dua before intimacy — said together</div>
+      <div class="ar">بِسْمِ اللَّهِ اللَّهُمَّ جَنِّبْنَا الشَّيْطَانَ وَجَنِّبِ الشَّيْطَانَ مَا رَزَقْتَنَا</div>
+      <div class="tr">Bismillāh, Allāhumma jannibnash-shayṭāna wa jannibishsh-shayṭāna mā razaqtanā</div>
+      <div class="en">"In the name of Allah. O Allah, keep Shaytan away from us and keep Shaytan away from whatever You bless us with."</div>
+      <div class="src">Source: <b>al-Bukhari (3271) — Sahih</b></div>
+      <div class="badge">Any child conceived will be protected from Shaytan — Bukhari (3271)</div>
+    </div>
+  </section>
+
 
 </div><!-- end duas-view -->
 
@@ -4559,7 +4588,6 @@ function showView(name) {
   });
 })();
 
-// Seasonal banner + tileQadr now handled by renderSeasonalHome() (Phase 17b)
 
 // My Duas overlay
 function toggleMyDuasOverlay(){
@@ -5689,14 +5717,14 @@ window.startGuidedSession = function(sessionKey){
   if(!session) return;
   guidedState.session = sessionKey;
   guidedState.step = 0;
-  document.getElementById('guidedTitle').textContent = session.title;
+  var _gt = document.getElementById('guidedTitle'); if (_gt) _gt.textContent = session.title;
   renderGuidedStep();
-  document.getElementById('guidedOverlay').style.display = 'flex';
+  var _go = document.getElementById('guidedOverlay'); if (_go) _go.style.display = 'flex';
   document.body.style.overflow = 'hidden';
 };
 
 window.closeGuidedSession = function(){
-  document.getElementById('guidedOverlay').style.display = 'none';
+  var _goC = document.getElementById('guidedOverlay'); if (_goC) _goC.style.display = 'none';
   document.body.style.overflow = '';
 };
 
@@ -5715,41 +5743,44 @@ function renderGuidedStep(){
   var step = steps[idx];
   var total = steps.length;
 
-  document.getElementById('guidedStepLabel').textContent = 'Step ' + (idx + 1) + ' of ' + total;
-  document.getElementById('guidedCounter').textContent = (idx + 1) + ' / ' + total;
-  document.getElementById('guidedProgressFill').style.width = ((idx + 1) / total * 100) + '%';
+  var _gsl = document.getElementById('guidedStepLabel'); if (_gsl) _gsl.textContent = 'Step ' + (idx + 1) + ' of ' + total;
+  var _gc = document.getElementById('guidedCounter'); if (_gc) _gc.textContent = (idx + 1) + ' / ' + total;
+  var _gpf = document.getElementById('guidedProgressFill'); if (_gpf) _gpf.style.width = ((idx + 1) / total * 100) + '%';
 
   // Phase badge
   var phaseBadge = document.getElementById('guidedPhaseBadge');
-  if(session.phases && step.phase !== undefined){
-    phaseBadge.textContent = session.phases[step.phase];
-    phaseBadge.style.display = 'block';
-  } else {
-    phaseBadge.style.display = 'none';
+  if (phaseBadge) {
+    if(session.phases && step.phase !== undefined){
+      phaseBadge.textContent = session.phases[step.phase];
+      phaseBadge.style.display = 'block';
+    } else {
+      phaseBadge.style.display = 'none';
+    }
   }
 
-  document.getElementById('guidedDuaLabel').textContent = step.label || '';
-  document.getElementById('guidedAr').textContent = step.ar || '';
-  document.getElementById('guidedTr').textContent = step.tr || '';
-  document.getElementById('guidedEn').textContent = step.en || '';
+  var _gdl = document.getElementById('guidedDuaLabel'); if (_gdl) _gdl.textContent = step.label || '';
+  var _gar = document.getElementById('guidedAr'); if (_gar) _gar.textContent = step.ar || '';
+  var _gtr = document.getElementById('guidedTr'); if (_gtr) _gtr.textContent = step.tr || '';
+  var _gen = document.getElementById('guidedEn'); if (_gen) _gen.textContent = step.en || '';
   var srcEl = document.getElementById('guidedSrc');
-  srcEl.innerHTML = step.src ? 'Source: <b>' + step.src + '</b>' : '';
+  if (srcEl) srcEl.innerHTML = step.src ? 'Source: <b>' + step.src + '</b>' : '';
 
   var noteEl = document.getElementById('guidedNote');
-  if(step.note){
-    noteEl.textContent = step.note;
-    noteEl.style.display = 'block';
-  } else {
-    noteEl.style.display = 'none';
+  if (noteEl) {
+    if(step.note){
+      noteEl.textContent = step.note;
+      noteEl.style.display = 'block';
+    } else {
+      noteEl.style.display = 'none';
+    }
   }
 
-  document.getElementById('guidedPrev').disabled = (idx === 0);
-  document.getElementById('guidedNext').disabled = (idx === total - 1);
-  document.getElementById('guidedNext').textContent = (idx === total - 1) ? '✓ Done' : 'Next ›';
-  if(idx === total - 1){
-    document.getElementById('guidedNext').onclick = function(){ closeGuidedSession(); };
-  } else {
-    document.getElementById('guidedNext').onclick = function(){ guidedNav(1); };
+  var _gp = document.getElementById('guidedPrev'); if (_gp) _gp.disabled = (idx === 0);
+  var _gn = document.getElementById('guidedNext');
+  if (_gn) {
+    _gn.disabled = (idx === total - 1);
+    _gn.textContent = (idx === total - 1) ? '✓ Done' : 'Next ›';
+    _gn.onclick = (idx === total - 1) ? function(){ closeGuidedSession(); } : function(){ guidedNav(1); };
   }
 
   // Scroll body to top
@@ -5958,42 +5989,13 @@ function estimateHijri(date) {
   };
 }
 
-function getIslamicSeason(day, month) {
-  day = parseInt(day); month = parseInt(month);
-  if (month === 10 && day === 1)
-    return { id: 'eid_fitr', name: 'Eid al-Fitr', emoji: '\uD83C\uDF19' };
-  if (month === 12 && day >= 1 && day <= 8)
-    return { id: 'dhul_hijjah_10', name: 'Best Days of the Year', emoji: '\uD83D\uDD4B' };
-  if (month === 12 && day === 9)
-    return { id: 'arafah', name: 'Day of Arafah', emoji: '\uD83E\uDD32' };
-  if (month === 12 && day >= 10 && day <= 13)
-    return { id: 'eid_adha', name: 'Eid al-Adha', emoji: '\uD83D\uDD4B' };
-  if (month === 1 && day >= 8 && day <= 10)
-    return { id: 'ashura', name: 'Ashura', emoji: '\uD83E\uDD0D' };
-  if (month === 8 && day >= 14 && day <= 15)
-    return { id: 'shaban_15', name: "Laylat al-Bara'ah", emoji: '\uD83C\uDF19' };
-  if (month === 9)
-    return { id: 'ramadan', name: 'Ramadan', emoji: '\u262A\uFE0F' };
-  return { id: 'standard', name: 'Standard', emoji: '\uD83D\uDCFF' };
-}
-
-function scheduleHijriRefresh() {
-  var now = new Date();
-  var midnight = new Date(now);
-  midnight.setHours(24, 0, 0, 0);
-  setTimeout(function() {
-    safeSet('hijri_cache', '');
-    loadHijriDate();
-  }, midnight - now);
-}
-
 function loadHijriDate() {
   var today = new Date();
   var todayStr = today.getFullYear() + '-' +
     String(today.getMonth() + 1).padStart(2, '0') + '-' +
     String(today.getDate()).padStart(2, '0');
 
-  // Check cache
+  // Check cache — only fetch once per day
   var cached = null;
   try {
     var raw = safeGet('hijri_cache', '');
@@ -6001,12 +6003,10 @@ function loadHijriDate() {
   } catch(e) {}
 
   if (cached && cached.fetched === todayStr) {
-    applyHijriData(cached);
-    scheduleHijriRefresh();
+    showHijriDate(cached);
     return;
   }
 
-  // Try AlAdhan API first; fall back to estimate on failure/timeout
   var dd = String(today.getDate()).padStart(2, '0');
   var mm = String(today.getMonth() + 1).padStart(2, '0');
   var yyyy = today.getFullYear();
@@ -6022,8 +6022,7 @@ function loadHijriDate() {
     var result = estimateHijri(today);
     result.fetched = todayStr;
     safeSet('hijri_cache', JSON.stringify(result));
-    applyHijriData(result);
-    scheduleHijriRefresh();
+    showHijriDate(result);
   }
 
   fetch(apiUrl)
@@ -6045,8 +6044,7 @@ function loadHijriDate() {
         fetched: todayStr
       };
       safeSet('hijri_cache', JSON.stringify(result));
-      applyHijriData(result);
-      scheduleHijriRefresh();
+      showHijriDate(result);
     })
     .catch(function() {
       if (timedOut) return;
@@ -6055,148 +6053,12 @@ function loadHijriDate() {
     });
 }
 
-function applyHijriData(data) {
-  window.hijriDate = {
-    day: data.day, month: data.month,
-    monthEn: data.monthEn, monthAr: data.monthAr, year: data.year
-  };
-  window.islamicSeason = getIslamicSeason(data.day, data.month);
-  console.log('[Hijri] ' + data.day + ' ' + data.monthEn + ' ' + data.year +
-    ' — Season: ' + window.islamicSeason.id + ' (estimated)');
+function showHijriDate(data) {
   var el = document.getElementById('hijriDisplay');
   if (el) el.textContent = data.day + ' ' + data.monthEn + ' ' + data.year;
-  renderSeasonalHome();
 }
 
 loadHijriDate();
-
-// ============================================================
-//  PHASE 17b — SEASONAL HOME RENDERING
-// ============================================================
-
-function renderSeasonalHome() {
-  if (!window.islamicSeason || !window.hijriDate) return;
-  var id = window.islamicSeason.id;
-  var el = document.getElementById('seasonBanner');
-  if (!el) return;
-
-  // tileQadr: show during last 10 nights of Ramadan
-  var tileQadr = document.getElementById('tileQadr');
-  if (tileQadr) {
-    tileQadr.style.display = (id === 'ramadan' && window.hijriDate.day >= 21) ? 'flex' : 'none';
-  }
-
-  if (id === 'standard') {
-    el.innerHTML = '';
-    return;
-  }
-
-  var html = '';
-
-  if (id === 'eid_fitr') {
-    html = '<div class="season-card">' +
-      '<div class="season-card-eyebrow">1 Shawwal · Eid al-Fitr</div>' +
-      '<div class="season-card-title">Eid Mubarak 🌙</div>' +
-      '<div class="season-card-body">May Allah accept from us and from you. Today is a day of joy, gratitude, and worship.</div>' +
-      '<div class="season-card-ar">تَقَبَّلَ اللَّهُ مِنَّا وَمِنكُمْ</div>' +
-      '<div class="season-card-tr">Taqabbalallāhu minnā wa minkum</div>' +
-      '<div class="season-card-en">“May Allah accept from us and from you.”</div>' +
-      '<div class="season-card-source">Said between the Sahabah on Eid — Ibn Hajar, Fath al-Bari</div>' +
-      '<div style="margin-top:12px" class="season-card-body">📌 Sadaqat al-Fitr must be given before the Eid prayer. · Eat before leaving for salah. · Take different routes to and from the prayer.</div>' +
-      '</div>';
-
-  } else if (id === 'dhul_hijjah_10') {
-    html = '<div class="season-card">' +
-      '<div class="season-card-eyebrow">Dhul Hijjah · Best Days</div>' +
-      '<div class="season-card-title">The Best Days of the Year 🕋</div>' +
-      '<div class="season-card-body">There are no days in which righteous deeds are more beloved to Allah than these ten days.</div>' +
-      '<div class="season-card-source" style="margin:8px 0 12px">Sahih al-Bukhari (969)</div>' +
-      '<div class="season-card-badge">Increase: Takbeer · Tahmid · Tahleel · Tasbeeh</div>' +
-      '<div class="season-card-body">📌 Fasting the 8th and 9th of Dhul Hijjah is recommended. · Do not cut hair or nails if intending Udhiyah until after sacrifice.</div>' +
-      '</div>';
-
-  } else if (id === 'arafah') {
-    html = '<div class="season-card">' +
-      '<div class="season-card-eyebrow">9 Dhul Hijjah · Day of Arafah</div>' +
-      '<div class="season-card-title">Day of Arafah 🤲</div>' +
-      '<div class="season-card-body">Fasting today expiates the sins of two years — the past year and the coming year.</div>' +
-      '<div class="season-card-source" style="margin:8px 0 12px">Sahih Muslim (1162)</div>' +
-      '<div class="season-card-badge">Best Dua of Arafah</div>' +
-      '<div class="season-card-ar">لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ</div>' +
-      '<div class="season-card-tr">Lā ilāha illallāhu waḥdahu lā sharīka lah, lahul-mulku wa lahul-ḥamd, wa Huwa ʿalā kulli shayʾin Qādīr</div>' +
-      '<div class="season-card-en">“There is no god but Allah alone, no partner has He. His is the dominion, His is the praise, and He has power over all things.”</div>' +
-      '<div class="season-card-source">al-Tirmidhi (3585) — the best dua on the Day of Arafah</div>' +
-      '</div>';
-
-  } else if (id === 'eid_adha') {
-    html = '<div class="season-card">' +
-      '<div class="season-card-eyebrow">10–13 Dhul Hijjah · Eid al-Adha</div>' +
-      '<div class="season-card-title">Eid al-Adha Mubarak 🕋</div>' +
-      '<div class="season-card-body">May Allah accept our sacrifices, our prayers, and our deeds.</div>' +
-      '<div class="season-card-ar">تَقَبَّلَ اللَّهُ مِنَّا وَمِنكُمْ</div>' +
-      '<div class="season-card-tr">Taqabbalallāhu minnā wa minkum</div>' +
-      '<div class="season-card-en">“May Allah accept from us and from you.”</div>' +
-      '<div class="season-card-source" style="margin:4px 0 12px">Ibn Hajar, Fath al-Bari</div>' +
-      '<div class="season-card-badge">Takbeer al-Tashriq — say after every Fard salah</div>' +
-      '<div class="season-card-ar" style="font-size:18px">اللَّهُ أَكْبَرُ اللَّهُ أَكْبَرُ لَا إِلَهَ إِلَّا اللَّهُ وَاللَّهُ أَكْبَرُ اللَّهُ أَكْبَرُ وَلِلَّهِ الْحَمْدُ</div>' +
-      '<div class="season-card-tr">Allāhu Akbar, Allāhu Akbar, lā ilāha illallāhu wallāhu Akbar, Allāhu Akbar wa lillāhil-ḥamd</div>' +
-      '<div class="season-card-source">Obligatory (wājib) after every fard salah — Hanafi madhab. From Fajr of 9 Dhul Hijjah to Asr of 13 Dhul Hijjah.</div>' +
-      '</div>';
-
-  } else if (id === 'ashura') {
-    html = '<div class="season-card">' +
-      '<div class="season-card-eyebrow">Muharram · Ashura</div>' +
-      '<div class="season-card-title">Days of Ashura 🤍</div>' +
-      '<div class="season-card-body">Fasting the 10th of Muharram expiates the sins of the past year. The Prophet ﹺ intended to also fast the 9th to distinguish from other traditions — fast both.</div>' +
-      '<div class="season-card-source" style="margin:8px 0 12px">Sahih Muslim (1162), (1134) — Hanafi position: fast 9th and 10th</div>' +
-      '<div class="season-card-badge">No special gathering or food on this day — no authentic basis</div>' +
-      '<div class="season-card-body" style="margin-top:8px">📌 Intention: fast the 9th and 10th of Muharram. Make your intention before Fajr.</div>' +
-      '</div>';
-
-  } else if (id === 'shaban_15') {
-    html = '<div class="season-card">' +
-      '<div class="season-card-eyebrow">15 Sha\'ban · Laylat al-Bara\'ah</div>' +
-      '<div class="season-card-title">Night of Bara\'ah 🌙</div>' +
-      '<div class="season-card-body">This night has been mentioned in some narrations as a night of Allah’s mercy and forgiveness. The Hanafi scholars recommend individual worship — nafl prayer, istighfar, and personal dua — without any congregational gathering or specific ritual.</div>' +
-      '<div class="season-card-badge">Individual worship only — no congregation, no specific ritual</div>' +
-      '<div class="season-card-body" style="margin-top:10px">📌 Spend the night in personal dua, recitation, and seeking forgiveness. Visit the graves if you are able.</div>' +
-      '</div>';
-
-  } else if (id === 'ramadan') {
-    html = '<div class="season-card">' +
-      '<div class="season-card-eyebrow">Ramadan · Month of the Qur’an</div>' +
-      '<div class="season-card-title">Ramadan Mubarak ☪️</div>' +
-      '<div class="season-card-body">The month in which the Qur’an was revealed. Fast, pray, give, and seek forgiveness abundantly.</div>' +
-      '<div id="ramadanNightInfo" style="margin-top:10px"></div>' +
-      '</div>';
-  }
-
-  el.innerHTML = html;
-
-  if (id === 'ramadan') renderRamadanNightInfo();
-}
-
-function renderRamadanNightInfo() {
-  var el = document.getElementById('ramadanNightInfo');
-  if (!el || !window.hijriDate) return;
-  var day = window.hijriDate.day;
-  var html = '';
-  if (day >= 21) {
-    var isOdd = day % 2 !== 0;
-    if (isOdd) {
-      html = '<div class="season-card-badge">Tonight could be Laylatul Qadr — seek it now</div>' +
-             '<div class="season-card-ar" style="font-size:20px">اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي</div>' +
-             '<div class="season-card-tr">Allāhumma innaka ʿafuwwun tuḥibbul-ʿafwa faʿfu ʿannī</div>';
-    } else {
-      html = '<div class="season-card-body">Last 10 nights — seek Laylatul Qadr on every odd night.</div>';
-    }
-  } else {
-    html = '<div class="season-card-body">Day ' + day + ' of Ramadan. Keep your fast, increase your recitation.</div>';
-  }
-  el.innerHTML = html;
-}
-
-
 </script>
 </body>
 </html>
