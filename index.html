@@ -723,13 +723,26 @@ body::before{
 .expand-trigger.open .et-arrow{transform:rotate(180deg);}
 
 .expand-body{
-  display:none;
+  display:grid;
+  grid-template-rows:0fr;
+  transition:grid-template-rows 280ms cubic-bezier(0.25,0.46,0.45,0.94);
   background:var(--card2);
   border:1px solid var(--bdr);border-top:none;
   border-radius:0 0 var(--radius) var(--radius);
+  overflow:hidden;
+  position:relative;
+}
+.expand-body > *:not(.copy-btn){
+  overflow:hidden;
+  min-height:0;
   padding:18px 18px 16px;
 }
-.expand-body.open{display:block;}
+.expand-body > .copy-btn{
+  overflow:visible;
+}
+.expand-body.open{
+  grid-template-rows:1fr;
+}
 
 /* ---- STEP LIST (After Salah / Adhkar sequences) ---- */
 .step-list{list-style:none;padding:0;margin:0;}
@@ -1001,7 +1014,29 @@ body::before{
 .search-wrap { display: none !important; }
 
 /* ALL views hidden by default — JS shows the active one */
-.spa-view { display: none; }
+.spa-view {
+  display: none;
+  opacity: 0;
+  transform: translateY(8px);
+  will-change: transform, opacity;
+  transition: opacity 220ms cubic-bezier(0.25,0.46,0.45,0.94),
+              transform 220ms cubic-bezier(0.25,0.46,0.45,0.94);
+}
+.spa-view.view-active {
+  opacity: 1;
+  transform: translateY(0);
+}
+.spa-view.view-entering {
+  display: block;
+  opacity: 0;
+  transform: translateY(8px);
+}
+.spa-view.view-leaving {
+  display: block;
+  opacity: 0;
+  transform: translateY(-4px);
+  pointer-events: none;
+}
 
 /* Bottom tab bar — fixed, always visible */
 .bottom-nav {
@@ -1735,6 +1770,14 @@ body.light .guided-overlay { background: var(--deep); }
   opacity:0.8;
   margin:4px 0 16px;
   min-height:16px;
+  transition: opacity 300ms cubic-bezier(0.25,0.46,0.45,0.94);
+}
+@keyframes hijri-shimmer {
+  0%, 100% { opacity: 0.25; }
+  50%       { opacity: 0.65; }
+}
+.hijri-date.loading {
+  animation: hijri-shimmer 1.5s ease-in-out infinite;
 }
 .season-banner { width:100%; }
 
@@ -1823,13 +1866,305 @@ body.light .guided-overlay { background: var(--deep); }
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
 }
+
+/* ================================================
+   POLISH LAYER — iOS-native feel
+   ================================================ */
+
+/* ---- GLOBAL TOUCH OPTIMISATION ---- */
+button, a, [onclick], [role="button"],
+.bn-tab, .home-tile, .expand-trigger, .copy-btn, .fav-star,
+.intention-chip, .dc-tap, .dc-reset, .view-subnav-btn, .icon-btn,
+.fc-btn, .theme-toggle, .sv-theme-btn, .tasbih-tap, .tasbih-reset-btn,
+.guided-btn, .guided-close, .session-card, .pt-go, .pt-item,
+.install-card-btn, .install-card-close, .install-card-dismiss,
+.sv-install-btn, .search-close-btn, .search-clear,
+.btt, .expand-all-toggle, .asma-card, .season-action-btn,
+.install-card, .skip-link, .nav-sub, .nav-tab, .nav-btn, .nav-fav {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button, .bn-tab, .home-tile, .expand-trigger, .copy-btn, .fav-star,
+.intention-chip, .dc-tap, .dc-reset, .view-subnav-btn, .icon-btn,
+.fc-btn, .theme-toggle, .sv-theme-btn, .tasbih-tap, .tasbih-reset-btn,
+.guided-btn, .guided-close, .session-card, .pt-go, .pt-item,
+.btt, .expand-all-toggle, .asma-card, .season-action-btn {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* ---- GPU ACCELERATION ---- */
+.guided-overlay, .bottom-nav, .dua, .btt, .search-overlay {
+  will-change: transform, opacity;
+}
+
+/* ---- TAB INDICATOR ---- */
+.bn-tab-indicator {
+  position: absolute;
+  top: 0; left: 0;
+  height: 2px;
+  width: 20%;
+  background: #C9A84C;
+  border-radius: 0 0 2px 2px;
+  transition: transform 250ms cubic-bezier(0.4,0,0.2,1);
+  pointer-events: none;
+  z-index: 10;
+}
+body.light .bn-tab-indicator { background: #7a5c12; }
+
+/* ---- PRESS FEEDBACK ---- */
+.bn-tab {
+  transition: color 0.15s cubic-bezier(0.25,0.46,0.45,0.94),
+              transform 200ms cubic-bezier(0.25,0.46,0.45,0.94),
+              opacity 200ms cubic-bezier(0.25,0.46,0.45,0.94);
+}
+.bn-tab:active { transform: scale(0.93); opacity: 0.75; }
+
+.home-tile {
+  transition: border-color 0.15s cubic-bezier(0.25,0.46,0.45,0.94),
+              background 0.15s cubic-bezier(0.25,0.46,0.45,0.94),
+              transform 200ms cubic-bezier(0.25,0.46,0.45,0.94),
+              opacity 200ms cubic-bezier(0.25,0.46,0.45,0.94);
+}
+.home-tile:active { transform: scale(0.95); opacity: 0.82; }
+
+.expand-trigger {
+  transition: border-color 0.2s cubic-bezier(0.25,0.46,0.45,0.94),
+              background 0.2s cubic-bezier(0.25,0.46,0.45,0.94),
+              transform 200ms cubic-bezier(0.25,0.46,0.45,0.94),
+              opacity 200ms cubic-bezier(0.25,0.46,0.45,0.94);
+}
+.expand-trigger:active { transform: scale(0.985); opacity: 0.85; }
+
+.copy-btn {
+  transition: background 0.2s cubic-bezier(0.25,0.46,0.45,0.94),
+              color 0.2s cubic-bezier(0.25,0.46,0.45,0.94),
+              border-color 0.2s cubic-bezier(0.25,0.46,0.45,0.94),
+              transform 200ms cubic-bezier(0.25,0.46,0.45,0.94),
+              opacity 150ms cubic-bezier(0.25,0.46,0.45,0.94);
+}
+.copy-btn:active { transform: scale(0.94); opacity: 0.8; }
+
+.intention-chip {
+  transition: border-color .15s cubic-bezier(0.25,0.46,0.45,0.94),
+              background .15s cubic-bezier(0.25,0.46,0.45,0.94),
+              color .15s cubic-bezier(0.25,0.46,0.45,0.94),
+              transform 200ms cubic-bezier(0.25,0.46,0.45,0.94),
+              opacity 200ms cubic-bezier(0.25,0.46,0.45,0.94);
+}
+.intention-chip:active { transform: scale(0.95); opacity: 0.82; }
+
+.session-card {
+  transition: border-color .15s cubic-bezier(0.25,0.46,0.45,0.94),
+              background .15s cubic-bezier(0.25,0.46,0.45,0.94),
+              transform 200ms cubic-bezier(0.25,0.46,0.45,0.94),
+              opacity 200ms cubic-bezier(0.25,0.46,0.45,0.94);
+}
+.session-card:active { transform: scale(0.982); opacity: 0.85; }
+
+.view-subnav-btn {
+  transition: background 0.15s cubic-bezier(0.25,0.46,0.45,0.94),
+              border-color 0.15s cubic-bezier(0.25,0.46,0.45,0.94),
+              color 0.15s cubic-bezier(0.25,0.46,0.45,0.94),
+              transform 200ms cubic-bezier(0.25,0.46,0.45,0.94);
+}
+.view-subnav-btn:active { transform: scale(0.95); opacity: 0.82; }
+
+.icon-btn {
+  transition: background 0.15s cubic-bezier(0.25,0.46,0.45,0.94),
+              border-color 0.15s cubic-bezier(0.25,0.46,0.45,0.94),
+              transform 200ms cubic-bezier(0.25,0.46,0.45,0.94);
+}
+.icon-btn:active { transform: scale(0.88); }
+
+.pt-item {
+  transition: border-color .15s cubic-bezier(0.25,0.46,0.45,0.94),
+              opacity .2s cubic-bezier(0.25,0.46,0.45,0.94),
+              transform 180ms cubic-bezier(0.25,0.46,0.45,0.94);
+}
+.pt-item:active { transform: scale(0.982); }
+.pt-go {
+  transition: background 0.15s cubic-bezier(0.25,0.46,0.45,0.94),
+              transform 180ms cubic-bezier(0.25,0.46,0.45,0.94);
+}
+.pt-go:active { transform: scale(0.85); }
+
+.guided-btn {
+  transition: background .15s cubic-bezier(0.25,0.46,0.45,0.94),
+              transform 180ms cubic-bezier(0.25,0.46,0.45,0.94),
+              opacity 180ms cubic-bezier(0.25,0.46,0.45,0.94);
+}
+.guided-btn:active { transform: scale(0.95); opacity: 0.82; }
+.guided-close { transition: border-color .2s cubic-bezier(0.25,0.46,0.45,0.94), color .2s, transform 180ms cubic-bezier(0.25,0.46,0.45,0.94); }
+.guided-close:active { transform: scale(0.88); }
+
+.asma-card {
+  transition: border-color .2s cubic-bezier(0.25,0.46,0.45,0.94),
+              background .2s cubic-bezier(0.25,0.46,0.45,0.94),
+              transform 180ms cubic-bezier(0.25,0.46,0.45,0.94);
+}
+.asma-card:active { transform: scale(0.96); }
+
+.tasbih-reset-btn {
+  transition: border-color .2s cubic-bezier(0.25,0.46,0.45,0.94),
+              color .2s cubic-bezier(0.25,0.46,0.45,0.94),
+              transform 180ms cubic-bezier(0.25,0.46,0.45,0.94);
+}
+.tasbih-reset-btn:active { transform: scale(0.92); }
+
+.dc-reset {
+  transition: border-color .2s cubic-bezier(0.25,0.46,0.45,0.94),
+              color .2s cubic-bezier(0.25,0.46,0.45,0.94),
+              transform 180ms cubic-bezier(0.25,0.46,0.45,0.94);
+}
+.dc-reset:active { transform: scale(0.92); }
+
+.season-action-btn {
+  transition: background 0.15s cubic-bezier(0.25,0.46,0.45,0.94),
+              transform 200ms cubic-bezier(0.25,0.46,0.45,0.94),
+              opacity 200ms cubic-bezier(0.25,0.46,0.45,0.94);
+}
+.season-action-btn:active { transform: scale(0.95); opacity: 0.82; }
+
+.fc-btn {
+  transition: background .2s cubic-bezier(0.25,0.46,0.45,0.94),
+              border-color .2s cubic-bezier(0.25,0.46,0.45,0.94),
+              transform 180ms cubic-bezier(0.25,0.46,0.45,0.94);
+}
+.fc-btn:active { transform: scale(0.9); }
+
+.theme-toggle, .sv-theme-btn {
+  transition: background .2s cubic-bezier(0.25,0.46,0.45,0.94),
+              transform 180ms cubic-bezier(0.25,0.46,0.45,0.94);
+}
+.theme-toggle:active, .sv-theme-btn:active { transform: scale(0.9); }
+
+.btt {
+  transition: opacity .25s cubic-bezier(0.25,0.46,0.45,0.94),
+              transform .25s cubic-bezier(0.25,0.46,0.45,0.94) !important;
+}
+.btt:active { transform: scale(0.88) translateY(0) !important; }
+
+/* ---- DHIKR COUNTER ANIMATIONS ---- */
+@keyframes dhikr-tap-pulse {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+@keyframes dhikr-num-pop {
+  0%   { transform: scale(1); }
+  45%  { transform: scale(1.18); }
+  100% { transform: scale(1); }
+}
+@keyframes tasbih-tap-pulse {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.04); }
+  100% { transform: scale(1); }
+}
+.dc-tap {
+  transition: background .15s cubic-bezier(0.25,0.46,0.45,0.94),
+              border-color .15s cubic-bezier(0.25,0.46,0.45,0.94),
+              transform 180ms cubic-bezier(0.25,0.46,0.45,0.94) !important;
+}
+.dc-tap.tapping {
+  animation: dhikr-tap-pulse 180ms cubic-bezier(0.34,1.56,0.64,1) forwards;
+}
+.dc-current { display: inline-block; }
+.dc-current.popping {
+  animation: dhikr-num-pop 130ms cubic-bezier(0.34,1.56,0.64,1) forwards;
+}
+.tasbih-tap {
+  transition: background .15s cubic-bezier(0.25,0.46,0.45,0.94),
+              transform 180ms cubic-bezier(0.25,0.46,0.45,0.94) !important;
+}
+.tasbih-tap.tapping {
+  animation: tasbih-tap-pulse 180ms cubic-bezier(0.34,1.56,0.64,1) forwards;
+}
+
+/* ---- STAR BOUNCE ---- */
+@keyframes star-bounce {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.4); }
+  65%  { transform: scale(0.88); }
+  100% { transform: scale(1); }
+}
+.fav-star.star-bouncing {
+  animation: star-bounce 260ms cubic-bezier(0.34,1.56,0.64,1) forwards;
+}
+
+/* ---- SEARCH OVERLAY SLIDE ---- */
+.search-overlay {
+  transform: translateY(-100%);
+  opacity: 0;
+  transition: transform 260ms cubic-bezier(0.25,0.46,0.45,0.94),
+              opacity 220ms cubic-bezier(0.25,0.46,0.45,0.94);
+}
+.search-overlay.search-open {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* ---- GUIDED STEP TRANSITIONS ---- */
+.guided-step-content {
+  transition: opacity 200ms cubic-bezier(0.25,0.46,0.45,0.94),
+              transform 200ms cubic-bezier(0.25,0.46,0.45,0.94);
+}
+.guided-step-content.step-exit-left  { opacity:0; transform:translateX(-22px); transition-duration:150ms; }
+.guided-step-content.step-exit-right { opacity:0; transform:translateX(22px);  transition-duration:150ms; }
+.guided-step-content.step-enter-right { opacity:0; transform:translateX(22px);  }
+.guided-step-content.step-enter-left  { opacity:0; transform:translateX(-22px); }
+
+/* ---- SCROLLING ---- */
+.spa-view, .guided-body, .search-overlay,
+.nav-inner, .nav-dropdown-inner, .view-subnav {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+.spa-view::-webkit-scrollbar,
+.guided-body::-webkit-scrollbar,
+.search-overlay::-webkit-scrollbar { display: none; }
+
+/* ---- EASING UPGRADES ---- */
+.tasbih-item {
+  transition: border-color .2s cubic-bezier(0.25,0.46,0.45,0.94),
+              opacity .2s cubic-bezier(0.25,0.46,0.45,0.94) !important;
+}
+.guided-progress-fill {
+  transition: width .3s cubic-bezier(0.25,0.46,0.45,0.94) !important;
+}
+.sv-toggle-slider { transition: background .2s cubic-bezier(0.25,0.46,0.45,0.94), border-color .2s !important; }
+.sv-toggle-slider::before { transition: transform .2s cubic-bezier(0.25,0.46,0.45,0.94), background .2s !important; }
+.et-arrow { transition: transform .28s cubic-bezier(0.25,0.46,0.45,0.94) !important; }
+.nav-dropdown { transition: max-height .22s cubic-bezier(0.25,0.46,0.45,0.94) !important; }
+.nav-tab, .nav-btn, .nav-sub {
+  transition: color .2s cubic-bezier(0.25,0.46,0.45,0.94),
+              background .2s cubic-bezier(0.25,0.46,0.45,0.94) !important;
+}
+.fav-star {
+  transition: color .2s cubic-bezier(0.25,0.46,0.45,0.94),
+              transform .15s cubic-bezier(0.25,0.46,0.45,0.94) !important;
+}
+
+/* Reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  .spa-view, .expand-body, .guided-step-content,
+  .search-overlay, .bn-tab-indicator, .fav-star,
+  .dc-tap, .tasbih-tap {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
 </style>
 </head>
 <body>
 <a href="#home-view" class="skip-link">Skip to content</a>
 
 <!-- SEARCH OVERLAY -->
-<div class="search-overlay" id="searchOverlay">
+<div class="search-overlay" id="searchOverlay" style="display:none;">
   <div class="search-overlay-header">
     <div class="search-overlay-inner">
       <span class="search-icon" aria-hidden="true">🔍</span>
@@ -1892,7 +2227,7 @@ body.light .guided-overlay { background: var(--deep); }
 
   <div class="divider"><div class="dl"></div><div class="dg"></div><div class="dgo"></div><div class="dg"></div><div class="dl"></div></div>
 
-  <div class="hijri-date" id="hijriDisplay"></div>
+  <div class="hijri-date loading" id="hijriDisplay"></div>
 
   <div class="install-card" id="installCard">
     <button class="install-card-close" id="installCardClose" aria-label="Dismiss">✕</button>
@@ -4881,52 +5216,130 @@ body.light .guided-overlay { background: var(--deep); }
 // ============================================================
 //  SPA CORE — view switcher, bottom nav, search, settings
 // ============================================================
+
+// State variable for smooth view transitions
+var _spaCurrentView = null;
+
+// Tab indicator updater
+function _updateTabIndicator(name){
+  var ind = document.getElementById('_bnInd');
+  if(!ind) return;
+  var tabs = Array.from(document.querySelectorAll('.bn-tab'));
+  var idx = tabs.findIndex(function(t){ return t.getAttribute('data-view') === name; });
+  if(idx >= 0) ind.style.transform = 'translateX(' + (idx * 100) + '%)';
+}
+
+// Smooth search close helper
+function _closeSearchSmooth(){
+  var o = document.getElementById('searchOverlay');
+  if(!o || !o.classList.contains('search-open')) return;
+  o.classList.remove('search-open');
+  setTimeout(function(){
+    o.style.display = 'none';
+    var inp = document.getElementById('duaSearch');
+    if(inp){ inp.value=''; if(window.doSearch) doSearch(''); }
+  }, 270);
+}
+
 function showView(name) {
   // legacy aliases
   if(name === 'guides') name = 'learn';
-  document.querySelectorAll('.spa-view').forEach(function(v) {
-    v.style.display = 'none';
-  });
-  var target = document.getElementById(name + '-view');
-  if (target) {
-    target.style.display = 'block';
-    window.scrollTo(0, 0);
-  }
+
+  var targetEl = document.getElementById(name + '-view');
+  if (!targetEl) return;
+
+  // Update tabs + indicator immediately (feels instant)
   document.querySelectorAll('.bn-tab').forEach(function(tab) {
-    var isActive = tab.getAttribute('data-view') === name;
-    tab.style.color = isActive ? 'var(--gold)' : '';
-    tab.classList.toggle('active', isActive);
+    tab.classList.toggle('active', tab.getAttribute('data-view') === name);
+    tab.style.color = '';
   });
-  try { history.pushState(null, '', '#' + name); } catch(e) {}
-  // Close any overlays
+  _updateTabIndicator(name);
+
+  // Close overlays
   var sp = document.getElementById('settingsPopover');
-  var so = document.getElementById('searchOverlay');
-  if(sp) sp.style.display = 'none';
+  if (sp) sp.style.display = 'none';
+  _closeSearchSmooth();
+
+  try { history.pushState(null, '', '#' + name); } catch(e) {}
+
+  if (_spaCurrentView === name) {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    return;
+  }
+
+  var prev = _spaCurrentView;
+  _spaCurrentView = name;
+
+  // Hide all non-relevant views
+  document.querySelectorAll('.spa-view').forEach(function(v) {
+    var vn = v.getAttribute('data-view');
+    if (vn !== name && vn !== prev) {
+      v.style.display = 'none';
+      v.classList.remove('view-active','view-entering','view-leaving');
+    }
+  });
+
+  // Outgoing view fades out
+  if (prev) {
+    var prevEl = document.getElementById(prev + '-view');
+    if (prevEl) {
+      prevEl.classList.remove('view-active');
+      prevEl.classList.add('view-leaving');
+      setTimeout(function() {
+        prevEl.style.display = 'none';
+        prevEl.classList.remove('view-leaving');
+      }, 80);
+    }
+  }
+
+  // Incoming view fades in
+  targetEl.style.display = 'block';
+  targetEl.classList.remove('view-active','view-leaving');
+  targetEl.classList.add('view-entering');
+  requestAnimationFrame(function() {
+    requestAnimationFrame(function() {
+      targetEl.classList.remove('view-entering');
+      targetEl.classList.add('view-active');
+      window.scrollTo(0, 0);
+    });
+  });
 }
 
-// On load: hide all views, show correct one
+// SPA init — smooth fade-slide views with tab indicator
 (function(){
-  // Hide all views first
-  document.querySelectorAll('.spa-view').forEach(function(v) {
-    v.style.display = 'none';
-  });
-  var hash = location.hash.replace('#','');
+  // Create sliding tab indicator
+  var nav = document.querySelector('.bottom-nav');
+  if(nav){
+    var ind = document.createElement('div');
+    ind.id = '_bnInd';
+    ind.className = 'bn-tab-indicator';
+    nav.appendChild(ind);
+  }
+
   var valid = ['home','adhkar','duas','dhikr','learn','settings'];
-  // legacy aliases
+  var hash = location.hash.replace('#','');
   if(hash === 'guides') hash = 'learn';
   var initial = (valid.indexOf(hash) > -1) ? hash : 'home';
-  var target = document.getElementById(initial + '-view');
-  if(target) target.style.display = 'block';
+
+  // Hide all views, show initial without animation
+  document.querySelectorAll('.spa-view').forEach(function(v){
+    v.style.display = 'none';
+    v.classList.remove('view-active','view-entering','view-leaving');
+  });
+  var initEl = document.getElementById(initial + '-view');
+  if(initEl){ initEl.style.display = 'block'; initEl.classList.add('view-active'); }
+  _spaCurrentView = initial;
+
   // Set active tab
   document.querySelectorAll('.bn-tab').forEach(function(tab){
-    var isActive = tab.getAttribute('data-view') === initial;
-    tab.classList.toggle('active', isActive);
+    tab.classList.toggle('active', tab.getAttribute('data-view') === initial);
   });
+  _updateTabIndicator(initial);
+
   // Handle back/forward
   window.addEventListener('popstate', function(){
     var h = location.hash.replace('#','');
     if(h === 'guides') h = 'learn';
-    if(h === 'dhikr') h = 'duas';
     showView(valid.indexOf(h) > -1 ? h : 'home');
   });
 })();
@@ -4944,13 +5357,17 @@ function toggleMyDuasOverlay(){
 // Search
 function openSearch(){
   var o = document.getElementById('searchOverlay');
-  if(o){ o.style.display = 'block'; var inp = document.getElementById('duaSearch'); if(inp) setTimeout(function(){inp.focus();},80); }
+  if(!o) return;
+  o.style.display = 'block';
+  requestAnimationFrame(function(){ requestAnimationFrame(function(){
+    o.classList.add('search-open');
+    var inp = document.getElementById('duaSearch');
+    if(inp) setTimeout(function(){ inp.focus(); }, 80);
+  }); });
 }
+
 function closeSearch(){
-  var o = document.getElementById('searchOverlay');
-  if(o) o.style.display = 'none';
-  var inp = document.getElementById('duaSearch');
-  if(inp){ inp.value=''; if(window.doSearch) doSearch(''); }
+  _closeSearchSmooth();
 }
 
 // Settings
@@ -4970,7 +5387,7 @@ function toggleFavView(){ toggleMyDuasOverlay(); }
 function scrollToSection(id){
   var el = document.getElementById(id);
   if(!el) return;
-  var top = el.getBoundingClientRect().top + window.pageYOffset - 8;
+  var top = el.getBoundingClientRect().top + window.pageYOffset - 12;
   window.scrollTo({top: top, behavior: 'smooth'});
   var secH = el.querySelector('.sec-h');
   if(secH){
@@ -5044,8 +5461,12 @@ window.addEventListener('scroll', onScroll, {passive:true});
 // ---- TAP TO EXPAND ----
 function toggleExpand(trigger){
   var body = trigger.nextElementSibling;
+  if(!body || !body.classList.contains('expand-body')){
+    var wrap = trigger.closest('.expand-wrap');
+    body = wrap ? wrap.querySelector('.expand-body') : null;
+  }
+  if(!body) return;
   var isOpen = trigger.classList.contains('open');
-
   if(isOpen){
     trigger.classList.remove('open');
     trigger.setAttribute('aria-expanded','false');
@@ -5055,10 +5476,9 @@ function toggleExpand(trigger){
     trigger.setAttribute('aria-expanded','true');
     body.classList.add('open');
     setTimeout(function(){
-      var offset = getScrollOffset();
-      var top = trigger.getBoundingClientRect().top + window.pageYOffset - offset - 8;
+      var top = trigger.getBoundingClientRect().top + window.pageYOffset - 12;
       window.scrollTo({top: top, behavior: 'smooth'});
-    }, 50);
+    }, 80);
   }
 }
 
@@ -6082,8 +6502,32 @@ window.closeGuidedSession = function(){
 window.guidedNav = function(dir){
   var session = GUIDED_SESSIONS[guidedState.session];
   if(!session) return;
-  guidedState.step = Math.max(0, Math.min(session.steps.length - 1, guidedState.step + dir));
-  renderGuidedStep();
+  var newStep = Math.max(0, Math.min(session.steps.length - 1, guidedState.step + dir));
+  if(newStep === guidedState.step) return;
+
+  var body = document.getElementById('guidedBody');
+  var wrapper = body ? body.querySelector('.guided-step-content') : null;
+
+  if(!wrapper){
+    guidedState.step = newStep;
+    renderGuidedStep();
+    return;
+  }
+
+  var exitClass = dir > 0 ? 'step-exit-left' : 'step-exit-right';
+  var enterClass = dir > 0 ? 'step-enter-right' : 'step-enter-left';
+
+  wrapper.classList.add(exitClass);
+  setTimeout(function(){
+    wrapper.classList.remove(exitClass);
+    guidedState.step = newStep;
+    renderGuidedStep();
+    wrapper.classList.add(enterClass);
+    if(body) body.scrollTop = 0;
+    requestAnimationFrame(function(){ requestAnimationFrame(function(){
+      wrapper.classList.remove(enterClass);
+    }); });
+  }, 160);
 };
 
 function renderGuidedStep(){
@@ -6504,7 +6948,13 @@ function loadHijriDate() {
 
 function showHijriDate(data) {
   var el = document.getElementById('hijriDisplay');
-  if (el) el.textContent = data.day + ' ' + data.monthEn + ' ' + data.year;
+  if(!el) return;
+  el.classList.remove('loading');
+  el.style.opacity = '0';
+  el.textContent = data.day + ' ' + data.monthEn + ' ' + data.year;
+  requestAnimationFrame(function(){ requestAnimationFrame(function(){
+    el.style.opacity = '';
+  }); });
 }
 
 loadHijriDate();
@@ -6616,5 +7066,112 @@ function initInstallPrompt() {
 
 initInstallPrompt();
 </script>
+
+<script>
+/* ================================================
+   POLISH LAYER JS — iOS feel improvements
+   ================================================ */
+
+// ---- DHIKR COUNTER TAP PULSE ----
+(function(){
+  function patchDCTaps(){
+    document.querySelectorAll('.dc-tap').forEach(function(btn){
+      var _tapped = false;
+      function doPulse(){
+        btn.classList.remove('tapping');
+        void btn.offsetWidth;
+        btn.classList.add('tapping');
+        setTimeout(function(){ btn.classList.remove('tapping'); }, 200);
+        var num = btn.querySelector('.dc-current');
+        if(num){
+          num.classList.remove('popping');
+          void num.offsetWidth;
+          num.classList.add('popping');
+          setTimeout(function(){ num.classList.remove('popping'); }, 150);
+        }
+      }
+      btn.addEventListener('touchend', function(e){
+        e.preventDefault(); _tapped = true; doPulse();
+      }, { passive: false });
+      btn.addEventListener('click', function(){
+        if(_tapped){ _tapped = false; return; } doPulse();
+      });
+    });
+  }
+
+  function patchTasbihTaps(){
+    for(var i = 0; i < 3; i++){
+      (function(idx){
+        var btn = document.getElementById('ts-tap-' + idx);
+        if(!btn) return;
+        var _tapped = false;
+        function doPulse(){
+          btn.classList.remove('tapping');
+          void btn.offsetWidth;
+          btn.classList.add('tapping');
+          setTimeout(function(){ btn.classList.remove('tapping'); }, 200);
+        }
+        btn.addEventListener('touchend', function(e){
+          e.preventDefault(); _tapped = true; doPulse();
+        }, { passive: false });
+        btn.addEventListener('click', function(){
+          if(_tapped){ _tapped = false; return; } doPulse();
+        });
+      })(i);
+    }
+  }
+
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', function(){ patchDCTaps(); patchTasbihTaps(); });
+  } else {
+    setTimeout(function(){ patchDCTaps(); patchTasbihTaps(); }, 200);
+  }
+})();
+
+// ---- STAR BOUNCE via event delegation ----
+document.addEventListener('click', function(e){
+  var star = e.target.closest('.fav-star');
+  if(!star) return;
+  star.classList.remove('star-bouncing');
+  void star.offsetWidth;
+  star.classList.add('star-bouncing');
+  setTimeout(function(){ star.classList.remove('star-bouncing'); }, 280);
+}, true);
+
+// ---- WRAP GUIDED BODY CONTENT for step transitions ----
+(function(){
+  var _origStart = window.startGuidedSession;
+  window.startGuidedSession = function(sessionKey){
+    _origStart(sessionKey);
+    setTimeout(function(){
+      var body = document.getElementById('guidedBody');
+      if(body && !body.querySelector('.guided-step-content')){
+        var wr = document.createElement('div');
+        wr.className = 'guided-step-content';
+        while(body.firstChild) wr.appendChild(body.firstChild);
+        body.appendChild(wr);
+      }
+    }, 40);
+  };
+})();
+
+// ---- SEARCH OVERLAY CLOSE KEY ----
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape'){
+    var o = document.getElementById('searchOverlay');
+    if(o && o.classList.contains('search-open')) closeSearch();
+  }
+});
+
+// Also patch the searchCloseBtn to use smooth close
+(function(){
+  var btn = document.getElementById('searchCloseBtn');
+  if(btn){
+    btn.onclick = null;
+    btn.addEventListener('click', function(){ closeSearch(); });
+  }
+})();
+</script>
+
 </body>
 </html>
