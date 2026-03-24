@@ -200,6 +200,128 @@ body.light .dhikr{background:var(--card);}
 .nav-btn.fav-active{color:var(--gold-l);border-bottom-color:var(--gold);background:rgba(201,168,76,.07);}
 
 
+
+/* ---- INSTALL PROMPT CARD ---- */
+.install-card {
+  position: relative;
+  margin: 0 0 20px;
+  border-radius: 12px;
+  border: 1px solid rgba(201,168,76,0.4);
+  background: var(--card);
+  padding: 20px 18px 16px;
+  text-align: center;
+}
+.install-card-close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  background: none;
+  border: none;
+  color: var(--text-m);
+  font-size: 14px;
+  cursor: pointer;
+  padding: 4px;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.install-card-icon { font-size: 28px; margin-bottom: 8px; }
+.install-card-title {
+  font-family: var(--fs);
+  font-size: 17px;
+  color: var(--gold-l);
+  margin-bottom: 6px;
+}
+.install-card-body {
+  font-size: 12px;
+  color: var(--text-d);
+  line-height: 1.65;
+  margin-bottom: 14px;
+}
+.install-steps {
+  font-size: 12px;
+  color: var(--text);
+  line-height: 1.8;
+  margin-bottom: 14px;
+  text-align: left;
+  background: rgba(201,168,76,0.06);
+  border-radius: 8px;
+  padding: 10px 14px;
+}
+.install-steps strong { color: var(--gold); }
+.install-card-btn {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  background: rgba(201,168,76,0.15);
+  border: 1px solid var(--gold);
+  color: var(--gold-l);
+  font-family: var(--fn);
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  margin-bottom: 10px;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.install-card-dismiss {
+  background: none;
+  border: none;
+  color: var(--text-m);
+  font-size: 11px;
+  cursor: pointer;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  padding: 4px;
+}
+
+/* ---- SETTINGS INSTALL SECTION ---- */
+.sv-install-section {
+  background: var(--card);
+  border-radius: 12px;
+  border: 1px solid rgba(201,168,76,0.3);
+  padding: 18px;
+  text-align: center;
+  margin-bottom: 16px;
+}
+.sv-install-icon { font-size: 32px; margin-bottom: 10px; }
+.sv-install-desc {
+  font-size: 12px;
+  color: var(--text-d);
+  line-height: 1.65;
+  margin-bottom: 14px;
+}
+.sv-install-steps {
+  font-size: 12px;
+  color: var(--text);
+  line-height: 1.8;
+  text-align: left;
+  background: rgba(201,168,76,0.06);
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-bottom: 14px;
+}
+.sv-install-steps strong { color: var(--gold); }
+.sv-install-btn {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  background: rgba(201,168,76,0.15);
+  border: 1px solid var(--gold);
+  color: var(--gold-l);
+  font-family: var(--fn);
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
 /* ---- POST-SALAH TASBIH SET ---- */
 .tasbih-set {
   background: var(--card);
@@ -1771,6 +1893,16 @@ body.light .guided-overlay { background: var(--deep); }
   <div class="divider"><div class="dl"></div><div class="dg"></div><div class="dgo"></div><div class="dg"></div><div class="dl"></div></div>
 
   <div class="hijri-date" id="hijriDisplay"></div>
+
+  <div class="install-card" id="installCard">
+    <button class="install-card-close" id="installCardClose" aria-label="Dismiss">✕</button>
+    <div class="install-card-icon">📲</div>
+    <div class="install-card-title">Add to Your Home Screen</div>
+    <div class="install-card-body">Use this app offline, anytime — no app store needed. It works like a native app.</div>
+    <div class="install-steps" id="installSteps"></div>
+    <button class="install-card-btn" id="installBtn" style="display:none">Install App</button>
+    <button class="install-card-dismiss" id="installDismiss">Got it — don't show again</button>
+  </div>
 
 
   <!-- DUA OF THE DAY -->
@@ -4629,6 +4761,23 @@ body.light .guided-overlay { background: var(--deep); }
       </div>
     </div>
 
+
+    <div class="sv-section-title">Install App</div>
+    <div class="sv-install-section">
+      <div class="sv-install-icon">📲</div>
+      <div class="sv-install-desc">Add Nafi's Dua List to your home screen for instant access and offline use — no app store needed.</div>
+      <div class="sv-install-steps" id="settingsInstallSteps"></div>
+      <button class="sv-install-btn" id="settingsInstallBtn" style="display:none">Install App</button>
+      <div style="margin-top:10px">
+        <button onclick="safeSet('install_prompt_dismissed',''); location.reload();"
+          style="background:none;border:none;color:var(--text-m);font-size:11px;
+          letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;
+          -webkit-tap-highlight-color:transparent;touch-action:manipulation;">
+          Show home screen reminder again
+        </button>
+      </div>
+    </div>
+
     <div class="sv-section-title">Notifications</div>
 
     <div class="sv-row">
@@ -4840,13 +4989,10 @@ function scrollToSection(id){
 
 // ---- SERVICE WORKER REGISTRATION ----
 // Only register when hosted on your own domain — SW files aren't served in preview sandboxes
-if ('serviceWorker' in navigator && !location.hostname.includes('claudeusercontent.com')) {
-  window.addEventListener('load', function() {
-    navigator.serviceWorker.register('./sw.js').then(function(reg) {
-      console.log('SW registered:', reg.scope);
-    }).catch(function(err) {
-      console.warn('SW registration failed:', err);
-    });
+// Unregister any existing service workers to prevent stale cache
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.getRegistrations().then(function(regs) {
+    regs.forEach(function(reg) { reg.unregister(); });
   });
 }
 
@@ -6362,6 +6508,113 @@ function showHijriDate(data) {
 }
 
 loadHijriDate();
+
+// ============================================================
+//  INSTALL PROMPT
+// ============================================================
+function initInstallPrompt() {
+  var card = document.getElementById('installCard');
+  if (!card) return;
+
+  // Already dismissed?
+  if (safeGet('install_prompt_dismissed', '')) {
+    card.style.display = 'none';
+    return;
+  }
+
+  // Already running as installed PWA?
+  if (window.matchMedia('(display-mode: standalone)').matches ||
+      window.navigator.standalone === true) {
+    card.style.display = 'none';
+    safeSet('install_prompt_dismissed', '1');
+    return;
+  }
+
+  // Detect platform
+  var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+  var isAndroid = /Android/.test(navigator.userAgent);
+  var stepsEl = document.getElementById('installSteps');
+  var stepsHTML = '';
+
+  if (isIOS) {
+    stepsHTML =
+      '<strong>iPhone / iPad:</strong><br>' +
+      '1. Tap the <strong>Share button</strong> ↑ at the bottom of Safari<br>' +
+      '2. Scroll down and tap <strong>"Add to Home Screen"</strong><br>' +
+      '3. Tap <strong>Add</strong> — done';
+  } else if (isAndroid) {
+    stepsHTML =
+      '<strong>Android:</strong><br>' +
+      '1. Tap the <strong>menu ⋮</strong> in the top right of Chrome<br>' +
+      '2. Tap <strong>"Add to Home Screen"</strong> or <strong>"Install App"</strong><br>' +
+      '3. Tap <strong>Add</strong> — done';
+  } else {
+    stepsHTML =
+      '<strong>Desktop Chrome / Edge:</strong><br>' +
+      '1. Look for the <strong>install icon ⊕</strong> in the address bar<br>' +
+      '2. Click <strong>"Install"</strong>';
+  }
+
+  if (stepsEl) stepsEl.innerHTML = stepsHTML;
+
+  // Also populate settings section
+  var settingsSteps = document.getElementById('settingsInstallSteps');
+  if (settingsSteps) settingsSteps.innerHTML = stepsHTML;
+
+  // Android native install button
+  var deferredPrompt = null;
+  window.addEventListener('beforeinstallprompt', function(e) {
+    e.preventDefault();
+    deferredPrompt = e;
+    var btn = document.getElementById('installBtn');
+    if (btn) btn.style.display = 'block';
+    var sBtn = document.getElementById('settingsInstallBtn');
+    if (sBtn) sBtn.style.display = 'block';
+  });
+
+  var installBtn = document.getElementById('installBtn');
+  if (installBtn) {
+    installBtn.addEventListener('click', function() {
+      if (!deferredPrompt) return;
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then(function(result) {
+        if (result.outcome === 'accepted') {
+          card.style.display = 'none';
+          safeSet('install_prompt_dismissed', '1');
+        }
+        deferredPrompt = null;
+      });
+    });
+  }
+
+  var settingsBtn = document.getElementById('settingsInstallBtn');
+  if (settingsBtn) {
+    settingsBtn.addEventListener('click', function() {
+      if (!deferredPrompt) return;
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then(function() { deferredPrompt = null; });
+    });
+  }
+
+  // Dismiss
+  function dismissCard() {
+    card.style.display = 'none';
+    safeSet('install_prompt_dismissed', '1');
+  }
+  var closeBtn = document.getElementById('installCardClose');
+  var dismissBtn = document.getElementById('installDismiss');
+  if (closeBtn) closeBtn.addEventListener('click', dismissCard);
+  if (dismissBtn) dismissBtn.addEventListener('click', dismissCard);
+
+  // Auto-hide once installed
+  window.addEventListener('appinstalled', function() {
+    card.style.display = 'none';
+    safeSet('install_prompt_dismissed', '1');
+  });
+}
+
+
+initInstallPrompt();
 </script>
 </body>
 </html>
