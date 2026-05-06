@@ -1417,6 +1417,77 @@ body.light .settings-popover { background: rgba(250,246,238,0.98); }
   line-height: 1;
 }
 
+/* ---- JUMUAH SESSION CARD ---- */
+.gs-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: rgba(201,168,76,0.08);
+  border: 1px solid rgba(201,168,76,0.3);
+  border-radius: 14px;
+  padding: 14px 16px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  transition: background 150ms ease;
+  margin-top: 10px;
+}
+.gs-card:active { background: rgba(201,168,76,0.16); }
+.gs-icon { font-size: 24px; flex-shrink: 0; line-height: 1; }
+.gs-info { flex: 1; }
+.gs-title { font-family: var(--fn); font-size: 15px; font-weight: 600; color: var(--gold-l); line-height: 1.3; }
+.gs-meta { font-family: var(--fn); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-m); margin-top: 3px; }
+.gs-arrow { font-size: 22px; color: var(--gold-d); flex-shrink: 0; line-height: 1; }
+
+/* ---- GUIDED PAUSE SCREEN ---- */
+.guided-pause-screen { text-align: center; padding: 32px 20px; }
+.guided-pause-icon { font-size: 48px; margin-bottom: 16px; }
+.guided-pause-title { font-family: var(--fs); font-size: 26px; color: var(--gold-l); margin-bottom: 16px; }
+.guided-pause-body {
+  font-family: var(--fn);
+  font-size: 14px;
+  color: var(--text-d);
+  line-height: 1.85;
+  text-align: left;
+  background: rgba(201,168,76,0.05);
+  border-left: 3px solid var(--gold);
+  border-radius: 0 8px 8px 0;
+  padding: 16px 18px;
+  margin-bottom: 20px;
+}
+.guided-pause-time {
+  font-family: var(--fn);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.6;
+}
+
+/* ---- GUIDED EXTRA DUA ---- */
+.guided-extra-dua { margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(201,168,76,0.15); }
+
+/* ---- JUMUAH SESSION BUTTON (Learn view) ---- */
+.jumuah-session-btn {
+  display: block;
+  width: 100%;
+  margin: 16px 0;
+  padding: 14px 20px;
+  border-radius: 10px;
+  background: rgba(201,168,76,0.1);
+  border: 1px solid var(--gold);
+  color: var(--gold-l);
+  font-family: var(--fn);
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  transition: background 150ms ease;
+}
+.jumuah-session-btn:active { background: rgba(201,168,76,0.2); }
+
 /* ---- GUIDED SESSION OVERLAY ---- */
 .guided-overlay {
   position: fixed;
@@ -2875,6 +2946,14 @@ body.light .guided-nav {
         <div class="session-card-sub">35 steps · 8 phases · Full night guide</div>
       </div>
       <div class="session-card-arrow">›</div>
+    </div>
+    <div class="gs-card" id="gs-jumuah" onclick="startGuidedSession('jumuah')">
+      <div class="gs-icon">🕌</div>
+      <div class="gs-info">
+        <div class="gs-title">Jumu'ah Hour</div>
+        <div class="gs-meta">11 SECTIONS · FRIDAY AFTER ASR · 60 MINUTE GUIDE</div>
+      </div>
+      <div class="gs-arrow">›</div>
     </div>
   </div>
 
@@ -5559,6 +5638,33 @@ body.light .guided-nav {
 </div>
     </div>
 
+    <div class="expand-wrap">
+      <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
+        <div class="et-num" style="font-size:10px;">📋</div>
+        <div class="et-info">
+          <div class="et-en">How to use the Jumu'ah Hour</div>
+          <div class="et-virtue">A structured 60-minute guide — from after ʿAsr to Maghrib</div>
+        </div>
+        <span class="et-arrow" aria-hidden="true">▾</span>
+      </button>
+      <div class="expand-body">
+<div class="expand-inner">
+        <div class="note" style="margin-bottom:10px;">
+          <strong>The 5-block structure:</strong><br><br>
+          <strong>1. Opening Salawat</strong> (5 mins) — Begin by sending abundant salawat on the Prophet ﷺ. He said: Increase your salawat upon me on Friday. — Abu Dawud (1047).<br><br>
+          <strong>2. Istighfar</strong> (5 mins) — Seek sincere forgiveness. Cleanse the heart before making requests. Say the sayyid al-istighfar and reflect on your sins.<br><br>
+          <strong>3. Core duas</strong> (30 mins) — Work through structured duas for deen, akhirah, Jannah, this dunya, marriage, family, distress, and the Ummah. Each topic covered with Qur'anic and Prophetic supplications.<br><br>
+          <strong>4. Personal dua</strong> (15 mins) — Speak to Allah directly in your own words. This is the heart of the hour. Be specific, be desperate, be honest.<br><br>
+          <strong>5. Closing Salawat</strong> (5 mins) — Seal every dua with salawat. The dua between two salawats is never rejected.<br><br>
+          Use the guided session below to be taken through all 11 sections step by step.
+        </div>
+        <div class="src">Source: <b>Sahih al-Bukhari (935), Sahih Muslim (852)</b></div>
+      </div>
+</div>
+    </div>
+
+    <button class="jumuah-session-btn" onclick="startGuidedSession('jumuah'); showView('adhkar');">▶ Start Jumu'ah Hour Session</button>
+
     <div class="dua">
       <div class="dlabel">Salawat on Friday — Increase throughout the day</div>
       <div class="ar xs">اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ كَمَا صَلَّيْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ إِنَّكَ حَمِيدٌ مَجِيدٌ</div>
@@ -7549,6 +7655,199 @@ var GUIDED_SESSIONS = {
       { phase: 7, label: 'Dua for a Good End — Husn al-Khatimah', ar: 'اللَّهُمَّ اخْتِمْ لَنَا بِخَيْرٍ وَاجْعَلْ خَوَاتِيمَ أَعْمَالِنَا رِضْوَانَكَ', tr: 'Allāhumma khtim lanā bikhayr, wajʿal khawātīma aʿmālinā riḍwānak', en: '"O Allah, seal for us with goodness, and make the conclusion of our deeds Your pleasure."', src: 'Authentic dua of the scholars', note: 'Ask for a good ending to this night, this week, and this life. The Prophet ﷺ said: deeds are judged by their endings.' },
       { phase: 7, label: 'End with Salawat on the Prophet ﷺ', ar: 'اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ كَمَا صَلَّيْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ إِنَّكَ حَمِيدٌ مَجِيدٌ', tr: 'Allāhumma ṣalli ʿalā Muḥammadin wa ʿalā āli Muḥammad, kamā ṣallayta ʿalā Ibrāhīma wa ʿalā āli Ibrāhīm, innaka Ḥamīdun Majīd', en: '"O Allah, send Your grace upon Muhammad and upon the family of Muhammad, as You sent Your grace upon Ibrahim and upon the family of Ibrahim. Indeed You are Praiseworthy, Glorious."', src: 'al-Bukhari (3370), Muslim (406)', note: 'Every dua begins and ends with praise of Allah and salawat on the Prophet ﷺ.' }
     ]
+  },
+  jumuah: {
+    title: "Jumu'ah Hour",
+    subtitle: "Friday after Asr — the hour of accepted dua",
+    intro: "The Prophet ﷺ said: On Friday there is an hour in which no Muslim stands in prayer asking Allah for good except that He gives it to him. — Sahih al-Bukhari (935), Sahih Muslim (852). The strongest opinion: the last hour before Maghrib on Friday. Use every minute.",
+    steps: [
+      {
+        label: "Section 1 — Open with Salawat",
+        note: "The Prophet ﷺ said: Increase your salawat upon me on Friday. — Abu Dawud (1047). Say abundantly throughout this hour.",
+        ar: "اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ كَمَا صَلَّيْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ إِنَّكَ حَمِيدٌ مَجِيدٌ اللَّهُمَّ بَارِكْ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ كَمَا بَارَكْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ إِنَّكَ حَمِيدٌ مَجِيدٌ",
+        tr: "Allāhumma ṣalli ʿalā Muḥammadin wa ʿalā āli Muḥammad kamā ṣallayta ʿalā Ibrāhīma wa ʿalā āli Ibrāhīm innaka Ḥamīdun Majīd. Allāhumma bārik ʿalā Muḥammadin wa ʿalā āli Muḥammad kamā bārakta ʿalā Ibrāhīma wa ʿalā āli Ibrāhīm innaka Ḥamīdun Majīd",
+        en: "O Allah, send Your grace upon Muhammad and the family of Muhammad as You sent grace upon Ibrahim and the family of Ibrahim — You are Praiseworthy, Glorious. O Allah, send Your blessings upon Muhammad and the family of Muhammad as You sent blessings upon Ibrahim and the family of Ibrahim — You are Praiseworthy, Glorious.",
+        src: "Sahih al-Bukhari (3370), Muslim (406)"
+      },
+      {
+        label: "Section 2 — Praise Allah",
+        ar: "سُبْحَانَكَ اللَّهُمَّ وَبِحَمْدِكَ وَتَبَارَكَ اسْمُكَ وَتَعَالَى جَدُّكَ وَلَا إِلَٰهَ غَيْرُكَ",
+        tr: "Subḥānakallāhumma wa biḥamdika wa tabārakasmuka wa taʿālā jadduka wa lā ilāha ghayruk",
+        en: "Glory be to You O Allah and all praise. Blessed is Your name, exalted is Your majesty, there is no god besides You.",
+        src: "Abu Dawud (775) — Sahih"
+      },
+      {
+        label: "Section 3 — Seek Forgiveness (Istighfar)",
+        note: "Spend 5 minutes here. Say each of these slowly and sincerely.",
+        ar: "أَسْتَغْفِرُ اللَّهَ الَّذِي لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ وَأَتُوبُ إِلَيْهِ",
+        tr: "Astaghfirullāhal-ladhī lā ilāha illā Huwal-Ḥayyul-Qayyūmu wa atūbu ilayh",
+        en: "I seek forgiveness from Allah besides whom there is no god, the Ever-Living, the Sustainer, and I repent to Him.",
+        src: "Abu Dawud (1517) — Sahih",
+        extra: [
+          {
+            ar: "اللَّهُمَّ اغْفِرْ لِي ذَنْبِي كُلَّهُ دِقَّهُ وَجِلَّهُ وَأَوَّلَهُ وَآخِرَهُ وَعَلَانِيَتَهُ وَسِرَّهُ",
+            tr: "Allāhumma ighfir lī dhanbī kullahu diqqahu wa jillahu wa awwalahu wa ākhirahu wa ʿalāniyatahu wa sirrahu",
+            en: "O Allah forgive all my sins — the small and great, the first and last, the public and secret.",
+            src: "Sahih Muslim (483)"
+          }
+        ]
+      },
+      {
+        label: "Section 4 — Deen and Akhirah",
+        ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْهُدَى وَالتُّقَى وَالْعَفَافَ وَالْغِنَى",
+        tr: "Allāhumma innī asʾalukal-hudā wat-tuqā wal-ʿafāfa wal-ghinā",
+        en: "O Allah I ask You for guidance, piety, chastity and self-sufficiency.",
+        src: "Sahih Muslim (2721)",
+        extra: [
+          {
+            ar: "يَا مُقَلِّبَ الْقُلُوبِ ثَبِّتْ قَلْبِي عَلَى دِينِكَ",
+            tr: "Yā Muqallibul-qulūbi thabbit qalbī ʿalā dīnik",
+            en: "O Turner of the hearts, keep my heart firm upon Your religion.",
+            src: "al-Tirmidhi (3522) — Hasan Sahih"
+          },
+          {
+            ar: "رَبَّنَا لَا تُزِغْ قُلُوبَنَا بَعْدَ إِذْ هَدَيْتَنَا وَهَبْ لَنَا مِن لَّدُنكَ رَحْمَةً إِنَّكَ أَنتَ الْوَهَّابُ",
+            tr: "Rabbanā lā tuzigh qulūbanā baʿda idh hadaytanā wa hab lanā min ladunka raḥmah innaka Antal-Wahhāb",
+            en: "Our Lord, do not let our hearts deviate after You have guided us. Grant us Your mercy — You are the Bestower.",
+            src: "Qur'an 3:8"
+          },
+          {
+            ar: "اللَّهُمَّ اهْدِنِي لِأَحْسَنِ الْأَخْلَاقِ لَا يَهْدِي لِأَحْسَنِهَا إِلَّا أَنتَ وَاصْرِفْ عَنِّي سَيِّئَهَا لَا يَصْرِفُ عَنِّي سَيِّئَهَا إِلَّا أَنتَ",
+            tr: "Allāhummahdinī li-aḥsanil-akhlāqi lā yahdī li-aḥsanihā illā Ant waṣrif ʿannī sayyiʾahā lā yaṣrifu ʿannī sayyiʾahā illā Ant",
+            en: "O Allah guide me to the best of character — none guides to it except You. And turn away its evil from me — none turns it away except You.",
+            src: "Sahih Muslim (771)"
+          }
+        ]
+      },
+      {
+        label: "Section 5 — Jannah and Protection from the Fire",
+        ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْجَنَّةَ وَمَا قَرَّبَ إِلَيْهَا مِنْ قَوْلٍ أَوْ عَمَلٍ وَأَعُوذُ بِكَ مِنَ النَّارِ وَمَا قَرَّبَ إِلَيْهَا مِنْ قَوْلٍ أَوْ عَمَلٍ",
+        tr: "Allāhumma innī asʾalukal-jannata wa mā qarraba ilayhā min qawlin aw ʿamal wa aʿūdhu bika minan-nāri wa mā qarraba ilayhā min qawlin aw ʿamal",
+        en: "O Allah I ask You for Paradise and whatever brings me near to it in word or deed, and I seek refuge from the Fire and whatever brings me near to it in word or deed.",
+        src: "Ibn Majah (3846) — Sahih",
+        extra: [
+          {
+            ar: "اللَّهُمَّ أَجِرْنِي مِنَ النَّارِ",
+            tr: "Allāhumma ajirnī minan-nār",
+            en: "O Allah protect me from the Fire.",
+            src: "Abu Dawud (5079) — Sahih",
+            note: "Say 7 times."
+          },
+          {
+            ar: "رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ",
+            tr: "Rabbanā ātinā fid-dunyā ḥasanatan wa fil-ākhirati ḥasanatan wa qinā ʿadhāban-nār",
+            en: "Our Lord, give us good in this world and good in the Hereafter and protect us from the punishment of the Fire.",
+            src: "Qur'an 2:201"
+          },
+          {
+            ar: "رَبَّنَا اصْرِفْ عَنَّا عَذَابَ جَهَنَّمَ إِنَّ عَذَابَهَا كَانَ غَرَامًا",
+            tr: "Rabbanāṣrif ʿannā ʿadhāba jahannama inna ʿadhābahā kāna gharāmā",
+            en: "Our Lord, avert from us the punishment of Hellfire — indeed its punishment is ever adhering.",
+            src: "Qur'an 25:65"
+          }
+        ]
+      },
+      {
+        label: "Section 6 — For This Dunya",
+        ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنَ الْخَيْرِ كُلِّهِ عَاجِلِهِ وَآجِلِهِ مَا عَلِمْتُ مِنْهُ وَمَا لَمْ أَعْلَمْ وَأَعُوذُ بِكَ مِنَ الشَّرِّ كُلِّهِ عَاجِلِهِ وَآجِلِهِ مَا عَلِمْتُ مِنْهُ وَمَا لَمْ أَعْلَمْ",
+        tr: "Allāhumma innī asʾaluka minal-khayri kullihī ʿājilihī wa ājilihī mā ʿalimtu minhu wa mā lam aʿlam wa aʿūdhu bika minash-sharri kullihī ʿājilihī wa ājilihī mā ʿalimtu minhu wa mā lam aʿlam",
+        en: "O Allah I ask You for all good — immediate and future, that which I know and that which I do not know. And I seek refuge in You from all evil — immediate and future, that which I know and that which I do not know.",
+        src: "Sahih Muslim (2721)",
+        extra: [
+          {
+            ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْعَافِيَةَ فِي الدُّنْيَا وَالْآخِرَةِ",
+            tr: "Allāhumma innī asʾalukal-ʿāfiyata fid-dunyā wal-ākhirah",
+            en: "O Allah I ask You for wellbeing in this world and the Hereafter.",
+            src: "Abu Dawud (5074) — Sahih"
+          },
+          {
+            ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ عِلْمًا نَافِعًا وَرِزْقًا طَيِّبًا وَعَمَلًا مُتَقَبَّلًا",
+            tr: "Allāhumma innī asʾaluka ʿilman nāfiʿan wa rizqan ṭayyiban wa ʿamalan mutaqabbalan",
+            en: "O Allah I ask You for beneficial knowledge, goodly provision and accepted deeds.",
+            src: "Ibn Majah (925) — Sahih"
+          },
+          {
+            ar: "اللَّهُمَّ اكْفِنِي بِحَلَالِكَ عَنْ حَرَامِكَ وَأَغْنِنِي بِفَضْلِكَ عَمَّنْ سِوَاكَ",
+            tr: "Allāhummakfinī biḥalālika ʿan ḥarāmika wa aghninī bifaḍlika ʿamman siwāk",
+            en: "O Allah suffice me with the lawful against the unlawful and enrich me by Your bounty making me independent of all others.",
+            src: "al-Tirmidhi (3563) — Hasan"
+          }
+        ]
+      },
+      {
+        label: "Section 7 — For Marriage and Family",
+        ar: "رَبَّنَا هَبْ لَنَا مِنْ أَزْوَاجِنَا وَذُرِّيَّاتِنَا قُرَّةَ أَعْيُنٍ وَاجْعَلْنَا لِلْمُتَّقِينَ إِمَامًا",
+        tr: "Rabbanā hab lanā min azwājinā wa dhurriyyātinā qurrata aʿyunin wajʿalnā lil-muttaqīna imāmā",
+        en: "Our Lord, grant us from our spouses and offspring comfort to our eyes and make us an example for the righteous.",
+        src: "Qur'an 25:74",
+        extra: [
+          {
+            ar: "رَبِّ هَبْ لِي مِن لَّدُنكَ ذُرِّيَّةً طَيِّبَةً إِنَّكَ سَمِيعُ الدُّعَاءِ",
+            tr: "Rabbi hab lī min ladunka dhurriyyatan ṭayyibah innaka samīʿud-duʿāʾ",
+            en: "My Lord, grant me from Yourself righteous offspring — You are the Hearer of supplication.",
+            src: "Qur'an 3:38"
+          },
+          {
+            ar: "رَّبِّ ارْحَمْهُمَا كَمَا رَبَّيَانِي صَغِيرًا",
+            tr: "Rabbir-ḥamhumā kamā rabbayānī ṣaghīrā",
+            en: "My Lord, have mercy upon my parents as they raised me when I was small.",
+            src: "Qur'an 17:24"
+          }
+        ]
+      },
+      {
+        label: "Section 8 — For Distress and Difficulty",
+        ar: "لَّا إِلَٰهَ إِلَّا أَنتَ سُبْحَانَكَ إِنِّي كُنتُ مِنَ الظَّالِمِينَ",
+        tr: "Lā ilāha illā Anta subḥānaka innī kuntu minaẓ-ẓālimīn",
+        en: "There is no god but You. Glory be to You. I have been of the wrongdoers.",
+        src: "Qur'an 21:87",
+        note: "The Prophet ﷺ said: No Muslim calls upon Allah with these words in any distress except that Allah relieves it.",
+        extra: [
+          {
+            ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْهَمِّ وَالْحَزَنِ وَالْعَجْزِ وَالْكَسَلِ وَالْبُخْلِ وَالْجُبْنِ وَضَلَعِ الدَّيْنِ وَغَلَبَةِ الرِّجَالِ",
+            tr: "Allāhumma innī aʿūdhu bika minal-hammi wal-ḥazan wal-ʿajzi wal-kasal wal-bukhli wal-jubn wa ḍalaʿid-dayn wa ghalabatir-rijāl",
+            en: "O Allah I seek refuge in You from anxiety, grief, weakness, laziness, cowardice, miserliness, debt and being overpowered by people.",
+            src: "Sahih al-Bukhari (6369)"
+          },
+          {
+            ar: "يَا حَيُّ يَا قَيُّومُ بِرَحْمَتِكَ أَسْتَغِيثُ أَصْلِحْ لِي شَأْنِي كُلَّهُ وَلَا تَكِلْنِي إِلَى نَفْسِي طَرْفَةَ عَيْنٍ",
+            tr: "Yā Ḥayyu Yā Qayyūm bi-raḥmatika astaghīth aṣliḥ lī shaʾnī kullahu wa lā takilnī ilā nafsī ṭarfata ʿayn",
+            en: "O Ever-Living, O Sustainer, by Your mercy I seek help. Rectify all my affairs and do not entrust me to myself even for a blink of an eye.",
+            src: "al-Nasāʾi, ʿAmal al-Yawm wal-Laylah (46) — Sahih"
+          }
+        ]
+      },
+      {
+        label: "Section 9 — For the Ummah",
+        ar: "رَبَّنَا اغْفِرْ لَنَا وَلِإِخْوَانِنَا الَّذِينَ سَبَقُونَا بِالْإِيمَانِ وَلَا تَجْعَلْ فِي قُلُوبِنَا غِلًّا لِّلَّذِينَ آمَنُوا رَبَّنَا إِنَّكَ رَءُوفٌ رَّحِيمٌ",
+        tr: "Rabbanā ighfir lanā wa li-ikhwāninadh-dhīna sabaqūnā bil-īmāni wa lā tajʿal fī qulūbinā ghillal-lilladhīna āmanū Rabbanā innaka Raʾūfur-Raḥīm",
+        en: "Our Lord, forgive us and our brothers who preceded us in faith, and put not in our hearts any resentment toward those who have believed. Our Lord, You are Kind and Merciful.",
+        src: "Qur'an 59:10",
+        note: "Make dua for the Ummah — Palestine, Sudan, Syria, Burma, and every Muslim in difficulty."
+      },
+      {
+        label: "Section 10 — Your Personal Dua",
+        isPause: true,
+        note: "This is the heart of the hour. Spend at least 10–15 minutes speaking to Allah directly in your own words — English or Arabic. Ask for everything. Be specific. Be desperate. Be honest.\n\nFor your marriage · For Anisa · For barakah in your home · For your parents · For your HMRC role and halal rizq · For your Islamic apps as Sadaqah Jariyah · For a halal home purchase · For your health · For Gaza and the Ummah · For a good death upon imaan.\n\nThe Prophet ﷺ said: Ask Allah for everything, even the strap of your sandal."
+      },
+      {
+        label: "Section 11 — Seal with Salawat and Closing",
+        ar: "اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ كَمَا صَلَّيْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ إِنَّكَ حَمِيدٌ مَجِيدٌ",
+        tr: "Allāhumma ṣalli ʿalā Muḥammadin wa ʿalā āli Muḥammad kamā ṣallayta ʿalā Ibrāhīma wa ʿalā āli Ibrāhīm innaka Ḥamīdun Majīd",
+        en: "O Allah, send Your grace upon Muhammad and the family of Muhammad as You sent grace upon Ibrahim and the family of Ibrahim — You are Praiseworthy, Glorious.",
+        src: "Sahih al-Bukhari (3370)",
+        note: "Seal your dua with salawat — the dua between two salawats is never rejected.",
+        extra: [
+          {
+            ar: "سُبْحَانَكَ اللَّهُمَّ وَبِحَمْدِكَ أَشْهَدُ أَنْ لَا إِلَٰهَ إِلَّا أَنتَ أَسْتَغْفِرُكَ وَأَتُوبُ إِلَيْكَ",
+            tr: "Subḥānakallāhumma wa biḥamdika ashhadu an lā ilāha illā Anta astaghfiruka wa atūbu ilayk",
+            en: "Glory be to You O Allah and all praise. I bear witness there is no god but You. I seek Your forgiveness and repent to You.",
+            src: "Abu Dawud (4857) — Sahih",
+            note: "Kaffaratul Majlis — said at the end of every gathering."
+          }
+        ]
+      }
+    ]
   }
 };
 
@@ -7624,20 +7923,69 @@ function renderGuidedStep(){
     }
   }
 
-  var _gdl = document.getElementById('guidedDuaLabel'); if (_gdl) _gdl.textContent = step.label || '';
-  var _gar = document.getElementById('guidedAr'); if (_gar) _gar.textContent = step.ar || '';
-  var _gtr = document.getElementById('guidedTr'); if (_gtr) _gtr.textContent = step.tr || '';
-  var _gen = document.getElementById('guidedEn'); if (_gen) _gen.textContent = step.en || '';
-  var srcEl = document.getElementById('guidedSrc');
-  if (srcEl) srcEl.innerHTML = step.src ? 'Source: <b>' + step.src + '</b>' : '';
+  // Handle isPause step — render special pause screen into guidedBody
+  var body = document.getElementById('guidedBody');
+  if (step.isPause) {
+    var _gdlP = document.getElementById('guidedDuaLabel'); if (_gdlP) _gdlP.textContent = '';
+    var _garP = document.getElementById('guidedAr'); if (_garP) _garP.textContent = '';
+    var _gtrP = document.getElementById('guidedTr'); if (_gtrP) _gtrP.textContent = '';
+    var _genP = document.getElementById('guidedEn'); if (_genP) _genP.textContent = '';
+    var srcElP = document.getElementById('guidedSrc'); if (srcElP) srcElP.innerHTML = '';
+    var noteElP = document.getElementById('guidedNote'); if (noteElP) noteElP.style.display = 'none';
+    // Remove any existing pause screen or extra dua blocks
+    if (body) {
+      var old = body.querySelector('.guided-pause-screen');
+      if (old) old.parentNode.removeChild(old);
+      var oldExtras = body.querySelectorAll('.guided-extra-dua');
+      oldExtras.forEach(function(el){ el.parentNode.removeChild(el); });
+      var pauseDiv = document.createElement('div');
+      pauseDiv.className = 'guided-pause-screen';
+      pauseDiv.innerHTML = '<div class="guided-pause-icon">🤲</div>' +
+        '<div class="guided-pause-title">Your Personal Dua</div>' +
+        '<div class="guided-pause-body">' + (step.note || '').replace(/\n/g, '<br><br>') + '</div>' +
+        '<div class="guided-pause-time">Take your time — there is no rush.</div>';
+      body.appendChild(pauseDiv);
+    }
+  } else {
+    // Remove any pause screen
+    if (body) {
+      var oldPause = body.querySelector('.guided-pause-screen');
+      if (oldPause) oldPause.parentNode.removeChild(oldPause);
+      var oldEx = body.querySelectorAll('.guided-extra-dua');
+      oldEx.forEach(function(el){ el.parentNode.removeChild(el); });
+    }
 
-  var noteEl = document.getElementById('guidedNote');
-  if (noteEl) {
-    if(step.note){
-      noteEl.textContent = step.note;
-      noteEl.style.display = 'block';
-    } else {
-      noteEl.style.display = 'none';
+    var _gdl = document.getElementById('guidedDuaLabel'); if (_gdl) _gdl.textContent = step.label || '';
+    var _gar = document.getElementById('guidedAr'); if (_gar) _gar.textContent = step.ar || '';
+    var _gtr = document.getElementById('guidedTr'); if (_gtr) _gtr.textContent = step.tr || '';
+    var _gen = document.getElementById('guidedEn'); if (_gen) _gen.textContent = step.en || '';
+    var srcEl = document.getElementById('guidedSrc');
+    if (srcEl) srcEl.innerHTML = step.src ? 'Source: <b>' + step.src + '</b>' : '';
+
+    var noteEl = document.getElementById('guidedNote');
+    if (noteEl) {
+      if(step.note){
+        noteEl.textContent = step.note;
+        noteEl.style.display = 'block';
+      } else {
+        noteEl.style.display = 'none';
+      }
+    }
+
+    // Render extra duas
+    if (body && step.extra && step.extra.length) {
+      step.extra.forEach(function(ex) {
+        var extraDiv = document.createElement('div');
+        extraDiv.className = 'guided-extra-dua';
+        var html = '';
+        if (ex.note) html += '<div class="guided-note" style="display:block;">' + ex.note + '</div>';
+        html += '<div class="guided-ar" style="margin-top:8px;">' + (ex.ar || '') + '</div>';
+        html += '<div class="guided-tr">' + (ex.tr || '') + '</div>';
+        html += '<div class="guided-en">"' + (ex.en || '') + '"</div>';
+        html += '<div class="guided-src">📖 ' + (ex.src || '') + '</div>';
+        extraDiv.innerHTML = html;
+        body.appendChild(extraDiv);
+      });
     }
   }
 
@@ -7657,7 +8005,6 @@ function renderGuidedStep(){
   if (_gi) _gi.textContent = 'Step ' + (idx + 1) + ' of ' + total;
 
   // Scroll body to top
-  var body = document.getElementById('guidedBody');
   if(body) body.scrollTop = 0;
 }
 
@@ -8471,9 +8818,22 @@ document.addEventListener('keydown', function(e){
   }
 
   /* ---- Init ---- */
+  function updateJumuahBadge() {
+    var card = document.getElementById('gs-jumuah');
+    if (!card) return;
+    if (new Date().getDay() === 5) {
+      var badge = document.createElement('div');
+      badge.className = 'gs-friday-badge';
+      badge.textContent = 'TODAY';
+      badge.style.cssText = 'background:rgba(201,168,76,0.2);border:1px solid var(--gold);color:var(--gold);font-family:var(--fn);font-size:9px;letter-spacing:0.14em;text-transform:uppercase;padding:2px 8px;border-radius:10px;margin-top:4px;display:inline-block;';
+      card.querySelector('.gs-info').appendChild(badge);
+    }
+  }
+
   function init() {
     loadState();
     restoreUI();
+    updateJumuahBadge();
     // detect or restore salah selection
     var saved = null;
     try { saved = localStorage.getItem('salah_active'); } catch(e){}
