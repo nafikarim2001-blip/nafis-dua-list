@@ -747,7 +747,7 @@ body::before{
 .htitle em{color:var(--gold-l);font-style:italic;}
 .hsub{font-size:13px;color:var(--text-d);line-height:1.8;max-width:480px;margin:0 auto;}
 
-.divider{display:flex;align-items:center;gap:10px;margin:36px 0;}
+.divider{display:flex;align-items:center;gap:10px;margin:24px 0;}
 .dl{flex:1;height:1px;background:linear-gradient(to right,transparent,var(--gold-d) 40%,transparent);}
 .dg{width:7px;height:7px;background:var(--gold-d);transform:rotate(45deg);flex-shrink:0;}
 .dgo{width:7px;height:7px;border:1px solid var(--gold-d);transform:rotate(45deg);flex-shrink:0;}
@@ -1130,15 +1130,17 @@ body::before{
 .spa-view.view-active {
   opacity: 1;
   transform: translateY(0);
+  padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px));
 }
 .spa-view.view-entering {
   display: block;
   opacity: 0;
   transform: translateY(8px);
+  padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px));
 }
 .spa-view.view-active,
 .spa-view.view-entering {
-  padding-bottom: calc(100px + env(safe-area-inset-bottom, 0px));
+  padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px));
 }
 .spa-view.view-leaving {
   display: block;
@@ -2913,7 +2915,7 @@ body.light .guided-nav {
 
 
 /* ===== AFTER SALAH INTERACTIVE SECTION ===== */
-.salah-tracker { margin-bottom: 16px; }
+.salah-tracker { margin-bottom: calc(80px + env(safe-area-inset-bottom, 0px)); }
 
 /* Salah selector pills */
 .salah-selector {
@@ -3345,13 +3347,8 @@ body.light .guided-nav {
 
   <div class="divider"><div class="dl"></div><div class="dg"></div><div class="dl"></div></div>
 
-
-
-  <div class="divider"><div class="dl"></div><div class="dg"></div><div class="dl"></div></div>
-
   <!-- My Duas inline -->
   <div class="my-duas-overlay" id="myDuasOverlay">
-    <div class="divider"><div class="dl"></div><div class="dg"></div><div class="dl"></div></div>
 
 <div id="favView">
     <div class="sec-h" style="margin-bottom:20px;">
@@ -4207,7 +4204,7 @@ body.light .guided-nav {
       <div class="salah-card" id="sc-0">
         <div class="salah-card-header">
           <div class="salah-card-title">Istighfar — 3×</div>
-          <button class="salah-tick-btn" onclick="tickSalahCard(0)" aria-label="Mark complete">✓</button>
+          <button class="salah-tick-btn" onclick="event.stopPropagation();tickSalahCard(0)" aria-label="Mark complete">✓</button>
         </div>
         <div class="salah-card-ar">أَسْتَغْفِرُ اللَّهَ</div>
         <div class="salah-card-tr">Astaghfirullāh</div>
@@ -4219,7 +4216,7 @@ body.light .guided-nav {
       <div class="salah-card" id="sc-1">
         <div class="salah-card-header">
           <div class="salah-card-title">The Salam Dua — 1×</div>
-          <button class="salah-tick-btn" onclick="tickSalahCard(1)" aria-label="Mark complete">✓</button>
+          <button class="salah-tick-btn" onclick="event.stopPropagation();tickSalahCard(1)" aria-label="Mark complete">✓</button>
         </div>
         <div class="salah-card-ar">اللَّهُمَّ أَنتَ السَّلَامُ وَمِنكَ السَّلَامُ تَبَارَكْتَ يَا ذَا الْجَلَالِ وَالْإِكْرَامِ</div>
         <div class="salah-card-tr">Allāhumma Antas-Salāmu wa minkas-salām, tabārakta yā Dhal-Jalāli wal-Ikrām</div>
@@ -4231,14 +4228,14 @@ body.light .guided-nav {
       <div class="salah-card tasbih-tappable" id="sc-2" onclick="incTasbih(2,33)">
         <div class="salah-card-header">
           <div class="salah-card-title">SubḥānAllāh — 33×</div>
-          <button class="salah-tick-btn" id="sc-2-tick" style="display:none;" onclick="tickSalahCard(2)" aria-label="Mark complete">✓</button>
+          <button class="salah-tick-btn" id="sc-2-tick" style="display:none;" onclick="event.stopPropagation();tickSalahCard(2)" aria-label="Mark complete">✓</button>
         </div>
         <div class="salah-card-ar">سُبْحَانَ اللَّهِ</div>
         <div class="salah-card-tr">Subḥānallāh</div>
         <div class="salah-card-en">"Glory be to Allah."</div>
         <div class="salah-card-src">Source: <b>Sahih Muslim (597)</b></div>
         <div class="tasbih-counter-row">
-          <button class="tasbih-plus-btn" onclick="incTasbih(2,33)" aria-label="Increment">+</button>
+          <button class="tasbih-plus-btn" onclick="event.stopPropagation();incTasbih(2,33)" aria-label="Increment">+</button>
           <div class="tasbih-count-display" id="tc-2">0/33</div>
           <div class="tasbih-goal-label">tap to count</div>
         </div>
@@ -4248,14 +4245,14 @@ body.light .guided-nav {
       <div class="salah-card tasbih-tappable" id="sc-3" onclick="incTasbih(3,33)">
         <div class="salah-card-header">
           <div class="salah-card-title">Alḥamdulillāh — 33×</div>
-          <button class="salah-tick-btn" id="sc-3-tick" style="display:none;" onclick="tickSalahCard(3)" aria-label="Mark complete">✓</button>
+          <button class="salah-tick-btn" id="sc-3-tick" style="display:none;" onclick="event.stopPropagation();tickSalahCard(3)" aria-label="Mark complete">✓</button>
         </div>
         <div class="salah-card-ar">الْحَمْدُ لِلَّهِ</div>
         <div class="salah-card-tr">Alḥamdulillāh</div>
         <div class="salah-card-en">"All praise is for Allah."</div>
         <div class="salah-card-src">Source: <b>Sahih Muslim (597)</b></div>
         <div class="tasbih-counter-row">
-          <button class="tasbih-plus-btn" onclick="incTasbih(3,33)" aria-label="Increment">+</button>
+          <button class="tasbih-plus-btn" onclick="event.stopPropagation();incTasbih(3,33)" aria-label="Increment">+</button>
           <div class="tasbih-count-display" id="tc-3">0/33</div>
           <div class="tasbih-goal-label">tap to count</div>
         </div>
@@ -4265,14 +4262,14 @@ body.light .guided-nav {
       <div class="salah-card tasbih-tappable" id="sc-4" onclick="incTasbih(4,34)">
         <div class="salah-card-header">
           <div class="salah-card-title">Allāhu Akbar — 34×</div>
-          <button class="salah-tick-btn" id="sc-4-tick" style="display:none;" onclick="tickSalahCard(4)" aria-label="Mark complete">✓</button>
+          <button class="salah-tick-btn" id="sc-4-tick" style="display:none;" onclick="event.stopPropagation();tickSalahCard(4)" aria-label="Mark complete">✓</button>
         </div>
         <div class="salah-card-ar">اللَّهُ أَكْبَرُ</div>
         <div class="salah-card-tr">Allāhu Akbar</div>
         <div class="salah-card-en">"Allah is the Greatest." — Together the three tasbih make 100. Sins are forgiven even if like the foam of the sea.</div>
         <div class="salah-card-src">Source: <b>Sahih Muslim (597)</b></div>
         <div class="tasbih-counter-row">
-          <button class="tasbih-plus-btn" onclick="incTasbih(4,34)" aria-label="Increment">+</button>
+          <button class="tasbih-plus-btn" onclick="event.stopPropagation();incTasbih(4,34)" aria-label="Increment">+</button>
           <div class="tasbih-count-display" id="tc-4">0/34</div>
           <div class="tasbih-goal-label">tap to count</div>
         </div>
@@ -4282,7 +4279,7 @@ body.light .guided-nav {
       <div class="salah-card" id="sc-5">
         <div class="salah-card-header">
           <div class="salah-card-title">Tahleel — 1×</div>
-          <button class="salah-tick-btn" onclick="tickSalahCard(5)" aria-label="Mark complete">✓</button>
+          <button class="salah-tick-btn" onclick="event.stopPropagation();tickSalahCard(5)" aria-label="Mark complete">✓</button>
         </div>
         <div class="salah-card-ar">لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ</div>
         <div class="salah-card-tr">Lā ilāha illallāhu waḥdahu lā sharīka lah, lahul-mulku wa lahul-ḥamd, wa Huwa ʿalā kulli shayʾin Qadīr</div>
@@ -4294,7 +4291,7 @@ body.light .guided-nav {
       <div class="salah-card" id="sc-6">
         <div class="salah-card-header">
           <div class="salah-card-title">Āyatul Kursī — 1×</div>
-          <button class="salah-tick-btn" onclick="tickSalahCard(6)" aria-label="Mark complete">✓</button>
+          <button class="salah-tick-btn" onclick="event.stopPropagation();tickSalahCard(6)" aria-label="Mark complete">✓</button>
         </div>
         <div class="salah-card-ar">اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ لَّهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ مَن ذَا الَّذِي يَشْفَعُ عِندَهُ إِلَّا بِإِذْنِهِ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ وَلَا يُحِيطُونَ بِشَيْءٍ مِّنْ عِلْمِهِ إِلَّا بِمَا شَاءَ وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ وَلَا يَئُودُهُ حِفْظُهُمَا وَهُوَ الْعَلِيُّ الْعَظِيمُ</div>
         <div class="salah-card-en">Recite Āyatul Kursī in full (Al-Baqarah 2:255). Whoever recites it after every obligatory prayer, nothing prevents him from entering Paradise except death.</div>
@@ -10020,10 +10017,22 @@ document.addEventListener('keydown', function(e){
     try {
       localStorage.setItem('salah_done', JSON.stringify(_salahDone));
       localStorage.setItem('salah_tasbih', JSON.stringify(_tasbihCount));
+      localStorage.setItem('salah_saved_date', new Date().toDateString());
     } catch(e){}
   }
   function loadState() {
     try {
+      var today = new Date().toDateString();
+      var savedDate = localStorage.getItem('salah_saved_date');
+      // If saved on a different day, wipe everything and start fresh
+      if (savedDate !== today) {
+        _salahDone   = [false,false,false,false,false,false,false];
+        _tasbihCount = { 2: 0, 3: 0, 4: 0 };
+        localStorage.removeItem('salah_done');
+        localStorage.removeItem('salah_tasbih');
+        localStorage.setItem('salah_saved_date', today);
+        return;
+      }
       var d = localStorage.getItem('salah_done');
       var t = localStorage.getItem('salah_tasbih');
       if(d) _salahDone = JSON.parse(d);
@@ -10174,6 +10183,21 @@ document.addEventListener('keydown', function(e){
       card.querySelector('.gs-info').appendChild(badge);
     }
   }
+
+  // Auto-reset salah counters at midnight
+  (function() {
+    var now = new Date();
+    var midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 10);
+    setTimeout(function() {
+      _salahDone   = [false,false,false,false,false,false,false];
+      _tasbihCount = { 2: 0, 3: 0, 4: 0 };
+      localStorage.setItem('salah_saved_date', new Date().toDateString());
+      localStorage.removeItem('salah_done');
+      localStorage.removeItem('salah_tasbih');
+      if(typeof restoreUI === 'function') restoreUI();
+      if(typeof updateProgress === 'function') updateProgress();
+    }, midnight - now);
+  })();
 
   function init() {
     loadState();
