@@ -9716,34 +9716,8 @@ function shareAsText() {
   }
 }
 
-/* ── Canvas 2D image renderer — 1080×1920 story format ── */
-function _roundRect(ctx, x, y, w, h, r) {
-  ctx.beginPath();
-  ctx.moveTo(x + r, y);
-  ctx.lineTo(x + w - r, y);
-  ctx.quadraticCurveTo(x + w, y, x + w, y + r);
-  ctx.lineTo(x + w, y + h - r);
-  ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
-  ctx.lineTo(x + r, y + h);
-  ctx.quadraticCurveTo(x, y + h, x, y + h - r);
-  ctx.lineTo(x, y + r);
-  ctx.quadraticCurveTo(x, y, x + r, y);
-  ctx.closePath();
-}
-
+/* ── Canvas 2D image renderer — 1080×1920 story format, warm navy aesthetic ── */
 function _duaWrapLines(ctx, text, maxW) {
-  if (!text) return [];
-  var words = text.split(' '), lines = [], line = '';
-  for (var i = 0; i < words.length; i++) {
-    var test = line ? line + ' ' + words[i] : words[i];
-    if (ctx.measureText(test).width > maxW && line) { lines.push(line); line = words[i]; }
-    else { line = test; }
-  }
-  if (line) lines.push(line);
-  return lines;
-}
-
-function _duaWrapLinesRTL(ctx, text, maxW) {
   if (!text) return [];
   var words = text.split(' '), lines = [], line = '';
   for (var i = 0; i < words.length; i++) {
@@ -9768,170 +9742,121 @@ function shareAsImage() {
 
   setTimeout(function() {
     try {
-      /* ── Canvas dimensions: 1080×1920 native story format ── */
+      /* ── Canvas: 1080×1920 native story format ── */
       var W = 1080, H = 1920;
-      var PAD = 72;          /* left/right padding */
+      var PAD = 80;
       var inner = W - PAD * 2;
 
       var cv = document.createElement('canvas');
       cv.width = W; cv.height = H;
       var ctx = cv.getContext('2d');
 
-      /* ── Background: pure black ── */
-      ctx.fillStyle = '#000000';
+      /* ── Background: navy gradient (same as old version) ── */
+      var bg = ctx.createLinearGradient(0, 0, W, H);
+      bg.addColorStop(0,   '#0C1018');
+      bg.addColorStop(0.5, '#111827');
+      bg.addColorStop(1,   '#0C1018');
+      ctx.fillStyle = bg;
       ctx.fillRect(0, 0, W, H);
 
-      /* ── Subtle top glow ── */
-      var glow = ctx.createRadialGradient(W * 0.5, 0, 0, W * 0.5, 0, W * 0.7);
-      glow.addColorStop(0, 'rgba(123,47,190,0.12)');
+      /* ── Gold left border strip ── */
+      ctx.fillStyle = '#C9A84C';
+      ctx.fillRect(0, 0, 7, H);
+
+      /* ── Radial glow top-right ── */
+      var glow = ctx.createRadialGradient(W * 0.9, 0, 0, W * 0.9, 0, W * 0.75);
+      glow.addColorStop(0, 'rgba(201,168,76,0.10)');
       glow.addColorStop(1, 'rgba(0,0,0,0)');
       ctx.fillStyle = glow;
-      ctx.fillRect(0, 0, W, H * 0.5);
+      ctx.fillRect(0, 0, W, H);
 
       /* ── Pre-measure all text blocks ── */
-      ctx.font = 'bold 40px "Gill Sans","Optima","Segoe UI",sans-serif';
+      ctx.font = 'bold 34px "Gill Sans","Optima","Segoe UI",sans-serif';
       var titleLines = _duaWrapLines(ctx, title, inner);
 
-      ctx.font = '96px "Scheherazade New","Traditional Arabic","Amiri",serif';
-      var arLines = _duaWrapLinesRTL(ctx, ar, inner);
+      ctx.font = '78px "Scheherazade New","Traditional Arabic","Amiri",serif';
+      var arLines = _duaWrapLines(ctx, ar, inner);
 
-      ctx.font = 'italic 22px "Palatino Linotype","Book Antiqua","Georgia",serif';
+      ctx.font = 'italic 28px "Palatino Linotype","Book Antiqua","Georgia",serif';
       var trLines = _duaWrapLines(ctx, tr, inner);
 
-      ctx.font = 'bold 34px "Gill Sans","Optima","Segoe UI",sans-serif';
+      ctx.font = '30px "Gill Sans","Optima","Segoe UI",sans-serif';
       var enLines = _duaWrapLines(ctx, en, inner);
 
-      /* ── Compute total content height to vertically centre in safe zone ── */
-      var headerH   = 68;                          /* logo row */
-      var titleH    = titleLines.length * 52 + 12; /* title block */
-      var refH      = src ? 40 : 0;               /* reference line */
-      var divH      = 40;                          /* divider + gap */
-      var arH       = arLines.length * 120;        /* arabic block */
-      var div2H     = 40;                          /* second divider */
-      var trH       = trLines.length * 34 + 16;    /* transliteration */
-      var enH       = enLines.length * 48 + 24;    /* translation */
-      var calloutPad = 48;                         /* callout internal padding */
-      var calloutH  = src ? (calloutPad * 2 + 32) : 0; /* context box */
+      /* ── Compute total content height for vertical centering ── */
+      var logoH  = 44 + 36;                       /* logo row + gap */
+      var titleH = titleLines.length * 44 + 28;   /* title + gap */
+      var arH    = arLines.length * 100 + 20;     /* arabic + gap */
+      var divH   = 28;                            /* divider + gap */
+      var trH    = trLines.length * 38 + 20;      /* transliteration + gap */
+      var enH    = enLines.length * 40 + 32;      /* translation + gap */
+      var srcH   = src ? 28 : 0;                  /* source line */
 
-      var totalContentH = headerH + 32 + titleH + refH + divH + arH + div2H + trH + enH + calloutH;
+      var totalH = logoH + titleH + arH + divH + trH + enH + srcH;
 
-      /* Start y so content is centred vertically with slight upward bias */
-      var safeTop = 180;
-      var safeBot = 180;
-      var safeH   = H - safeTop - safeBot;
-      var startY  = safeTop + Math.max(0, (safeH - totalContentH) / 2);
+      /* Vertically centre with a slight upward bias */
+      var startY = Math.max(120, (H - totalH) / 2 - 40);
       var y = startY;
 
-      /* ── Header: purple badge + app name ── */
-      var bx = PAD, by = y, bs = 56, br = 14;
-      ctx.beginPath();
-      ctx.moveTo(bx + br, by);
-      ctx.lineTo(bx + bs - br, by);
-      ctx.quadraticCurveTo(bx + bs, by, bx + bs, by + br);
-      ctx.lineTo(bx + bs, by + bs - br);
-      ctx.quadraticCurveTo(bx + bs, by + bs, bx + bs - br, by + bs);
-      ctx.lineTo(bx + br, by + bs);
-      ctx.quadraticCurveTo(bx, by + bs, bx, by + bs - br);
-      ctx.lineTo(bx, by + br);
-      ctx.quadraticCurveTo(bx, by, bx + br, by);
-      ctx.closePath();
-      ctx.fillStyle = '#7B2FBE';
-      ctx.fill();
-      /* Moon emoji */
-      ctx.font = '32px sans-serif';
-      ctx.textAlign = 'center';
-      ctx.fillText('\uD83C\uDF19', PAD + bs / 2, y + bs / 2 + 11);
-      /* App name */
-      ctx.font = 'italic 28px "Palatino Linotype","Book Antiqua","Georgia",serif';
-      ctx.fillStyle = '#C4A84F';
+      /* ── Logo: moon + app name ── */
+      ctx.font = '600 22px "Gill Sans","Optima","Segoe UI",sans-serif';
+      ctx.fillStyle = '#a78bfa';
       ctx.textAlign = 'left';
-      ctx.fillText("Nafi\u2019s Dua List", PAD + bs + 16, y + bs / 2 + 10);
-      y += bs + 32;
+      ctx.fillText('\uD83C\uDF19  NAFI\u2019S DUA LIST', PAD, y + 16);
+      y += logoH;
 
       /* ── Title ── */
-      ctx.font = 'bold 40px "Gill Sans","Optima","Segoe UI",sans-serif';
-      ctx.fillStyle = '#FFFFFF';
+      ctx.font = 'bold 34px "Gill Sans","Optima","Segoe UI",sans-serif';
+      ctx.fillStyle = '#C9A84C';
       ctx.textAlign = 'left';
       for (var t = 0; t < titleLines.length; t++) {
         ctx.fillText(titleLines[t], PAD, y);
-        y += 52;
+        y += 44;
       }
-      y += 12;
+      y += 28;
 
-      /* ── Reference line ── */
-      if (src) {
-        ctx.font = '600 16px "Gill Sans","Optima","Segoe UI",sans-serif';
-        ctx.fillStyle = '#8B8B6B';
-        ctx.textAlign = 'left';
-        var refText = src.replace(/\s*\u2014.*$/, '').replace(/^Source:\s*/i, '').toUpperCase();
-        ctx.fillText(refText, PAD, y);
-        y += 40;
-      }
-
-      /* ── Divider 1 ── */
-      ctx.strokeStyle = '#2a2a2a';
-      ctx.lineWidth = 2;
-      ctx.beginPath(); ctx.moveTo(PAD, y); ctx.lineTo(W - PAD, y); ctx.stroke();
-      y += 40;
-
-      /* ── Arabic text ── */
-      ctx.font = '96px "Scheherazade New","Traditional Arabic","Amiri",serif';
-      ctx.fillStyle = '#C4A84F';
-      ctx.textAlign = 'center';
+      /* ── Arabic (RTL, right-aligned) ── */
+      ctx.font = '78px "Scheherazade New","Traditional Arabic","Amiri",serif';
+      ctx.fillStyle = '#E8CC84';
+      ctx.textAlign = 'right';
       ctx.direction = 'rtl';
       for (var a = 0; a < arLines.length; a++) {
-        ctx.fillText(arLines[a].trim(), W / 2, y + 86);
-        y += 120;
+        ctx.fillText(arLines[a].trim(), W - PAD, y + 72);
+        y += 100;
       }
       ctx.direction = 'ltr';
-      y += 16;
+      ctx.textAlign = 'left';
+      y += 20;
 
-      /* ── Divider 2 ── */
-      ctx.strokeStyle = '#2a2a2a';
-      ctx.lineWidth = 2;
+      /* ── Divider (single gold, same as old version) ── */
+      ctx.strokeStyle = 'rgba(201,168,76,0.25)';
+      ctx.lineWidth = 1.5;
       ctx.beginPath(); ctx.moveTo(PAD, y); ctx.lineTo(W - PAD, y); ctx.stroke();
-      y += 40;
+      y += 28;
 
       /* ── Transliteration ── */
-      ctx.font = 'italic 22px "Palatino Linotype","Book Antiqua","Georgia",serif';
-      ctx.fillStyle = 'rgba(255,255,255,0.55)';
-      ctx.textAlign = 'left';
+      ctx.font = 'italic 28px "Palatino Linotype","Book Antiqua","Georgia",serif';
+      ctx.fillStyle = '#A89470';
       for (var b = 0; b < trLines.length; b++) {
         ctx.fillText(trLines[b].trim(), PAD, y);
-        y += 34;
+        y += 38;
       }
-      y += 16;
+      y += 20;
 
       /* ── Translation ── */
-      ctx.font = 'bold 34px "Gill Sans","Optima","Segoe UI",sans-serif';
-      ctx.fillStyle = '#FFFFFF';
+      ctx.font = '30px "Gill Sans","Optima","Segoe UI",sans-serif';
+      ctx.fillStyle = '#F0E6D0';
       for (var c = 0; c < enLines.length; c++) {
         ctx.fillText(enLines[c].trim(), PAD, y);
-        y += 48;
+        y += 40;
       }
-      y += 24;
+      y += 32;
 
-      /* ── Context callout box ── */
+      /* ── Source ── */
       if (src) {
-        var boxX = PAD, boxY = y;
-        var boxW = inner;
-        ctx.font = '20px "Gill Sans","Optima","Segoe UI",sans-serif';
-        var calloutLines = _duaWrapLines(ctx, src.replace(/^Source:\s*/i, ''), boxW - calloutPad * 2);
-        var boxH2 = calloutPad + calloutLines.length * 32 + calloutPad;
-        ctx.fillStyle = '#1a1505';
-        _roundRect(ctx, boxX, boxY, boxW, boxH2, 16);
-        ctx.fill();
-        ctx.strokeStyle = 'rgba(196,168,79,0.35)';
-        ctx.lineWidth = 1.5;
-        _roundRect(ctx, boxX, boxY, boxW, boxH2, 16);
-        ctx.stroke();
-        ctx.fillStyle = '#C4A84F';
-        ctx.font = '20px "Gill Sans","Optima","Segoe UI",sans-serif';
-        var cy2 = boxY + calloutPad;
-        for (var d = 0; d < calloutLines.length; d++) {
-          ctx.fillText(calloutLines[d].trim(), boxX + calloutPad, cy2);
-          cy2 += 32;
-        }
+        ctx.font = '22px "Gill Sans","Optima","Segoe UI",sans-serif';
+        ctx.fillStyle = '#6B5E48';
+        ctx.fillText(src, PAD, y);
       }
 
       /* ── Output ── */
