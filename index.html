@@ -747,7 +747,7 @@ body::before{
 .htitle em{color:var(--gold-l);font-style:italic;}
 .hsub{font-size:13px;color:var(--text-d);line-height:1.8;max-width:480px;margin:0 auto;}
 
-.divider{display:flex;align-items:center;gap:10px;margin:24px 0;}
+.divider{display:flex;align-items:center;gap:10px;margin:20px 0;}
 .dl{flex:1;height:1px;background:linear-gradient(to right,transparent,var(--gold-d) 40%,transparent);}
 .dg{width:7px;height:7px;background:var(--gold-d);transform:rotate(45deg);flex-shrink:0;}
 .dgo{width:7px;height:7px;border:1px solid var(--gold-d);transform:rotate(45deg);flex-shrink:0;}
@@ -1130,17 +1130,15 @@ body::before{
 .spa-view.view-active {
   opacity: 1;
   transform: translateY(0);
-  padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px));
 }
 .spa-view.view-entering {
   display: block;
   opacity: 0;
   transform: translateY(8px);
-  padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px));
 }
 .spa-view.view-active,
 .spa-view.view-entering {
-  padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px));
+  padding-bottom: calc(100px + env(safe-area-inset-bottom, 0px));
 }
 .spa-view.view-leaving {
   display: block;
@@ -2915,7 +2913,7 @@ body.light .guided-nav {
 
 
 /* ===== AFTER SALAH INTERACTIVE SECTION ===== */
-.salah-tracker { margin-bottom: calc(80px + env(safe-area-inset-bottom, 0px)); }
+.salah-tracker { margin-bottom: 16px; }
 
 /* Salah selector pills */
 .salah-selector {
@@ -3345,11 +3343,9 @@ body.light .guided-nav {
     </div>
   </div>
 
-  <div class="divider"><div class="dl"></div><div class="dg"></div><div class="dl"></div></div>
-
   <!-- My Duas inline -->
   <div class="my-duas-overlay" id="myDuasOverlay">
-
+    <div class="divider"><div class="dl"></div><div class="dg"></div><div class="dl"></div></div>
 <div id="favView">
     <div class="sec-h" style="margin-bottom:20px;">
       <div class="si">⭐</div>
@@ -3357,7 +3353,6 @@ body.light .guided-nav {
     </div>
     <div id="favList"></div>
   </div>
-
   </div>
 
   <div class="divider"><div class="dl"></div><div class="dg"></div><div class="dl"></div></div>
