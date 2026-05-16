@@ -1821,35 +1821,35 @@ body.light .settings-popover { background: rgba(250,246,238,0.98); }
   flex-direction: column;
   align-items: center;
   text-align: center;
-  padding-bottom: 12px;
+  padding-bottom: 24px;
 }
 .jstep-icon {
-  font-size: 48px;
-  margin-bottom: 14px;
+  font-size: 52px;
+  margin-bottom: 20px;
   line-height: 1;
 }
 .jstep-title {
   font-family: var(--fs);
-  font-size: clamp(24px, 6.5vw, 32px);
+  font-size: clamp(26px, 7vw, 34px);
   font-weight: 400;
   color: var(--text);
   line-height: 1.15;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
 }
 .jstep-subtitle {
   font-family: var(--fn);
-  font-size: 13px;
+  font-size: 14px;
   color: var(--text-d);
   line-height: 1.55;
-  margin-bottom: 20px;
+  margin-bottom: 28px;
   max-width: 300px;
 }
 .jstep-note-card {
   width: 100%;
   background: var(--card);
-  border-radius: 12px;
-  padding: 16px 18px;
-  margin-bottom: 16px;
+  border-radius: 14px;
+  padding: 20px 20px;
+  margin-bottom: 24px;
   text-align: center;
 }
 .jstep-note-text {
@@ -1862,37 +1862,37 @@ body.light .settings-popover { background: rgba(250,246,238,0.98); }
 .jstep-dua-card {
   width: 100%;
   background: var(--card);
-  border: 1px solid var(--bdr);
-  border-radius: 12px;
-  padding: 20px 18px 16px;
-  margin-bottom: 12px;
+  border: none;
+  border-radius: 16px;
+  padding: 28px 20px 24px;
+  margin-bottom: 16px;
   text-align: right;
 }
 .jstep-ar {
   font-family: var(--fa);
-  font-size: calc(clamp(24px, 6.5vw, 34px) * var(--ar-scale));
+  font-size: calc(clamp(28px, 7.5vw, 40px) * var(--ar-scale));
   color: var(--text);
   direction: rtl;
-  line-height: 2.1;
-  margin-bottom: 16px;
+  line-height: 2.3;
+  margin-bottom: 24px;
   text-shadow: 0 0 30px rgba(201,168,76,.1);
 }
 .jstep-tr {
   font-family: var(--fs);
   font-style: italic;
-  font-size: clamp(13px, 3.5vw, 15px);
+  font-size: clamp(14px, 4vw, 16px);
   color: var(--gold);
   line-height: 1.75;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
   text-align: left;
   opacity: 0.9;
 }
 .jstep-en {
   font-family: var(--fn);
-  font-size: clamp(13px, 3.5vw, 14px);
+  font-size: clamp(14px, 4vw, 16px);
   color: var(--text-d);
-  line-height: 1.7;
-  margin-bottom: 8px;
+  line-height: 1.75;
+  margin-bottom: 12px;
   text-align: left;
 }
 .jstep-src {
@@ -2003,7 +2003,7 @@ body.light .guided-overlay { background: var(--deep); }
 .guided-body {
   flex: 1;
   overflow-y: auto;
-  padding: 20px 16px calc(120px + env(safe-area-inset-bottom, 0px));
+  padding: 28px 20px calc(120px + env(safe-area-inset-bottom, 0px));
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
 }
@@ -2029,27 +2029,27 @@ body.light .guided-overlay { background: var(--deep); }
 }
 .guided-ar {
   font-family: var(--fa);
-  font-size: calc(clamp(22px,6vw,32px) * var(--ar-scale));
+  font-size: calc(clamp(26px, 7vw, 36px) * var(--ar-scale));
   color: var(--gold-l);
   text-align: right;
   direction: rtl;
-  line-height: 2.1;
-  margin-bottom: 16px;
+  line-height: 2.2;
+  margin-bottom: 24px;
   text-shadow: 0 0 30px rgba(201,168,76,.15);
 }
 .guided-tr {
   font-family: var(--fs);
   font-style: italic;
-  font-size: clamp(13px,3.5vw,15px);
+  font-size: clamp(14px, 4vw, 16px);
   color: var(--text-d);
-  margin-bottom: 12px;
+  margin-bottom: 16px;
   line-height: 1.7;
 }
 .guided-en {
-  font-size: clamp(13px,3.5vw,15px);
+  font-size: clamp(14px, 4vw, 16px);
   color: var(--text);
-  line-height: 1.7;
-  margin-bottom: 12px;
+  line-height: 1.75;
+  margin-bottom: 16px;
 }
 .guided-src {
   font-size: 11px;
@@ -2624,7 +2624,7 @@ body.light .bn-tab-indicator { background: #7a5c12; }
 .guided-step-content {
   transition: opacity 200ms cubic-bezier(0.25,0.46,0.45,0.94),
               transform 200ms cubic-bezier(0.25,0.46,0.45,0.94);
-  padding-bottom: calc(100px + env(safe-area-inset-bottom, 0px));
+  padding: 0 4px calc(100px + env(safe-area-inset-bottom, 0px));
 }
 .guided-step-content.step-exit-left  { opacity:0; transform:translateX(-22px); transition-duration:150ms; }
 .guided-step-content.step-exit-right { opacity:0; transform:translateX(22px);  transition-duration:150ms; }
@@ -9774,19 +9774,31 @@ function shareAsImage() {
       ctx.font = 'bold 34px "Gill Sans","Optima","Segoe UI",sans-serif';
       var titleLines = _duaWrapLines(ctx, title, inner);
 
-      ctx.font = '78px "Scheherazade New","Traditional Arabic","Amiri",serif';
+      var arFontSize = 78;
+      ctx.font = arFontSize + 'px "Scheherazade New","Traditional Arabic","Amiri",serif';
       var arLines = _duaWrapLines(ctx, ar, inner);
+      if (arLines.length > 5) {
+        arFontSize = 64;
+        ctx.font = arFontSize + 'px "Scheherazade New","Traditional Arabic","Amiri",serif';
+        arLines = _duaWrapLines(ctx, ar, inner);
+      }
+      if (arLines.length > 7) {
+        arFontSize = 54;
+        ctx.font = arFontSize + 'px "Scheherazade New","Traditional Arabic","Amiri",serif';
+        arLines = _duaWrapLines(ctx, ar, inner);
+      }
+      var arLineH = Math.round(arFontSize * 1.28);
 
       ctx.font = 'italic 28px "Palatino Linotype","Book Antiqua","Georgia",serif';
       var trLines = _duaWrapLines(ctx, tr, inner);
 
-      ctx.font = '30px "Gill Sans","Optima","Segoe UI",sans-serif';
+      ctx.font = 'bold 30px "Gill Sans","Optima","Segoe UI",sans-serif';
       var enLines = _duaWrapLines(ctx, en, inner);
 
       /* ── Compute total content height for vertical centering ── */
       var logoH  = 44 + 36;                       /* logo row + gap */
       var titleH = titleLines.length * 44 + 28;   /* title + gap */
-      var arH    = arLines.length * 100 + 20;     /* arabic + gap */
+      var arH    = arLines.length * arLineH + 20;  /* arabic + gap */
       var divH   = 28;                            /* divider + gap */
       var trH    = trLines.length * 38 + 20;      /* transliteration + gap */
       var enH    = enLines.length * 40 + 32;      /* translation + gap */
@@ -9794,8 +9806,12 @@ function shareAsImage() {
 
       var totalH = logoH + titleH + arH + divH + trH + enH + srcH;
 
-      /* Vertically centre with a slight upward bias */
-      var startY = Math.max(120, (H - totalH) / 2 - 40);
+      /* Vertically centre — clamp so content never starts above 140px or below midpoint */
+      var startY = Math.min(
+        Math.floor((H - totalH) / 2),
+        Math.floor(H * 0.38)
+      );
+      startY = Math.max(startY, 140);
       var y = startY;
 
       /* ── Logo: moon + app name ── */
@@ -9816,13 +9832,13 @@ function shareAsImage() {
       y += 28;
 
       /* ── Arabic (RTL, right-aligned) ── */
-      ctx.font = '78px "Scheherazade New","Traditional Arabic","Amiri",serif';
+      ctx.font = arFontSize + 'px "Scheherazade New","Traditional Arabic","Amiri",serif';
       ctx.fillStyle = '#E8CC84';
       ctx.textAlign = 'right';
       ctx.direction = 'rtl';
       for (var a = 0; a < arLines.length; a++) {
-        ctx.fillText(arLines[a].trim(), W - PAD, y + 72);
-        y += 100;
+        ctx.fillText(arLines[a].trim(), W - PAD, y + arFontSize);
+        y += arLineH;
       }
       ctx.direction = 'ltr';
       ctx.textAlign = 'left';
@@ -9844,7 +9860,7 @@ function shareAsImage() {
       y += 20;
 
       /* ── Translation ── */
-      ctx.font = '30px "Gill Sans","Optima","Segoe UI",sans-serif';
+      ctx.font = 'bold 30px "Gill Sans","Optima","Segoe UI",sans-serif';
       ctx.fillStyle = '#F0E6D0';
       for (var c = 0; c < enLines.length; c++) {
         ctx.fillText(enLines[c].trim(), PAD, y);
