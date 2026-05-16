@@ -9716,8 +9716,35 @@ function shareAsText() {
   }
 }
 
-/* ── Canvas 2D image renderer — works on iOS Safari without any library ── */
+/* ── Canvas 2D image renderer — 1080×1920 story format ── */
+function _roundRect(ctx, x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.lineTo(x + w - r, y);
+  ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+  ctx.lineTo(x + w, y + h - r);
+  ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+  ctx.lineTo(x + r, y + h);
+  ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+  ctx.lineTo(x, y + r);
+  ctx.quadraticCurveTo(x, y, x + r, y);
+  ctx.closePath();
+}
+
 function _duaWrapLines(ctx, text, maxW) {
+  if (!text) return [];
+  var words = text.split(' '), lines = [], line = '';
+  for (var i = 0; i < words.length; i++) {
+    var test = line ? line + ' ' + words[i] : words[i];
+    if (ctx.measureText(test).width > maxW && line) { lines.push(line); line = words[i]; }
+    else { line = test; }
+  }
+  if (line) lines.push(line);
+  return lines;
+}
+
+function _duaWrapLinesRTL(ctx, text, maxW) {
+  if (!text) return [];
   var words = text.split(' '), lines = [], line = '';
   for (var i = 0; i < words.length; i++) {
     var test = line ? line + ' ' + words[i] : words[i];
@@ -9739,134 +9766,185 @@ function shareAsImage() {
   closeShareSheet();
   ndlToast('Creating image\u2026');
 
-  /* Use setTimeout so the sheet closes visually before heavy canvas work */
   setTimeout(function() {
     try {
-      var W = 780, PAD = 56, inner = W - PAD * 2;
-      var tmp = document.createElement('canvas');
-      tmp.width = W; tmp.height = 10;
-      var tx = tmp.getContext('2d');
+      /* ── Canvas dimensions: 1080×1920 native story format ── */
+      var W = 1080, H = 1920;
+      var PAD = 72;          /* left/right padding */
+      var inner = W - PAD * 2;
 
-      /* ── measure all lines first to compute total height ── */
-      tx.font = 'bold 46px "Scheherazade New","Traditional Arabic","Amiri",serif';
-      var arLines = _duaWrapLines(tx, ar, inner);
-
-      tx.font = 'italic 22px "Palatino Linotype","Book Antiqua","Georgia",serif';
-      var trLines = _duaWrapLines(tx, tr, inner);
-
-      tx.font = '22px "Gill Sans","Optima","Segoe UI",sans-serif';
-      var enLines = _duaWrapLines(tx, en, inner);
-
-      var H = PAD + 44          /* logo row */
-            + 28                /* gap */
-            + 30                /* title */
-            + 24                /* gap */
-            + arLines.length * 68
-            + 24                /* gap + divider */
-            + trLines.length * 30
-            + 18
-            + enLines.length * 30
-            + 28                /* gap */
-            + 22                /* source */
-            + PAD;
-
-      /* ── draw ── */
       var cv = document.createElement('canvas');
       cv.width = W; cv.height = H;
       var ctx = cv.getContext('2d');
 
-      /* Background gradient */
-      var bg = ctx.createLinearGradient(0, 0, W, H);
-      bg.addColorStop(0,   '#0C1018');
-      bg.addColorStop(0.5, '#111827');
-      bg.addColorStop(1,   '#0C1018');
-      ctx.fillStyle = bg;
+      /* ── Background: pure black ── */
+      ctx.fillStyle = '#000000';
       ctx.fillRect(0, 0, W, H);
 
-      /* Gold left border */
-      ctx.fillStyle = '#C9A84C';
-      ctx.fillRect(0, 0, 5, H);
-
-      /* Radial glow top-right */
-      var glow = ctx.createRadialGradient(W * 0.9, 0, 0, W * 0.9, 0, W * 0.65);
-      glow.addColorStop(0, 'rgba(201,168,76,0.08)');
+      /* ── Subtle top glow ── */
+      var glow = ctx.createRadialGradient(W * 0.5, 0, 0, W * 0.5, 0, W * 0.7);
+      glow.addColorStop(0, 'rgba(123,47,190,0.12)');
       glow.addColorStop(1, 'rgba(0,0,0,0)');
       ctx.fillStyle = glow;
-      ctx.fillRect(0, 0, W, H);
+      ctx.fillRect(0, 0, W, H * 0.5);
 
-      var y = PAD;
+      /* ── Pre-measure all text blocks ── */
+      ctx.font = 'bold 40px "Gill Sans","Optima","Segoe UI",sans-serif';
+      var titleLines = _duaWrapLines(ctx, title, inner);
 
-      /* Logo */
-      ctx.font = '600 19px "Gill Sans","Optima","Segoe UI",sans-serif';
-      ctx.fillStyle = '#a78bfa';
+      ctx.font = '96px "Scheherazade New","Traditional Arabic","Amiri",serif';
+      var arLines = _duaWrapLinesRTL(ctx, ar, inner);
+
+      ctx.font = 'italic 22px "Palatino Linotype","Book Antiqua","Georgia",serif';
+      var trLines = _duaWrapLines(ctx, tr, inner);
+
+      ctx.font = 'bold 34px "Gill Sans","Optima","Segoe UI",sans-serif';
+      var enLines = _duaWrapLines(ctx, en, inner);
+
+      /* ── Compute total content height to vertically centre in safe zone ── */
+      var headerH   = 68;                          /* logo row */
+      var titleH    = titleLines.length * 52 + 12; /* title block */
+      var refH      = src ? 40 : 0;               /* reference line */
+      var divH      = 40;                          /* divider + gap */
+      var arH       = arLines.length * 120;        /* arabic block */
+      var div2H     = 40;                          /* second divider */
+      var trH       = trLines.length * 34 + 16;    /* transliteration */
+      var enH       = enLines.length * 48 + 24;    /* translation */
+      var calloutPad = 48;                         /* callout internal padding */
+      var calloutH  = src ? (calloutPad * 2 + 32) : 0; /* context box */
+
+      var totalContentH = headerH + 32 + titleH + refH + divH + arH + div2H + trH + enH + calloutH;
+
+      /* Start y so content is centred vertically with slight upward bias */
+      var safeTop = 180;
+      var safeBot = 180;
+      var safeH   = H - safeTop - safeBot;
+      var startY  = safeTop + Math.max(0, (safeH - totalContentH) / 2);
+      var y = startY;
+
+      /* ── Header: purple badge + app name ── */
+      var bx = PAD, by = y, bs = 56, br = 14;
+      ctx.beginPath();
+      ctx.moveTo(bx + br, by);
+      ctx.lineTo(bx + bs - br, by);
+      ctx.quadraticCurveTo(bx + bs, by, bx + bs, by + br);
+      ctx.lineTo(bx + bs, by + bs - br);
+      ctx.quadraticCurveTo(bx + bs, by + bs, bx + bs - br, by + bs);
+      ctx.lineTo(bx + br, by + bs);
+      ctx.quadraticCurveTo(bx, by + bs, bx, by + bs - br);
+      ctx.lineTo(bx, by + br);
+      ctx.quadraticCurveTo(bx, by, bx + br, by);
+      ctx.closePath();
+      ctx.fillStyle = '#7B2FBE';
+      ctx.fill();
+      /* Moon emoji */
+      ctx.font = '32px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('\uD83C\uDF19', PAD + bs / 2, y + bs / 2 + 11);
+      /* App name */
+      ctx.font = 'italic 28px "Palatino Linotype","Book Antiqua","Georgia",serif';
+      ctx.fillStyle = '#C4A84F';
       ctx.textAlign = 'left';
-      ctx.fillText('\uD83C\uDF19  NAFI\u2019S DUA LIST', PAD, y + 14);
-      y += 44 + 28;
+      ctx.fillText("Nafi\u2019s Dua List", PAD + bs + 16, y + bs / 2 + 10);
+      y += bs + 32;
 
-      /* Title */
-      ctx.font = 'bold 26px "Gill Sans","Optima","Segoe UI",sans-serif';
-      ctx.fillStyle = '#C9A84C';
-      ctx.fillText(title, PAD, y);
-      y += 30 + 24;
+      /* ── Title ── */
+      ctx.font = 'bold 40px "Gill Sans","Optima","Segoe UI",sans-serif';
+      ctx.fillStyle = '#FFFFFF';
+      ctx.textAlign = 'left';
+      for (var t = 0; t < titleLines.length; t++) {
+        ctx.fillText(titleLines[t], PAD, y);
+        y += 52;
+      }
+      y += 12;
 
-      /* Arabic (RTL, right-aligned) */
-      ctx.font = 'bold 46px "Scheherazade New","Traditional Arabic","Amiri",serif';
-      ctx.fillStyle = '#E8CC84';
-      ctx.textAlign = 'right';
+      /* ── Reference line ── */
+      if (src) {
+        ctx.font = '600 16px "Gill Sans","Optima","Segoe UI",sans-serif';
+        ctx.fillStyle = '#8B8B6B';
+        ctx.textAlign = 'left';
+        var refText = src.replace(/\s*\u2014.*$/, '').replace(/^Source:\s*/i, '').toUpperCase();
+        ctx.fillText(refText, PAD, y);
+        y += 40;
+      }
+
+      /* ── Divider 1 ── */
+      ctx.strokeStyle = '#2a2a2a';
+      ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.moveTo(PAD, y); ctx.lineTo(W - PAD, y); ctx.stroke();
+      y += 40;
+
+      /* ── Arabic text ── */
+      ctx.font = '96px "Scheherazade New","Traditional Arabic","Amiri",serif';
+      ctx.fillStyle = '#C4A84F';
+      ctx.textAlign = 'center';
       ctx.direction = 'rtl';
       for (var a = 0; a < arLines.length; a++) {
-        ctx.fillText(arLines[a].trim(), W - PAD, y + 46);
-        y += 68;
+        ctx.fillText(arLines[a].trim(), W / 2, y + 86);
+        y += 120;
       }
       ctx.direction = 'ltr';
-      ctx.textAlign = 'left';
-      y += 10;
+      y += 16;
 
-      /* Divider */
-      ctx.strokeStyle = 'rgba(201,168,76,0.2)';
-      ctx.lineWidth = 1;
+      /* ── Divider 2 ── */
+      ctx.strokeStyle = '#2a2a2a';
+      ctx.lineWidth = 2;
       ctx.beginPath(); ctx.moveTo(PAD, y); ctx.lineTo(W - PAD, y); ctx.stroke();
-      y += 18;
+      y += 40;
 
-      /* Transliteration */
+      /* ── Transliteration ── */
       ctx.font = 'italic 22px "Palatino Linotype","Book Antiqua","Georgia",serif';
-      ctx.fillStyle = '#A89470';
-      for (var b = 0; b < trLines.length; b++) { ctx.fillText(trLines[b].trim(), PAD, y); y += 30; }
-      y += 18;
+      ctx.fillStyle = 'rgba(255,255,255,0.55)';
+      ctx.textAlign = 'left';
+      for (var b = 0; b < trLines.length; b++) {
+        ctx.fillText(trLines[b].trim(), PAD, y);
+        y += 34;
+      }
+      y += 16;
 
-      /* English */
-      ctx.font = '22px "Gill Sans","Optima","Segoe UI",sans-serif';
-      ctx.fillStyle = '#F0E6D0';
-      for (var c = 0; c < enLines.length; c++) { ctx.fillText(enLines[c].trim(), PAD, y); y += 30; }
-      y += 28;
+      /* ── Translation ── */
+      ctx.font = 'bold 34px "Gill Sans","Optima","Segoe UI",sans-serif';
+      ctx.fillStyle = '#FFFFFF';
+      for (var c = 0; c < enLines.length; c++) {
+        ctx.fillText(enLines[c].trim(), PAD, y);
+        y += 48;
+      }
+      y += 24;
 
-      /* Source */
-      ctx.font = '18px "Gill Sans","Optima","Segoe UI",sans-serif';
-      ctx.fillStyle = '#6B5E48';
-      ctx.fillText(src, PAD, y);
+      /* ── Context callout box ── */
+      if (src) {
+        var boxX = PAD, boxY = y;
+        var boxW = inner;
+        ctx.font = '20px "Gill Sans","Optima","Segoe UI",sans-serif';
+        var calloutLines = _duaWrapLines(ctx, src.replace(/^Source:\s*/i, ''), boxW - calloutPad * 2);
+        var boxH2 = calloutPad + calloutLines.length * 32 + calloutPad;
+        ctx.fillStyle = '#1a1505';
+        _roundRect(ctx, boxX, boxY, boxW, boxH2, 16);
+        ctx.fill();
+        ctx.strokeStyle = 'rgba(196,168,79,0.35)';
+        ctx.lineWidth = 1.5;
+        _roundRect(ctx, boxX, boxY, boxW, boxH2, 16);
+        ctx.stroke();
+        ctx.fillStyle = '#C4A84F';
+        ctx.font = '20px "Gill Sans","Optima","Segoe UI",sans-serif';
+        var cy2 = boxY + calloutPad;
+        for (var d = 0; d < calloutLines.length; d++) {
+          ctx.fillText(calloutLines[d].trim(), boxX + calloutPad, cy2);
+          cy2 += 32;
+        }
+      }
 
       /* ── Output ── */
       cv.toBlob(function(blob) {
         if (!blob) { ndlToast('Could not create image'); return; }
         var file = new File([blob], 'dua.png', { type: 'image/png' });
         if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
-          navigator.share({
-            files: [file],
-            title: title,
-            text: 'Shared from Nafi\'s Dua List'
-          }).catch(function(){});
+          navigator.share({ files: [file], title: title, text: 'Shared from Nafi\u2019s Dua List' }).catch(function(){});
         } else if (navigator.share) {
-          // iOS fallback: try sharing files without canShare check
-          navigator.share({
-            files: [file],
-            title: title
-          }).catch(function(err) {
-            // If file share fails entirely, fall back to download
+          navigator.share({ files: [file], title: title }).catch(function(err) {
             var url = URL.createObjectURL(blob);
             var a = document.createElement('a');
-            a.href = url;
-            a.download = 'dua-' + Date.now() + '.png';
-            a.click();
+            a.href = url; a.download = 'dua-' + Date.now() + '.png'; a.click();
             setTimeout(function() { URL.revokeObjectURL(url); }, 2000);
           });
         } else {
