@@ -1535,6 +1535,13 @@ body.light .settings-popover { background: rgba(250,246,238,0.98); }
   border-color: rgba(201,168,76,0.4);
   background: linear-gradient(135deg, rgba(201,168,76,.07) 0%, var(--card) 60%);
 }
+.session-card-arafah {
+  background: linear-gradient(135deg, rgba(180,100,20,0.18) 0%, rgba(201,168,76,0.10) 100%);
+  border-color: rgba(201,168,76,0.45);
+}
+.session-card-arafah .session-card-title {
+  color: var(--gold);
+}
 .session-card-icon { font-size: 24px; flex-shrink: 0; line-height: 1; }
 .session-card-body { flex: 1; }
 .session-card-title {
@@ -3211,6 +3218,113 @@ body.light .guided-nav {
   padding-bottom: 8px;
   border-bottom: 1px solid var(--bdr);
 }
+
+/* =================== LEARN TOPIC SYSTEM =================== */
+.learn-intro {
+  position: fixed; inset: 0; z-index: 200;
+  background: var(--deep);
+  display: flex; flex-direction: column;
+  overflow-y: auto; -webkit-overflow-scrolling: touch;
+  padding: 0 0 40px 0;
+}
+.learn-deck {
+  position: fixed; inset: 0; z-index: 201;
+  background: var(--deep);
+  display: flex; flex-direction: column;
+}
+.learn-deck-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 20px 0; gap: 12px; flex-shrink: 0;
+}
+.learn-deck-close {
+  background: rgba(201,168,76,.08); border: 1px solid var(--bdr);
+  border-radius: var(--radius); color: var(--text-d);
+  font-size: 18px; width: 38px; height: 38px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; -webkit-tap-highlight-color: transparent; flex-shrink: 0;
+}
+.learn-deck-title {
+  font-family: var(--fs); font-size: 15px; color: var(--gold-l);
+  flex: 1; text-align: center;
+}
+.learn-deck-counter {
+  font-family: var(--fn); font-size: 11px; color: var(--text-m);
+  letter-spacing: .12em; text-transform: uppercase; white-space: nowrap;
+}
+.learn-deck-progress {
+  height: 3px; background: rgba(201,168,76,.12); flex-shrink: 0; margin-top: 12px;
+}
+.learn-deck-fill {
+  height: 100%; background: var(--gold);
+  transition: width .35s ease; border-radius: 0 2px 2px 0;
+}
+.learn-deck-body {
+  flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch;
+  padding: 28px 22px 12px;
+  display: flex; flex-direction: column;
+}
+.learn-card-eyebrow {
+  font-family: var(--fn); font-size: 10px; color: var(--text-m);
+  letter-spacing: .18em; text-transform: uppercase; margin-bottom: 10px;
+}
+.learn-card-heading {
+  font-family: var(--fs); font-size: clamp(22px,6vw,30px);
+  color: var(--gold-l); line-height: 1.2; margin-bottom: 16px;
+}
+.learn-card-body {
+  font-family: var(--fn); font-size: 15px; color: var(--text);
+  line-height: 1.8; flex: 1;
+}
+.learn-card-body strong { color: var(--gold); font-weight: 600; }
+.learn-card-body em { color: var(--text-d); font-style: italic; }
+.learn-card-arabic {
+  font-family: var(--fa); font-size: calc(clamp(18px,5vw,24px) * var(--ar-scale));
+  color: var(--gold-l); direction: rtl; text-align: right; line-height: 2;
+  background: rgba(201,168,76,.06); border: 1px solid var(--bdr);
+  border-radius: var(--radius); padding: 16px; margin: 16px 0 8px;
+}
+.learn-card-tr {
+  font-family: var(--fs); font-style: italic; font-size: 14px;
+  color: var(--text-d); line-height: 1.7; margin-bottom: 8px;
+}
+.learn-card-src {
+  font-family: var(--fn); font-size: 11px; color: var(--green);
+  letter-spacing: .05em; margin-top: 8px;
+}
+.learn-card-action {
+  display: inline-flex; align-items: center; gap: 6px;
+  margin-top: 16px; padding: 10px 16px;
+  background: rgba(201,168,76,.08); border: 1px solid var(--bdr);
+  border-radius: var(--radius); cursor: pointer;
+  font-family: var(--fn); font-size: 13px; color: var(--gold-l);
+  -webkit-tap-highlight-color: transparent; text-decoration: none;
+}
+.learn-card-action:hover { background: rgba(201,168,76,.16); }
+.learn-deck-complete {
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; text-align: center;
+  padding: 40px 28px; flex: 1;
+}
+.learn-complete-icon { font-size: 48px; margin-bottom: 16px; }
+.learn-complete-title {
+  font-family: var(--fs); font-size: 26px; color: var(--gold-l); margin-bottom: 8px;
+}
+.learn-complete-sub {
+  font-family: var(--fn); font-size: 14px; color: var(--text-d);
+  line-height: 1.7; margin-bottom: 32px; max-width: 280px;
+}
+.learn-complete-btns { display: flex; flex-direction: column; gap: 10px; width: 100%; max-width: 280px; }
+.learn-complete-btn-primary {
+  background: var(--gold); color: var(--deep); border: none;
+  border-radius: var(--radius); padding: 14px; font-family: var(--fn);
+  font-size: 15px; font-weight: 600; cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.learn-complete-btn-secondary {
+  background: rgba(201,168,76,.08); color: var(--gold-l); border: 1px solid var(--bdr);
+  border-radius: var(--radius); padding: 14px; font-family: var(--fn);
+  font-size: 14px; cursor: pointer; -webkit-tap-highlight-color: transparent;
+}
 </style>
 </head>
 <body>
@@ -3498,6 +3612,14 @@ body.light .guided-nav {
       <div class="session-card-body">
         <div class="session-card-title">Laylatul Qadr</div>
         <div class="session-card-sub">35 steps · 8 phases · Full night guide</div>
+      </div>
+      <div class="session-card-arrow">›</div>
+    </div>
+    <div class="session-card session-card-arafah" onclick="startGuidedSession('arafah')">
+      <div class="session-card-icon">🕋</div>
+      <div class="session-card-body">
+        <div class="session-card-title">Yawm Arafah</div>
+        <div class="session-card-sub">14 steps · Greatest day of the year</div>
       </div>
       <div class="session-card-arrow">›</div>
     </div>
@@ -6486,11 +6608,11 @@ body.light .guided-nav {
     <button class="icon-btn" onclick="openSettings()">⚙️</button>
   </div>
   <div class="view-subnav" style="margin-bottom:0;">
-  <button class="view-subnav-btn" onclick="openLearnCategory('qadr')">⭐ Laylatul Qadr</button>
-  <button class="view-subnav-btn" onclick="openLearnCategory('jumua')">🕌 Jumu'ah</button>
-  <button class="view-subnav-btn" onclick="openLearnCategory('ruqyah')">🛡️ Ruqyah</button>
-  <button class="view-subnav-btn" onclick="openLearnCategory('surahs')">📖 Surahs</button>
-  <button class="view-subnav-btn" onclick="openLearnCategory('asma')">✨ 99 Names</button>
+  <button class="view-subnav-btn" onclick="openLearnTopic('qadr')">⭐ Laylatul Qadr</button>
+  <button class="view-subnav-btn" onclick="openLearnTopic('jumua')">🕌 Jumu'ah</button>
+  <button class="view-subnav-btn" onclick="openLearnTopic('ruqyah')">🛡️ Ruqyah</button>
+  <button class="view-subnav-btn" onclick="openLearnTopic('surahs')">📖 Surahs</button>
+  <button class="view-subnav-btn" onclick="openLearnTopic('asma')">✨ 99 Names</button>
 </div>
 
 <div id="learnIndex">
@@ -6506,7 +6628,7 @@ body.light .guided-nav {
 
     <div class="duas-cat-section-header" data-cat-header>PRAYER TIMES &amp; OCCASIONS</div>
 
-    <button class="duas-cat-row" data-cat-title="prayer times" onclick="openLearnCategory('times')">
+    <button class="duas-cat-row" data-cat-title="prayer times" onclick="openLearnTopic('times')">
       <span class="duas-cat-icon">🕐</span>
       <span class="duas-cat-info">
         <span class="duas-cat-title">Prayer Times &amp; Windows</span>
@@ -6515,7 +6637,7 @@ body.light .guided-nav {
       <span class="duas-cat-arrow">›</span>
     </button>
 
-    <button class="duas-cat-row" data-cat-title="laylatul qadr night of power" onclick="openLearnCategory('qadr')">
+    <button class="duas-cat-row" data-cat-title="laylatul qadr night of power" onclick="openLearnTopic('qadr')">
       <span class="duas-cat-icon">⭐</span>
       <span class="duas-cat-info">
         <span class="duas-cat-title">Laylatul Qadr</span>
@@ -6524,7 +6646,7 @@ body.light .guided-nav {
       <span class="duas-cat-arrow">›</span>
     </button>
 
-    <button class="duas-cat-row" data-cat-title="jumuah friday" onclick="openLearnCategory('jumua')">
+    <button class="duas-cat-row" data-cat-title="jumuah friday" onclick="openLearnTopic('jumua')">
       <span class="duas-cat-icon">🕌</span>
       <span class="duas-cat-info">
         <span class="duas-cat-title">Jumu'ah — Friday</span>
@@ -6533,7 +6655,7 @@ body.light .guided-nav {
       <span class="duas-cat-arrow">›</span>
     </button>
 
-    <button class="duas-cat-row" data-cat-title="dhul hijjah ten days eid" onclick="openLearnCategory('dhulhijjah')">
+    <button class="duas-cat-row" data-cat-title="dhul hijjah ten days eid" onclick="openLearnTopic('dhulhijjah')">
       <span class="duas-cat-icon">🌙</span>
       <span class="duas-cat-info">
         <span class="duas-cat-title">Dhul Hijjah &amp; Eid</span>
@@ -6542,7 +6664,16 @@ body.light .guided-nav {
       <span class="duas-cat-arrow">›</span>
     </button>
 
-    <button class="duas-cat-row" data-cat-title="ashura muharram fasting" onclick="openLearnCategory('ashura')">
+    <button class="duas-cat-row" data-cat-title="yawm arafah dhul hijjah ten days guided session" onclick="startGuidedSession('arafah')">
+      <span class="duas-cat-icon">🕋</span>
+      <span class="duas-cat-info">
+        <span class="duas-cat-title">Yawm Arafah — Day Session</span>
+        <span class="duas-cat-sub">14 steps · Greatest day of the year</span>
+      </span>
+      <span class="duas-cat-arrow">›</span>
+    </button>
+
+    <button class="duas-cat-row" data-cat-title="ashura muharram fasting" onclick="openLearnTopic('ashura')">
       <span class="duas-cat-icon">📅</span>
       <span class="duas-cat-info">
         <span class="duas-cat-title">Ashura — 9th &amp; 10th Muharram</span>
@@ -6551,7 +6682,7 @@ body.light .guided-nav {
       <span class="duas-cat-arrow">›</span>
     </button>
 
-    <button class="duas-cat-row" data-cat-title="shaban mid sha ban" onclick="openLearnCategory('shaban')">
+    <button class="duas-cat-row" data-cat-title="shaban mid sha ban" onclick="openLearnTopic('shaban')">
       <span class="duas-cat-icon">🌟</span>
       <span class="duas-cat-info">
         <span class="duas-cat-title">Sha'ban &amp; Mid-Sha'ban</span>
@@ -6560,7 +6691,7 @@ body.light .guided-nav {
       <span class="duas-cat-arrow">›</span>
     </button>
 
-    <button class="duas-cat-row" data-cat-title="eid prayer" onclick="openLearnCategory('eid')">
+    <button class="duas-cat-row" data-cat-title="eid prayer" onclick="openLearnTopic('eid')">
       <span class="duas-cat-icon">🎉</span>
       <span class="duas-cat-info">
         <span class="duas-cat-title">Eid</span>
@@ -6571,7 +6702,7 @@ body.light .guided-nav {
 
     <div class="duas-cat-section-header" data-cat-header>WORSHIP &amp; PROTECTION</div>
 
-    <button class="duas-cat-row" data-cat-title="ruqyah healing protection" onclick="openLearnCategory('ruqyah')">
+    <button class="duas-cat-row" data-cat-title="ruqyah healing protection" onclick="openLearnTopic('ruqyah')">
       <span class="duas-cat-icon">🛡️</span>
       <span class="duas-cat-info">
         <span class="duas-cat-title">Ruqyah — Healing &amp; Protection</span>
@@ -6580,7 +6711,7 @@ body.light .guided-nav {
       <span class="duas-cat-arrow">›</span>
     </button>
 
-    <button class="duas-cat-row" data-cat-title="qunut nazilah witr prayer" onclick="openLearnCategory('jumua')">
+    <button class="duas-cat-row" data-cat-title="qunut nazilah witr prayer" onclick="openLearnTopic('jumua')">
       <span class="duas-cat-icon">🤲</span>
       <span class="duas-cat-info">
         <span class="duas-cat-title">Qunut al-Nazilah</span>
@@ -6589,7 +6720,7 @@ body.light .guided-nav {
       <span class="duas-cat-arrow">›</span>
     </button>
 
-    <button class="duas-cat-row" data-cat-title="key surahs al mulk al kahf quran" onclick="openLearnCategory('surahs')">
+    <button class="duas-cat-row" data-cat-title="key surahs al mulk al kahf quran" onclick="openLearnTopic('surahs')">
       <span class="duas-cat-icon">📖</span>
       <span class="duas-cat-info">
         <span class="duas-cat-title">Key Surahs</span>
@@ -6600,7 +6731,7 @@ body.light .guided-nav {
 
     <div class="duas-cat-section-header" data-cat-header>KNOWLEDGE</div>
 
-    <button class="duas-cat-row" data-cat-title="99 names allah asma al husna" onclick="openLearnCategory('asma')">
+    <button class="duas-cat-row" data-cat-title="99 names allah asma al husna" onclick="openLearnTopic('asma')">
       <span class="duas-cat-icon">✨</span>
       <span class="duas-cat-info">
         <span class="duas-cat-title">99 Names of Allah</span>
@@ -6609,7 +6740,7 @@ body.light .guided-nav {
       <span class="duas-cat-arrow">›</span>
     </button>
 
-    <button class="duas-cat-row" data-cat-title="personal duas notes" onclick="openLearnCategory('personal')">
+    <button class="duas-cat-row" data-cat-title="personal duas notes" onclick="openLearnTopic('personal')">
       <span class="duas-cat-icon">🤍</span>
       <span class="duas-cat-info">
         <span class="duas-cat-title">Personal Duas</span>
@@ -6621,908 +6752,895 @@ body.light .guided-nav {
   </div>
 </div>
 
-<button id="learnCatBack" class="duas-cat-back" style="display:none;" onclick="closeLearnCategory()">
-  ‹ Back to Topics
-</button>
+<!-- =================== LEARN TOPIC INTRO & DECK SCREENS =================== -->
 
-<div id="learnContent" style="display:none;">
-<section class="sec" id="times">
-    <div class="sec-h">
-      <div class="si">⏰</div>
-      <div><span class="st">Best Times for Dua</span><span class="ss">Never miss these windows</span></div>
+<!-- LEARN INTRO: PRAYER TIMES -->
+<div class="learn-intro" id="learn-intro-times" style="display:none;">
+  <button class="ji-back" onclick="closeLearnTopic()">‹</button>
+  <div class="ji-body">
+    <div class="ji-icon">🕐</div>
+    <div class="ji-eyebrow">DU'A ACCEPTANCE · PRAYER WINDOWS</div>
+    <div class="ji-title">Best Times for Du'a</div>
+    <div class="ji-hadith">"Du'a between the adhan and iqamah is not rejected." — Abu Dawud 521</div>
+    <div class="ji-features">
+      <div class="ji-feature"><span class="ji-feat-icon">🌙</span><span>6 time windows for accepted du'a</span></div>
+      <div class="ji-feature"><span class="ji-feat-icon">🕐</span><span>5 best times of day for du'a</span></div>
+      <div class="ji-feature"><span class="ji-feat-icon">🤲</span><span>When duas are answered</span></div>
+      <div class="ji-feature"><span class="ji-feat-icon">🕌</span><span>Windows around salah</span></div>
     </div>
-    <div class="tgrid">
-      <div class="tc"><span class="ti">🌙</span><div class="tn">Last Third of Night</div><div class="td">Allah descends and asks: "Who calls upon Me that I may answer?" — Suhoor time is the most powerful dua window of the day. Do not waste it sleeping.</div></div>
-      <div class="tc"><span class="ti">🤲</span><div class="tn">In Sajdah</div><div class="td">"The closest a servant is to his Lord is when he is in prostration, so increase your dua in it." — Sahih Muslim (482)</div></div>
-      <div class="tc"><span class="ti">🕌</span><div class="tn">Between Adhan &amp; Iqamah</div><div class="td">Dua between the two calls is not rejected. Use this brief window before every salah — especially Fajr and Maghrib.</div></div>
-      <div class="tc"><span class="ti">🌇</span><div class="tn">Before Iftar</div><div class="td">"The fasting person has a dua at the moment of breaking fast that is not rejected." — Ibn Majah (Hasan). Your last 10 mins before Maghrib are golden.</div></div>
-      <div class="tc"><span class="ti">📿</span><div class="tn">After Fard Salah</div><div class="td">Dua after obligatory prayer is among the most likely to be answered. Stay on your prayer mat — do not rush away.</div></div>
-      <div class="tc"><span class="ti">✨</span><div class="tn">Odd Nights 21–29</div><div class="td">Laylatul Qadr = better than 1,000 months of worship. Seek it on every odd night. Not one has passed yet.</div></div>
-    </div>
-  </section>
-
-  <div class="divider"><div class="dl"></div><div class="dg"></div><div class="dl"></div></div>
-
-<section class="sec" id="qadr">
-    <div class="sec-h">
-      <div class="si">⭐</div>
-      <div><span class="st">The Dua of Laylatul Qadr</span><span class="ss">Repeat constantly — in every odd night</span></div>
-    </div>
-
-    <div class="dua feat">
-      <div class="feat-badge">★ Most Important Dua of Laylatul Qadr ★</div>
-      <div class="dlabel">Taught by the Prophet ﷺ to Aisha رضي الله عنها — specifically for Laylatul Qadr</div>
-      <div class="ar">اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي</div>
-      <div class="tr">Allāhumma innaka ʿafuwwun tuḥibbul-ʿafwa faʿfu ʿannī</div>
-      <div class="en">"O Allah, You are the Pardoner, You love to pardon, so pardon me."</div>
-      <div class="src">Source: <b>al-Tirmidhi (3513), Ibn Majah (3850) — Sahih</b></div>
-      <div class="badge">Say in every sajdah · on your commute · before sleep · after every salah</div>
-    </div>
-
-    <div class="note">
-      <strong>Why ʿAfw and not Maghfirah?</strong> Maghfirah (مغفرة) = sins forgiven and covered. <em>ʿAfw (عفو)</em> goes further — sins are completely erased and pardoned as if they never existed. The Prophet ﷺ specifically chose this word for the most blessed night. Repeat it abundantly with certainty.
-    </div>
-
-    <div class="dua">
-      <div class="dlabel">Seeking Forgiveness &amp; Mercy — Al-A'raf 7:23</div>
-      <div class="ar sm">رَبَّنَا ظَلَمْنَا أَنفُسَنَا وَإِن لَّمْ تَغْفِرْ لَنَا وَتَرْحَمْنَا لَنَكُونَنَّ مِنَ الْخَاسِرِينَ</div>
-      <div class="tr">Rabbanā ẓalamnā anfusanā wa in lam taghfir lanā wa tarḥamnā lanakūnanna minal-khāsirīn</div>
-      <div class="en">"Our Lord, we have wronged ourselves, and if You do not forgive us and have mercy upon us, we will surely be among the losers."</div>
-      <div class="src">Source: <b>Qur'an 7:23</b> — The dua of Adam and Hawwa (AS)</div>
-    </div>
-
-    <div class="dua">
-      <div class="dlabel">Protection from the Fire — Al-Furqan 25:65</div>
-      <div class="ar sm">رَبَّنَا اصْرِفْ عَنَّا عَذَابَ جَهَنَّمَ إِنَّ عَذَابَهَا كَانَ غَرَامًا</div>
-      <div class="tr">Rabbanāṣrif ʿannā ʿadhāba jahannama inna ʿadhābahā kāna gharāmā</div>
-      <div class="en">"Our Lord, avert from us the punishment of Hellfire. Indeed, its punishment is an inseparable, permanent torment."</div>
-      <div class="src">Source: <b>Qur'an 25:65</b></div>
-    </div>
-
-    <div class="dua">
-      <div class="dlabel">The Comprehensive Night Dua — Muslim (2721)</div>
-      <div class="ar xs">اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنَ الْخَيْرِ كُلِّهِ عَاجِلِهِ وَآجِلِهِ مَا عَلِمْتُ مِنْهُ وَمَا لَمْ أَعْلَمْ وَأَعُوذُ بِكَ مِنَ الشَّرِّ كُلِّهِ عَاجِلِهِ وَآجِلِهِ مَا عَلِمْتُ مِنْهُ وَمَا لَمْ أَعْلَمْ</div>
-      <div class="tr">Allāhumma innī as'aluka minal-khayri kullihī ʿājilihī wa ājilihī mā ʿalimtu minhu wa mā lam aʿlam, wa aʿūdhu bika minash-sharri kullihī ʿājilihī wa ājilihī mā ʿalimtu minhu wa mā lam aʿlam</div>
-      <div class="en">"O Allah, I ask You for all good, immediate and future, that which I know and that which I do not know. And I seek refuge in You from all evil, immediate and future, that which I know and that which I do not know."</div>
-      <div class="src">Source: <b>Sahih Muslim (2721)</b></div>
-    </div>
-  </section>
-
-  <div class="divider"><div class="dl"></div><div class="dg"></div><div class="dl"></div></div>
-
-<section class="sec" id="ruqyah">
-    <div class="sec-h">
-      <div class="si">🛡</div>
-      <div><span class="st">Ruqyah — Healing &amp; Protection</span><span class="ss">Qur'an is a healing and a mercy for the believers</span></div>
-    </div>
-
-    <div class="note">
-      Ruqyah is the practice of reciting Qur'an and authentic supplications for healing and protection. It is an established Sunnah — the Prophet ﷺ performed ruqyah on himself and others. Recite over yourself by placing your hand on the area of ailment or over your chest. Recite into your cupped hands and blow gently, then wipe over the body. <em>"We send down of the Qur'an that which is a healing and a mercy for the believers." (17:82)</em>
-    </div>
-
-    <div class="dua">
-      <div class="dlabel">1. Surah Al-Fatihah — The Opener (7×)</div>
-      <div class="ar xs">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ ۝ الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ ۝ الرَّحْمَٰنِ الرَّحِيمِ ۝ مَالِكِ يَوْمِ الدِّينِ ۝ إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ ۝ اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ ۝ صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ</div>
-      <div class="tr">Bismillāhir-Raḥmānir-Raḥīm · Alḥamdu lillāhi Rabbil-ʿālamīn · Ar-Raḥmānir-Raḥīm · Māliki yawmid-dīn · Iyyāka naʿbudu wa iyyāka nastaʿīn · Ihdinaṣ-ṣirāṭal-mustaqīm · Ṣirāṭal-ladhīna anʿamta ʿalayhim ghayril-maghḍūbi ʿalayhim wa laḍ-ḍāllīn</div>
-      <div class="en">"In the name of Allah, the Most Gracious, the Most Merciful. All praise is for Allah, Lord of all worlds... Guide us along the Straight Path — the path of those You have blessed, not those who incurred wrath, nor those who have gone astray."</div>
-      <div class="src">Source: <b>Sahih al-Bukhari (5007)</b> — Al-Fatiha is Ruqyah; blow on the afflicted area</div>
-    </div>
-
-    <div class="dua">
-      <div class="dlabel">2. Ayatul Kursi — 1× (blow over the body)</div>
-      <div class="ar xs">اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ...</div>
-      <div class="en">Recite Ayatul Kursi in full, blow into cupped hands, wipe over the body from head to toe.</div>
-      <div class="src">Source: <b>Qur'an 2:255 — Sahih Muslim (810)</b></div>
-    </div>
-
-    <div class="dua">
-      <div class="dlabel">3. Al-Ikhlas, Al-Falaq, An-Nas — 3× each (blow &amp; wipe)</div>
-      <div class="ar xs">قُلْ هُوَ اللَّهُ أَحَدٌ ۞ قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ ۞ قُلْ أَعُوذُ بِرَبِّ النَّاسِ</div>
-      <div class="en">Recite each 3 times, blow into cupped hands, wipe over body. The Prophet ﷺ never omitted this before sleeping — Bukhari (5017).</div>
-      <div class="src">Source: <b>Sahih al-Bukhari (5017)</b></div>
-    </div>
-
-    <div class="dua">
-      <div class="dlabel">4. The Ruqyah Dua of the Prophet ﷺ — place hand on pain</div>
-      <div class="ar sm">اللَّهُمَّ رَبَّ النَّاسِ أَذْهِبِ الْبَأْسَ ۙ اشْفِ أَنْتَ الشَّافِي ۙ لَا شِفَاءَ إِلَّا شِفَاؤُكَ ۙ شِفَاءً لَا يُغَادِرُ سَقَمًا</div>
-      <div class="tr">Allāhumma Rabban-nāsi adh-hibil-baʾs · Ishfi Antash-Shāfī · Lā shifāʾa illā shifāʾuk · Shifāʾan lā yughādiru saqamā</div>
-      <div class="en">"O Allah, Lord of mankind, remove the affliction. Heal — for You are the Healer. There is no healing except Your healing, a healing that leaves no illness behind."</div>
-      <div class="src">Source: <b>Sahih al-Bukhari (5675, 5750), Muslim (2191)</b></div>
-    </div>
-
-    <div class="dua">
-      <div class="dlabel">5. Dua for Pain — Bismillāh ×3, then Protection Dua ×7</div>
-      <div class="ar sm">بِسْمِ اللَّهِ (×٣) ۞ أَعُوذُ بِاللَّهِ وَقُدْرَتِهِ مِن شَرِّ مَا أَجِدُ وَأُحَاذِرُ (×٧)</div>
-      <div class="tr">Bismillāh (×3) · Aʿūdhu billāhi wa qudratihī min sharri mā ajidu wa uḥādhir (×7)</div>
-      <div class="en">"In the name of Allah" (3×) — then: "I seek refuge in Allah and His power from the evil of what I feel and what I fear." (7×) — Place your hand on the painful area.</div>
-      <div class="src">Source: <b>Sahih Muslim (2202)</b></div>
-    </div>
-  </section>
-
-  <div class="divider"><div class="dl"></div><div class="dg"></div><div class="dl"></div></div>
-
-<section class="sec" id="jumua">
-    <div class="sec-h">
-      <div class="si">🕌</div>
-      <div><span class="st">Jumu'ah — Friday Sunnahs</span><span class="ss">The weekly ʿEid of the believers</span></div>
-    </div>
-
-    <div class="note">
-      "The best day on which the sun has risen is Friday. On it Adam was created, on it he was admitted to Paradise, and on it he was expelled from it. And the Hour will not be established except on a Friday." — Sahih Muslim (854). <em>Make it a day of special worship, abundant salawat, and Surah Al-Kahf.</em>
-    </div>
-
-    <div class="expand-wrap">
-      <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
-        <div class="et-num" style="font-size:10px;">⏰</div>
-        <div class="et-info">
-          <div class="et-ar">سَاعَةٌ لَا يُوَافِقُهَا عَبْدٌ مُسْلِمٌ</div>
-          <div class="et-en">The Hour of Accepted Dua on Friday</div>
-          <div class="et-virtue">No Muslim asks Allah for something in this hour except Allah gives it — Bukhari (935)</div>
-        </div>
-        <span class="et-arrow" aria-hidden="true">▾</span>
-      </button>
-      <div class="expand-body">
-<div class="expand-inner">
-        <div class="note" style="margin-bottom:10px;">
-          <strong>When is this hour?</strong><br>
-          <strong>Opinion 1 — After ʿAsr until Maghrib</strong> — The stronger opinion held by ʿAbdullah ibn Salam (RA), Abu Hurayrah (RA), Imam Ahmad, and others. "Seek it in the last hour after ʿAsr." — Abu Dawud (1048), Sahih.<br><br>
-          <strong>Opinion 2 — Between the two khutbahs</strong> — When the Imam sits briefly between the two parts of the Friday sermon. — Sahih Muslim (853).<br><br>
-          Both are well-grounded. <em>The safest practice is to make dua at both times.</em>
-        </div>
-        <div class="src">Source: <b>Bukhari (935), Muslim (852)</b></div>
-      </div>
-</div>
-    </div>
-
-    <div class="expand-wrap">
-      <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
-        <div class="et-num" style="font-size:10px;">📋</div>
-        <div class="et-info">
-          <div class="et-en">How to use the Jumu'ah Hour</div>
-          <div class="et-virtue">A structured 60-minute guide — from after ʿAsr to Maghrib</div>
-        </div>
-        <span class="et-arrow" aria-hidden="true">▾</span>
-      </button>
-      <div class="expand-body">
-<div class="expand-inner">
-        <div class="note" style="margin-bottom:10px;">
-          <strong>The 5-block structure:</strong><br><br>
-          <strong>1. Opening Salawat</strong> (5 mins) — Begin by sending abundant salawat on the Prophet ﷺ. He said: Increase your salawat upon me on Friday. — Abu Dawud (1047).<br><br>
-          <strong>2. Istighfar</strong> (5 mins) — Seek sincere forgiveness. Cleanse the heart before making requests. Say the sayyid al-istighfar and reflect on your sins.<br><br>
-          <strong>3. Core duas</strong> (30 mins) — Work through structured duas for deen, akhirah, Jannah, this dunya, marriage, family, distress, and the Ummah. Each topic covered with Qur'anic and Prophetic supplications.<br><br>
-          <strong>4. Personal dua</strong> (15 mins) — Speak to Allah directly in your own words. This is the heart of the hour. Be specific, be desperate, be honest.<br><br>
-          <strong>5. Closing Salawat</strong> (5 mins) — Seal every dua with salawat. The dua between two salawats is never rejected.<br><br>
-          Use the guided session below to be taken through all 11 sections step by step.
-        </div>
-        <div class="src">Source: <b>Sahih al-Bukhari (935), Sahih Muslim (852)</b></div>
-      </div>
-</div>
-    </div>
-
-    <button class="jumuah-session-btn" onclick="openJumuahIntro()">▶ Begin The Friday Hour</button>
-
-    <div class="dua">
-      <div class="dlabel">Salawat on Friday — Increase throughout the day</div>
-      <div class="ar xs">اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ كَمَا صَلَّيْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ إِنَّكَ حَمِيدٌ مَجِيدٌ</div>
-      <div class="tr">Allāhumma ṣalli ʿalā Muḥammadin wa ʿalā āli Muḥammad, kamā ṣallayta ʿalā Ibrāhīma wa ʿalā āli Ibrāhīm, innaka Ḥamīdun Majīd</div>
-      <div class="en">"O Allah, send Your grace upon Muhammad and upon the family of Muhammad, as You sent Your grace upon Ibrahim and the family of Ibrahim. You are Praiseworthy, Glorious."</div>
-      <div class="src">Source: <b>Bukhari (3370), Muslim (406)</b> — Say it abundantly; it is presented to the Prophet ﷺ on Friday</div>
-    </div>
-
-    <div class="note">
-      <strong>Recite Surah Al-Kahf on Friday.</strong> "Whoever reads Surah Al-Kahf on Friday, a light will shine for him from beneath his feet to the clouds of the sky, which will shine for him on the Day of Resurrection, and he will be forgiven between the two Fridays." — al-Hakim (Sahih al-Albani)
-    </div>
-
-    <div class="dua">
-      <div class="dlabel">Istighfar after Fajr on Friday — 70×</div>
-      <div class="ar">أَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ</div>
-      <div class="tr">Astaghfirullāha wa atūbu ilayh</div>
-      <div class="en">"I seek the forgiveness of Allah and I repent to Him." — 70× after Fajr on Friday.</div>
-      <div class="src">Source: <b>Ibn al-Sunni, ʿAmal al-Yawm wal-Laylah</b> — Recommended by scholars for Friday morning</div>
-    </div>
-
-    <div class="dua">
-      <div class="dlabel">Dua for Light — Going to Jumu'ah Prayer</div>
-      <div class="ar xs">اللَّهُمَّ اجْعَلْ فِي قَلْبِي نُورًا وَفِي لِسَانِي نُورًا وَفِي سَمْعِي نُورًا وَفِي بَصَرِي نُورًا وَمِنْ فَوْقِي نُورًا وَمِنْ تَحْتِي نُورًا اللَّهُمَّ أَعْطِنِي نُورًا</div>
-      <div class="tr">Allāhummaj-ʿal fī qalbī nūrā, wa fī lisānī nūrā, waj-ʿal fī samʿī nūrā, waj-ʿal fī baṣarī nūrā, waj-ʿal min fawqī nūrā, wa min taḥtī nūrā. Allāhumma aʿṭinī nūrā</div>
-      <div class="en">"O Allah, place light in my heart, light on my tongue, light in my hearing, light in my sight, light above me, and light beneath me. O Allah, grant me light."</div>
-      <div class="src">Source: <b>Bukhari (6316), Muslim (763)</b></div>
-    </div>
-
-    <div class="note" style="margin-top:6px;">
-      <strong>Qunut al-Nazilah — Dua for the Ummah in Times of Calamity</strong><br>
-      When the Muslim Ummah is suffering — from war, oppression, or widespread harm — it is a Sunnah for the Imam to recite Qunut al-Nazilah in Fajr (or other fard prayers) after ruku' in the final rak'ah, raising his hands in dua while the congregation says Ameen aloud. The wording is flexible; what follows is an established text narrated from the Prophet ﷺ.
-    </div>
-
-    <div class="dua feat">
-      <div class="feat-badge">★ Qunut al-Nazilah — For the Ummah ★</div>
-      <div class="dlabel">Dua recited in times of calamity — after ruku' in the final rak'ah of Fajr (or any fard salah)</div>
-      <div class="ar xs">اللَّهُمَّ اهْدِنَا فِيمَنْ هَدَيْتَ ۙ وَعَافِنَا فِيمَنْ عَافَيْتَ ۙ وَتَوَلَّنَا فِيمَنْ تَوَلَّيْتَ ۙ وَبَارِكْ لَنَا فِيمَا أَعْطَيْتَ ۙ وَقِنَا شَرَّ مَا قَضَيْتَ ۙ فَإِنَّكَ تَقْضِي وَلَا يُقْضَى عَلَيْكَ ۙ وَإِنَّهُ لَا يَذِلُّ مَنْ وَالَيْتَ ۙ تَبَارَكْتَ رَبَّنَا وَتَعَالَيْتَ</div>
-      <div class="tr">Allāhummahdina fīman hadayt · wa ʿāfinā fīman ʿāfayt · wa tawallanā fīman tawallayt · wa bārik lanā fīmā aʿṭayt · wa qinā sharra mā qaḍayt · fa innaka taqḍī wa lā yuqḍā ʿalayk · wa innahu lā yadhillu man wālayt · tabārakta Rabbanā wa taʿālayt</div>
-      <div class="en">"O Allah, guide us among those whom You have guided. Grant us wellbeing among those to whom You have granted it. Take us as friends among those You have befriended. Bless us in what You have given us. Protect us from the evil of what You have decreed. For You decree and none can decree against You. Truly none whom You have befriended is humbled. You are Blessed, our Lord, and Exalted."</div>
-      <div class="src">Source: <b>Abu Dawud (1213), al-Tirmidhi (464) — Sahih</b> — The foundational Qunut text; the Imam may add specific dua for the Ummah after this</div>
-      <div class="note" style="margin-top:12px;margin-bottom:0;font-size:12px;">
-        <strong>Congregation:</strong> Say <em>Ameen</em> aloud at the end. The Imam raises his hands visibly. This dua may be extended to name specific calamities facing the Ummah — Gaza, Sudan, and all oppressed Muslim lands. It is Sunnah to say Salawat on the Prophet ﷺ and to end with Ameen.
-      </div>
-    </div>
-  </section>
-
-  <div class="divider"><div class="dl"></div><div class="dg"></div><div class="dl"></div></div>
-
-<section class="sec" id="eid">
-    <div class="sec-h">
-      <div class="si">🌙</div>
-      <div><span class="st">Eid Duas</span><span class="ss">Eid al-Fitr and Eid al-Adha</span></div>
-    </div>
-
-    <div class="note">
-      <strong>Eid is an act of worship, not merely celebration.</strong> Begin the day with ghusl, wear your best clothes, and proceed to the Eid prayer. On Eid al-Fitr, eat before leaving. On Eid al-Adha, eat after the prayer. Take a different route back from the prayer ground.
-    </div>
-
-    <div class="dua">
-      <div class="dlabel">Congratulating on Eid — said between Muslims</div>
-      <div class="ar">تَقَبَّلَ اللَّهُ مِنَّا وَمِنكُمْ</div>
-      <div class="tr">Taqabbalallāhu minnā wa minkum</div>
-      <div class="en">“May Allah accept from us and from you.”</div>
-      <div class="src">Source: <b>Transmitted from the Sahabah — Ibn Hajar, Fath al-Bari (2/446)</b>. The most authentic Eid greeting.</div>
-      <div class="badge">The Sunnah greeting on both Eids — say this to every Muslim you meet</div>
-    </div>
-
-    <div class="dua">
-      <div class="dlabel">Takbeer of Eid — from hearing the news until the Eid prayer</div>
-      <div class="ar sm">اللَّهُ أَكْبَرُ اللَّهُ أَكْبَرُ لَا إِلَهَ إِلَّا اللَّهُ وَاللَّهُ أَكْبَرُ اللَّهُ أَكْبَرُ وَلِلَّهِ الْحَمْدُ</div>
-      <div class="tr">Allāhu Akbar, Allāhu Akbar, lā ilāha illallāhu wallāhu Akbar, Allāhu Akbar wa lillāhil-ḥamd</div>
-      <div class="en">“Allah is the Greatest, Allah is the Greatest, there is no god but Allah and Allah is the Greatest, Allah is the Greatest and all praise belongs to Allah.”</div>
-      <div class="src">Source: <b>Ibn Abi Shaybah — authenticated</b>. Said from the night of Eid until the Eid prayer begins.</div>
-    </div>
-
-    <div class="dua">
-      <div class="dlabel">Dua on the Morning of Eid</div>
-      <div class="ar sm">اللَّهُمَّ إِنِّي أَسْأَلُكَ خَيْرَ هَذَا الْيَوْمِ وَخَيْرَ مَا فِيْهِ وَأَعُوذُ بِكَ مِنْ شَرِّهِ وَشَرِّ مَا فِيْهِ</div>
-      <div class="tr">Allāhumma innī asʾaluka khayra hādhal-yawmi wa khayra mā fīh, wa aʿūdhu bika min sharrihi wa sharri mā fīh</div>
-      <div class="en">“O Allah, I ask You for the good of this day and the good of what is in it, and I seek refuge in You from its evil and the evil of what is in it.”</div>
-      <div class="src">Source: <b>Abu Dawud</b> — general dua for the morning of any blessed day</div>
-    </div>
-
-    <div class="note">
-      <strong>Sadaqat al-Fitr — obligatory before Eid prayer</strong><br><br>
-      Sadaqat al-Fitr (Zakat al-Fitr) is obligatory (wājib) upon every Muslim who possesses the nisab amount. It must be given before the Eid prayer — giving it after is still valid but the full reward is missed. The Hanafi amount is the equivalent of 2kg of wheat or 4kg of barley, dates or raisins per person in your household. Give it to the poor and needy.
-      <br><br>
-      <em>Source: Sahih al-Bukhari (1503), Muslim (984)</em>
-    </div>
-  </section>
-
-  <div class="divider"><div class="dl"></div><div class="dg"></div><div class="dl"></div></div>
-
-<section class="sec" id="dhulhijjah">
-  <div class="sec-h">
-    <div class="si">🕋</div>
-    <div><span class="st">Dhul Hijjah — The Greatest Days</span><span class="ss">First 10 days · Arafah · Eid al-Adha · Ayyam al-Tashriq</span></div>
+    <button class="ji-begin" onclick="beginLearnDeck('times')">Explore Time Windows</button>
+    <div class="ji-footer">Tap any card to continue · swipe or use arrows</div>
   </div>
-
-  <div class="note">
-    The Prophet ﷺ said: <em>"There are no days in which righteous deeds are more beloved to Allah than these ten days."</em> The companions asked: <em>"Not even jihad in the way of Allah?"</em> He ﷺ said: <em>"Not even jihad — except for a man who goes out with his life and his wealth and does not return with either."</em> — <strong>Sahih al-Bukhari (969)</strong>
-  </div>
-
-  <div class="sec-sub-header">🌟 The First Ten Days</div>
-
-  <div class="expand-wrap">
-    <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
-      <div class="et-num" style="font-size:10px;">فضل</div>
-      <div class="et-info">
-        <div class="et-ar">وَالْفَجْرِ وَلَيَالٍ عَشْرٍ</div>
-        <div class="et-en">Why these days are the greatest of the year</div>
-        <div class="et-virtue">Allah swears by them in the Qur'an</div>
-      </div>
-      <span class="et-arrow" aria-hidden="true">▾</span>
-    </button>
-    <div class="expand-body">
-      <div class="expand-inner">
-        <div class="note">Allah ﷻ swears by these days in Surah Al-Fajr: <em>"By the dawn. And by the ten nights."</em> — <strong>Surah Al-Fajr (89:1-2)</strong>. Ibn Abbas, Ibn Kathir and the majority of scholars confirm these refer to the first ten days of Dhul Hijjah. When Allah swears by something it signals its immense importance.</div>
-        <div class="note">Ibn Hajar al-Asqalani (rahimahullah) said: <em>"The reason these ten days are preferred over all others is because they combine all the major acts of worship — prayer, fasting, charity, and Hajj — which does not occur in any other days."</em> — Fath al-Bari</div>
-        <div class="note">Ibn Abbas (ra) said: <em>"The ten days are more beloved to Allah for doing good deeds than any other days of the year."</em> — <strong>Sahih al-Bukhari (969)</strong></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="expand-wrap">
-    <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
-      <div class="et-num" style="font-size:10px;">عمل</div>
-      <div class="et-info">
-        <div class="et-ar">أعمال الأيام العشرة</div>
-        <div class="et-en">What to do in the first 10 days</div>
-        <div class="et-virtue">Fasting, dhikr, Sadaqah, Qur'an, Tawbah</div>
-      </div>
-      <span class="et-arrow" aria-hidden="true">▾</span>
-    </button>
-    <div class="expand-body">
-      <div class="expand-inner">
-        <div class="note">Increase all good deeds — every righteous act is multiplied in these days. The Prophet ﷺ commanded: <em>"Increase in these days the Tahleel, Takbeer and Tahmid."</em> — <strong>Ahmad (5446) — Sahih</strong></div>
-        <div class="note"><strong>Fast the first 9 days</strong> — especially Day 8 (Tarwiyah) and Day 9 (Arafah). Fasting Arafah expiates two years of sins. For non-pilgrims only — the pilgrim on Hajj does not fast Arafah.</div>
-        <div class="note"><strong>Do not cut hair or nails</strong> if you intend to offer Qurbani — from the 1st of Dhul Hijjah until after the animal is slaughtered. The Prophet ﷺ said: <em>"When the ten days of Dhul Hijjah begin and one of you wants to offer a sacrifice — let him not cut anything from his hair or nails until he has offered the sacrifice."</em> — <strong>Sahih Muslim (1977)</strong></div>
-        <div class="note"><strong>Give Sadaqah</strong> — charity is among the most beloved deeds. Give every single day of the 10 days.</div>
-        <div class="note"><strong>Read Qur'an abundantly</strong>, make Tawbah, pray Tahajjud — these nights are among the greatest of the year.</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="expand-wrap">
-    <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
-      <div class="et-num" style="font-size:10px;">ذكر</div>
-      <div class="et-info">
-        <div class="et-ar">اللَّهُ أَكْبَرُ الْحَمْدُ لِلَّهِ لَا إِلَهَ إِلَّا اللَّهُ سُبْحَانَ اللَّهِ</div>
-        <div class="et-en">The four dhikr — increase abundantly</div>
-        <div class="et-virtue">Most beloved deeds in these days</div>
-      </div>
-      <span class="et-arrow" aria-hidden="true">▾</span>
-    </button>
-    <div class="expand-body">
-      <div class="expand-inner">
-        <div class="note">The Prophet ﷺ commanded increasing in these four throughout the 10 days — say them continuously while walking, working, commuting.</div>
-        <div class="ar">اللَّهُ أَكْبَرُ</div>
-        <div class="tr">Allāhu Akbar — Takbeer (Allah is Greatest)</div>
-        <div class="ar">الْحَمْدُ لِلَّهِ</div>
-        <div class="tr">Alḥamdulillāh — Tahmid (All praise to Allah)</div>
-        <div class="ar">لَا إِلَٰهَ إِلَّا اللَّهُ</div>
-        <div class="tr">Lā ilāha illallāh — Tahleel (No god but Allah)</div>
-        <div class="ar">سُبْحَانَ اللَّهِ</div>
-        <div class="tr">SubḥānAllāh — Tasbeeh (Glory be to Allah)</div>
-        <div class="src">Source: <b>Ahmad (5446) — Sahih by Ahmad Shakir</b></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="expand-wrap">
-    <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
-      <div class="et-num" style="font-size:10px;">تكبير</div>
-      <div class="et-info">
-        <div class="et-ar">اللَّهُ أَكْبَرُ اللَّهُ أَكْبَرُ لَا إِلَٰهَ إِلَّا اللَّهُ...</div>
-        <div class="et-en">Takbeer al-Tashriq — after every fard salah</div>
-        <div class="et-virtue">Wājib — Hanafi — Fajr 9th to Asr 13th — 23 prayers</div>
-      </div>
-      <span class="et-arrow" aria-hidden="true">▾</span>
-    </button>
-    <div class="expand-body">
-      <div class="expand-inner">
-        <div class="note">Takbeer al-Tashriq is <strong>wājib (obligatory)</strong> in the Hanafi madhab — said once immediately after salam of every fard salah. Begins Fajr of the 9th of Dhul Hijjah, ends Asr of the 13th — 23 prayers total. Say it loudly.</div>
-        <div class="ar sm">اللَّهُ أَكْبَرُ اللَّهُ أَكْبَرُ لَا إِلَٰهَ إِلَّا اللَّهُ وَاللَّهُ أَكْبَرُ اللَّهُ أَكْبَرُ وَلِلَّهِ الْحَمْدُ</div>
-        <div class="tr">Allāhu Akbar Allāhu Akbar lā ilāha illallāhu wallāhu Akbar Allāhu Akbar wa lillāhil-ḥamd</div>
-        <div class="en">"Allah is the Greatest, Allah is the Greatest, there is no god but Allah. Allah is the Greatest, Allah is the Greatest, and to Allah belongs all praise."</div>
-        <div class="src">Source: <b>Ibn Abi Shaybah, al-Bayhaqi</b> — Hanafi position: wājib, once after every fard</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="sec-sub-header">🌄 Yawm Arafah — 9th Dhul Hijjah</div>
-
-  <div class="expand-wrap">
-    <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
-      <div class="et-num" style="font-size:10px;">عرفة</div>
-      <div class="et-info">
-        <div class="et-ar">يَوْمُ عَرَفَةَ</div>
-        <div class="et-en">What is Yawm Arafah?</div>
-        <div class="et-virtue">Greatest single day of the year — Allah frees people from the Fire</div>
-      </div>
-      <span class="et-arrow" aria-hidden="true">▾</span>
-    </button>
-    <div class="expand-body">
-      <div class="expand-inner">
-        <div class="note">Yawm Arafah is the 9th day of Dhul Hijjah — the day pilgrims stand on the plain of Arafah. It is the pinnacle of Hajj. The Prophet ﷺ said: <em>"Hajj is Arafah."</em> — <strong>Abu Dawud (1949), Tirmidhi (889) — Sahih</strong></div>
-        <div class="note">On this day Allah ﷻ descends to the lowest heaven and boasts to the angels: <em>"There is no day on which Allah frees more people from the Fire than the Day of Arafah. He draws near then boasts of them to the angels saying: What do these people want?"</em> — <strong>Sahih Muslim (1348)</strong></div>
-        <div class="note"><strong>For those not on Hajj:</strong> Fast this day, make du'a from Fajr to Maghrib, increase dhikr and Qur'an, give Sadaqah. The best du'a to repeat: <em>Lā ilāha illallāhu waḥdahu lā sharīka lah...</em></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="expand-wrap">
-    <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
-      <div class="et-num" style="font-size:10px;">صوم</div>
-      <div class="et-info">
-        <div class="et-ar">صَوْمُ يَوْمِ عَرَفَةَ</div>
-        <div class="et-en">Fasting Yawm Arafah — greatest fast outside Ramadan</div>
-        <div class="et-virtue">Expiates two years of sins</div>
-      </div>
-      <span class="et-arrow" aria-hidden="true">▾</span>
-    </button>
-    <div class="expand-body">
-      <div class="expand-inner">
-        <div class="note">The Prophet ﷺ was asked about fasting on the Day of Arafah. He said: <em>"It expiates the sins of the previous year and the coming year."</em> — <strong>Sahih Muslim (1162)</strong></div>
-        <div class="note">This is the single most rewarding fast outside of Ramadan. Two full years of minor sins expiated with one fast. <strong>For non-pilgrims only</strong> — those performing Hajj do not fast as they need their strength for worship on the plain of Arafah.</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="expand-wrap">
-    <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
-      <div class="et-num" style="font-size:10px;">دعاء</div>
-      <div class="et-info">
-        <div class="et-ar">لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ...</div>
-        <div class="et-en">Best du'a of Arafah — repeat throughout the day</div>
-        <div class="et-virtue">Best thing the Prophets have ever said</div>
-      </div>
-      <span class="et-arrow" aria-hidden="true">▾</span>
-    </button>
-    <div class="expand-body">
-      <div class="expand-inner">
-        <div class="note">The Prophet ﷺ said: <em>"The best du'a is the du'a of the Day of Arafah. And the best thing that I and the prophets before me have said is: Lā ilāha illallāhu waḥdahu lā sharīka lah..."</em> — <strong>Tirmidhi (3585) — Hasan</strong></div>
-        <div class="ar">لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ</div>
-        <div class="tr">Lā ilāha illallāhu waḥdahu lā sharīka lah lahul-mulku wa lahul-ḥamdu wa Huwa ʿalā kulli shayʾin Qadīr</div>
-        <div class="en">"There is no god but Allah alone, with no partner. His is the dominion and His is all praise, and He is over all things capable."</div>
-        <div class="src">Source: <b>Tirmidhi (3585) — Hasan</b></div>
-        <div class="note">Repeat this abundantly throughout the entire day of Arafah — morning, afternoon, and evening. This is the best dhikr ever spoken by any prophet.</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="sec-sub-header">🐑 Eid al-Adha — 10th Dhul Hijjah</div>
-
-  <div class="expand-wrap">
-    <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
-      <div class="et-num" style="font-size:10px;">عيد</div>
-      <div class="et-info">
-        <div class="et-ar">عِيدُ الْأَضْحَى</div>
-        <div class="et-en">What is Eid al-Adha?</div>
-        <div class="et-virtue">Festival of Sacrifice — commemorating Ibrahim ﷺ</div>
-      </div>
-      <span class="et-arrow" aria-hidden="true">▾</span>
-    </button>
-    <div class="expand-body">
-      <div class="expand-inner">
-        <div class="note">Eid al-Adha commemorates the willingness of Ibrahim ﷺ to sacrifice his son Ismail ﷺ in obedience to Allah ﷻ, before Allah replaced the sacrifice with a ram. Allah ﷻ says: <em>"Their meat will not reach Allah nor will their blood, but what reaches Him is piety from you."</em> — <strong>Surah Al-Hajj (22:37)</strong></div>
-        <div class="note"><strong>Sunnah acts of Eid:</strong> Perform ghusl, wear best clothes, go to the Eid prayer. On Eid al-Adha eat after the prayer — not before. Take a different route back from the prayer ground. Say the Takbir aloud on the way.</div>
-        <div class="note"><strong>Eid greeting:</strong> The Sahabah used to say to one another: <em>Taqabbalallāhu minnā wa minkum</em> — May Allah accept from us and from you. — <strong>Ibn Hajar in Fath al-Bari</strong></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="expand-wrap">
-    <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
-      <div class="et-num" style="font-size:10px;">أضح</div>
-      <div class="et-info">
-        <div class="et-ar">الأُضْحِيَّةُ — الْقُرْبَانُ</div>
-        <div class="et-en">Udhiyah — Qurbani — complete ruling</div>
-        <div class="et-virtue">Wājib — Hanafi — on every Muslim of means</div>
-      </div>
-      <span class="et-arrow" aria-hidden="true">▾</span>
-    </button>
-    <div class="expand-body">
-      <div class="expand-inner">
-        <div class="note">The Prophet ﷺ said: <em>"Whoever has the means and does not offer a sacrifice — let him not approach our place of prayer."</em> — <strong>Ibn Majah (3123) — Hasan</strong></div>
-        <div class="note"><strong>Ruling by madhab:</strong> Wājib (obligatory) — Hanafi. Sunnah Mu'akkadah (strongly emphasised) — Maliki, Shafi'i, Hanbali. In the Hanafi madhab it is obligatory upon every adult Muslim who possesses the nisab amount on Eid day.</div>
-        <div class="note"><strong>Valid animals and shares:</strong> Sheep or goat = 1 household. Cow, buffalo, or camel = 7 shares. Minimum age: sheep 6 months, goat 1 year, cow 2 years, camel 5 years.</div>
-        <div class="note"><strong>When to slaughter:</strong> After Eid prayer on the 10th — continues through the 11th, 12th, and 13th (Ayyam al-Tashriq). The Prophet ﷺ said: <em>"Whoever slaughters before the prayer — it is just meat he has prepared for his family. It is not Udhiyah at all."</em> — <strong>Sahih al-Bukhari (5560)</strong></div>
-        <div class="note"><strong>Distribution of meat:</strong> Divide into thirds — one third for yourself, one third for family and friends, one third for the poor. — <strong>Sahih Muslim (1963)</strong></div>
-        <div class="note"><strong>Du'a when slaughtering:</strong> <em>Bismillāhi wallāhu Akbar · Allāhumma hādhā minka wa lak</em> — In the name of Allah and Allah is Greatest. O Allah this is from You and for You. Face the animal toward the Qibla.</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="sec-sub-header">📅 Ayyam al-Tashriq — 11th, 12th, 13th</div>
-
-  <div class="expand-wrap">
-    <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
-      <div class="et-num" style="font-size:10px;">تشريق</div>
-      <div class="et-info">
-        <div class="et-ar">أَيَّامُ التَّشْرِيقِ</div>
-        <div class="et-en">What are the days of Tashriq?</div>
-        <div class="et-virtue">Days of eating, drinking, and remembrance of Allah</div>
-      </div>
-      <span class="et-arrow" aria-hidden="true">▾</span>
-    </button>
-    <div class="expand-body">
-      <div class="expand-inner">
-        <div class="note">The three days following Eid al-Adha — 11th, 12th, 13th of Dhul Hijjah. Their name means "days of drying meat." The Prophet ﷺ said: <em>"The days of Tashriq are days of eating, drinking, and remembrance of Allah."</em> — <strong>Sahih Muslim (1141)</strong></div>
-        <div class="note"><strong>Fasting is forbidden</strong> on these days. The Prophet ﷺ said: <em>"Do not fast on these days — they are days of eating and drinking."</em> — <strong>Sahih al-Bukhari (1997)</strong></div>
-        <div class="note"><strong>Continue the Takbir al-Tashriq</strong> after every fard salah until Asr of the 13th — 23 prayers total from Fajr of the 9th.</div>
-        <div class="note"><strong>Continue Qurbani</strong> — slaughter is valid on the 11th, 12th, and 13th in addition to the 10th.</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="sec-sub-header">📊 Quick Reference — Day by Day</div>
-
-  <div class="expand-wrap">
-    <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
-      <div class="et-num" style="font-size:10px;">جدول</div>
-      <div class="et-info">
-        <div class="et-ar">جَدْوَلُ الأَيَّامِ</div>
-        <div class="et-en">What to do each day of Dhul Hijjah</div>
-        <div class="et-virtue">Days 1–13 at a glance</div>
-      </div>
-      <span class="et-arrow" aria-hidden="true">▾</span>
-    </button>
-    <div class="expand-body">
-      <div class="expand-inner">
-        <div class="note"><strong>Days 1–8:</strong> Fast, increase dhikr (Takbir, Tahmid, Tahleel, Tasbeeh), give Sadaqah, read Qur'an, do not cut hair or nails if intending Qurbani.</div>
-        <div class="note"><strong>Day 8 — Tarwiyah:</strong> Fast — recommended. Increase worship in preparation for Arafah.</div>
-        <div class="note"><strong>Day 9 — Yawm Arafah:</strong> Fast (non-pilgrims). Make du'a from Fajr to Maghrib. Repeat the best du'a of Arafah abundantly. Takbir al-Tashriq begins after Fajr.</div>
-        <div class="note"><strong>Day 10 — Eid al-Adha:</strong> Ghusl, Eid prayer, Qurbani after prayer, say Taqabbalallahu minna wa minkum, no fasting.</div>
-        <div class="note"><strong>Days 11–13 — Ayyam al-Tashriq:</strong> Takbir after every fard prayer, eat and drink, continue Qurbani if not yet done, no fasting. Ends with Asr on the 13th.</div>
-      </div>
-    </div>
-  </div>
-
-</section>
-
-  <div class="divider"><div class="dl"></div><div class="dg"></div><div class="dl"></div></div>
-
-<section class="sec" id="ashura">
-    <div class="sec-h">
-      <div class="si">🤍</div>
-      <div><span class="st">Ashura — 10th Muharram</span><span class="ss">Fasting and remembrance</span></div>
-    </div>
-
-    <div class="note">
-      The Prophet ﹺ arrived in Madinah and found the Jews fasting on the 10th of Muharram. He asked why and was told: This is the day Allah saved Musa and his people and drowned Pharaoh, so Musa fasted it in gratitude. The Prophet ﹺ said: “We have more right to Musa than you,” and he fasted and commanded fasting. — <strong>Sahih al-Bukhari (2004)</strong>
-    </div>
-
-    <div class="note">
-      <strong>The ruling — fast the 9th and 10th</strong><br><br>
-      Fasting the 10th of Muharram (Ashura) expiates the minor sins of the past year. The Prophet ﹺ intended to add the 9th of Muharram to distinguish from the Jewish practice. The Hanafi position: it is strongly recommended (mustaḥabb) to fast both the 9th and 10th of Muharram.
-      <br><br>
-      <em>Source: Sahih Muslim (1162) for expiation, Muslim (1134) for intention to add the 9th</em>
-    </div>
-
-    <div class="dua">
-      <div class="dlabel">Intention for the fast of Ashura</div>
-      <div class="ar">نَوَيْتُ أَنْ أَصُومَ غَدًا لِلَّهِ تَعَالَى</div>
-      <div class="tr">Nawaytu an aṣūma ghadan lillāhi taʿālā</div>
-      <div class="en">“I intend to fast tomorrow for the sake of Allah the Most High.”</div>
-      <div class="src">Source: <b>Hanafi formulation</b> — the intention is in the heart. Made before Fajr.</div>
-    </div>
-
-    <div class="note" style="border-color:rgba(201,168,76,0.4);">
-      <strong>⚠️ What has no basis on Ashura</strong><br><br>
-      Some people prepare special food, hold gatherings, or give charity specifically on Ashura believing it to be a Sunnah. None of these practices are established in any authentic hadith. The only confirmed act of worship on Ashura is fasting the 9th and 10th of Muharram.
-      <br><br>
-      <em>Source: Ibn Taymiyyah, Iqtida al-Sirat al-Mustaqim</em>
-    </div>
-  </section>
-
-  <div class="divider"><div class="dl"></div><div class="dg"></div><div class="dl"></div></div>
-
-<section class="sec" id="shaban">
-    <div class="sec-h">
-      <div class="si">🌙</div>
-      <div><span class="st">Laylat al-Bara‘ah</span><span class="ss">15th Sha‘ban — individual worship</span></div>
-    </div>
-
-    <div class="note">
-      There are narrations mentioning the 15th of Sha‘ban as a night of special mercy and forgiveness. While some scholars have questioned the strength of these narrations, the majority of Hanafi scholars including Ibn Abidin and al-Tahtawi have stated that individual acts of worship — nafl prayer, recitation, istighfar and personal dua — are recommended on this night based on the general principle of seeking good in blessed occasions.
-    </div>
-
-    <div class="note">
-      <strong>Recommended acts on this night</strong><br><br>
-      Spend the night in individual worship: nafl salah, recitation of Qur’an, abundant istighfar, and personal dua. Visit the graves if able — the Prophet ﹺ visited the graveyard of al-Baqi on this night. No congregational gathering, no specific number of rak‘ahs, and no communal celebration has any authentic basis.
-      <br><br>
-      <em>Source: Hanafi position — Ibn Abidin, Radd al-Muhtar; al-Tahtawi, Hashiyat Maraqi al-Falah</em>
-    </div>
-
-    <div class="note" style="border-color:rgba(201,168,76,0.4);">
-      <strong>⚠️ What has no basis on this night</strong><br><br>
-      Specific prayers with fixed numbers of rak‘ahs, communal gatherings, special foods, and fireworks on this night have no authentic basis in the Sunnah. Avoid these practices.
-    </div>
-  </section>
-
-  <div class="divider"><div class="dl"></div><div class="dg"></div><div class="dl"></div></div>
-
-
-
-<section class="sec" id="surahs">
-    <div class="sec-h">
-      <div class="si">📜</div>
-      <div><span class="st">Surahs — Essential Recitations</span><span class="ss">Tap any surah to read in full</span></div>
-    </div>
-
-    <!-- AL-FATIHAH -->
-    <div class="expand-wrap">
-      <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
-        <div class="et-num">1</div>
-        <div class="et-info">
-          <div class="et-ar">سُورَةُ الْفَاتِحَة</div>
-          <div class="et-en">Surah Al-Fatihah — 7 verses · 30 seconds</div>
-          <div class="et-virtue">"There is no prayer for one who does not recite Al-Fatihah." The mother of the Qur'an.</div>
-        </div>
-        <span class="et-arrow" aria-hidden="true">▾</span>
-      </button>
-      <div class="expand-body">
-<div class="expand-inner">
-        <div class="ar xs">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ ۝ الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ ۝ الرَّحْمَٰنِ الرَّحِيمِ ۝ مَالِكِ يَوْمِ الدِّينِ ۝ إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ ۝ اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ ۝ صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ</div>
-        <div class="tr">Bismillāhir-Raḥmānir-Raḥīm · Alḥamdu lillāhi Rabbil-ʿālamīn · Ar-Raḥmānir-Raḥīm · Māliki yawmid-dīn · Iyyāka naʿbudu wa iyyāka nastaʿīn · Ihdinaṣ-ṣirāṭal-mustaqīm · Ṣirāṭal-ladhīna anʿamta ʿalayhim ghayril-maghḍūbi ʿalayhim wa laḍ-ḍāllīn</div>
-        <div class="en">"In the name of Allah, the Most Gracious, the Most Merciful. All praise is for Allah, Lord of all worlds. The Most Gracious, the Most Merciful. Master of the Day of Judgement. You alone we worship, and You alone we ask for help. Guide us along the Straight Path — the path of those You have blessed, not those who incurred wrath, nor those who have gone astray."</div>
-        <div class="src">Source: <b>Qur'an 1:1–7 · Bukhari (756)</b> — The greatest surah in the Qur'an. Also used as Ruqyah.</div>
-      </div>
 </div>
+
+<!-- LEARN DECK: PRAYER TIMES -->
+<div class="learn-deck" id="learn-deck-times" style="display:none;">
+  <div class="learn-deck-header">
+    <button class="learn-deck-close" onclick="closeLearnTopic()">✕</button>
+    <div class="learn-deck-title">Best Times for Du'a</div>
+    <div class="learn-deck-counter">CARD 1 OF 6</div>
+  </div>
+  <div class="learn-deck-progress"><div class="learn-deck-fill" style="width:0%"></div></div>
+  <div class="learn-deck-body">
+
+    <div class="learn-card-data" style="display:flex;flex-direction:column;flex:1;">
+      <div class="learn-card-eyebrow">TIME WINDOW 1</div>
+      <div class="learn-card-heading">The Last Third of the Night</div>
+      <div class="learn-card-body">The single most powerful time for du'a.<br><br>Allah descends to the lowest heaven and says: <em>"Who is calling Me that I may answer? Who is asking Me that I may give? Who is seeking My forgiveness that I may forgive?"</em></div>
+      <div class="learn-card-src">Sahih al-Bukhari 1145 · When: last 90 mins before Fajr</div>
     </div>
 
-    <!-- YA-SIN -->
-    <div class="expand-wrap">
-      <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
-        <div class="et-num">36</div>
-        <div class="et-info">
-          <div class="et-ar">سُورَةُ يَس</div>
-          <div class="et-en">Surah Ya-Sin — 83 verses · approx. 10 mins</div>
-          <div class="et-virtue">"Heart of the Qur'an. Whoever reads it for Allah's pleasure, their past sins are forgiven." — Abu Dawud (Hasan)</div>
-        </div>
-        <span class="et-arrow" aria-hidden="true">▾</span>
-      </button>
-      <div class="expand-body">
-<div class="expand-inner">
-        <div class="ar xs">يَس ۝ وَالْقُرْآنِ الْحَكِيمِ ۝ إِنَّكَ لَمِنَ الْمُرْسَلِينَ ۝ عَلَى صِرَاطٍ مُّسْتَقِيمٍ ۝ تَنزِيلَ الْعَزِيزِ الرَّحِيمِ ۝ لِتُنذِرَ قَوْمًا مَّا أُنذِرَ آبَاؤُهُمْ فَهُمْ غَافِلُونَ</div>
-        <div class="tr">Yā-Sīn · wal-Qurʾānil-ḥakīm · innaka laminal-mursalīn · ʿalā ṣirāṭim-mustaqīm · tanzīlal-ʿAzīzir-Raḥīm · li-tundhira qawman mā undhira ābāʾuhum fahum ghāfilūn</div>
-        <div class="en">"Ya-Sin. By the wise Qur'an. Indeed you, [O Muhammad], are of the messengers. On a straight path. A revelation of the Exalted in Might, the Merciful. That you may warn a people whose forefathers were not warned, so they are unaware."</div>
-        <div class="note" style="margin-top:12px;margin-bottom:0;font-size:12px;">Surah Ya-Sin is 83 verses. Opening verses shown. Recite from your Qur'an or Qur'an app.</div>
-        <div class="src">Source: <b>Abu Dawud — Hasan</b> — "Whoever reads it seeking Allah's pleasure, their past sins are forgiven."</div>
+    <div class="learn-card-data" style="display:none;flex-direction:column;flex:1;">
+      <div class="learn-card-eyebrow">TIME WINDOW 2</div>
+      <div class="learn-card-heading">In Sujood — Prostration</div>
+      <div class="learn-card-body"><em>"The closest a servant is to his Lord is when he is in sujood — so make plenty of du'a."</em><br><br>In every sujood of every prayer, after Subhana Rabbiyal A'la, pour out your personal duas. Arabic or your own language — both valid in nafl.</div>
+      <div class="learn-card-src">Sahih Muslim 482</div>
+    </div>
+
+    <div class="learn-card-data" style="display:none;flex-direction:column;flex:1;">
+      <div class="learn-card-eyebrow">TIME WINDOW 3</div>
+      <div class="learn-card-heading">Between Adhan and Iqamah</div>
+      <div class="learn-card-body"><em>"Du'a between the adhan and iqamah is not rejected."</em><br><br>Even 2–3 minutes in this window before every prayer is enormously powerful. Stop, raise your hands, and ask.</div>
+      <div class="learn-card-src">Abu Dawud 521, Tirmidhi 212 — Sahih</div>
+    </div>
+
+    <div class="learn-card-data" style="display:none;flex-direction:column;flex:1;">
+      <div class="learn-card-eyebrow">TIME WINDOW 4</div>
+      <div class="learn-card-heading">After the Obligatory Prayer</div>
+      <div class="learn-card-body">The Prophet ﷺ was asked which du'a is most accepted. He said: <em>"In the middle of the last part of the night, and after the obligatory prayers."</em><br><br>Stay on your mat after adhkar — make personal du'a before standing.</div>
+      <div class="learn-card-src">Tirmidhi 3499</div>
+    </div>
+
+    <div class="learn-card-data" style="display:none;flex-direction:column;flex:1;">
+      <div class="learn-card-eyebrow">TIME WINDOW 5</div>
+      <div class="learn-card-heading">Sa'at al-Istijabah — The Friday Hour</div>
+      <div class="learn-card-body"><em>"On Friday there is an hour in which no Muslim asks Allah for good except that He gives it to him."</em><br><br>Strongest scholarly opinion: the last hour before Maghrib. Sit in dhikr and du'a from after Asr. Do not miss it.</div>
+      <div class="learn-card-src">Sahih al-Bukhari 935</div>
+      <button class="learn-card-action" onclick="closeLearnTopic();openJumuahIntro();">→ Open Friday Hour Session</button>
+    </div>
+
+    <div class="learn-card-data" style="display:none;flex-direction:column;flex:1;">
+      <div class="learn-card-eyebrow">TIME WINDOW 6</div>
+      <div class="learn-card-heading">While Fasting — Before Iftar</div>
+      <div class="learn-card-body"><em>"Three du'as are not rejected: the du'a of the fasting person at the time of breaking fast..."</em><br><br>In the last minutes before Maghrib — hands raised, heart present. Do not let this window pass.</div>
+      <div class="learn-card-src">Tirmidhi 3598</div>
+    </div>
+
+    <div class="learn-deck-complete" style="display:none;">
+      <div class="learn-complete-icon">🕐</div>
+      <div class="learn-complete-title">Complete</div>
+      <div class="learn-complete-sub">Every salah carries windows for accepted du'a. The last third of the night and Friday's blessed hour are yours — use them.</div>
+      <div class="learn-complete-btns">
+        <button class="learn-complete-btn-primary" onclick="restartLearnDeck('times')">Review Again</button>
+        <button class="learn-complete-btn-secondary" onclick="closeLearnTopic()">Back to Topics</button>
       </div>
+    </div>
+
+  </div>
+  <div class="guided-nav" style="border-top:1px solid var(--bdr);">
+    <button class="guided-nav-prev learn-nav-prev" onclick="learnNav(-1)" disabled>← Prev</button>
+    <div class="guided-nav-indicator" id="learn-counter-times">1 / 6</div>
+    <button class="guided-nav-next learn-nav-next" onclick="learnNav(1)">Next →</button>
+  </div>
 </div>
-    </div>
 
-    <!-- AR-RAHMAN -->
-    <div class="expand-wrap">
-      <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
-        <div class="et-num">55</div>
-        <div class="et-info">
-          <div class="et-ar">سُورَةُ الرَّحْمَن</div>
-          <div class="et-en">Surah Ar-Rahman — 78 verses · approx. 12 mins</div>
-          <div class="et-virtue">"So which of the favours of your Lord would you deny?" — Reflect on every blessing</div>
-        </div>
-        <span class="et-arrow" aria-hidden="true">▾</span>
-      </button>
-      <div class="expand-body">
-<div class="expand-inner">
-        <div class="ar xs">الرَّحْمَٰنُ ۝ عَلَّمَ الْقُرْآنَ ۝ خَلَقَ الْإِنسَانَ ۝ عَلَّمَهُ الْبَيَانَ ۝ فَبِأَيِّ آلَاءِ رَبِّكُمَا تُكَذِّبَانِ</div>
-        <div class="tr">Ar-Raḥmān · ʿAllamal-Qurʾān · Khalaqal-insān · ʿAllamahul-bayān · Fa bi-ayyi ālāʾi Rabbikumā tukadhdhibān</div>
-        <div class="en">"The Most Merciful. Taught the Quran. Created mankind. Taught him eloquence. So which of the favours of your Lord would you deny?"</div>
-        <div class="note" style="margin-top:12px;margin-bottom:0;font-size:12px;">Surah Ar-Rahman is 78 verses. Opening verses shown. Recite from your Qur'an or Qur'an app.</div>
-        <div class="src">Source: <b>Qur'an 55:1–5, 13</b></div>
-      </div>
+<!-- LEARN INTRO: LAYLATUL QADR -->
+<div class="learn-intro" id="learn-intro-qadr" style="display:none;">
+  <button class="ji-back" onclick="closeLearnTopic()">‹</button>
+  <div class="ji-body">
+    <div class="ji-icon">⭐</div>
+    <div class="ji-eyebrow">NIGHT OF POWER · BETTER THAN 1000 MONTHS</div>
+    <div class="ji-title">Laylatul Qadr</div>
+    <div class="ji-hadith">"Laylatul Qadr is better than a thousand months." — Surah Al-Qadr 97:3</div>
+    <div class="ji-features">
+      <div class="ji-feature"><span class="ji-feat-icon">🤲</span><span>The one du'a to say all night</span></div>
+      <div class="ji-feature"><span class="ji-feat-icon">⭐</span><span>What Laylatul Qadr actually is</span></div>
+      <div class="ji-feature"><span class="ji-feat-icon">📅</span><span>How to maximise the odd nights</span></div>
+      <div class="ji-feature"><span class="ji-feat-icon">✨</span><span>The meaning of ʿAfw vs Maghfirah</span></div>
+    </div>
+    <button class="ji-begin" onclick="beginLearnDeck('qadr')">Enter the Night</button>
+    <div class="ji-footer">Tap any card to continue · swipe or use arrows</div>
+  </div>
 </div>
+
+<!-- LEARN DECK: LAYLATUL QADR -->
+<div class="learn-deck" id="learn-deck-qadr" style="display:none;">
+  <div class="learn-deck-header">
+    <button class="learn-deck-close" onclick="closeLearnTopic()">✕</button>
+    <div class="learn-deck-title">Laylatul Qadr</div>
+    <div class="learn-deck-counter">CARD 1 OF 5</div>
+  </div>
+  <div class="learn-deck-progress"><div class="learn-deck-fill" style="width:0%"></div></div>
+  <div class="learn-deck-body">
+
+    <div class="learn-card-data" style="display:flex;flex-direction:column;flex:1;">
+      <div class="learn-card-eyebrow">THE NIGHT</div>
+      <div class="learn-card-heading">What is Laylatul Qadr?</div>
+      <div class="learn-card-body">One night in the last 10 of Ramadan is worth more than 83 years of worship. Allah revealed the Qur'an on this night. The angels and Ruh descend.<br><br><em>"Peace it is until the emergence of dawn."</em> — Surah Al-Qadr<br><br>Seek it on every odd night: 21st, 23rd, 25th, 27th, 29th.</div>
     </div>
 
-    <!-- AL-WAQI'AH -->
-    <div class="expand-wrap">
-      <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
-        <div class="et-num">56</div>
-        <div class="et-info">
-          <div class="et-ar">سُورَةُ الْوَاقِعَة</div>
-          <div class="et-en">Surah Al-Waqi'ah — 96 verses · approx. 8 mins</div>
-          <div class="et-virtue">"Whoever recites it every night will never be afflicted by poverty." — Ibn Mas'ud</div>
-        </div>
-        <span class="et-arrow" aria-hidden="true">▾</span>
-      </button>
-      <div class="expand-body">
-<div class="expand-inner">
-        <div class="ar xs">إِذَا وَقَعَتِ الْوَاقِعَةُ ۝ لَيْسَ لِوَقْعَتِهَا كَاذِبَةٌ ۝ خَافِضَةٌ رَّافِعَةٌ ۝ إِذَا رُجَّتِ الْأَرْضُ رَجًّا ۝ وَبُسَّتِ الْجِبَالُ بَسًّا ۝ فَكَانَتْ هَبَاءً مُّنبَثًّا ۝ وَكُنتُمْ أَزْوَاجًا ثَلَاثَةً</div>
-        <div class="tr">Idhā waqaʿatil-wāqiʿah · laysa li-waqʿatihā kādhibah · khāfiḍatur-rāfiʿah · idhā rujjatil-arḍu rajjā · wa bussatil-jibālu bassā · fakānat habāʾam-munbaththā · wa kuntum azwājān thalāthah</div>
-        <div class="en">"When the Inevitable Event occurs, there is no denial of its occurrence. It will bring down and raise up. When the earth is shaken with convulsion and the mountains are broken down, crumbling. And become dust, dispersed. And you become three kinds..."</div>
-        <div class="note" style="margin-top:12px;margin-bottom:0;font-size:12px;">Surah Al-Waqi'ah is 96 verses. Opening verses shown. Recite from your Qur'an or Qur'an app nightly.</div>
-        <div class="src">Source: <b>Ibn as-Sunni via Ibn Mas'ud (رضي الله عنه)</b> — Nightly recitation guards against poverty</div>
+    <div class="learn-card-data" style="display:none;flex-direction:column;flex:1;">
+      <div class="learn-card-eyebrow">THE DU'A</div>
+      <div class="learn-card-heading">The One Du'a — Teach It to Everyone You Love</div>
+      <div class="learn-card-arabic">اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي</div>
+      <div class="learn-card-tr">Allāhumma innaka ʿafuwwun tuḥibbul-ʿafwa faʿfu ʿannī</div>
+      <div class="learn-card-body">"O Allah, You are the Pardoner, You love to pardon, so pardon me."<br><br>Say it in every sajdah, on your commute, before sleep, after every salah.</div>
+      <div class="learn-card-src">al-Tirmidhi 3513, Ibn Majah 3850 — Sahih</div>
+    </div>
+
+    <div class="learn-card-data" style="display:none;flex-direction:column;flex:1;">
+      <div class="learn-card-eyebrow">THE WORD</div>
+      <div class="learn-card-heading">ʿAfw vs Maghfirah — Why This Word Matters</div>
+      <div class="learn-card-body"><strong>Maghfirah (مغفرة)</strong> = sins forgiven and covered.<br><br><strong>ʿAfw (عفو)</strong> goes further — sins are completely erased, pardoned as if they never existed.<br><br>The Prophet ﷺ specifically taught this word for the most blessed night. Ask for ʿAfw constantly.</div>
+    </div>
+
+    <div class="learn-card-data" style="display:none;flex-direction:column;flex:1;">
+      <div class="learn-card-eyebrow">THE PRACTICE</div>
+      <div class="learn-card-heading">How to Maximise the Night</div>
+      <div class="learn-card-body">Wake before Fajr for tahajjud. Make wudu. Pray 2 rak'ahs. Recite Al-Ikhlas, Al-Falaq, An-Nas ×3 each.<br><br>Make the Laylatul Qadr du'a in every sajdah. Pour out personal duas — your marriage, family, health, rizq, akhirah.<br><br>Give sadaqah. Read Qur'an.</div>
+    </div>
+
+    <div class="learn-card-data" style="display:none;flex-direction:column;flex:1;">
+      <div class="learn-card-eyebrow">THE PROMISE</div>
+      <div class="learn-card-heading">Every Du'a Reaches Allah</div>
+      <div class="learn-card-body"><em>"There is no Muslim who makes du'a containing no sin... except that Allah gives him one of three things: either his du'a is answered immediately, or it is stored for him in the Hereafter, or an equivalent evil is averted from him."</em><br><br>Not one du'a on Laylatul Qadr is ever wasted.</div>
+      <div class="learn-card-src">Ahmad — Sahih</div>
+    </div>
+
+    <div class="learn-deck-complete" style="display:none;">
+      <div class="learn-complete-icon">⭐</div>
+      <div class="learn-complete-title">Complete</div>
+      <div class="learn-complete-sub">Say the du'a of ʿAfw in every sajdah on the odd nights. Not one word reaches Allah and goes unanswered.</div>
+      <div class="learn-complete-btns">
+        <button class="learn-complete-btn-primary" onclick="restartLearnDeck('qadr')">Review Again</button>
+        <button class="learn-complete-btn-secondary" onclick="closeLearnTopic()">Back to Topics</button>
       </div>
+    </div>
+
+  </div>
+  <div class="guided-nav" style="border-top:1px solid var(--bdr);">
+    <button class="guided-nav-prev learn-nav-prev" onclick="learnNav(-1)" disabled>← Prev</button>
+    <div class="guided-nav-indicator" id="learn-counter-qadr">1 / 5</div>
+    <button class="guided-nav-next learn-nav-next" onclick="learnNav(1)">Next →</button>
+  </div>
 </div>
-    </div>
 
-    <!-- AL-KAHF -->
-    <div class="expand-wrap">
-      <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
-        <div class="et-num">18</div>
-        <div class="et-info">
-          <div class="et-ar">سُورَةُ الْكَهْف</div>
-          <div class="et-en">Surah Al-Kahf — 110 verses · approx. 20 mins (Fridays)</div>
-          <div class="et-virtue">"Light shining between two Fridays." — al-Hakim (Sahih). Read every Friday.</div>
-        </div>
-        <span class="et-arrow" aria-hidden="true">▾</span>
-      </button>
-      <div class="expand-body">
-<div class="expand-inner">
-        <div class="ar xs">الْحَمْدُ لِلَّهِ الَّذِي أَنزَلَ عَلَى عَبْدِهِ الْكِتَابَ وَلَمْ يَجْعَل لَّهُ عِوَجًا ۝ قَيِّمًا لِّيُنذِرَ بَأْسًا شَدِيدًا مِّن لَّدُنْهُ وَيُبَشِّرَ الْمُؤْمِنِينَ الَّذِينَ يَعْمَلُونَ الصَّالِحَاتِ أَنَّ لَهُمْ أَجْرًا حَسَنًا</div>
-        <div class="tr">Alḥamdu lillāhil-ladhī anzala ʿalā ʿabdihil-Kitāba wa lam yajʿal lahu ʿiwajā · Qayyimal-li-yundhira baʾsan shadīdam-mil-ladunhu wa yubashshiral-muʾminīnal-ladhīna yaʿmalunaṣ-ṣāliḥāti anna lahum ajran ḥasanā</div>
-        <div class="en">"Praise to Allah, who has sent down upon His Servant the Book and has not made therein any deviance. He has made it straight, to warn of severe punishment from Him and to give good tidings to the believers who do righteous deeds that they will have a good reward."</div>
-        <div class="note" style="margin-top:12px;margin-bottom:0;font-size:12px;">Surah Al-Kahf is 110 verses. Opening verses shown. Recite from your Qur'an or Qur'an app every Friday.</div>
-        <div class="src">Source: <b>al-Hakim (Sahih)</b> — A light shines between you and the Kaaba when you recite it on Friday</div>
-      </div>
+<!-- LEARN INTRO: JUMU'AH -->
+<div class="learn-intro" id="learn-intro-jumua" style="display:none;">
+  <button class="ji-back" onclick="closeLearnTopic()">‹</button>
+  <div class="ji-body">
+    <div class="ji-icon">🕌</div>
+    <div class="ji-eyebrow">SA'AT AL-ISTIJĀBAH · THE HOUR OF RESPONSE</div>
+    <div class="ji-title">Jumu'ah — Friday</div>
+    <div class="ji-hadith">"The best day on which the sun rises is Friday." — Sahih Muslim 854</div>
+    <div class="ji-features">
+      <div class="ji-feature"><span class="ji-feat-icon">🕐</span><span>The special accepted hour</span></div>
+      <div class="ji-feature"><span class="ji-feat-icon">📖</span><span>Surah Al-Kahf — when and why</span></div>
+      <div class="ji-feature"><span class="ji-feat-icon">💛</span><span>Salawat on Friday</span></div>
+      <div class="ji-feature"><span class="ji-feat-icon">🕌</span><span>The Jumu'ah Hour guided session</span></div>
+    </div>
+    <button class="ji-begin" onclick="beginLearnDeck('jumua')">Learn About Friday</button>
+    <div class="ji-footer">Tap any card to continue · swipe or use arrows</div>
+  </div>
 </div>
+
+<!-- LEARN DECK: JUMU'AH -->
+<div class="learn-deck" id="learn-deck-jumua" style="display:none;">
+  <div class="learn-deck-header">
+    <button class="learn-deck-close" onclick="closeLearnTopic()">✕</button>
+    <div class="learn-deck-title">Jumu'ah — Friday</div>
+    <div class="learn-deck-counter">CARD 1 OF 5</div>
+  </div>
+  <div class="learn-deck-progress"><div class="learn-deck-fill" style="width:0%"></div></div>
+  <div class="learn-deck-body">
+
+    <div class="learn-card-data" style="display:flex;flex-direction:column;flex:1;">
+      <div class="learn-card-eyebrow">THE DAY</div>
+      <div class="learn-card-heading">Friday — The Master of Days</div>
+      <div class="learn-card-body"><em>"The best day on which the sun rises is Friday. On it Adam was created. On it he was admitted to Paradise. On it he was expelled from it. And the Hour will not occur except on a Friday."</em><br><br>Every Friday carries immense spiritual weight.</div>
+      <div class="learn-card-src">Sahih Muslim 854</div>
     </div>
 
-    <!-- AL-MULK -->
-    <div class="expand-wrap">
-      <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
-        <div class="et-num">67</div>
-        <div class="et-info">
-          <div class="et-ar">سُورَةُ الْمُلْكِ</div>
-          <div class="et-en">Surah Al-Mulk — 30 verses · approx. 5 mins</div>
-          <div class="et-virtue">"Intercedes for its companion until he is forgiven." — Abu Dawud (Hasan)</div>
-        </div>
-        <span class="et-arrow" aria-hidden="true">▾</span>
-      </button>
-      <div class="expand-body">
-<div class="expand-inner">
-        <div class="ar xs">تَبَارَكَ الَّذِي بِيَدِهِ الْمُلْكُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ ۝ الَّذِي خَلَقَ الْمَوْتَ وَالْحَيَاةَ لِيَبْلُوَكُمْ أَيُّكُمْ أَحْسَنُ عَمَلًا ۚ وَهُوَ الْعَزِيزُ الْغَفُورُ ۝ الَّذِي خَلَقَ سَبْعَ سَمَاوَاتٍ طِبَاقًا ۖ مَّا تَرَى فِي خَلْقِ الرَّحْمَٰنِ مِن تَفَاوُتٍ ۖ فَارْجِعِ الْبَصَرَ هَلْ تَرَى مِن فُطُورٍ ۝ ثُمَّ ارْجِعِ الْبَصَرَ كَرَّتَيْنِ يَنقَلِبْ إِلَيْكَ الْبَصَرُ خَاسِئًا وَهُوَ حَسِيرٌ</div>
-        <div class="tr">Tabārakal-ladhī biyadihil-mulku wa Huwa ʿalā kulli shayʾin qadīr · Alladhī khalaqal-mawta wal-ḥayāta li-yabluwakum ayyukum aḥsanu ʿamalā · wa Huwal-ʿAzīzul-Ghafūr · Alladhī khalaqa sabʿa samāwātin ṭibāqā · mā tarā fī khalqir-Raḥmāni min tafāwut · farjiʿil-baṣara hal tarā min fuṭūr · Thummarjiʿil-baṣara karratayniyyanqalib ilaykal-baṣaru khāsiʾan wa huwa ḥasīr</div>
-        <div class="en">"Blessed is He in whose hand is dominion, and He is over all things capable — who created death and life to test you as to which of you is best in deed... He who created seven heavens in layers. You do not see in the creation of the Most Merciful any inconsistency. Return your vision — do you see any breaks?"</div>
-        <div class="note" style="margin-top:12px;margin-bottom:0;font-size:12px;">Surah Al-Mulk is 30 verses. Opening verses shown. Recite from your Qur'an or Qur'an app every night before sleep.</div>
-        <div class="src">Source: <b>Abu Dawud (1400), al-Tirmidhi (2891) — Hasan</b> — Intercedes for its companion until forgiven</div>
+    <div class="learn-card-data" style="display:none;flex-direction:column;flex:1;">
+      <div class="learn-card-eyebrow">THE RECITATION</div>
+      <div class="learn-card-heading">Surah Al-Kahf — Read Before Maghrib</div>
+      <div class="learn-card-body"><em>"Whoever reads Surah Al-Kahf on Friday, a light will shine for him between the two Fridays."</em><br><br>Read from after Fajr until Maghrib. The first and last 10 ayahs protect from the Dajjal.</div>
+      <div class="learn-card-src">Al-Hakim, Sahih by Al-Albani</div>
+    </div>
+
+    <div class="learn-card-data" style="display:none;flex-direction:column;flex:1;">
+      <div class="learn-card-eyebrow">THE SALAWAT</div>
+      <div class="learn-card-heading">Increase Salawat — It Reaches the Prophet ﷺ</div>
+      <div class="learn-card-body"><em>"Send abundant salawat upon me on Fridays — your salawat are presented to me."</em></div>
+      <div class="learn-card-arabic">اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ</div>
+      <div class="learn-card-body">Say it abundantly from Fajr to Maghrib on Friday.</div>
+      <div class="learn-card-src">Abu Dawud 1047 — Sahih</div>
+    </div>
+
+    <div class="learn-card-data" style="display:none;flex-direction:column;flex:1;">
+      <div class="learn-card-eyebrow">THE HOUR</div>
+      <div class="learn-card-heading">Sa'at al-Istijabah — The Blessed Hour</div>
+      <div class="learn-card-body"><em>"On Friday there is an hour in which no Muslim asks Allah for good except that He gives it to him."</em><br><br>Strongest scholarly opinion: the last hour before Maghrib (after Asr). Sit, face qiblah, raise hands, pour out your duas. Do not miss it.</div>
+      <div class="learn-card-src">Sahih al-Bukhari 935</div>
+    </div>
+
+    <div class="learn-card-data" style="display:none;flex-direction:column;flex:1;">
+      <div class="learn-card-eyebrow">THE SUNNAH</div>
+      <div class="learn-card-heading">The Jumu'ah Sunnah Acts</div>
+      <div class="learn-card-body">Ghusl before Fajr. Wear good clothes. Go early to the masjid. Listen to the khutbah. Say abundant salawat. Read Al-Kahf. Make du'a in the last hour before Maghrib.</div>
+      <button class="learn-card-action" onclick="closeLearnTopic();openJumuahIntro();">→ Open Friday Hour Session</button>
+    </div>
+
+    <div class="learn-deck-complete" style="display:none;">
+      <div class="learn-complete-icon">🕌</div>
+      <div class="learn-complete-title">Complete</div>
+      <div class="learn-complete-sub">Friday's hour of response is the most accessible blessed window every week. Sit after Asr and pour out your duas.</div>
+      <div class="learn-complete-btns">
+        <button class="learn-complete-btn-primary" onclick="restartLearnDeck('jumua')">Review Again</button>
+        <button class="learn-complete-btn-secondary" onclick="closeLearnTopic()">Back to Topics</button>
       </div>
+    </div>
+
+  </div>
+  <div class="guided-nav" style="border-top:1px solid var(--bdr);">
+    <button class="guided-nav-prev learn-nav-prev" onclick="learnNav(-1)" disabled>← Prev</button>
+    <div class="guided-nav-indicator" id="learn-counter-jumua">1 / 5</div>
+    <button class="guided-nav-next learn-nav-next" onclick="learnNav(1)">Next →</button>
+  </div>
 </div>
-    </div>
 
-    <!-- AL-QADR -->
-    <div class="expand-wrap">
-      <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
-        <div class="et-num">97</div>
-        <div class="et-info">
-          <div class="et-ar">سُورَةُ الْقَدْر</div>
-          <div class="et-en">Surah Al-Qadr — 5 verses · 30 seconds</div>
-          <div class="et-virtue">Like fasting Ramadan and keeping its nights alive — reflect on it every odd night</div>
-        </div>
-        <span class="et-arrow" aria-hidden="true">▾</span>
-      </button>
-      <div class="expand-body">
-<div class="expand-inner">
-        <div class="ar">إِنَّا أَنزَلْنَاهُ فِي لَيْلَةِ الْقَدْرِ ۝ وَمَا أَدْرَاكَ مَا لَيْلَةُ الْقَدْرِ ۝ لَيْلَةُ الْقَدْرِ خَيْرٌ مِّنْ أَلْفِ شَهْرٍ ۝ تَنَزَّلُ الْمَلَائِكَةُ وَالرُّوحُ فِيهَا بِإِذْنِ رَبِّهِم مِّن كُلِّ أَمْرٍ ۝ سَلَامٌ هِيَ حَتَّى مَطْلَعِ الْفَجْرِ</div>
-        <div class="tr">Innā anzalnāhu fī laylatil-qadr · wa mā adrāka mā laylatul-qadr · Laylatul-qadri khayrun min alfi shahr · Tanazzalul-malāʾikatu war-rūḥu fīhā bi-idhni Rabbihim min kulli amr · Salāmun hiya ḥattā maṭlaʿil-fajr</div>
-        <div class="en">"Indeed, We sent it down during the Night of Power. And what can make you know what the Night of Power is? The Night of Power is better than a thousand months. The angels and the Spirit descend therein by permission of their Lord for every matter. Peace it is — until the emergence of dawn."</div>
-        <div class="src">Source: <b>Qur'an 97:1–5</b></div>
-      </div>
+<!-- LEARN INTRO: DHUL HIJJAH -->
+<div class="learn-intro" id="learn-intro-dhulhijjah" style="display:none;">
+  <button class="ji-back" onclick="closeLearnTopic()">‹</button>
+  <div class="ji-body">
+    <div class="ji-icon">🕋</div>
+    <div class="ji-eyebrow">THE GREATEST DAYS OF THE YEAR</div>
+    <div class="ji-title">Dhul Hijjah — The Ten Days</div>
+    <div class="ji-hadith">"There are no days in which righteous deeds are more beloved to Allah than these ten days." — Sahih al-Bukhari 969</div>
+    <div class="ji-features">
+      <div class="ji-feature"><span class="ji-feat-icon">📋</span><span>What to do in the first 10 days</span></div>
+      <div class="ji-feature"><span class="ji-feat-icon">🔊</span><span>Takbeer al-Tashriq (Hanafi ruling)</span></div>
+      <div class="ji-feature"><span class="ji-feat-icon">🕋</span><span>Yawm Arafah — fasting & du'a</span></div>
+      <div class="ji-feature"><span class="ji-feat-icon">🎉</span><span>Eid al-Adha & Qurbani</span></div>
+    </div>
+    <button class="ji-begin" onclick="beginLearnDeck('dhulhijjah')">Enter the Greatest Days</button>
+    <div class="ji-footer">Tap any card to continue · swipe or use arrows</div>
+  </div>
 </div>
+
+<!-- LEARN DECK: DHUL HIJJAH -->
+<div class="learn-deck" id="learn-deck-dhulhijjah" style="display:none;">
+  <div class="learn-deck-header">
+    <button class="learn-deck-close" onclick="closeLearnTopic()">✕</button>
+    <div class="learn-deck-title">Dhul Hijjah — Ten Days</div>
+    <div class="learn-deck-counter">CARD 1 OF 7</div>
+  </div>
+  <div class="learn-deck-progress"><div class="learn-deck-fill" style="width:0%"></div></div>
+  <div class="learn-deck-body">
+
+    <div class="learn-card-data" style="display:flex;flex-direction:column;flex:1;">
+      <div class="learn-card-eyebrow">THE DAYS</div>
+      <div class="learn-card-heading">Why These Days Are the Greatest</div>
+      <div class="learn-card-body">Allah ﷻ swears by them in Surah Al-Fajr: <em>"By the dawn. And by the ten nights."</em> — 89:1-2<br><br>Ibn Hajar said these days combine all major acts of worship — prayer, fasting, charity, and Hajj — which does not occur in any other days.<br><br>Ibn Abbas: <em>"More beloved to Allah for good deeds than any other days."</em></div>
     </div>
 
-    <!-- AL-KAFIRUN -->
-    <div class="expand-wrap">
-      <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
-        <div class="et-num">109</div>
-        <div class="et-info">
-          <div class="et-ar">سُورَةُ الْكَافِرُون</div>
-          <div class="et-en">Surah Al-Kafirun — 6 verses · 30 seconds (before sleep &amp; in Sunnah prayers)</div>
-          <div class="et-virtue">Equal to a quarter of the Qur'an in reward. Declaration of freedom from shirk.</div>
-        </div>
-        <span class="et-arrow" aria-hidden="true">▾</span>
-      </button>
-      <div class="expand-body">
-<div class="expand-inner">
-        <div class="ar xs">قُلْ يَا أَيُّهَا الْكَافِرُونَ ۝ لَا أَعْبُدُ مَا تَعْبُدُونَ ۝ وَلَا أَنتُمْ عَابِدُونَ مَا أَعْبُدُ ۝ وَلَا أَنَا عَابِدٌ مَّا عَبَدتُّمْ ۝ وَلَا أَنتُمْ عَابِدُونَ مَا أَعْبُدُ ۝ لَكُمْ دِينُكُمْ وَلِيَ دِينِ</div>
-        <div class="tr">Qul yā ayyuhal-kāfirūn · Lā aʿbudu mā taʿbudūn · Wa lā antum ʿābidūna mā aʿbud · Wa lā ana ʿābidum mā ʿabadtum · Wa lā antum ʿābidūna mā aʿbud · Lakum dīnukum wa liya dīn</div>
-        <div class="en">"Say: O disbelievers, I do not worship what you worship. Nor are you worshippers of what I worship. Nor will I be a worshipper of what you worship. Nor will you be worshippers of what I worship. For you is your religion, and for me is my religion."</div>
-        <div class="src">Source: <b>Abu Dawud (5055), Muslim (726)</b> — Recite before sleep; it declares bara'ah (disassociation) from shirk</div>
+    <div class="learn-card-data" style="display:none;flex-direction:column;flex:1;">
+      <div class="learn-card-eyebrow">THE ACTIONS</div>
+      <div class="learn-card-heading">What to Do — The First 9 Days</div>
+      <div class="learn-card-body">Fast all 9 days if able — especially Day 8 (Tarwiyah) and Day 9 (Arafah).<br><br>Increase: <strong>Takbeer</strong> (Allahu Akbar), <strong>Tahmid</strong> (Alhamdulillah), <strong>Tahleel</strong> (La ilaha illallah), <strong>Tasbih</strong> (SubhanAllah).<br><br>Give sadaqah. Read Qur'an. Make tawbah. If you intend Qurbani — do not cut hair or nails from 1st Dhul Hijjah until after slaughter.</div>
+      <div class="learn-card-src">Sahih Muslim 1977</div>
+    </div>
+
+    <div class="learn-card-data" style="display:none;flex-direction:column;flex:1;">
+      <div class="learn-card-eyebrow">THE TAKBEER</div>
+      <div class="learn-card-heading">Takbeer al-Tashriq — Wājib</div>
+      <div class="learn-card-arabic">اللَّهُ أَكْبَرُ اللَّهُ أَكْبَرُ لَا إِلَهَ إِلَّا اللَّهُ وَاللَّهُ أَكْبَرُ اللَّهُ أَكْبَرُ وَلِلَّهِ الْحَمْدُ</div>
+      <div class="learn-card-body"><strong>Hanafi ruling:</strong> Wājib for every Muslim — male and female, travelling or resident — to say once after every fard salah.<br><br>Begins: Fajr of 9th Dhul Hijjah. Ends: Asr of 13th Dhul Hijjah. Total: 23 prayers.</div>
+    </div>
+
+    <div class="learn-card-data" style="display:none;flex-direction:column;flex:1;">
+      <div class="learn-card-eyebrow">THE DAY</div>
+      <div class="learn-card-heading">Yawm Arafah — The Greatest Day</div>
+      <div class="learn-card-body"><em>"The best du'a is the du'a of the Day of Arafah."</em><br><br>Fast this day — it expiates sins of the previous year and the coming year.<br><br>For non-pilgrims: spend the day in worship, du'a, fasting, dhikr, Qur'an.</div>
+      <div class="learn-card-src">Tirmidhi 3585 · Sahih Muslim 1162</div>
+      <button class="learn-card-action" onclick="closeLearnTopic();startGuidedSession('arafah');">→ Open Yawm Arafah Session</button>
+    </div>
+
+    <div class="learn-card-data" style="display:none;flex-direction:column;flex:1;">
+      <div class="learn-card-eyebrow">EID AL-ADHA</div>
+      <div class="learn-card-heading">Eid al-Adha — 10th Dhul Hijjah</div>
+      <div class="learn-card-body">Sunnah acts: ghusl, wear best clothes, eat nothing before Eid salah (opposite of Eid al-Fitr). Say Eid takbeer from Fajr of Arafah.<br><br>Greeting: <em>Taqabbalallahu minna wa minkum</em> — "May Allah accept from us and from you."<br><br>Do not fast on Eid — it is forbidden.</div>
+    </div>
+
+    <div class="learn-card-data" style="display:none;flex-direction:column;flex:1;">
+      <div class="learn-card-eyebrow">QURBANI</div>
+      <div class="learn-card-heading">Qurbani — Udhiyah</div>
+      <div class="learn-card-body"><strong>Wājib</strong> for every adult Muslim of means (nisab holder) — Hanafi position.<br><br>Performed on 10th, 11th, or 12th Dhul Hijjah. One sheep/goat per household. One seventh of a cow or camel.<br><br>Distribute: one third for yourself, one third for family/friends, one third for the poor. Do not give the butcher his wage from the meat.</div>
+    </div>
+
+    <div class="learn-card-data" style="display:none;flex-direction:column;flex:1;">
+      <div class="learn-card-eyebrow">AYYAM AL-TASHRIQ</div>
+      <div class="learn-card-heading">11th, 12th &amp; 13th — Days of Remembrance</div>
+      <div class="learn-card-body">Days of eating, drinking, and remembering Allah. Fasting on these days is forbidden.<br><br>Continue Takbeer al-Tashriq after every fard salah until Asr of 13th.<br><br><em>"The days of Tashriq are days of eating, drinking, and remembrance of Allah."</em></div>
+      <div class="learn-card-src">Sahih Muslim 1141</div>
+    </div>
+
+    <div class="learn-deck-complete" style="display:none;">
+      <div class="learn-complete-icon">🕋</div>
+      <div class="learn-complete-title">Complete</div>
+      <div class="learn-complete-sub">These ten days come once a year. Fast, give, remember Allah abundantly, and make du'a on Arafah as if it may be your last.</div>
+      <div class="learn-complete-btns">
+        <button class="learn-complete-btn-primary" onclick="restartLearnDeck('dhulhijjah')">Review Again</button>
+        <button class="learn-complete-btn-secondary" onclick="closeLearnTopic()">Back to Topics</button>
       </div>
+    </div>
+
+  </div>
+  <div class="guided-nav" style="border-top:1px solid var(--bdr);">
+    <button class="guided-nav-prev learn-nav-prev" onclick="learnNav(-1)" disabled>← Prev</button>
+    <div class="guided-nav-indicator" id="learn-counter-dhulhijjah">1 / 7</div>
+    <button class="guided-nav-next learn-nav-next" onclick="learnNav(1)">Next →</button>
+  </div>
 </div>
-    </div>
 
-    <!-- AL-IKHLAS + QULS -->
-    <div class="expand-wrap">
-      <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
-        <div class="et-num" style="font-size:12px;">112–114</div>
-        <div class="et-info">
-          <div class="et-ar">الإِخْلَاص · الْفَلَق · النَّاس</div>
-          <div class="et-en">Al-Ikhlas, Al-Falaq, An-Nas — 3 mins total (3× each)</div>
-          <div class="et-virtue">3× Al-Ikhlas = full Qur'an reward · All three = complete protection — Bukhari</div>
-        </div>
-        <span class="et-arrow" aria-hidden="true">▾</span>
-      </button>
-      <div class="expand-body">
-<div class="expand-inner">
-        <div class="dlabel">Al-Ikhlas (112) — 3×</div>
-        <div class="ar xs">قُلْ هُوَ اللَّهُ أَحَدٌ ۝ اللَّهُ الصَّمَدُ ۝ لَمْ يَلِدْ وَلَمْ يُولَدْ ۝ وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ</div>
-        <div class="tr">Qul Huwallāhu Aḥad · Allāhuṣ-Ṣamad · Lam yalid wa lam yūlad · Wa lam yakun lahu kufuwan aḥad</div>
-        <div class="en">"Say: He is Allah, the One. Allah, the Eternal Refuge. He neither begets nor is born. Nor is there to Him any equivalent."</div>
-        <div style="margin-top:14px;" class="dlabel">Al-Falaq (113) — 3×</div>
-        <div class="ar xs">قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ ۝ مِن شَرِّ مَا خَلَقَ ۝ وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ ۝ وَمِن شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ ۝ وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ</div>
-        <div class="tr">Qul aʿūdhu bi-Rabbil-falaq · min sharri mā khalaq · wa min sharri ghāsiqin idhā waqab · wa min sharrin-naffāthāti fil-ʿuqad · wa min sharri ḥāsidin idhā ḥasad</div>
-        <div class="en">"Say: I seek refuge with the Lord of daybreak, from the evil of what He has created, from the evil of darkness when it settles, from the evil of those who blow on knots, and from the evil of an envier when he envies."</div>
-        <div style="margin-top:14px;" class="dlabel">An-Nas (114) — 3×</div>
-        <div class="ar xs">قُلْ أَعُوذُ بِرَبِّ النَّاسِ ۝ مَلِكِ النَّاسِ ۝ إِلَٰهِ النَّاسِ ۝ مِن شَرِّ الْوَسْوَاسِ الْخَنَّاسِ ۝ الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ ۝ مِنَ الْجِنَّةِ وَالنَّاسِ</div>
-        <div class="tr">Qul aʿūdhu bi-Rabbin-nās · Malikin-nās · Ilāhin-nās · min sharril-waswāsil-khannās · alladhī yuwaswisu fī ṣudūrin-nās · minal-jinnati wan-nās</div>
-        <div class="en">"Say: I seek refuge with the Lord of mankind, the Sovereign of mankind, the God of mankind, from the evil of the retreating whisperer, who whispers into the hearts of mankind — from among jinn and mankind."</div>
-        <div class="src" style="margin-top:10px;">Source: <b>Bukhari (5013)</b> — 3× Al-Ikhlas = full Qur'an reward. All three = morning &amp; evening protection.</div>
-      </div>
+<!-- LEARN INTRO: ASHURA -->
+<div class="learn-intro" id="learn-intro-ashura" style="display:none;">
+  <button class="ji-back" onclick="closeLearnTopic()">‹</button>
+  <div class="ji-body">
+    <div class="ji-icon">📅</div>
+    <div class="ji-eyebrow">9TH &amp; 10TH MUHARRAM</div>
+    <div class="ji-title">Ashura</div>
+    <div class="ji-hadith">"Fasting on the day of Ashura — I hope Allah will expiate the sins of the previous year." — Sahih Muslim 1162</div>
+    <div class="ji-features">
+      <div class="ji-feature"><span class="ji-feat-icon">🌙</span><span>When to fast</span></div>
+      <div class="ji-feature"><span class="ji-feat-icon">📋</span><span>Why the 9th matters</span></div>
+      <div class="ji-feature"><span class="ji-feat-icon">📖</span><span>What Ashura commemorates</span></div>
+      <div class="ji-feature"><span class="ji-feat-icon">⚠️</span><span>Warnings about innovations</span></div>
+    </div>
+    <button class="ji-begin" onclick="beginLearnDeck('ashura')">Learn About Ashura</button>
+    <div class="ji-footer">Tap any card to continue · swipe or use arrows</div>
+  </div>
 </div>
+
+<!-- LEARN DECK: ASHURA -->
+<div class="learn-deck" id="learn-deck-ashura" style="display:none;">
+  <div class="learn-deck-header">
+    <button class="learn-deck-close" onclick="closeLearnTopic()">✕</button>
+    <div class="learn-deck-title">Ashura</div>
+    <div class="learn-deck-counter">CARD 1 OF 4</div>
+  </div>
+  <div class="learn-deck-progress"><div class="learn-deck-fill" style="width:0%"></div></div>
+  <div class="learn-deck-body">
+
+    <div class="learn-card-data" style="display:flex;flex-direction:column;flex:1;">
+      <div class="learn-card-eyebrow">THE DAY</div>
+      <div class="learn-card-heading">What is Ashura?</div>
+      <div class="learn-card-body">The 10th of Muharram. When the Prophet ﷺ arrived in Madinah and found the Jews fasting, he asked why. They said: <em>"This is the day Allah saved Musa from Pharaoh."</em><br><br>He ﷺ said: <em>"We have more right to Musa than you"</em> — and fasted it, and commanded the Muslims to fast.</div>
+      <div class="learn-card-src">Sahih al-Bukhari 3943</div>
     </div>
 
-    <!-- LAST 3 OF AL-HASHR -->
-    <div class="expand-wrap">
-      <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
-        <div class="et-num" style="font-size:10px;">59:22–24</div>
-        <div class="et-info">
-          <div class="et-ar">آخِرُ سُورَةِ الْحَشْر</div>
-          <div class="et-en">Last 3 Ayat of Al-Hashr — Morning &amp; Evening</div>
-          <div class="et-virtue">70,000 angels pray for you until evening/morning — al-Tirmidhi</div>
-        </div>
-        <span class="et-arrow" aria-hidden="true">▾</span>
-      </button>
-      <div class="expand-body">
-<div class="expand-inner">
-        <div class="ar xs">هُوَ اللَّهُ الَّذِي لَا إِلَٰهَ إِلَّا هُوَ ۖ عَالِمُ الْغَيْبِ وَالشَّهَادَةِ ۖ هُوَ الرَّحْمَٰنُ الرَّحِيمُ ۝ هُوَ اللَّهُ الَّذِي لَا إِلَٰهَ إِلَّا هُوَ الْمَلِكُ الْقُدُّوسُ السَّلَامُ الْمُؤْمِنُ الْمُهَيْمِنُ الْعَزِيزُ الْجَبَّارُ الْمُتَكَبِّرُ ۚ سُبْحَانَ اللَّهِ عَمَّا يُشْرِكُونَ ۝ هُوَ اللَّهُ الْخَالِقُ الْبَارِئُ الْمُصَوِّرُ ۖ لَهُ الْأَسْمَاءُ الْحُسْنَىٰ ۚ يُسَبِّحُ لَهُ مَا فِي السَّمَاوَاتِ وَالْأَرْضِ ۖ وَهُوَ الْعَزِيزُ الْحَكِيمُ</div>
-        <div class="tr">Huwallāhul-ladhī lā ilāha illā Huwa ʿĀlimul-ghaybi wash-shahādah · Huwar-Raḥmānur-Raḥīm · Huwallāhul-ladhī lā ilāha illā Huwal-Malikul-Quddūsus-Salāmul-Muʾminul-Muhayminul-ʿAzīzul-Jabbārul-Mutakabbir · Subḥānallāhi ʿammā yushrikūn · Huwallāhul-Khāliqul-Bāriʾul-Muṣawwiru lahul-Asmāʾul-Ḥusnā · Yusabbiḥu lahu mā fis-samāwāti wal-arḍ · Wa Huwal-ʿAzīzul-Ḥakīm</div>
-        <div class="en">"He is Allah, other than whom there is no deity — Knower of the unseen and the witnessed. He is the Most Merciful, the Especially Merciful. He is Allah, other than whom there is no deity — the Sovereign, the Pure, the Perfection, the Granter of Security, the Overseer, the Exalted in Might, the Compeller, the Superior. Exalted is Allah above whatever they associate with Him. He is Allah, the Creator, the Originator, the Fashioner; to Him belong the best names. Whatever is in the heavens and earth exalts Him. And He is the Exalted in Might, the Wise."</div>
-        <div class="src">Source: <b>al-Tirmidhi (2922)</b> — Whoever recites these in the morning has 70,000 angels praying for him until evening</div>
+    <div class="learn-card-data" style="display:none;flex-direction:column;flex:1;">
+      <div class="learn-card-eyebrow">THE FAST</div>
+      <div class="learn-card-heading">The Fast and Its Reward</div>
+      <div class="learn-card-body"><em>"Fasting on the day of Ashura — I hope Allah will expiate the sins of the previous year."</em><br><br>This expiation is for minor sins. Fast the 10th of Muharram. Adding the 9th is strongly recommended — the Prophet ﷺ intended to fast it the following year but passed away before it came.</div>
+      <div class="learn-card-src">Sahih Muslim 1162, 1134</div>
+    </div>
+
+    <div class="learn-card-data" style="display:none;flex-direction:column;flex:1;">
+      <div class="learn-card-eyebrow">THE SUNNAH</div>
+      <div class="learn-card-heading">Fast the 9th Too — Why It Matters</div>
+      <div class="learn-card-body">The Prophet ﷺ said: <em>"If I am alive next year, I will certainly fast the 9th."</em><br><br>Scholars say: fast the 9th and 10th together to differ from the Jewish practice. The 11th is also acceptable if you missed the 9th.</div>
+      <div class="learn-card-src">Sahih Muslim 1134</div>
+    </div>
+
+    <div class="learn-card-data" style="display:none;flex-direction:column;flex:1;">
+      <div class="learn-card-eyebrow">THE WARNING</div>
+      <div class="learn-card-heading">Warnings — What Has No Basis</div>
+      <div class="learn-card-body">Mourning and lamentation on Ashura has no authentic basis from the Prophet ﷺ or the Sahabah. Specific foods or communal gatherings on Ashura have no basis.<br><br>The correct act: fast the 9th and 10th quietly, as an act of gratitude to Allah ﷻ for saving Musa (AS). Keep it simple and sincere.</div>
+    </div>
+
+    <div class="learn-deck-complete" style="display:none;">
+      <div class="learn-complete-icon">📅</div>
+      <div class="learn-complete-title">Complete</div>
+      <div class="learn-complete-sub">Fast the 9th and 10th of Muharram. Simple, sincere, and worth an entire year of expiation.</div>
+      <div class="learn-complete-btns">
+        <button class="learn-complete-btn-primary" onclick="restartLearnDeck('ashura')">Review Again</button>
+        <button class="learn-complete-btn-secondary" onclick="closeLearnTopic()">Back to Topics</button>
       </div>
+    </div>
+
+  </div>
+  <div class="guided-nav" style="border-top:1px solid var(--bdr);">
+    <button class="guided-nav-prev learn-nav-prev" onclick="learnNav(-1)" disabled>← Prev</button>
+    <div class="guided-nav-indicator" id="learn-counter-ashura">1 / 4</div>
+    <button class="guided-nav-next learn-nav-next" onclick="learnNav(1)">Next →</button>
+  </div>
 </div>
-    </div>
 
-    <!-- AL-ALAQ -->
-    <div class="expand-wrap">
-      <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
-        <div class="et-num">96</div>
-        <div class="et-info">
-          <div class="et-ar">سُورَةُ الْعَلَق</div>
-          <div class="et-en">Surah Al-Alaq — 19 verses · The First Revelation — Laylatul Qadr</div>
-          <div class="et-virtue">The very first words revealed to the Prophet ﷺ — recite on Laylatul Qadr</div>
-        </div>
-        <span class="et-arrow" aria-hidden="true">▾</span>
-      </button>
-      <div class="expand-body">
-<div class="expand-inner">
-        <div class="ar xs">اقْرَأْ بِاسْمِ رَبِّكَ الَّذِي خَلَقَ ۝ خَلَقَ الْإِنسَانَ مِنْ عَلَقٍ ۝ اقْرَأْ وَرَبُّكَ الْأَكْرَمُ ۝ الَّذِي عَلَّمَ بِالْقَلَمِ ۝ عَلَّمَ الْإِنسَانَ مَا لَمْ يَعْلَمْ</div>
-        <div class="tr">Iqraʾ bismi Rabbikal-ladhī khalaq · Khalaqal-insāna min ʿalaq · Iqraʾ wa Rabbukal-Akram · Alladhī ʿallama bil-qalam · ʿAllamal-insāna mā lam yaʿlam</div>
-        <div class="en">"Read in the name of your Lord who created — created man from a clinging substance. Read, and your Lord is the Most Generous — who taught by the pen — taught man that which he knew not."</div>
-        <div class="note" style="margin-top:12px;margin-bottom:0;font-size:12px;">Surah Al-Alaq is 19 verses. The first 5 are shown here. Recite in full from your Qur'an. Ends with a sajdah (prostration).</div>
-        <div class="src">Source: <b>Qur'an 96:1–19</b> — The first revelation, on Laylatul Qadr</div>
-      </div>
+<!-- LEARN INTRO: SHA'BAN -->
+<div class="learn-intro" id="learn-intro-shaban" style="display:none;">
+  <button class="ji-back" onclick="closeLearnTopic()">‹</button>
+  <div class="ji-body">
+    <div class="ji-icon">🌟</div>
+    <div class="ji-eyebrow">THE NEGLECTED MONTH</div>
+    <div class="ji-title">Sha'ban</div>
+    <div class="ji-hadith">"That is a month people neglect between Rajab and Ramadan — a month in which deeds are raised to the Lord of the Worlds." — Ahmad, Nasai — Sahih</div>
+    <div class="ji-features">
+      <div class="ji-feature"><span class="ji-feat-icon">🌙</span><span>Why the Prophet ﷺ fasted most of Sha'ban</span></div>
+      <div class="ji-feature"><span class="ji-feat-icon">⭐</span><span>Laylat al-Bara'ah — the 15th night</span></div>
+      <div class="ji-feature"><span class="ji-feat-icon">📋</span><span>Hanafi position on the 15th</span></div>
+      <div class="ji-feature"><span class="ji-feat-icon">🌙</span><span>Preparing for Ramadan</span></div>
+    </div>
+    <button class="ji-begin" onclick="beginLearnDeck('shaban')">Learn About Sha'ban</button>
+    <div class="ji-footer">Tap any card to continue · swipe or use arrows</div>
+  </div>
 </div>
+
+<!-- LEARN DECK: SHA'BAN -->
+<div class="learn-deck" id="learn-deck-shaban" style="display:none;">
+  <div class="learn-deck-header">
+    <button class="learn-deck-close" onclick="closeLearnTopic()">✕</button>
+    <div class="learn-deck-title">Sha'ban</div>
+    <div class="learn-deck-counter">CARD 1 OF 4</div>
+  </div>
+  <div class="learn-deck-progress"><div class="learn-deck-fill" style="width:0%"></div></div>
+  <div class="learn-deck-body">
+
+    <div class="learn-card-data" style="display:flex;flex-direction:column;flex:1;">
+      <div class="learn-card-eyebrow">THE MONTH</div>
+      <div class="learn-card-heading">The Neglected Month</div>
+      <div class="learn-card-body">Sha'ban falls between Rajab and Ramadan, so people neglect it. The Prophet ﷺ fasted more in Sha'ban than any month other than Ramadan.<br><br><em>"It is a month in which deeds are raised to the Lord of the Worlds, and I love for my deeds to be raised while I am fasting."</em><br><br>Use Sha'ban to prepare your heart for Ramadan.</div>
+      <div class="learn-card-src">Sahih al-Bukhari 1969 · Ahmad, Nasai — Sahih</div>
     </div>
 
-  </section>
-
-  <div class="divider"><div class="dl"></div><div class="dg"></div><div class="dl"></div></div>
-
-<section class="sec" id="asma">
-    <div class="sec-h">
-      <div class="si">✨</div>
-      <div><span class="st">Asmāʾ Allah al-Ḥusnā</span><span class="ss">The 99 Beautiful Names of Allah</span></div>
+    <div class="learn-card-data" style="display:none;flex-direction:column;flex:1;">
+      <div class="learn-card-eyebrow">THE NIGHT</div>
+      <div class="learn-card-heading">The 15th of Sha'ban — Laylat al-Bara'ah</div>
+      <div class="learn-card-body">There are narrations about the 15th being a night of special mercy. While some scholars questioned their strength, the majority of Hanafi scholars — including Ibn Abidin and al-Tahtawi — stated that individual worship on this night is recommended based on the general principle of seeking good in blessed occasions.</div>
     </div>
 
-    <div class="note">
-      <strong>"Allah has ninety-nine names. Whoever preserves them (iḥṣāhā) will enter Paradise."</strong> — Sahih al-Bukhari (2736), Muslim (2677). Iḥṣā means to know them, understand their meanings, act upon them, and supplicate through them.
+    <div class="learn-card-data" style="display:none;flex-direction:column;flex:1;">
+      <div class="learn-card-eyebrow">THE PRACTICE</div>
+      <div class="learn-card-heading">What to Do on the 15th — Hanafi Position</div>
+      <div class="learn-card-body">Spend the night in individual worship: nafl salah, Qur'an recitation, abundant istighfar, and personal du'a. Visit graves if able — the Prophet ﷺ visited al-Baqi on this night.<br><br>No congregational gatherings, no specific number of rak'ahs, no communal celebration has any authentic basis. Keep it simple and sincere.</div>
     </div>
 
-    <div class="asma-grid" id="asmaGrid">
-      <!-- Cards injected by JS below -->
-    </div>
-  </section>
-
-  <div class="divider"><div class="dl"></div><div class="dg"></div><div class="dl"></div></div>
-
-<section class="sec" id="personal">
-    <div class="sec-h">
-      <div class="si">🤲</div>
-      <div><span class="st">Your Personal Dua List</span><span class="ss">Be specific — Allah loves detail</span></div>
+    <div class="learn-card-data" style="display:none;flex-direction:column;flex:1;">
+      <div class="learn-card-eyebrow">THE PREPARATION</div>
+      <div class="learn-card-heading">Preparing for Ramadan</div>
+      <div class="learn-card-body">Sha'ban is your runway for Ramadan. Establish a Qur'an reading habit now. Begin fasting Mondays and Thursdays. Increase salawat on the Prophet ﷺ.<br><br>Resolve any outstanding debts or family disputes before Ramadan begins. Let Sha'ban be the month your heart turns toward Allah before the greatest month arrives.</div>
     </div>
 
-    <div class="note">
-      The Prophet ﷺ said: <em>"Ask Allah for everything, even the strap of your sandal — for if Allah does not facilitate it, it will not happen."</em> — al-Tirmidhi (Hasan). Do not be vague. On Laylatul Qadr, bring your full list with certainty, humility, and hope.
-    </div>
-
-    <div class="pgrid">
-      <div class="pcard">
-        <div class="pcard-t">For Yourself</div>
-        Complete forgiveness of all sins · Steadfastness on deen · Good character and patience · Success and barakah in work · Protection from Hellfire · Jannatul Firdaus · A good end (husn al-khatimah)
-      </div>
-      <div class="pcard">
-        <div class="pcard-t">For Your Marriage</div>
-        A righteous, compatible spouse · Barakah and sakeenah in your nikah · A home filled with love and mercy · Righteous children · To be of those in Qur'an 30:21
-      </div>
-      <div class="pcard">
-        <div class="pcard-t">For Your Parents</div>
-        Health and healing · Forgiveness of sins · Ease in old age · Acceptance of worship · A good end and entry into Paradise
-      </div>
-      <div class="pcard">
-        <div class="pcard-t">For This World</div>
-        Halal provision · Freedom from debt · Good health · Beneficial knowledge · Sincere friends · Protection from envy and evil eye
-      </div>
-      <div class="pcard">
-        <div class="pcard-t">For the Ummah</div>
-        Relief for Muslims in hardship · Unity · Guidance for those who have strayed · The Qur'an to return to our hearts
-      </div>
-      <div class="pcard">
-        <div class="pcard-t">For the Hereafter</div>
-        Easy reckoning · Heavy scales of good deeds · Crossing the Sirat with ease · Drinking from al-Kawthar · Highest levels of Jannah
+    <div class="learn-deck-complete" style="display:none;">
+      <div class="learn-complete-icon">🌟</div>
+      <div class="learn-complete-title">Complete</div>
+      <div class="learn-complete-sub">Don't let Sha'ban pass in neglect. Your deeds rise to Allah this month — let them rise while you are fasting and in worship.</div>
+      <div class="learn-complete-btns">
+        <button class="learn-complete-btn-primary" onclick="restartLearnDeck('shaban')">Review Again</button>
+        <button class="learn-complete-btn-secondary" onclick="closeLearnTopic()">Back to Topics</button>
       </div>
     </div>
-  </section>
 
-  <div class="divider"><div class="dl"></div><div class="dg"></div><div class="dl"></div></div>
+  </div>
+  <div class="guided-nav" style="border-top:1px solid var(--bdr);">
+    <button class="guided-nav-prev learn-nav-prev" onclick="learnNav(-1)" disabled>← Prev</button>
+    <div class="guided-nav-indicator" id="learn-counter-shaban">1 / 4</div>
+    <button class="guided-nav-next learn-nav-next" onclick="learnNav(1)">Next →</button>
+  </div>
+</div>
 
+<!-- LEARN INTRO: EID -->
+<div class="learn-intro" id="learn-intro-eid" style="display:none;">
+  <button class="ji-back" onclick="closeLearnTopic()">‹</button>
+  <div class="ji-body">
+    <div class="ji-icon">🎉</div>
+    <div class="ji-eyebrow">EID AL-FITR &amp; EID AL-ADHA</div>
+    <div class="ji-title">Eid</div>
+    <div class="ji-hadith">"These are days of eating, drinking, and remembrance of Allah." — Sahih Muslim</div>
+    <div class="ji-features">
+      <div class="ji-feature"><span class="ji-feat-icon">🌙</span><span>Sunnah acts of Eid</span></div>
+      <div class="ji-feature"><span class="ji-feat-icon">🔊</span><span>Eid takbeer</span></div>
+      <div class="ji-feature"><span class="ji-feat-icon">💬</span><span>The correct greeting</span></div>
+      <div class="ji-feature"><span class="ji-feat-icon">📋</span><span>Eid al-Fitr vs Eid al-Adha differences</span></div>
+    </div>
+    <button class="ji-begin" onclick="beginLearnDeck('eid')">Celebrate the Sunnah Way</button>
+    <div class="ji-footer">Tap any card to continue · swipe or use arrows</div>
+  </div>
+</div>
 
-</div><!-- end learnContent -->
+<!-- LEARN DECK: EID -->
+<div class="learn-deck" id="learn-deck-eid" style="display:none;">
+  <div class="learn-deck-header">
+    <button class="learn-deck-close" onclick="closeLearnTopic()">✕</button>
+    <div class="learn-deck-title">Eid</div>
+    <div class="learn-deck-counter">CARD 1 OF 4</div>
+  </div>
+  <div class="learn-deck-progress"><div class="learn-deck-fill" style="width:0%"></div></div>
+  <div class="learn-deck-body">
+
+    <div class="learn-card-data" style="display:flex;flex-direction:column;flex:1;">
+      <div class="learn-card-eyebrow">EID AL-FITR</div>
+      <div class="learn-card-heading">Eid al-Fitr — Sunnah Acts</div>
+      <div class="learn-card-body">Ghusl before salah. Eat something sweet before going — the Prophet ﷺ ate dates. Wear your best clothes. Go one route to the masjid, return another. Say Eid takbeer aloud on the way. Listen to the khutbah. Give sadaqah to family and friends.</div>
+    </div>
+
+    <div class="learn-card-data" style="display:none;flex-direction:column;flex:1;">
+      <div class="learn-card-eyebrow">EID AL-ADHA</div>
+      <div class="learn-card-heading">Eid al-Adha — Sunnah Acts</div>
+      <div class="learn-card-body">Ghusl before salah. Do <strong>NOT</strong> eat before Eid salah — eat from your Qurbani after. Wear best clothes. Say Eid takbeer. Perform Qurbani on 10th, 11th, or 12th. Distribute meat correctly. Continue Takbeer al-Tashriq after every fard salah.</div>
+    </div>
+
+    <div class="learn-card-data" style="display:none;flex-direction:column;flex:1;">
+      <div class="learn-card-eyebrow">THE TAKBEER</div>
+      <div class="learn-card-heading">The Eid Takbeer</div>
+      <div class="learn-card-arabic">اللَّهُ أَكْبَرُ اللَّهُ أَكْبَرُ لَا إِلَهَ إِلَّا اللَّهُ وَاللَّهُ أَكْبَرُ اللَّهُ أَكْبَرُ وَلِلَّهِ الْحَمْدُ</div>
+      <div class="learn-card-body">Say it from Fajr of Eid day. Say it aloud while walking to the prayer. Men say it aloud; women quietly.</div>
+    </div>
+
+    <div class="learn-card-data" style="display:none;flex-direction:column;flex:1;">
+      <div class="learn-card-eyebrow">THE GREETING</div>
+      <div class="learn-card-heading">The Correct Greeting</div>
+      <div class="learn-card-arabic">تَقَبَّلَ اللَّهُ مِنَّا وَمِنكُمْ</div>
+      <div class="learn-card-tr">Taqabbalallāhu minnā wa minkum</div>
+      <div class="learn-card-body">"May Allah accept from us and from you."<br><br>This was the greeting of the Sahabah on Eid — Ibn Hajar confirmed its chain in Fath al-Bari. It can be combined with "Eid Mubarak" but this is the authentic greeting.</div>
+    </div>
+
+    <div class="learn-deck-complete" style="display:none;">
+      <div class="learn-complete-icon">🎉</div>
+      <div class="learn-complete-title">Complete</div>
+      <div class="learn-complete-sub">Eid is a day of gratitude, worship, and community. Celebrate with the Sunnah and say: Taqabbalallahu minna wa minkum.</div>
+      <div class="learn-complete-btns">
+        <button class="learn-complete-btn-primary" onclick="restartLearnDeck('eid')">Review Again</button>
+        <button class="learn-complete-btn-secondary" onclick="closeLearnTopic()">Back to Topics</button>
+      </div>
+    </div>
+
+  </div>
+  <div class="guided-nav" style="border-top:1px solid var(--bdr);">
+    <button class="guided-nav-prev learn-nav-prev" onclick="learnNav(-1)" disabled>← Prev</button>
+    <div class="guided-nav-indicator" id="learn-counter-eid">1 / 4</div>
+    <button class="guided-nav-next learn-nav-next" onclick="learnNav(1)">Next →</button>
+  </div>
+</div>
+
+<!-- LEARN INTRO: RUQYAH -->
+<div class="learn-intro" id="learn-intro-ruqyah" style="display:none;">
+  <button class="ji-back" onclick="closeLearnTopic()">‹</button>
+  <div class="ji-body">
+    <div class="ji-icon">🛡️</div>
+    <div class="ji-eyebrow">HEALING &amp; PROTECTION</div>
+    <div class="ji-title">Ruqyah</div>
+    <div class="ji-hadith">"We send down of the Qur'an that which is a healing and a mercy for the believers." — Surah Al-Isra 17:82</div>
+    <div class="ji-features">
+      <div class="ji-feature"><span class="ji-feat-icon">📋</span><span>The Ruqyah sequence</span></div>
+      <div class="ji-feature"><span class="ji-feat-icon">🤲</span><span>How to perform it on yourself</span></div>
+      <div class="ji-feature"><span class="ji-feat-icon">🌅</span><span>Protection duas for morning and evening</span></div>
+      <div class="ji-feature"><span class="ji-feat-icon">👥</span><span>When to seek Ruqyah from others</span></div>
+    </div>
+    <button class="ji-begin" onclick="beginLearnDeck('ruqyah')">Learn Ruqyah</button>
+    <div class="ji-footer">Tap any card to continue · swipe or use arrows</div>
+  </div>
+</div>
+
+<!-- LEARN DECK: RUQYAH -->
+<div class="learn-deck" id="learn-deck-ruqyah" style="display:none;">
+  <div class="learn-deck-header">
+    <button class="learn-deck-close" onclick="closeLearnTopic()">✕</button>
+    <div class="learn-deck-title">Ruqyah</div>
+    <div class="learn-deck-counter">CARD 1 OF 5</div>
+  </div>
+  <div class="learn-deck-progress"><div class="learn-deck-fill" style="width:0%"></div></div>
+  <div class="learn-deck-body">
+
+    <div class="learn-card-data" style="display:flex;flex-direction:column;flex:1;">
+      <div class="learn-card-eyebrow">WHAT IS RUQYAH</div>
+      <div class="learn-card-heading">What is Ruqyah?</div>
+      <div class="learn-card-body">Reciting Qur'an and authentic supplications for healing and protection from illness, evil eye, jinn, and sihr. An established Sunnah — the Prophet ﷺ performed ruqyah on himself and others.<br><br>Recite over yourself by placing your hand on the area of ailment. Recite into cupped hands, blow gently, wipe over the body.</div>
+      <div class="learn-card-src">Sahih Muslim 2186</div>
+    </div>
+
+    <div class="learn-card-data" style="display:none;flex-direction:column;flex:1;">
+      <div class="learn-card-eyebrow">THE SEQUENCE</div>
+      <div class="learn-card-heading">The Ruqyah Sequence — Step by Step</div>
+      <div class="learn-card-body">
+        1. Surah Al-Fatihah ×7<br>
+        2. Ayatul Kursi ×1<br>
+        3. Surah Al-Ikhlas ×3<br>
+        4. Surah Al-Falaq ×3<br>
+        5. Surah An-Nas ×3<br><br>
+        Blow into cupped hands after each, wipe over body head to toe. Can be performed morning and evening as protection.
+      </div>
+    </div>
+
+    <div class="learn-card-data" style="display:none;flex-direction:column;flex:1;">
+      <div class="learn-card-eyebrow">THE DU'A</div>
+      <div class="learn-card-heading">The Ruqyah Du'a of the Prophet ﷺ</div>
+      <div class="learn-card-arabic">اللَّهُمَّ رَبَّ النَّاسِ أَذْهِبِ الْبَأْسَ اشْفِ أَنْتَ الشَّافِي لَا شِفَاءَ إِلَّا شِفَاؤُكَ شِفَاءً لَا يُغَادِرُ سَقَمًا</div>
+      <div class="learn-card-tr">Allāhumma Rabban-nāsi adh-hibil-baʾs, Ishfi Antash-Shāfī, Lā shifāʾa illā shifāʾuk, Shifāʾan lā yughādiru saqamā</div>
+      <div class="learn-card-body">"O Allah, Lord of mankind, remove the affliction. Heal — for You are the Healer. There is no healing except Your healing, a healing that leaves no illness behind."<br><br>Place your hand on the area of pain, say 3× Bismillah, then ×7.</div>
+      <div class="learn-card-src">Bukhari 5675, Muslim 2191</div>
+    </div>
+
+    <div class="learn-card-data" style="display:none;flex-direction:column;flex:1;">
+      <div class="learn-card-eyebrow">DAILY PROTECTION</div>
+      <div class="learn-card-heading">Morning &amp; Evening Protection</div>
+      <div class="learn-card-body">The three Quls (Al-Ikhlas, Al-Falaq, An-Nas) ×3 after Fajr and Maghrib protect for the entire day/night.<br><br>Ayatul Kursi after every fard salah — whoever recites it, nothing will prevent him from entering Jannah except death.<br><br>These are not just for illness — they are daily shields.</div>
+      <div class="learn-card-src">Bukhari 5017 · Nasai 9928</div>
+    </div>
+
+    <div class="learn-card-data" style="display:none;flex-direction:column;flex:1;">
+      <div class="learn-card-eyebrow">SEEKING HELP</div>
+      <div class="learn-card-heading">When to Seek Ruqyah from Others</div>
+      <div class="learn-card-body">If self-ruqyah is not sufficient, seek a trustworthy person who knows the authentic ruqyah. The conditions: Qur'an and authentic duas only — no symbols, no unknown words, no talismans.<br><br>The practitioner must have tawakkul in Allah — not in themselves. You may also perform ruqyah on your children, spouse, and family daily.</div>
+    </div>
+
+    <div class="learn-deck-complete" style="display:none;">
+      <div class="learn-complete-icon">🛡️</div>
+      <div class="learn-complete-title">Complete</div>
+      <div class="learn-complete-sub">Ruqyah is your daily armour. The three Quls morning and evening. Ayatul Kursi after every salah. Your protection begins with you.</div>
+      <div class="learn-complete-btns">
+        <button class="learn-complete-btn-primary" onclick="restartLearnDeck('ruqyah')">Review Again</button>
+        <button class="learn-complete-btn-secondary" onclick="closeLearnTopic()">Back to Topics</button>
+      </div>
+    </div>
+
+  </div>
+  <div class="guided-nav" style="border-top:1px solid var(--bdr);">
+    <button class="guided-nav-prev learn-nav-prev" onclick="learnNav(-1)" disabled>← Prev</button>
+    <div class="guided-nav-indicator" id="learn-counter-ruqyah">1 / 5</div>
+    <button class="guided-nav-next learn-nav-next" onclick="learnNav(1)">Next →</button>
+  </div>
+</div>
+
+<!-- LEARN INTRO: KEY SURAHS -->
+<div class="learn-intro" id="learn-intro-surahs" style="display:none;">
+  <button class="ji-back" onclick="closeLearnTopic()">‹</button>
+  <div class="ji-body">
+    <div class="ji-icon">📖</div>
+    <div class="ji-eyebrow">ESSENTIAL RECITATIONS</div>
+    <div class="ji-title">Key Surahs</div>
+    <div class="ji-hadith">"Whoever recites Ayatul Kursi after every obligatory prayer — nothing will prevent him from entering Jannah except death." — Nasai 9928</div>
+    <div class="ji-features">
+      <div class="ji-feature"><span class="ji-feat-icon">📋</span><span>9 essential surahs and their virtues</span></div>
+      <div class="ji-feature"><span class="ji-feat-icon">🕐</span><span>When and how often to recite each</span></div>
+      <div class="ji-feature"><span class="ji-feat-icon">🛡️</span><span>Protection surahs</span></div>
+      <div class="ji-feature"><span class="ji-feat-icon">✨</span><span>Intercession surahs</span></div>
+    </div>
+    <button class="ji-begin" onclick="beginLearnDeck('surahs')">Explore Key Surahs</button>
+    <div class="ji-footer">Tap any card to continue · swipe or use arrows</div>
+  </div>
+</div>
+
+<!-- LEARN DECK: KEY SURAHS -->
+<div class="learn-deck" id="learn-deck-surahs" style="display:none;">
+  <div class="learn-deck-header">
+    <button class="learn-deck-close" onclick="closeLearnTopic()">✕</button>
+    <div class="learn-deck-title">Key Surahs</div>
+    <div class="learn-deck-counter">CARD 1 OF 9</div>
+  </div>
+  <div class="learn-deck-progress"><div class="learn-deck-fill" style="width:0%"></div></div>
+  <div class="learn-deck-body">
+
+    <div class="learn-card-data" style="display:flex;flex-direction:column;flex:1;">
+      <div class="learn-card-eyebrow">SURAH 1</div>
+      <div class="learn-card-heading">Surah Al-Fatihah</div>
+      <div class="learn-card-body">The Opening. Recited in every rak'ah — obligatory. <em>"It is the greatest surah in the Qur'an."</em><br><br>It is Ruqyah — blow on the afflicted. Allah responds to each verse as you recite. Never miss it.</div>
+      <div class="learn-card-src">Bukhari 4703</div>
+    </div>
+
+    <div class="learn-card-data" style="display:none;flex-direction:column;flex:1;">
+      <div class="learn-card-eyebrow">SURAH 2 (AYAH)</div>
+      <div class="learn-card-heading">Ayatul Kursi — Al-Baqarah 2:255</div>
+      <div class="learn-card-arabic">اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ...</div>
+      <div class="learn-card-body">Recite after every fard salah. Recite before sleep with Al-Ikhlas, Al-Falaq, An-Nas ×3.<br><br>The greatest ayah in the Qur'an.</div>
+      <div class="learn-card-src">Nasai 9928 · Sahih Muslim 810</div>
+    </div>
+
+    <div class="learn-card-data" style="display:none;flex-direction:column;flex:1;">
+      <div class="learn-card-eyebrow">SURAH 3</div>
+      <div class="learn-card-heading">Surah Al-Ikhlas</div>
+      <div class="learn-card-body">3× = reward of the entire Qur'an.<br><br>Recite morning and evening ×3. Recite before sleep ×3. Whoever loves it loves Allah.<br><br>Under 20 seconds. No excuse to miss it.</div>
+      <div class="learn-card-src">Bukhari 5013, 7375</div>
+    </div>
+
+    <div class="learn-card-data" style="display:none;flex-direction:column;flex:1;">
+      <div class="learn-card-eyebrow">SURAHS 4 &amp; 5</div>
+      <div class="learn-card-heading">Surah Al-Falaq &amp; An-Nas</div>
+      <div class="learn-card-body">The Muawwidhat — seek refuge from evil. Recite morning ×3, evening ×3, before sleep ×3.<br><br><em>"He has not sought refuge with anything like these two."</em></div>
+      <div class="learn-card-src">Abu Dawud 1463, Nasai</div>
+    </div>
+
+    <div class="learn-card-data" style="display:none;flex-direction:column;flex:1;">
+      <div class="learn-card-eyebrow">SURAH 6</div>
+      <div class="learn-card-heading">Surah Al-Mulk</div>
+      <div class="learn-card-body">Intercedes until its reciter is forgiven. Recite every night before sleep — 30 verses, under 5 minutes.<br><br>It protects from the punishment of the grave. The Prophet ﷺ never slept without it.</div>
+      <div class="learn-card-src">Abu Dawud 1400</div>
+    </div>
+
+    <div class="learn-card-data" style="display:none;flex-direction:column;flex:1;">
+      <div class="learn-card-eyebrow">SURAH 7</div>
+      <div class="learn-card-heading">Surah Al-Kahf</div>
+      <div class="learn-card-body">Read on Fridays for light between two Fridays. First and last 10 ayahs protect from Dajjal.<br><br>Read from Fajr until Maghrib on Friday. 110 verses — approximately 20–25 minutes.</div>
+      <div class="learn-card-src">Al-Hakim, Sahih by Al-Albani</div>
+    </div>
+
+    <div class="learn-card-data" style="display:none;flex-direction:column;flex:1;">
+      <div class="learn-card-eyebrow">SURAH 8</div>
+      <div class="learn-card-heading">Surah Ya-Sin</div>
+      <div class="learn-card-body">The heart of the Qur'an. Recite for the dying and the deceased. Many scholars recommend reciting at the grave. Recite at night for reward.</div>
+      <div class="learn-card-src">Abu Dawud 3121</div>
+    </div>
+
+    <div class="learn-card-data" style="display:none;flex-direction:column;flex:1;">
+      <div class="learn-card-eyebrow">SURAH 9</div>
+      <div class="learn-card-heading">Surah Al-Waqi'ah</div>
+      <div class="learn-card-body"><em>"Whoever recites Surah Al-Waqi'ah every night will never be afflicted by poverty."</em><br><br>Recite every night before sleep.</div>
+      <div class="learn-card-src">Ibn Hibban</div>
+    </div>
+
+    <div class="learn-card-data" style="display:none;flex-direction:column;flex:1;">
+      <div class="learn-card-eyebrow">SURAH 10</div>
+      <div class="learn-card-heading">Surah Al-Baqarah</div>
+      <div class="learn-card-body">Opening (2:1-5), Ayatul Kursi (2:255), and closing two ayahs (2:285-286).<br><br><em>"Whoever recites the last two ayahs of Al-Baqarah at night, they will suffice him."</em><br><br>The full surah — Shaytan flees from the house where it is recited.</div>
+      <div class="learn-card-src">Bukhari 5009 · Muslim 780</div>
+    </div>
+
+    <div class="learn-deck-complete" style="display:none;">
+      <div class="learn-complete-icon">📖</div>
+      <div class="learn-complete-title">Complete</div>
+      <div class="learn-complete-sub">Start with Al-Mulk every night. Add the three Quls morning and evening. Build from there — the Qur'an is your daily shield and companion.</div>
+      <div class="learn-complete-btns">
+        <button class="learn-complete-btn-primary" onclick="restartLearnDeck('surahs')">Review Again</button>
+        <button class="learn-complete-btn-secondary" onclick="closeLearnTopic()">Back to Topics</button>
+      </div>
+    </div>
+
+  </div>
+  <div class="guided-nav" style="border-top:1px solid var(--bdr);">
+    <button class="guided-nav-prev learn-nav-prev" onclick="learnNav(-1)" disabled>← Prev</button>
+    <div class="guided-nav-indicator" id="learn-counter-surahs">1 / 9</div>
+    <button class="guided-nav-next learn-nav-next" onclick="learnNav(1)">Next →</button>
+  </div>
+</div>
+
+<!-- LEARN INTRO: 99 NAMES -->
+<div class="learn-intro" id="learn-intro-asma" style="display:none;">
+  <button class="ji-back" onclick="closeLearnTopic()">‹</button>
+  <div class="ji-body">
+    <div class="ji-icon">✨</div>
+    <div class="ji-eyebrow">ASMĀ AL-ḤUSNĀ</div>
+    <div class="ji-title">99 Names of Allah</div>
+    <div class="ji-hadith">"Allah has ninety-nine names. Whoever memorises them will enter Jannah." — Sahih al-Bukhari 2736</div>
+    <div class="ji-features">
+      <div class="ji-feature"><span class="ji-feat-icon">📖</span><span>All 99 names with Arabic and meaning</span></div>
+      <div class="ji-feature"><span class="ji-feat-icon">🔤</span><span>Transliteration for every name</span></div>
+      <div class="ji-feature"><span class="ji-feat-icon">🤲</span><span>How to use the names in du'a</span></div>
+      <div class="ji-feature"><span class="ji-feat-icon">✨</span><span>A living practice — not just memorisation</span></div>
+    </div>
+    <button class="ji-begin" onclick="beginLearnDeck('asma')">Explore the Names</button>
+    <div class="ji-footer">Browse, search, and know your Lord</div>
+  </div>
+</div>
+
+<!-- LEARN DECK: 99 NAMES (grid format) -->
+<div class="learn-deck" id="learn-deck-asma" style="display:none;">
+  <div class="learn-deck-header">
+    <button class="learn-deck-close" onclick="closeLearnTopic()">✕</button>
+    <div class="learn-deck-title">Asmā al-Ḥusnā</div>
+    <div class="learn-deck-counter">99 NAMES</div>
+  </div>
+  <div class="learn-deck-body" style="padding:16px 16px 80px;">
+    <input id="asmaDeckSearch" class="duas-index-search" type="search"
+      placeholder="Search names…"
+      oninput="filterAsmaDeck(this.value)"
+      autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+      style="margin-bottom:16px;">
+    <div class="asma-grid" id="asmaDeckGrid">
+      <!-- Cards injected by JS -->
+    </div>
+  </div>
+</div>
+
+<!-- LEARN INTRO: PERSONAL DUAS -->
+<div class="learn-intro" id="learn-intro-personal" style="display:none;">
+  <button class="ji-back" onclick="closeLearnTopic()">‹</button>
+  <div class="ji-body">
+    <div class="ji-icon">🤍</div>
+    <div class="ji-eyebrow">YOUR OWN SUPPLICATIONS</div>
+    <div class="ji-title">Personal Duas</div>
+    <div class="ji-hadith">"Let each of you ask Allah for all his needs — even the strap of his sandal if it breaks." — Ibn al-Qayyim, Madarij al-Salikin</div>
+    <div class="ji-features">
+      <div class="ji-feature"><span class="ji-feat-icon">🤍</span><span>Yourself · Parents · Dunya · Akhirah · Ummah</span></div>
+      <div class="ji-feature"><span class="ji-feat-icon">📋</span><span>Prompt cards for what to make du'a for</span></div>
+      <div class="ji-feature"><span class="ji-feat-icon">🤲</span><span>Space to reflect on your intentions</span></div>
+      <div class="ji-feature"><span class="ji-feat-icon">✨</span><span>No wrong answer — pour your heart out</span></div>
+    </div>
+    <button class="ji-begin" onclick="beginLearnDeck('personal')">Make Du'a</button>
+    <div class="ji-footer">Tap any card to continue · swipe or use arrows</div>
+  </div>
+</div>
+
+<!-- LEARN DECK: PERSONAL DUAS -->
+<div class="learn-deck" id="learn-deck-personal" style="display:none;">
+  <div class="learn-deck-header">
+    <button class="learn-deck-close" onclick="closeLearnTopic()">✕</button>
+    <div class="learn-deck-title">Personal Duas</div>
+    <div class="learn-deck-counter">CARD 1 OF 5</div>
+  </div>
+  <div class="learn-deck-progress"><div class="learn-deck-fill" style="width:0%"></div></div>
+  <div class="learn-deck-body">
+
+    <div class="learn-card-data" style="display:flex;flex-direction:column;flex:1;">
+      <div class="learn-card-eyebrow">FOR YOURSELF</div>
+      <div class="learn-card-heading">For Yourself</div>
+      <div class="learn-card-body">Ask for forgiveness of all your sins — known and unknown. Ask for health, strength, tawfiq to worship. Ask for a good end. Ask for firmness on the deen.<br><br>Ask for your specific needs right now.</div>
+    </div>
+
+    <div class="learn-card-data" style="display:none;flex-direction:column;flex:1;">
+      <div class="learn-card-eyebrow">FOR YOUR PARENTS</div>
+      <div class="learn-card-heading">For Your Parents</div>
+      <div class="learn-card-arabic">رَبِّ ارْحَمْهُمَا كَمَا رَبَّيَانِي صَغِيرًا</div>
+      <div class="learn-card-tr">Rabbi irḥamhumā kamā rabbayānī ṣaghīrā</div>
+      <div class="learn-card-body">"My Lord, have mercy on them as they raised me when I was small." — Qur'an 17:24<br><br>Make this du'a after every salah. If they have passed, this is their ongoing sadaqah jariyah through you.</div>
+    </div>
+
+    <div class="learn-card-data" style="display:none;flex-direction:column;flex:1;">
+      <div class="learn-card-eyebrow">FOR THIS DUNYA</div>
+      <div class="learn-card-heading">For This Dunya</div>
+      <div class="learn-card-body">Ask for halal provision — rizq, barakah in your wealth and time. Ask for a righteous spouse and children. Ask for a good home. Ask for ease in your work.<br><br>Ask for your specific worldly needs by name — Allah loves specificity.</div>
+    </div>
+
+    <div class="learn-card-data" style="display:none;flex-direction:column;flex:1;">
+      <div class="learn-card-eyebrow">FOR THE AKHIRAH</div>
+      <div class="learn-card-heading">For the Akhirah</div>
+      <div class="learn-card-body">Ask for Jannah al-Firdaws — the highest level. Ask for protection from the punishment of the grave. Ask for protection from the Fire. Ask to see the face of Allah ﷻ. Ask to be with the Prophet ﷺ.<br><br>Do not be shy — these are the duas of the Prophets.</div>
+    </div>
+
+    <div class="learn-card-data" style="display:none;flex-direction:column;flex:1;">
+      <div class="learn-card-eyebrow">FOR THE UMMAH</div>
+      <div class="learn-card-heading">For the Ummah</div>
+      <div class="learn-card-body">Ask for ease for Muslims around the world who are suffering. Ask for unity and guidance for Muslim leaders. Ask for the guidance of those who oppress. Ask for the protection of Muslim children, women, scholars.<br><br><em>"The du'a of a Muslim for his brother in his absence is answered — the angel says: Ameen, and may you have the same."</em></div>
+      <div class="learn-card-src">Sahih Muslim 2733</div>
+    </div>
+
+    <div class="learn-deck-complete" style="display:none;">
+      <div class="learn-complete-icon">🤍</div>
+      <div class="learn-complete-title">Complete</div>
+      <div class="learn-complete-sub">Pour your heart out to Allah in your own words. He hears every word — in every language — at every moment.</div>
+      <div class="learn-complete-btns">
+        <button class="learn-complete-btn-primary" onclick="restartLearnDeck('personal')">Review Again</button>
+        <button class="learn-complete-btn-secondary" onclick="closeLearnTopic()">Back to Topics</button>
+      </div>
+    </div>
+
+  </div>
+  <div class="guided-nav" style="border-top:1px solid var(--bdr);">
+    <button class="guided-nav-prev learn-nav-prev" onclick="learnNav(-1)" disabled>← Prev</button>
+    <div class="guided-nav-indicator" id="learn-counter-personal">1 / 5</div>
+    <button class="guided-nav-next learn-nav-next" onclick="learnNav(1)">Next →</button>
+  </div>
+</div>
+
 
 </div><!-- end learn-view -->
 
@@ -9200,6 +9318,25 @@ var GUIDED_SESSIONS = {
         ]
       }
     ]
+  },
+  arafah: {
+    title: 'Yawm Arafah — Day of Du\'a',
+    steps: [
+      { label: 'Open with Bismillah & Intention', ar: 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ', tr: 'Bismillāhir-Raḥmānir-Raḥīm', en: 'Begin in the name of Allah. Set your intention: "O Allah, I am spending this day seeking Your forgiveness, Your pleasure, and freedom from the Fire. Accept from me."', src: 'Sunnah of beginning all acts with Bismillah', note: 'The Prophet ﷺ said: Every important matter that does not begin with Bismillah is cut off from blessing. Begin this blessed day with full presence.' },
+      { label: 'Salawat upon the Prophet ﷺ — 10×', ar: 'اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ كَمَا صَلَّيْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ إِنَّكَ حَمِيدٌ مَجِيدٌ', tr: 'Allāhumma ṣalli ʿalā Muḥammadin wa ʿalā āli Muḥammad kamā ṣallayta ʿalā Ibrāhīma wa ʿalā āli Ibrāhīm innaka Ḥamīdun Majīd', en: '"O Allah, send Your grace upon Muhammad and upon the family of Muhammad, as You sent Your grace upon Ibrahim and upon the family of Ibrahim. Indeed You are Praiseworthy, Glorious."', src: 'Sahih al-Bukhari (3370), Muslim (406)', note: 'Begin every du\'a session with salawat. The Prophet ﷺ said: Du\'a is suspended between heaven and earth until you send salawat upon me.' },
+      { label: 'The Best Du\'a of Arafah — Repeat Abundantly', ar: 'لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ', tr: 'Lā ilāha illallāhu waḥdahu lā sharīka lah lahul-mulku wa lahul-ḥamdu wa Huwa ʿalā kulli shayʾin Qadīr', en: '"There is no god but Allah alone, with no partner. His is the dominion and His is all praise, and He is over all things capable."', src: 'Tirmidhi (3585) — Hasan', note: 'The Prophet ﷺ said: "The best du\'a is the du\'a of Arafah. And the best thing I and the Prophets before me have said is this." Repeat this constantly — it is the core dhikr of this day.' },
+      { label: 'Sayyid al-Istighfar — The Master of Forgiveness', ar: 'اللَّهُمَّ أَنتَ رَبِّي لَا إِلَٰهَ إِلَّا أَنتَ خَلَقْتَنِي وَأَنَا عَبْدُكَ وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ وَأَبُوءُ بِذَنْبِي فَاغْفِرْ لِي فَإِنَّهُ لَا يَغْفِرُ الذُّنُوبَ إِلَّا أَنتَ', tr: 'Allāhumma Anta Rabbī lā ilāha illā Anta khalaqtanī wa anā ʿabduka wa anā ʿalā ʿahdika wa waʿdika mastaṭaʿtu aʿūdhu bika min sharri mā ṣanaʿtu abūʾu laka biniʿmatika ʿalayya wa abūʾu bidhanbī faghfirlī fa innahu lā yaghfirudh-dhunūba illā Ant', en: '"O Allah You are my Lord, there is no god but You. You created me and I am Your servant. I uphold Your covenant as best I can. I seek refuge from the evil of what I have done. I acknowledge Your favour and confess my sin — forgive me, for none forgives sins except You."', src: 'Sahih al-Bukhari (6306)', note: 'Whoever says this in the morning with conviction and dies that day enters Jannah. Say this morning and evening of Arafah — and throughout the day.' },
+      { label: 'For Comprehensive Forgiveness — 1×', ar: 'اللَّهُمَّ اغْفِرْ لِي ذَنْبِي كُلَّهُ دِقَّهُ وَجِلَّهُ وَأَوَّلَهُ وَآخِرَهُ وَعَلَانِيَتَهُ وَسِرَّهُ', tr: 'Allāhumma ighfir lī dhanbī kullahu diqqahu wa jillahu wa awwalahu wa ākhirahu wa ʿalāniyatahu wa sirrahu', en: '"O Allah forgive all my sins — the small and great, first and last, public and secret."', src: 'Sahih Muslim (483)', note: 'Every category of sin covered — nothing left unasked. Pour your heart into this on Arafah.' },
+      { label: 'Du\'a of Yunus ﷺ — Guaranteed to be Answered', ar: 'لَّا إِلَٰهَ إِلَّا أَنتَ سُبْحَانَكَ إِنِّي كُنتُ مِنَ الظَّالِمِينَ', tr: 'Lā ilāha illā Anta subḥānaka innī kuntu minaẓ-ẓālimīn', en: '"There is no god but You. Glory be to You. Indeed I have been of the wrongdoers."', src: 'Surah Al-Anbiya (21:87)', note: 'No Muslim supplicates sincerely with this except Allah answers. Allah rescued Yunus ﷺ from the belly of the whale with this du\'a.' },
+      { label: 'For Good in Both Worlds — Most Recited Du\'a of the Prophet ﷺ', ar: 'رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ', tr: 'Rabbanā ātinā fid-dunyā ḥasanatan wa fil-ākhirati ḥasanatan wa qinā ʿadhāban-nār', en: '"Our Lord give us good in this world and good in the Hereafter and protect us from the punishment of the Fire."', src: 'Surah Al-Baqarah (2:201)', note: 'This was the most frequent du\'a of the Prophet ﷺ on Arafah. It covers everything in three short lines.' },
+      { label: 'For Jannah and Protection from the Fire', ar: 'اللَّهُمَّ إِنِّي أَسْأَلُكَ الْجَنَّةَ وَمَا قَرَّبَ إِلَيْهَا مِنْ قَوْلٍ أَوْ عَمَلٍ وَأَعُوذُ بِكَ مِنَ النَّارِ وَمَا قَرَّبَ إِلَيْهَا مِنْ قَوْلٍ أَوْ عَمَلٍ', tr: 'Allāhumma innī asʾalukal-jannata wa mā qarraba ilayhā min qawlin aw ʿamal wa aʿūdhu bika minan-nāri wa mā qarraba ilayhā min qawlin aw ʿamal', en: '"O Allah I ask You for Paradise and whatever brings me near to it, and I seek refuge from the Fire and whatever brings me near to it."', src: 'Ibn Majah (3846) — Sahih', note: 'Ask for Jannah directly and explicitly. Today Allah frees people from the Fire — ask to be among them.' },
+      { label: 'Yā Ḥayyu Yā Qayyūm — Especially After Asr', ar: 'يَا حَيُّ يَا قَيُّومُ بِرَحْمَتِكَ أَسْتَغِيثُ أَصْلِحْ لِي شَأْنِي كُلَّهُ وَلَا تَكِلْنِي إِلَى نَفْسِي طَرْفَةَ عَيْنٍ', tr: 'Yā Ḥayyu Yā Qayyūm bi-raḥmatika astaghīth aṣliḥ lī shaʾnī kullahu wa lā takilnī ilā nafsī ṭarfata ʿayn', en: '"O Ever-Living O Sustainer by Your mercy I seek help. Rectify all my affairs and do not entrust me to myself even for a blink."', src: 'Al-Nasa\'i — Sahih', note: 'Especially powerful in the afternoon of Arafah — the time of greatest acceptance. Ask Allah to fix every single affair of your life.' },
+      { label: 'Personal Du\'a — Speak to Allah Freely', ar: 'رَبِّ إِنِّي لِمَا أَنزَلْتَ إِلَيَّ مِنْ خَيْرٍ فَقِيرٌ', tr: 'Rabbi innī limā anzalta ilayya min khayrin faqīr', en: '"My Lord, I am in need of whatever good You send down to me." — Now make your own personal duas. Pour your heart out. Ask for your marriage, your health, your family, your rizq, your akhirah.', src: 'Surah Al-Qasas (28:24)', note: 'This is the heart of Arafah — your personal conversation with Allah. The Prophet ﷺ said: Ask Allah for everything, even the strap of your sandal. No du\'a is too small today.' },
+      { label: 'For Righteous Spouse and Children', ar: 'رَبَّنَا هَبْ لَنَا مِنْ أَزْوَاجِنَا وَذُرِّيَّاتِنَا قُرَّةَ أَعْيُنٍ وَاجْعَلْنَا لِلْمُتَّقِينَ إِمَامًا', tr: 'Rabbanā hab lanā min azwājinā wa dhurriyyātinā qurrata aʿyunin wajʿalnā lil-muttaqīna imāmā', en: '"Our Lord grant us from our spouses and offspring comfort to our eyes and make us an example for the righteous."', src: 'Surah Al-Furqan (25:74)', note: 'Arafah is one of the best days to make du\'a for your marriage and future family. Make it by name.' },
+      { label: 'For Parents — Surah Al-Isra', ar: 'رَّبِّ ارْحَمْهُمَا كَمَا رَبَّيَانِي صَغِيرًا', tr: 'Rabbir-ḥamhumā kamā rabbayānī ṣaghīrā', en: '"My Lord have mercy upon them both as they raised me when I was small."', src: 'Surah Al-Isra (17:24)', note: 'Make du\'a for your parents by name. One of the best days to earn the du\'a of the angels on their behalf.' },
+      { label: 'For Protection from the Fire — 7×', ar: 'اللَّهُمَّ أَجِرْنِي مِنَ النَّارِ', tr: 'Allāhumma ajirnī minan-nār', en: '"O Allah protect me from the Fire."', src: 'Abu Dawud (5079) — Sahih', note: 'Say 7 times. Today Allah frees more people from the Fire than any other day — ask to be among them.' },
+      { label: 'For Complete Acceptance — Closing Seal', ar: 'رَبَّنَا تَقَبَّلْ مِنَّا إِنَّكَ أَنتَ السَّمِيعُ الْعَلِيمُ', tr: 'Rabbanā taqabbal minnā innaka Antas-Samīʿul-ʿAlīm', en: '"Our Lord accept from us — You are the All-Hearing the All-Knowing."', src: 'Surah Al-Baqarah (2:127)', note: 'The du\'a of Ibrahim ﷺ after building the Ka\'bah. Seal every session on Arafah with this. May Allah accept from us and from you. Ameen.' }
+    ]
   }
 };
 
@@ -10084,31 +10221,117 @@ function filterDuasIndex(query) {
 }
 
 // ============================================================
-//  LEARN CATEGORY INDEX NAVIGATION
+//  LEARN TOPIC SYSTEM
 // ============================================================
-function openLearnCategory(sectionId) {
-  var index   = document.getElementById('learnIndex');
-  var content = document.getElementById('learnContent');
-  var backBtn = document.getElementById('learnCatBack');
-  if (index)   index.style.display   = 'none';
-  if (content) content.style.display = 'block';
-  if (backBtn) backBtn.style.display = 'flex';
+var learnCurrentTopic = null;
+var learnCurrentCard = 0;
+
+function openLearnTopic(topicId) {
+  document.getElementById('learnIndex').style.display = 'none';
+  var subnav = document.querySelector('#learn-view .view-subnav');
+  if (subnav) subnav.style.display = 'none';
+  var intro = document.getElementById('learn-intro-' + topicId);
+  if (intro) intro.style.display = 'flex';
+  learnCurrentTopic = topicId;
+  learnCurrentCard = 0;
   var learnView = document.getElementById('learn-view');
   if (learnView) learnView.scrollTo(0, 0);
-  setTimeout(function() { scrollToSection(sectionId); }, 80);
 }
 
-function closeLearnCategory() {
-  var index   = document.getElementById('learnIndex');
-  var content = document.getElementById('learnContent');
-  var backBtn = document.getElementById('learnCatBack');
-  if (index)   index.style.display   = 'block';
-  if (content) content.style.display = 'none';
-  if (backBtn) backBtn.style.display = 'none';
+function closeLearnTopic() {
+  document.querySelectorAll('.learn-intro, .learn-deck').forEach(function(el) {
+    el.style.display = 'none';
+  });
+  document.getElementById('learnIndex').style.display = 'block';
+  var subnav = document.querySelector('#learn-view .view-subnav');
+  if (subnav) subnav.style.display = 'flex';
+  learnCurrentTopic = null;
   var learnView = document.getElementById('learn-view');
   if (learnView) learnView.scrollTo(0, 0);
   var searchInput = document.getElementById('learnIndexSearch');
   if (searchInput) { searchInput.value = ''; filterLearnIndex(''); }
+}
+
+function beginLearnDeck(topicId) {
+  var intro = document.getElementById('learn-intro-' + topicId);
+  if (intro) intro.style.display = 'none';
+  // Special case: asma uses grid not card deck
+  if (topicId === 'asma') {
+    var deck = document.getElementById('learn-deck-asma');
+    if (deck) { deck.style.display = 'flex'; }
+    populateAsmaDeck();
+    return;
+  }
+  var deck = document.getElementById('learn-deck-' + topicId);
+  if (deck) deck.style.display = 'flex';
+  learnCurrentCard = 0;
+  renderLearnCard(topicId, 0);
+}
+
+function renderLearnCard(topicId, index) {
+  var deck = document.getElementById('learn-deck-' + topicId);
+  if (!deck) return;
+  var cards = deck.querySelectorAll('.learn-card-data');
+  var total = cards.length;
+  learnCurrentCard = Math.max(0, Math.min(index, total));
+  // Update counter
+  var counter = deck.querySelector('.learn-deck-counter');
+  if (counter) counter.textContent = learnCurrentCard < total ? 'CARD ' + (learnCurrentCard + 1) + ' OF ' + total : 'COMPLETE';
+  // Update progress bar
+  var fill = deck.querySelector('.learn-deck-fill');
+  if (fill) {
+    var pct = total > 0 ? ((learnCurrentCard < total ? learnCurrentCard : total) / total) * 100 : 100;
+    fill.style.width = Math.min(pct + (learnCurrentCard < total ? 0 : 0), 100) + '%';
+    if (learnCurrentCard >= total) fill.style.width = '100%';
+  }
+  // Show/hide cards
+  cards.forEach(function(c, i) { c.style.display = i === learnCurrentCard ? 'flex' : 'none'; });
+  // Show/hide completion
+  var complete = deck.querySelector('.learn-deck-complete');
+  if (complete) complete.style.display = learnCurrentCard >= total ? 'flex' : 'none';
+  // Nav buttons
+  var prev = deck.querySelector('.learn-nav-prev');
+  var next = deck.querySelector('.learn-nav-next');
+  if (prev) prev.disabled = learnCurrentCard === 0;
+  if (next) next.style.display = learnCurrentCard >= total ? 'none' : '';
+  // Scroll body to top
+  var body = deck.querySelector('.learn-deck-body');
+  if (body) body.scrollTop = 0;
+}
+
+function learnNav(dir) {
+  if (!learnCurrentTopic || learnCurrentTopic === 'asma') return;
+  renderLearnCard(learnCurrentTopic, learnCurrentCard + dir);
+}
+
+function restartLearnDeck(topicId) {
+  learnCurrentCard = 0;
+  renderLearnCard(topicId, 0);
+}
+
+function populateAsmaDeck() {
+  var grid = document.getElementById('asmaDeckGrid');
+  if (!grid || grid.children.length > 0) return;
+  var src = document.getElementById('asmaGrid');
+  if (src) grid.innerHTML = src.innerHTML;
+}
+
+function filterAsmaDeck(query) {
+  var q = (query || '').toLowerCase().trim();
+  var cards = document.querySelectorAll('#asmaDeckGrid .asma-card');
+  cards.forEach(function(card) {
+    var text = card.textContent.toLowerCase();
+    card.style.display = (!q || text.indexOf(q) > -1) ? '' : 'none';
+  });
+}
+
+// Legacy stub — kept so any lingering refs don't throw
+function openLearnCategory(sectionId) {
+  openLearnTopic(sectionId);
+}
+
+function closeLearnCategory() {
+  closeLearnTopic();
 }
 
 function filterLearnIndex(query) {
