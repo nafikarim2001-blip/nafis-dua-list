@@ -3199,6 +3199,18 @@ body.light .guided-nav {
   opacity: 1;
   transform: translateX(-50%) translateY(0);
 }
+
+.sec-sub-header {
+  font-family: var(--fn);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin: 28px 0 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--bdr);
+}
 </style>
 </head>
 <body>
@@ -4573,6 +4585,17 @@ body.light .guided-nav {
         </div>
         <div class="duas-cat-badge">1</div>
         <div class="duas-cat-arrow">›</div>
+      </button>
+
+      <div class="duas-cat-section-header" data-cat-header>SPECIAL OCCASIONS</div>
+
+      <button class="duas-cat-row" data-cat-title="dhul hijjah arafah eid adha ten days qurbani" onclick="openDuasCategory('dhulhijjah-duas')">
+        <span class="duas-cat-icon">🕋</span>
+        <span class="duas-cat-info">
+          <span class="duas-cat-title">Dhul Hijjah &amp; Arafah</span>
+          <span class="duas-cat-sub">The 10 best days — Arafah — Eid al-Adha</span>
+        </span>
+        <span class="duas-cat-arrow">›</span>
       </button>
 
     </div>
@@ -5998,6 +6021,303 @@ body.light .guided-nav {
   </section>
   </div>
 
+<section class="sec" id="dhulhijjah-duas">
+  <div class="sec-h">
+    <div class="si">🕋</div>
+    <div><span class="st">Dhul Hijjah & Arafah</span><span class="ss">The 10 best days of the year</span></div>
+  </div>
+
+  <div class="note">
+    The Prophet ﷺ said: <em>"There are no days in which righteous deeds are more beloved to Allah than these ten days."</em> — <strong>Sahih al-Bukhari (969)</strong>. Increase in du'a, dhikr, fasting, Qur'an and Sadaqah throughout these blessed days.
+  </div>
+
+  <!-- SUB-HEADER: ARAFAH DUAS -->
+  <div class="sec-sub-header">🌟 Yawm Arafah — Day of Arafah (9th Dhul Hijjah)</div>
+
+  <div class="dua-card" data-title="Best Du'a of Arafah — 1×" data-ar="لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ" data-tr="Lā ilāha illallāhu waḥdahu lā sharīka lah lahul-mulku wa lahul-ḥamdu wa Huwa ʿalā kulli shayʾin Qadīr" data-en="There is no god but Allah alone, with no partner. His is the dominion and His is all praise and He is over all things capable." data-src="Tirmidhi (3585) — Hasan">
+    <div class="dua-card-header">
+      <span class="dua-label">Best Du'a of Arafah — 1×</span>
+      <div class="dua-card-actions">
+        <button class="dua-fav-btn" onclick="toggleFav(this)" aria-label="Favourite">☆</button>
+        <button class="dua-share-btn" onclick="openShareSheet(this)" aria-label="Share">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="ar">لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ</div>
+    <div class="tr">Lā ilāha illallāhu waḥdahu lā sharīka lah lahul-mulku wa lahul-ḥamdu wa Huwa ʿalā kulli shayʾin Qadīr</div>
+    <div class="en">"There is no god but Allah alone, with no partner. His is the dominion and His is all praise and He is over all things capable."</div>
+    <div class="src">Source: <b>Tirmidhi (3585) — Hasan</b></div>
+    <div class="note">The Prophet ﷺ said: <em>"The best du'a is the du'a of the Day of Arafah and the best thing I and the Prophets before me have said is this."</em> Repeat this abundantly throughout the entire day of Arafah.</div>
+    <div class="dua-share-footer"><button class="dua-share-btn" onclick="openShareSheet(this)" style="width:100%;justify-content:center;padding:10px;border:1px solid var(--bdr);border-radius:10px;gap:8px;display:flex;align-items:center;color:var(--text-m);background:var(--gold-f);font-family:var(--fn);font-size:13px;letter-spacing:0.05em;">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      SHARE THIS DUA</button></div>
+  </div>
+
+  <div class="dua-card" data-title="Du'a of Yunus ﷺ" data-ar="لَّا إِلَٰهَ إِلَّا أَنتَ سُبْحَانَكَ إِنِّي كُنتُ مِنَ الظَّالِمِينَ" data-tr="Lā ilāha illā Anta subḥānaka innī kuntu minaẓ-ẓālimīn" data-en="There is no god but You. Glory be to You. Indeed I have been of the wrongdoers." data-src="Surah Al-Anbiya (21:87)">
+    <div class="dua-card-header">
+      <span class="dua-label">Du'a of Yunus ﷺ</span>
+      <div class="dua-card-actions">
+        <button class="dua-fav-btn" onclick="toggleFav(this)" aria-label="Favourite">☆</button>
+        <button class="dua-share-btn" onclick="openShareSheet(this)" aria-label="Share"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></button>
+      </div>
+    </div>
+    <div class="ar">لَّا إِلَٰهَ إِلَّا أَنتَ سُبْحَانَكَ إِنِّي كُنتُ مِنَ الظَّالِمِينَ</div>
+    <div class="tr">Lā ilāha illā Anta subḥānaka innī kuntu minaẓ-ẓālimīn</div>
+    <div class="en">"There is no god but You. Glory be to You. Indeed I have been of the wrongdoers."</div>
+    <div class="src">Source: <b>Surah Al-Anbiya (21:87)</b></div>
+    <div class="note">Say this on Arafah day and in any time of difficulty. Guaranteed to be answered — Allah rescued Yunus ﷺ from the belly of the whale with this du'a.</div>
+    <div class="dua-share-footer"><button class="dua-share-btn" onclick="openShareSheet(this)" style="width:100%;justify-content:center;padding:10px;border:1px solid var(--bdr);border-radius:10px;gap:8px;display:flex;align-items:center;color:var(--text-m);background:var(--gold-f);font-family:var(--fn);font-size:13px;letter-spacing:0.05em;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>SHARE THIS DUA</button></div>
+  </div>
+
+  <div class="dua-card" data-title="For Complete Forgiveness — Arafah" data-ar="اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي" data-tr="Allāhumma innaka ʿafuwwun tuḥibbul-ʿafwa faʿfu ʿannī" data-en="O Allah You are the Pardoner, You love to pardon, so pardon me." data-src="Tirmidhi (3513) — Sahih">
+    <div class="dua-card-header">
+      <span class="dua-label">For Complete Forgiveness — Arafah</span>
+      <div class="dua-card-actions">
+        <button class="dua-fav-btn" onclick="toggleFav(this)" aria-label="Favourite">☆</button>
+        <button class="dua-share-btn" onclick="openShareSheet(this)" aria-label="Share"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></button>
+      </div>
+    </div>
+    <div class="ar">اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي</div>
+    <div class="tr">Allāhumma innaka ʿafuwwun tuḥibbul-ʿafwa faʿfu ʿannī</div>
+    <div class="en">"O Allah You are the Pardoner, You love to pardon, so pardon me."</div>
+    <div class="src">Source: <b>Tirmidhi (3513) — Sahih</b></div>
+    <div class="note">Say this throughout Arafah day — especially in the afternoon. The du'a of Laylatul Qadr, equally powerful on the greatest day of the year.</div>
+    <div class="dua-share-footer"><button class="dua-share-btn" onclick="openShareSheet(this)" style="width:100%;justify-content:center;padding:10px;border:1px solid var(--bdr);border-radius:10px;gap:8px;display:flex;align-items:center;color:var(--text-m);background:var(--gold-f);font-family:var(--fn);font-size:13px;letter-spacing:0.05em;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>SHARE THIS DUA</button></div>
+  </div>
+
+  <div class="dua-card" data-title="Sayyid al-Istighfar" data-ar="اللَّهُمَّ أَنتَ رَبِّي لَا إِلَٰهَ إِلَّا أَنتَ خَلَقْتَنِي وَأَنَا عَبْدُكَ وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ وَأَبُوءُ بِذَنْبِي فَاغْفِرْ لِي فَإِنَّهُ لَا يَغْفِرُ الذُّنُوبَ إِلَّا أَنتَ" data-tr="Allāhumma Anta Rabbī lā ilāha illā Anta khalaqtanī wa anā ʿabduka wa anā ʿalā ʿahdika wa waʿdika mastaṭaʿtu aʿūdhu bika min sharri mā ṣanaʿtu abūʾu laka biniʿmatika ʿalayya wa abūʾu bidhanbī faghfirlī fa innahu lā yaghfirudh-dhunūba illā Ant" data-en="O Allah You are my Lord, there is no god but You. You created me and I am Your servant. I uphold Your covenant as best I can. I seek refuge from the evil of what I have done. I acknowledge Your favour and confess my sin — forgive me, for none forgives sins except You." data-src="Sahih al-Bukhari (6306)">
+    <div class="dua-card-header">
+      <span class="dua-label">Sayyid al-Istighfar — Master of Forgiveness</span>
+      <div class="dua-card-actions">
+        <button class="dua-fav-btn" onclick="toggleFav(this)" aria-label="Favourite">☆</button>
+        <button class="dua-share-btn" onclick="openShareSheet(this)" aria-label="Share"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></button>
+      </div>
+    </div>
+    <div class="ar sm">اللَّهُمَّ أَنتَ رَبِّي لَا إِلَٰهَ إِلَّا أَنتَ خَلَقْتَنِي وَأَنَا عَبْدُكَ وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ وَأَبُوءُ بِذَنْبِي فَاغْفِرْ لِي فَإِنَّهُ لَا يَغْفِرُ الذُّنُوبَ إِلَّا أَنتَ</div>
+    <div class="tr">Allāhumma Anta Rabbī lā ilāha illā Anta khalaqtanī wa anā ʿabduka wa anā ʿalā ʿahdika wa waʿdika mastaṭaʿtu aʿūdhu bika min sharri mā ṣanaʿtu abūʾu laka biniʿmatika ʿalayya wa abūʾu bidhanbī faghfirlī fa innahu lā yaghfirudh-dhunūba illā Ant</div>
+    <div class="en">"O Allah You are my Lord, there is no god but You. You created me and I am Your servant. I uphold Your covenant as best I can. I seek refuge from the evil of what I have done. I acknowledge Your favour and confess my sin — forgive me, for none forgives sins except You."</div>
+    <div class="src">Source: <b>Sahih al-Bukhari (6306)</b></div>
+    <div class="note">The Master of Istighfar. Whoever says this in the morning with conviction and dies that day enters Jannah. Same for the evening. Say morning and evening of Arafah — and throughout the day.</div>
+    <div class="dua-share-footer"><button class="dua-share-btn" onclick="openShareSheet(this)" style="width:100%;justify-content:center;padding:10px;border:1px solid var(--bdr);border-radius:10px;gap:8px;display:flex;align-items:center;color:var(--text-m);background:var(--gold-f);font-family:var(--fn);font-size:13px;letter-spacing:0.05em;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>SHARE THIS DUA</button></div>
+  </div>
+
+  <div class="dua-card" data-title="For Good in Both Worlds — Most Recited Du'a of the Prophet ﷺ" data-ar="رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ" data-tr="Rabbanā ātinā fid-dunyā ḥasanatan wa fil-ākhirati ḥasanatan wa qinā ʿadhāban-nār" data-en="Our Lord give us good in this world and good in the Hereafter and protect us from the punishment of the Fire." data-src="Surah Al-Baqarah (2:201)">
+    <div class="dua-card-header">
+      <span class="dua-label">For Good in Both Worlds — 1×</span>
+      <div class="dua-card-actions">
+        <button class="dua-fav-btn" onclick="toggleFav(this)" aria-label="Favourite">☆</button>
+        <button class="dua-share-btn" onclick="openShareSheet(this)" aria-label="Share"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></button>
+      </div>
+    </div>
+    <div class="ar">رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ</div>
+    <div class="tr">Rabbanā ātinā fid-dunyā ḥasanatan wa fil-ākhirati ḥasanatan wa qinā ʿadhāban-nār</div>
+    <div class="en">"Our Lord give us good in this world and good in the Hereafter and protect us from the punishment of the Fire."</div>
+    <div class="src">Source: <b>Surah Al-Baqarah (2:201)</b></div>
+    <div class="note">This was the most frequent du'a of the Prophet ﷺ on Arafah. It covers everything — dunya, akhirah, and protection from the Fire in three short lines.</div>
+    <div class="dua-share-footer"><button class="dua-share-btn" onclick="openShareSheet(this)" style="width:100%;justify-content:center;padding:10px;border:1px solid var(--bdr);border-radius:10px;gap:8px;display:flex;align-items:center;color:var(--text-m);background:var(--gold-f);font-family:var(--fn);font-size:13px;letter-spacing:0.05em;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>SHARE THIS DUA</button></div>
+  </div>
+
+  <div class="dua-card" data-title="For Comprehensive Forgiveness — Arafah" data-ar="اللَّهُمَّ اغْفِرْ لِي ذَنْبِي كُلَّهُ دِقَّهُ وَجِلَّهُ وَأَوَّلَهُ وَآخِرَهُ وَعَلَانِيَتَهُ وَسِرَّهُ" data-tr="Allāhumma ighfir lī dhanbī kullahu diqqahu wa jillahu wa awwalahu wa ākhirahu wa ʿalāniyatahu wa sirrahu" data-en="O Allah forgive all my sins — the small and great, first and last, public and secret." data-src="Sahih Muslim (483)">
+    <div class="dua-card-header">
+      <span class="dua-label">For Comprehensive Forgiveness — 1×</span>
+      <div class="dua-card-actions">
+        <button class="dua-fav-btn" onclick="toggleFav(this)" aria-label="Favourite">☆</button>
+        <button class="dua-share-btn" onclick="openShareSheet(this)" aria-label="Share"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></button>
+      </div>
+    </div>
+    <div class="ar">اللَّهُمَّ اغْفِرْ لِي ذَنْبِي كُلَّهُ دِقَّهُ وَجِلَّهُ وَأَوَّلَهُ وَآخِرَهُ وَعَلَانِيَتَهُ وَسِرَّهُ</div>
+    <div class="tr">Allāhumma ighfir lī dhanbī kullahu diqqahu wa jillahu wa awwalahu wa ākhirahu wa ʿalāniyatahu wa sirrahu</div>
+    <div class="en">"O Allah forgive all my sins — the small and great, first and last, public and secret."</div>
+    <div class="src">Source: <b>Sahih Muslim (483)</b></div>
+    <div class="note">Pour your heart into this on Arafah. Every category of sin covered — nothing left unasked. One of the most comprehensive forgiveness duas in the Sunnah.</div>
+    <div class="dua-share-footer"><button class="dua-share-btn" onclick="openShareSheet(this)" style="width:100%;justify-content:center;padding:10px;border:1px solid var(--bdr);border-radius:10px;gap:8px;display:flex;align-items:center;color:var(--text-m);background:var(--gold-f);font-family:var(--fn);font-size:13px;letter-spacing:0.05em;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>SHARE THIS DUA</button></div>
+  </div>
+
+  <div class="dua-card" data-title="For Protection from the Fire — 7×" data-ar="اللَّهُمَّ أَجِرْنِي مِنَ النَّارِ" data-tr="Allāhumma ajirnī minan-nār" data-en="O Allah protect me from the Fire." data-src="Abu Dawud (5079) — Sahih">
+    <div class="dua-card-header">
+      <span class="dua-label">For Protection from the Fire — 7×</span>
+      <div class="dua-card-actions">
+        <button class="dua-fav-btn" onclick="toggleFav(this)" aria-label="Favourite">☆</button>
+        <button class="dua-share-btn" onclick="openShareSheet(this)" aria-label="Share"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></button>
+      </div>
+    </div>
+    <div class="ar">اللَّهُمَّ أَجِرْنِي مِنَ النَّارِ</div>
+    <div class="tr">Allāhumma ajirnī minan-nār</div>
+    <div class="en">"O Allah protect me from the Fire."</div>
+    <div class="src">Source: <b>Abu Dawud (5079) — Sahih</b></div>
+    <div class="note">Say 7 times in the morning and evening of Arafah. Whoever says this 7 times — the Fire will say "O Allah protect this person from me." Morning and evening of every day.</div>
+    <div class="dua-share-footer"><button class="dua-share-btn" onclick="openShareSheet(this)" style="width:100%;justify-content:center;padding:10px;border:1px solid var(--bdr);border-radius:10px;gap:8px;display:flex;align-items:center;color:var(--text-m);background:var(--gold-f);font-family:var(--fn);font-size:13px;letter-spacing:0.05em;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>SHARE THIS DUA</button></div>
+  </div>
+
+  <div class="dua-card" data-title="For All Good — Comprehensive" data-ar="اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنَ الْخَيْرِ كُلِّهِ عَاجِلِهِ وَآجِلِهِ مَا عَلِمْتُ مِنْهُ وَمَا لَمْ أَعْلَمْ وَأَعُوذُ بِكَ مِنَ الشَّرِّ كُلِّهِ عَاجِلِهِ وَآجِلِهِ مَا عَلِمْتُ مِنْهُ وَمَا لَمْ أَعْلَمْ" data-tr="Allāhumma innī asʾaluka minal-khayri kullihī ʿājilihī wa ājilihī mā ʿalimtu minhu wa mā lam aʿlam wa aʿūdhu bika minash-sharri kullihī ʿājilihī wa ājilihī mā ʿalimtu minhu wa mā lam aʿlam" data-en="O Allah I ask You for all good — immediate and future, known and unknown to me. And I seek refuge from all evil — immediate and future, known and unknown to me." data-src="Sahih Muslim (2721)">
+    <div class="dua-card-header">
+      <span class="dua-label">For All Good — Comprehensive</span>
+      <div class="dua-card-actions">
+        <button class="dua-fav-btn" onclick="toggleFav(this)" aria-label="Favourite">☆</button>
+        <button class="dua-share-btn" onclick="openShareSheet(this)" aria-label="Share"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></button>
+      </div>
+    </div>
+    <div class="ar sm">اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنَ الْخَيْرِ كُلِّهِ عَاجِلِهِ وَآجِلِهِ مَا عَلِمْتُ مِنْهُ وَمَا لَمْ أَعْلَمْ وَأَعُوذُ بِكَ مِنَ الشَّرِّ كُلِّهِ عَاجِلِهِ وَآجِلِهِ مَا عَلِمْتُ مِنْهُ وَمَا لَمْ أَعْلَمْ</div>
+    <div class="tr">Allāhumma innī asʾaluka minal-khayri kullihī ʿājilihī wa ājilihī mā ʿalimtu minhu wa mā lam aʿlam wa aʿūdhu bika minash-sharri kullihī ʿājilihī wa ājilihī mā ʿalimtu minhu wa mā lam aʿlam</div>
+    <div class="en">"O Allah I ask You for all good — immediate and future, known and unknown to me. And I seek refuge from all evil — immediate and future, known and unknown to me."</div>
+    <div class="src">Source: <b>Sahih Muslim (2721)</b></div>
+    <div class="note">Covers every good you could ever need and every evil you could ever fear — in one du'a. Say this throughout Arafah day.</div>
+    <div class="dua-share-footer"><button class="dua-share-btn" onclick="openShareSheet(this)" style="width:100%;justify-content:center;padding:10px;border:1px solid var(--bdr);border-radius:10px;gap:8px;display:flex;align-items:center;color:var(--text-m);background:var(--gold-f);font-family:var(--fn);font-size:13px;letter-spacing:0.05em;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>SHARE THIS DUA</button></div>
+  </div>
+
+  <div class="dua-card" data-title="For Jannah and Protection from Fire" data-ar="اللَّهُمَّ إِنِّي أَسْأَلُكَ الْجَنَّةَ وَمَا قَرَّبَ إِلَيْهَا مِنْ قَوْلٍ أَوْ عَمَلٍ وَأَعُوذُ بِكَ مِنَ النَّارِ وَمَا قَرَّبَ إِلَيْهَا مِنْ قَوْلٍ أَوْ عَمَلٍ" data-tr="Allāhumma innī asʾalukal-jannata wa mā qarraba ilayhā min qawlin aw ʿamal wa aʿūdhu bika minan-nāri wa mā qarraba ilayhā min qawlin aw ʿamal" data-en="O Allah I ask You for Paradise and whatever brings me near to it, and I seek refuge from the Fire and whatever brings me near to it." data-src="Ibn Majah (3846) — Sahih">
+    <div class="dua-card-header">
+      <span class="dua-label">For Jannah and Protection from Fire</span>
+      <div class="dua-card-actions">
+        <button class="dua-fav-btn" onclick="toggleFav(this)" aria-label="Favourite">☆</button>
+        <button class="dua-share-btn" onclick="openShareSheet(this)" aria-label="Share"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></button>
+      </div>
+    </div>
+    <div class="ar sm">اللَّهُمَّ إِنِّي أَسْأَلُكَ الْجَنَّةَ وَمَا قَرَّبَ إِلَيْهَا مِنْ قَوْلٍ أَوْ عَمَلٍ وَأَعُوذُ بِكَ مِنَ النَّارِ وَمَا قَرَّبَ إِلَيْهَا مِنْ قَوْلٍ أَوْ عَمَلٍ</div>
+    <div class="tr">Allāhumma innī asʾalukal-jannata wa mā qarraba ilayhā min qawlin aw ʿamal wa aʿūdhu bika minan-nāri wa mā qarraba ilayhā min qawlin aw ʿamal</div>
+    <div class="en">"O Allah I ask You for Paradise and whatever brings me near to it, and I seek refuge from the Fire and whatever brings me near to it."</div>
+    <div class="src">Source: <b>Ibn Majah (3846) — Sahih</b></div>
+    <div class="note">Say this explicitly on Arafah — with full heart. This is the ultimate ask. Ask for Jannah directly.</div>
+    <div class="dua-share-footer"><button class="dua-share-btn" onclick="openShareSheet(this)" style="width:100%;justify-content:center;padding:10px;border:1px solid var(--bdr);border-radius:10px;gap:8px;display:flex;align-items:center;color:var(--text-m);background:var(--gold-f);font-family:var(--fn);font-size:13px;letter-spacing:0.05em;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>SHARE THIS DUA</button></div>
+  </div>
+
+  <div class="dua-card" data-title="Ya Hayyu Ya Qayyum — Arafah" data-ar="يَا حَيُّ يَا قَيُّومُ بِرَحْمَتِكَ أَسْتَغِيثُ أَصْلِحْ لِي شَأْنِي كُلَّهُ وَلَا تَكِلْنِي إِلَى نَفْسِي طَرْفَةَ عَيْنٍ" data-tr="Yā Ḥayyu Yā Qayyūm bi-raḥmatika astaghīth aṣliḥ lī shaʾnī kullahu wa lā takilnī ilā nafsī ṭarfata ʿayn" data-en="O Ever-Living O Sustainer, by Your mercy I seek help. Rectify all my affairs and do not entrust me to myself even for a blink." data-src="Al-Nasa'i — Sahih">
+    <div class="dua-card-header">
+      <span class="dua-label">Yā Ḥayyu Yā Qayyūm — Arafah</span>
+      <div class="dua-card-actions">
+        <button class="dua-fav-btn" onclick="toggleFav(this)" aria-label="Favourite">☆</button>
+        <button class="dua-share-btn" onclick="openShareSheet(this)" aria-label="Share"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></button>
+      </div>
+    </div>
+    <div class="ar">يَا حَيُّ يَا قَيُّومُ بِرَحْمَتِكَ أَسْتَغِيثُ أَصْلِحْ لِي شَأْنِي كُلَّهُ وَلَا تَكِلْنِي إِلَى نَفْسِي طَرْفَةَ عَيْنٍ</div>
+    <div class="tr">Yā Ḥayyu Yā Qayyūm bi-raḥmatika astaghīth aṣliḥ lī shaʾnī kullahu wa lā takilnī ilā nafsī ṭarfata ʿayn</div>
+    <div class="en">"O Ever-Living O Sustainer, by Your mercy I seek help. Rectify all my affairs and do not entrust me to myself even for a blink."</div>
+    <div class="src">Source: <b>Al-Nasa'i — Sahih</b></div>
+    <div class="note">Especially powerful in the afternoon of Arafah when du'a is most accepted. Ask Allah to fix every single affair.</div>
+    <div class="dua-share-footer"><button class="dua-share-btn" onclick="openShareSheet(this)" style="width:100%;justify-content:center;padding:10px;border:1px solid var(--bdr);border-radius:10px;gap:8px;display:flex;align-items:center;color:var(--text-m);background:var(--gold-f);font-family:var(--fn);font-size:13px;letter-spacing:0.05em;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>SHARE THIS DUA</button></div>
+  </div>
+
+  <div class="dua-card" data-title="For Acceptance — Closing Du'a" data-ar="رَبَّنَا تَقَبَّلْ مِنَّا إِنَّكَ أَنتَ السَّمِيعُ الْعَلِيمُ" data-tr="Rabbanā taqabbal minnā innaka Antas-Samīʿul-ʿAlīm" data-en="Our Lord accept from us — You are the All-Hearing the All-Knowing." data-src="Surah Al-Baqarah (2:127)">
+    <div class="dua-card-header">
+      <span class="dua-label">For Acceptance — Closing Du'a</span>
+      <div class="dua-card-actions">
+        <button class="dua-fav-btn" onclick="toggleFav(this)" aria-label="Favourite">☆</button>
+        <button class="dua-share-btn" onclick="openShareSheet(this)" aria-label="Share"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></button>
+      </div>
+    </div>
+    <div class="ar">رَبَّنَا تَقَبَّلْ مِنَّا إِنَّكَ أَنتَ السَّمِيعُ الْعَلِيمُ</div>
+    <div class="tr">Rabbanā taqabbal minnā innaka Antas-Samīʿul-ʿAlīm</div>
+    <div class="en">"Our Lord accept from us — You are the All-Hearing the All-Knowing."</div>
+    <div class="src">Source: <b>Surah Al-Baqarah (2:127)</b></div>
+    <div class="note">End every du'a session with this throughout Dhul Hijjah. The du'a of Ibrahim ﷺ after building the Ka'bah — seal every session asking for acceptance.</div>
+    <div class="dua-share-footer"><button class="dua-share-btn" onclick="openShareSheet(this)" style="width:100%;justify-content:center;padding:10px;border:1px solid var(--bdr);border-radius:10px;gap:8px;display:flex;align-items:center;color:var(--text-m);background:var(--gold-f);font-family:var(--fn);font-size:13px;letter-spacing:0.05em;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>SHARE THIS DUA</button></div>
+  </div>
+
+  <!-- SUB-HEADER: EID DUAS -->
+  <div class="sec-sub-header">🎉 Eid al-Adha Duas</div>
+
+  <div class="dua-card" data-title="Takbir al-Tashriq — After Every Fard Prayer" data-ar="اللَّهُ أَكْبَرُ اللَّهُ أَكْبَرُ لَا إِلَٰهَ إِلَّا اللَّهُ وَاللَّهُ أَكْبَرُ اللَّهُ أَكْبَرُ وَلِلَّهِ الْحَمْدُ" data-tr="Allāhu Akbar Allāhu Akbar lā ilāha illallāhu wallāhu Akbar Allāhu Akbar wa lillāhil-ḥamd" data-en="Allah is the Greatest, Allah is the Greatest. There is no god but Allah. Allah is the Greatest, Allah is the Greatest and to Allah belongs all praise." data-src="Ibn Abi Shaybah, al-Bayhaqi — Wajib (Hanafi) after every fard from Fajr 9th to Asr 13th">
+    <div class="dua-card-header">
+      <span class="dua-label">Takbir al-Tashriq — After Every Fard Prayer</span>
+      <div class="dua-card-actions">
+        <button class="dua-fav-btn" onclick="toggleFav(this)" aria-label="Favourite">☆</button>
+        <button class="dua-share-btn" onclick="openShareSheet(this)" aria-label="Share"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></button>
+      </div>
+    </div>
+    <div class="ar sm">اللَّهُ أَكْبَرُ اللَّهُ أَكْبَرُ لَا إِلَٰهَ إِلَّا اللَّهُ وَاللَّهُ أَكْبَرُ اللَّهُ أَكْبَرُ وَلِلَّهِ الْحَمْدُ</div>
+    <div class="tr">Allāhu Akbar Allāhu Akbar lā ilāha illallāhu wallāhu Akbar Allāhu Akbar wa lillāhil-ḥamd</div>
+    <div class="en">"Allah is the Greatest, Allah is the Greatest. There is no god but Allah. Allah is the Greatest, Allah is the Greatest and to Allah belongs all praise."</div>
+    <div class="src">Source: <b>Ibn Abi Shaybah, al-Bayhaqi</b></div>
+    <div class="note">Wājib (Hanafi) after every fard salah — said once immediately after salam. Begins Fajr of 9th Dhul Hijjah, ends Asr of 13th — 23 prayers total. Say loudly after every salah.</div>
+    <div class="dua-share-footer"><button class="dua-share-btn" onclick="openShareSheet(this)" style="width:100%;justify-content:center;padding:10px;border:1px solid var(--bdr);border-radius:10px;gap:8px;display:flex;align-items:center;color:var(--text-m);background:var(--gold-f);font-family:var(--fn);font-size:13px;letter-spacing:0.05em;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>SHARE THIS DUA</button></div>
+  </div>
+
+  <div class="dua-card" data-title="Du'a When Slaughtering Qurbani" data-ar="بِسْمِ اللَّهِ وَاللَّهُ أَكْبَرُ اللَّهُمَّ هَذَا مِنكَ وَلَكَ" data-tr="Bismillāhi wallāhu Akbar · Allāhumma hādhā minka wa lak" data-en="In the name of Allah and Allah is the Greatest. O Allah this is from You and for You." data-src="Sahih Muslim (1966)">
+    <div class="dua-card-header">
+      <span class="dua-label">Du'a When Slaughtering Qurbani</span>
+      <div class="dua-card-actions">
+        <button class="dua-fav-btn" onclick="toggleFav(this)" aria-label="Favourite">☆</button>
+        <button class="dua-share-btn" onclick="openShareSheet(this)" aria-label="Share"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></button>
+      </div>
+    </div>
+    <div class="ar">بِسْمِ اللَّهِ وَاللَّهُ أَكْبَرُ اللَّهُمَّ هَذَا مِنكَ وَلَكَ</div>
+    <div class="tr">Bismillāhi wallāhu Akbar · Allāhumma hādhā minka wa lak</div>
+    <div class="en">"In the name of Allah and Allah is the Greatest. O Allah this is from You and for You."</div>
+    <div class="src">Source: <b>Sahih Muslim (1966)</b></div>
+    <div class="note">Say at the moment of slaughter — face the animal toward the Qibla. The acknowledgment "from You and for You" is the essence of Qurbani — returning Allah's provision back to Him.</div>
+    <div class="dua-share-footer"><button class="dua-share-btn" onclick="openShareSheet(this)" style="width:100%;justify-content:center;padding:10px;border:1px solid var(--bdr);border-radius:10px;gap:8px;display:flex;align-items:center;color:var(--text-m);background:var(--gold-f);font-family:var(--fn);font-size:13px;letter-spacing:0.05em;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>SHARE THIS DUA</button></div>
+  </div>
+
+  <div class="dua-card" data-title="Eid Greeting — Sunnah of the Sahabah" data-ar="تَقَبَّلَ اللَّهُ مِنَّا وَمِنكُمْ" data-tr="Taqabbalallāhu minnā wa minkum" data-en="May Allah accept from us and from you." data-src="Ibn Hajar in Fath al-Bari — practice of the Sahabah">
+    <div class="dua-card-header">
+      <span class="dua-label">Eid Greeting — Sunnah of the Sahabah</span>
+      <div class="dua-card-actions">
+        <button class="dua-fav-btn" onclick="toggleFav(this)" aria-label="Favourite">☆</button>
+        <button class="dua-share-btn" onclick="openShareSheet(this)" aria-label="Share"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></button>
+      </div>
+    </div>
+    <div class="ar">تَقَبَّلَ اللَّهُ مِنَّا وَمِنكُمْ</div>
+    <div class="tr">Taqabbalallāhu minnā wa minkum</div>
+    <div class="en">"May Allah accept from us and from you."</div>
+    <div class="src">Source: <b>Ibn Hajar in Fath al-Bari — practice of the Sahabah</b></div>
+    <div class="note">The greeting of the Sahabah on Eid — say this to every Muslim you meet on Eid day. More authentic than "Eid Mubarak" alone.</div>
+    <div class="dua-share-footer"><button class="dua-share-btn" onclick="openShareSheet(this)" style="width:100%;justify-content:center;padding:10px;border:1px solid var(--bdr);border-radius:10px;gap:8px;display:flex;align-items:center;color:var(--text-m);background:var(--gold-f);font-family:var(--fn);font-size:13px;letter-spacing:0.05em;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>SHARE THIS DUA</button></div>
+  </div>
+
+  <!-- SUB-HEADER: DAILY 10 DAYS DUAS -->
+  <div class="sec-sub-header">📿 Daily Dhikr — All 10 Days</div>
+
+  <div class="dua-card" data-title="The Four Dhikr — Say Throughout the 10 Days" data-ar="سُبْحَانَ اللَّهِ وَالْحَمْدُ لِلَّهِ وَلَا إِلَٰهَ إِلَّا اللَّهُ وَاللَّهُ أَكْبَرُ" data-tr="SubḥānAllāhi wal-ḥamdulillāhi wa lā ilāha illallāhu wallāhu Akbar" data-en="Glory be to Allah, all praise is to Allah, there is no god but Allah, and Allah is the Greatest." data-src="Ahmad (5446) — Sahih">
+    <div class="dua-card-header">
+      <span class="dua-label">The Four Dhikr — Say Continuously</span>
+      <div class="dua-card-actions">
+        <button class="dua-fav-btn" onclick="toggleFav(this)" aria-label="Favourite">☆</button>
+        <button class="dua-share-btn" onclick="openShareSheet(this)" aria-label="Share"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></button>
+      </div>
+    </div>
+    <div class="ar">سُبْحَانَ اللَّهِ وَالْحَمْدُ لِلَّهِ وَلَا إِلَٰهَ إِلَّا اللَّهُ وَاللَّهُ أَكْبَرُ</div>
+    <div class="tr">SubḥānAllāhi wal-ḥamdulillāhi wa lā ilāha illallāhu wallāhu Akbar</div>
+    <div class="en">"Glory be to Allah, all praise is to Allah, there is no god but Allah, and Allah is the greatest."</div>
+    <div class="src">Source: <b>Ahmad (5446) — Sahih</b></div>
+    <div class="note">The Prophet ﷺ commanded increasing in Tahleel, Takbeer and Tahmid in these days. Say this continuously — walking, commuting, working. These are the most beloved deeds to Allah in the 10 days.</div>
+    <div class="dua-share-footer"><button class="dua-share-btn" onclick="openShareSheet(this)" style="width:100%;justify-content:center;padding:10px;border:1px solid var(--bdr);border-radius:10px;gap:8px;display:flex;align-items:center;color:var(--text-m);background:var(--gold-f);font-family:var(--fn);font-size:13px;letter-spacing:0.05em;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>SHARE THIS DUA</button></div>
+  </div>
+
+  <div class="dua-card" data-title="SubhanAllahi wa bihamdih — 100×" data-ar="سُبْحَانَ اللَّهِ وَبِحَمْدِهِ" data-tr="SubḥānAllāhi wa biḥamdih" data-en="Glory be to Allah and His praise." data-src="Sahih Muslim (2692)">
+    <div class="dua-card-header">
+      <span class="dua-label">SubhanAllahi wa bihamdih — 100×</span>
+      <div class="dua-card-actions">
+        <button class="dua-fav-btn" onclick="toggleFav(this)" aria-label="Favourite">☆</button>
+        <button class="dua-share-btn" onclick="openShareSheet(this)" aria-label="Share"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></button>
+      </div>
+    </div>
+    <div class="ar">سُبْحَانَ اللَّهِ وَبِحَمْدِهِ</div>
+    <div class="tr">SubḥānAllāhi wa biḥamdih</div>
+    <div class="en">"Glory be to Allah and His praise."</div>
+    <div class="src">Source: <b>Sahih Muslim (2692)</b></div>
+    <div class="note">The Prophet ﷺ said: "Whoever says this 100 times — his sins will be erased even if they are like the foam of the sea." Say 100 times every morning and evening of the 10 days.</div>
+    <div class="dua-share-footer"><button class="dua-share-btn" onclick="openShareSheet(this)" style="width:100%;justify-content:center;padding:10px;border:1px solid var(--bdr);border-radius:10px;gap:8px;display:flex;align-items:center;color:var(--text-m);background:var(--gold-f);font-family:var(--fn);font-size:13px;letter-spacing:0.05em;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>SHARE THIS DUA</button></div>
+  </div>
+
+  <div class="dua-card" data-title="Istighfar — 100× Daily" data-ar="أَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ" data-tr="Astaghfirullāha wa atūbu ilayh" data-en="I seek forgiveness from Allah and repent to Him." data-src="Sahih al-Bukhari (6307)">
+    <div class="dua-card-header">
+      <span class="dua-label">Istighfar — 100× Daily</span>
+      <div class="dua-card-actions">
+        <button class="dua-fav-btn" onclick="toggleFav(this)" aria-label="Favourite">☆</button>
+        <button class="dua-share-btn" onclick="openShareSheet(this)" aria-label="Share"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></button>
+      </div>
+    </div>
+    <div class="ar">أَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ</div>
+    <div class="tr">Astaghfirullāha wa atūbu ilayh</div>
+    <div class="en">"I seek forgiveness from Allah and repent to Him."</div>
+    <div class="src">Source: <b>Sahih al-Bukhari (6307)</b></div>
+    <div class="note">The Prophet ﷺ would say this 100 times a day. Say 100 times every morning and evening of the 10 days. The easiest deed — the highest return.</div>
+    <div class="dua-share-footer"><button class="dua-share-btn" onclick="openShareSheet(this)" style="width:100%;justify-content:center;padding:10px;border:1px solid var(--bdr);border-radius:10px;gap:8px;display:flex;align-items:center;color:var(--text-m);background:var(--gold-f);font-family:var(--fn);font-size:13px;letter-spacing:0.05em;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>SHARE THIS DUA</button></div>
+  </div>
+
+</section>
+
 </div><!-- end duas-view -->
 
 
@@ -6575,97 +6895,254 @@ body.light .guided-nav {
   <div class="divider"><div class="dl"></div><div class="dg"></div><div class="dl"></div></div>
 
 <section class="sec" id="dhulhijjah">
-    <div class="sec-h">
-      <div class="si">🕋</div>
-      <div><span class="st">First Ten Days of Dhul Hijjah</span><span class="ss">The best days of the year</span></div>
-    </div>
+  <div class="sec-h">
+    <div class="si">🕋</div>
+    <div><span class="st">Dhul Hijjah — The Greatest Days</span><span class="ss">First 10 days · Arafah · Eid al-Adha · Ayyam al-Tashriq</span></div>
+  </div>
 
-    <div class="note">
-      The Prophet ﹺ said: “There are no days in which righteous deeds are more beloved to Allah than these ten days. The companions asked: Not even jihad in the path of Allah? He said: Not even jihad, except for the man who goes out with his life and wealth and returns with neither.” — <strong>Sahih al-Bukhari (969)</strong>
-    </div>
+  <div class="note">
+    The Prophet ﷺ said: <em>"There are no days in which righteous deeds are more beloved to Allah than these ten days."</em> The companions asked: <em>"Not even jihad in the way of Allah?"</em> He ﷺ said: <em>"Not even jihad — except for a man who goes out with his life and his wealth and does not return with either."</em> — <strong>Sahih al-Bukhari (969)</strong>
+  </div>
 
-    <div class="expand-wrap">
-      <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
-        <div class="et-num" style="font-size:10px;">ذكر</div>
-        <div class="et-info">
-          <div class="et-ar">اللَّهُ أَكْبَرُ الْحَمْدُ لِلَّهِ...</div>
-          <div class="et-en">The Dhikr to increase in these days</div>
-          <div class="et-virtue">Takbeer, Tahmid, Tahleel, Tasbeeh</div>
-        </div>
-        <span class="et-arrow" aria-hidden="true">▾</span>
-      </button>
-      <div class="expand-body">
-<div class="expand-inner">
-        <div class="note">The Prophet ﹺ commanded: “Increase in these days the Tahleel, Takbeer and Tahmid.”</div>
-        <div class="ar">اللَّهُ أَكْبَرُ</div>
-        <div class="tr">Allāhu Akbar — Takbeer</div>
-        <div class="ar">الْحَمْدُ لِلَّهِ</div>
-        <div class="tr">Alḥamdulillāh — Tahmid</div>
-        <div class="ar">لَا إِلَهَ إِلَّا اللَّهُ</div>
-        <div class="tr">Lā ilāha illallāh — Tahleel</div>
-        <div class="ar">سُبْحَانَ اللَّهِ</div>
-        <div class="tr">Subḥānallāh — Tasbeeh</div>
-        <div class="src">Source: <b>Ahmad (5446) — Sahih</b></div>
+  <div class="sec-sub-header">🌟 The First Ten Days</div>
+
+  <div class="expand-wrap">
+    <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
+      <div class="et-num" style="font-size:10px;">فضل</div>
+      <div class="et-info">
+        <div class="et-ar">وَالْفَجْرِ وَلَيَالٍ عَشْرٍ</div>
+        <div class="et-en">Why these days are the greatest of the year</div>
+        <div class="et-virtue">Allah swears by them in the Qur'an</div>
       </div>
-</div>
-    </div>
-
-    <div class="expand-wrap">
-      <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
-        <div class="et-num" style="font-size:10px;">تكبير</div>
-        <div class="et-info">
-          <div class="et-ar">اللَّهُ أَكْبَرُ اللَّهُ أَكْبَرُ...</div>
-          <div class="et-en">Takbeer al-Tashriq — obligatory after every fard salah</div>
-          <div class="et-virtue">Wājib — Hanafi madhab — 23 prayers total</div>
-        </div>
-        <span class="et-arrow" aria-hidden="true">▾</span>
-      </button>
-      <div class="expand-body">
-<div class="expand-inner">
-        <div class="note">Takbeer al-Tashriq is wājib (obligatory) in the Hanafi madhab. It is said once after every fard salah beginning from Fajr of the 9th of Dhul Hijjah until Asr of the 13th of Dhul Hijjah — a total of 23 prayers.</div>
-        <div class="ar sm">اللَّهُ أَكْبَرُ اللَّهُ أَكْبَرُ لَا إِلَهَ إِلَّا اللَّهُ وَاللَّهُ أَكْبَرُ اللَّهُ أَكْبَرُ وَلِلَّهِ الْحَمْدُ</div>
-        <div class="tr">Allāhu Akbar, Allāhu Akbar, lā ilāha illallāhu wallāhu Akbar, Allāhu Akbar wa lillāhil-ḥamd</div>
-        <div class="en">“Allah is the Greatest, Allah is the Greatest, there is no god but Allah and Allah is the Greatest, Allah is the Greatest and all praise belongs to Allah.”</div>
-        <div class="src">Source: <b>Ibn Abi Shaybah, al-Bayhaqi</b> — Hanafi position: obligatory, said once after every fard salah</div>
+      <span class="et-arrow" aria-hidden="true">▾</span>
+    </button>
+    <div class="expand-body">
+      <div class="expand-inner">
+        <div class="note">Allah ﷻ swears by these days in Surah Al-Fajr: <em>"By the dawn. And by the ten nights."</em> — <strong>Surah Al-Fajr (89:1-2)</strong>. Ibn Abbas, Ibn Kathir and the majority of scholars confirm these refer to the first ten days of Dhul Hijjah. When Allah swears by something it signals its immense importance.</div>
+        <div class="note">Ibn Hajar al-Asqalani (rahimahullah) said: <em>"The reason these ten days are preferred over all others is because they combine all the major acts of worship — prayer, fasting, charity, and Hajj — which does not occur in any other days."</em> — Fath al-Bari</div>
+        <div class="note">Ibn Abbas (ra) said: <em>"The ten days are more beloved to Allah for doing good deeds than any other days of the year."</em> — <strong>Sahih al-Bukhari (969)</strong></div>
       </div>
-</div>
     </div>
+  </div>
 
-    <div class="expand-wrap">
-      <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
-        <div class="et-num" style="font-size:10px;">صوم</div>
-        <div class="et-info">
-          <div class="et-ar">صَوْمُ عَرَفَةَ...</div>
-          <div class="et-en">Fasting in the first ten days</div>
-          <div class="et-virtue">Especially the 8th and 9th — Day of Arafah expiates two years</div>
-        </div>
-        <span class="et-arrow" aria-hidden="true">▾</span>
-      </button>
-      <div class="expand-body">
-<div class="expand-inner">
-        <div class="note">Fasting any of the first nine days of Dhul Hijjah is recommended. The 8th (Day of Tarwiyah) and 9th (Day of Arafah) are particularly emphasised. Fasting the Day of Arafah expiates two years of minor sins — the past year and the coming year. — <strong>Sahih Muslim (1162)</strong>. This fast is for non-pilgrims only — the pilgrim does not fast on the Day of Arafah.</div>
+  <div class="expand-wrap">
+    <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
+      <div class="et-num" style="font-size:10px;">عمل</div>
+      <div class="et-info">
+        <div class="et-ar">أعمال الأيام العشرة</div>
+        <div class="et-en">What to do in the first 10 days</div>
+        <div class="et-virtue">Fasting, dhikr, Sadaqah, Qur'an, Tawbah</div>
       </div>
-</div>
+      <span class="et-arrow" aria-hidden="true">▾</span>
+    </button>
+    <div class="expand-body">
+      <div class="expand-inner">
+        <div class="note">Increase all good deeds — every righteous act is multiplied in these days. The Prophet ﷺ commanded: <em>"Increase in these days the Tahleel, Takbeer and Tahmid."</em> — <strong>Ahmad (5446) — Sahih</strong></div>
+        <div class="note"><strong>Fast the first 9 days</strong> — especially Day 8 (Tarwiyah) and Day 9 (Arafah). Fasting Arafah expiates two years of sins. For non-pilgrims only — the pilgrim on Hajj does not fast Arafah.</div>
+        <div class="note"><strong>Do not cut hair or nails</strong> if you intend to offer Qurbani — from the 1st of Dhul Hijjah until after the animal is slaughtered. The Prophet ﷺ said: <em>"When the ten days of Dhul Hijjah begin and one of you wants to offer a sacrifice — let him not cut anything from his hair or nails until he has offered the sacrifice."</em> — <strong>Sahih Muslim (1977)</strong></div>
+        <div class="note"><strong>Give Sadaqah</strong> — charity is among the most beloved deeds. Give every single day of the 10 days.</div>
+        <div class="note"><strong>Read Qur'an abundantly</strong>, make Tawbah, pray Tahajjud — these nights are among the greatest of the year.</div>
+      </div>
     </div>
+  </div>
 
-    <div class="expand-wrap">
-      <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
-        <div class="et-num" style="font-size:10px;">أضح</div>
-        <div class="et-info">
-          <div class="et-ar">الأُضْحِيَّةُ...</div>
-          <div class="et-en">Udhiyah — the sacrifice of Eid al-Adha</div>
-          <div class="et-virtue">Wājib — Hanafi madhab — 10th–12th Dhul Hijjah</div>
-        </div>
-        <span class="et-arrow" aria-hidden="true">▾</span>
-      </button>
-      <div class="expand-body">
-<div class="expand-inner">
-        <div class="note">Udhiyah is wājib (obligatory) in the Hanafi madhab upon every adult Muslim who possesses the nisab amount and is not performing Hajj. The sacrifice must be performed on 10th, 11th, or 12th Dhul Hijjah (the 13th is also valid in the Hanafi madhab). A sheep or goat suffices for one person. A cow or camel suffices for seven people. The meat is divided into three: one third for yourself, one third for family and friends, one third for the poor.</div>
-        <div class="src">Source: <b>Sunan Abu Dawud (2788)</b>, Hanafi fiqh position</div>
+  <div class="expand-wrap">
+    <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
+      <div class="et-num" style="font-size:10px;">ذكر</div>
+      <div class="et-info">
+        <div class="et-ar">اللَّهُ أَكْبَرُ الْحَمْدُ لِلَّهِ لَا إِلَهَ إِلَّا اللَّهُ سُبْحَانَ اللَّهِ</div>
+        <div class="et-en">The four dhikr — increase abundantly</div>
+        <div class="et-virtue">Most beloved deeds in these days</div>
       </div>
-</div>
+      <span class="et-arrow" aria-hidden="true">▾</span>
+    </button>
+    <div class="expand-body">
+      <div class="expand-inner">
+        <div class="note">The Prophet ﷺ commanded increasing in these four throughout the 10 days — say them continuously while walking, working, commuting.</div>
+        <div class="ar">اللَّهُ أَكْبَرُ</div>
+        <div class="tr">Allāhu Akbar — Takbeer (Allah is Greatest)</div>
+        <div class="ar">الْحَمْدُ لِلَّهِ</div>
+        <div class="tr">Alḥamdulillāh — Tahmid (All praise to Allah)</div>
+        <div class="ar">لَا إِلَٰهَ إِلَّا اللَّهُ</div>
+        <div class="tr">Lā ilāha illallāh — Tahleel (No god but Allah)</div>
+        <div class="ar">سُبْحَانَ اللَّهِ</div>
+        <div class="tr">SubḥānAllāh — Tasbeeh (Glory be to Allah)</div>
+        <div class="src">Source: <b>Ahmad (5446) — Sahih by Ahmad Shakir</b></div>
+      </div>
     </div>
-  </section>
+  </div>
+
+  <div class="expand-wrap">
+    <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
+      <div class="et-num" style="font-size:10px;">تكبير</div>
+      <div class="et-info">
+        <div class="et-ar">اللَّهُ أَكْبَرُ اللَّهُ أَكْبَرُ لَا إِلَٰهَ إِلَّا اللَّهُ...</div>
+        <div class="et-en">Takbeer al-Tashriq — after every fard salah</div>
+        <div class="et-virtue">Wājib — Hanafi — Fajr 9th to Asr 13th — 23 prayers</div>
+      </div>
+      <span class="et-arrow" aria-hidden="true">▾</span>
+    </button>
+    <div class="expand-body">
+      <div class="expand-inner">
+        <div class="note">Takbeer al-Tashriq is <strong>wājib (obligatory)</strong> in the Hanafi madhab — said once immediately after salam of every fard salah. Begins Fajr of the 9th of Dhul Hijjah, ends Asr of the 13th — 23 prayers total. Say it loudly.</div>
+        <div class="ar sm">اللَّهُ أَكْبَرُ اللَّهُ أَكْبَرُ لَا إِلَٰهَ إِلَّا اللَّهُ وَاللَّهُ أَكْبَرُ اللَّهُ أَكْبَرُ وَلِلَّهِ الْحَمْدُ</div>
+        <div class="tr">Allāhu Akbar Allāhu Akbar lā ilāha illallāhu wallāhu Akbar Allāhu Akbar wa lillāhil-ḥamd</div>
+        <div class="en">"Allah is the Greatest, Allah is the Greatest, there is no god but Allah. Allah is the Greatest, Allah is the Greatest, and to Allah belongs all praise."</div>
+        <div class="src">Source: <b>Ibn Abi Shaybah, al-Bayhaqi</b> — Hanafi position: wājib, once after every fard</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-sub-header">🌄 Yawm Arafah — 9th Dhul Hijjah</div>
+
+  <div class="expand-wrap">
+    <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
+      <div class="et-num" style="font-size:10px;">عرفة</div>
+      <div class="et-info">
+        <div class="et-ar">يَوْمُ عَرَفَةَ</div>
+        <div class="et-en">What is Yawm Arafah?</div>
+        <div class="et-virtue">Greatest single day of the year — Allah frees people from the Fire</div>
+      </div>
+      <span class="et-arrow" aria-hidden="true">▾</span>
+    </button>
+    <div class="expand-body">
+      <div class="expand-inner">
+        <div class="note">Yawm Arafah is the 9th day of Dhul Hijjah — the day pilgrims stand on the plain of Arafah. It is the pinnacle of Hajj. The Prophet ﷺ said: <em>"Hajj is Arafah."</em> — <strong>Abu Dawud (1949), Tirmidhi (889) — Sahih</strong></div>
+        <div class="note">On this day Allah ﷻ descends to the lowest heaven and boasts to the angels: <em>"There is no day on which Allah frees more people from the Fire than the Day of Arafah. He draws near then boasts of them to the angels saying: What do these people want?"</em> — <strong>Sahih Muslim (1348)</strong></div>
+        <div class="note"><strong>For those not on Hajj:</strong> Fast this day, make du'a from Fajr to Maghrib, increase dhikr and Qur'an, give Sadaqah. The best du'a to repeat: <em>Lā ilāha illallāhu waḥdahu lā sharīka lah...</em></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="expand-wrap">
+    <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
+      <div class="et-num" style="font-size:10px;">صوم</div>
+      <div class="et-info">
+        <div class="et-ar">صَوْمُ يَوْمِ عَرَفَةَ</div>
+        <div class="et-en">Fasting Yawm Arafah — greatest fast outside Ramadan</div>
+        <div class="et-virtue">Expiates two years of sins</div>
+      </div>
+      <span class="et-arrow" aria-hidden="true">▾</span>
+    </button>
+    <div class="expand-body">
+      <div class="expand-inner">
+        <div class="note">The Prophet ﷺ was asked about fasting on the Day of Arafah. He said: <em>"It expiates the sins of the previous year and the coming year."</em> — <strong>Sahih Muslim (1162)</strong></div>
+        <div class="note">This is the single most rewarding fast outside of Ramadan. Two full years of minor sins expiated with one fast. <strong>For non-pilgrims only</strong> — those performing Hajj do not fast as they need their strength for worship on the plain of Arafah.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="expand-wrap">
+    <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
+      <div class="et-num" style="font-size:10px;">دعاء</div>
+      <div class="et-info">
+        <div class="et-ar">لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ...</div>
+        <div class="et-en">Best du'a of Arafah — repeat throughout the day</div>
+        <div class="et-virtue">Best thing the Prophets have ever said</div>
+      </div>
+      <span class="et-arrow" aria-hidden="true">▾</span>
+    </button>
+    <div class="expand-body">
+      <div class="expand-inner">
+        <div class="note">The Prophet ﷺ said: <em>"The best du'a is the du'a of the Day of Arafah. And the best thing that I and the prophets before me have said is: Lā ilāha illallāhu waḥdahu lā sharīka lah..."</em> — <strong>Tirmidhi (3585) — Hasan</strong></div>
+        <div class="ar">لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ</div>
+        <div class="tr">Lā ilāha illallāhu waḥdahu lā sharīka lah lahul-mulku wa lahul-ḥamdu wa Huwa ʿalā kulli shayʾin Qadīr</div>
+        <div class="en">"There is no god but Allah alone, with no partner. His is the dominion and His is all praise, and He is over all things capable."</div>
+        <div class="src">Source: <b>Tirmidhi (3585) — Hasan</b></div>
+        <div class="note">Repeat this abundantly throughout the entire day of Arafah — morning, afternoon, and evening. This is the best dhikr ever spoken by any prophet.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-sub-header">🐑 Eid al-Adha — 10th Dhul Hijjah</div>
+
+  <div class="expand-wrap">
+    <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
+      <div class="et-num" style="font-size:10px;">عيد</div>
+      <div class="et-info">
+        <div class="et-ar">عِيدُ الْأَضْحَى</div>
+        <div class="et-en">What is Eid al-Adha?</div>
+        <div class="et-virtue">Festival of Sacrifice — commemorating Ibrahim ﷺ</div>
+      </div>
+      <span class="et-arrow" aria-hidden="true">▾</span>
+    </button>
+    <div class="expand-body">
+      <div class="expand-inner">
+        <div class="note">Eid al-Adha commemorates the willingness of Ibrahim ﷺ to sacrifice his son Ismail ﷺ in obedience to Allah ﷻ, before Allah replaced the sacrifice with a ram. Allah ﷻ says: <em>"Their meat will not reach Allah nor will their blood, but what reaches Him is piety from you."</em> — <strong>Surah Al-Hajj (22:37)</strong></div>
+        <div class="note"><strong>Sunnah acts of Eid:</strong> Perform ghusl, wear best clothes, go to the Eid prayer. On Eid al-Adha eat after the prayer — not before. Take a different route back from the prayer ground. Say the Takbir aloud on the way.</div>
+        <div class="note"><strong>Eid greeting:</strong> The Sahabah used to say to one another: <em>Taqabbalallāhu minnā wa minkum</em> — May Allah accept from us and from you. — <strong>Ibn Hajar in Fath al-Bari</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="expand-wrap">
+    <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
+      <div class="et-num" style="font-size:10px;">أضح</div>
+      <div class="et-info">
+        <div class="et-ar">الأُضْحِيَّةُ — الْقُرْبَانُ</div>
+        <div class="et-en">Udhiyah — Qurbani — complete ruling</div>
+        <div class="et-virtue">Wājib — Hanafi — on every Muslim of means</div>
+      </div>
+      <span class="et-arrow" aria-hidden="true">▾</span>
+    </button>
+    <div class="expand-body">
+      <div class="expand-inner">
+        <div class="note">The Prophet ﷺ said: <em>"Whoever has the means and does not offer a sacrifice — let him not approach our place of prayer."</em> — <strong>Ibn Majah (3123) — Hasan</strong></div>
+        <div class="note"><strong>Ruling by madhab:</strong> Wājib (obligatory) — Hanafi. Sunnah Mu'akkadah (strongly emphasised) — Maliki, Shafi'i, Hanbali. In the Hanafi madhab it is obligatory upon every adult Muslim who possesses the nisab amount on Eid day.</div>
+        <div class="note"><strong>Valid animals and shares:</strong> Sheep or goat = 1 household. Cow, buffalo, or camel = 7 shares. Minimum age: sheep 6 months, goat 1 year, cow 2 years, camel 5 years.</div>
+        <div class="note"><strong>When to slaughter:</strong> After Eid prayer on the 10th — continues through the 11th, 12th, and 13th (Ayyam al-Tashriq). The Prophet ﷺ said: <em>"Whoever slaughters before the prayer — it is just meat he has prepared for his family. It is not Udhiyah at all."</em> — <strong>Sahih al-Bukhari (5560)</strong></div>
+        <div class="note"><strong>Distribution of meat:</strong> Divide into thirds — one third for yourself, one third for family and friends, one third for the poor. — <strong>Sahih Muslim (1963)</strong></div>
+        <div class="note"><strong>Du'a when slaughtering:</strong> <em>Bismillāhi wallāhu Akbar · Allāhumma hādhā minka wa lak</em> — In the name of Allah and Allah is Greatest. O Allah this is from You and for You. Face the animal toward the Qibla.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-sub-header">📅 Ayyam al-Tashriq — 11th, 12th, 13th</div>
+
+  <div class="expand-wrap">
+    <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
+      <div class="et-num" style="font-size:10px;">تشريق</div>
+      <div class="et-info">
+        <div class="et-ar">أَيَّامُ التَّشْرِيقِ</div>
+        <div class="et-en">What are the days of Tashriq?</div>
+        <div class="et-virtue">Days of eating, drinking, and remembrance of Allah</div>
+      </div>
+      <span class="et-arrow" aria-hidden="true">▾</span>
+    </button>
+    <div class="expand-body">
+      <div class="expand-inner">
+        <div class="note">The three days following Eid al-Adha — 11th, 12th, 13th of Dhul Hijjah. Their name means "days of drying meat." The Prophet ﷺ said: <em>"The days of Tashriq are days of eating, drinking, and remembrance of Allah."</em> — <strong>Sahih Muslim (1141)</strong></div>
+        <div class="note"><strong>Fasting is forbidden</strong> on these days. The Prophet ﷺ said: <em>"Do not fast on these days — they are days of eating and drinking."</em> — <strong>Sahih al-Bukhari (1997)</strong></div>
+        <div class="note"><strong>Continue the Takbir al-Tashriq</strong> after every fard salah until Asr of the 13th — 23 prayers total from Fajr of the 9th.</div>
+        <div class="note"><strong>Continue Qurbani</strong> — slaughter is valid on the 11th, 12th, and 13th in addition to the 10th.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-sub-header">📊 Quick Reference — Day by Day</div>
+
+  <div class="expand-wrap">
+    <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
+      <div class="et-num" style="font-size:10px;">جدول</div>
+      <div class="et-info">
+        <div class="et-ar">جَدْوَلُ الأَيَّامِ</div>
+        <div class="et-en">What to do each day of Dhul Hijjah</div>
+        <div class="et-virtue">Days 1–13 at a glance</div>
+      </div>
+      <span class="et-arrow" aria-hidden="true">▾</span>
+    </button>
+    <div class="expand-body">
+      <div class="expand-inner">
+        <div class="note"><strong>Days 1–8:</strong> Fast, increase dhikr (Takbir, Tahmid, Tahleel, Tasbeeh), give Sadaqah, read Qur'an, do not cut hair or nails if intending Qurbani.</div>
+        <div class="note"><strong>Day 8 — Tarwiyah:</strong> Fast — recommended. Increase worship in preparation for Arafah.</div>
+        <div class="note"><strong>Day 9 — Yawm Arafah:</strong> Fast (non-pilgrims). Make du'a from Fajr to Maghrib. Repeat the best du'a of Arafah abundantly. Takbir al-Tashriq begins after Fajr.</div>
+        <div class="note"><strong>Day 10 — Eid al-Adha:</strong> Ghusl, Eid prayer, Qurbani after prayer, say Taqabbalallahu minna wa minkum, no fasting.</div>
+        <div class="note"><strong>Days 11–13 — Ayyam al-Tashriq:</strong> Takbir after every fard prayer, eat and drink, continue Qurbani if not yet done, no fasting. Ends with Asr on the 13th.</div>
+      </div>
+    </div>
+  </div>
+
+</section>
 
   <div class="divider"><div class="dl"></div><div class="dg"></div><div class="dl"></div></div>
 
