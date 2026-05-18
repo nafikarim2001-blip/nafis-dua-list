@@ -6752,6 +6752,85 @@ body.light .guided-nav {
   </div>
 </div>
 
+
+</div><!-- end learn-view -->
+
+
+<!-- =================== SETTINGS VIEW =================== -->
+<div class="spa-view" id="settings-view" data-view="settings">
+  <div class="settings-view-inner">
+    <div class="settings-view-header">
+      <div class="bismillah" style="font-size:calc(clamp(18px,4.5vw,26px)*var(--ar-scale));margin-bottom:6px;">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+      <h2 style="font-family:var(--fs);font-size:clamp(20px,5vw,28px);color:var(--gold-l);font-weight:400;margin-bottom:4px;">Settings</h2>
+      <p style="font-size:11px;color:var(--text-m);letter-spacing:.15em;text-transform:uppercase;">Nafi's Dua List</p>
+    </div>
+
+    <div class="sv-section-title">Appearance</div>
+
+    <div class="sv-row">
+      <div>
+        <div class="sv-label">Theme</div>
+        <div class="sv-sub">Light or dark mode</div>
+      </div>
+      <button class="theme-toggle sv-theme-btn" id="themeToggleSV" aria-label="Toggle theme">🌙</button>
+    </div>
+
+    <div class="sv-row">
+      <div>
+        <div class="sv-label">Arabic Font Size</div>
+        <div class="sv-sub">Adjust Quranic text size</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <button class="fc-btn fc-small" id="fcDownSV" aria-label="Smaller Arabic">A</button>
+        <span class="fc-label" id="fcLabelSV">Arabic</span>
+        <button class="fc-btn fc-large" id="fcUpSV" aria-label="Larger Arabic">A</button>
+      </div>
+    </div>
+
+
+    <div class="sv-section-title">Install App</div>
+    <div class="sv-install-section">
+      <div class="sv-install-icon">📲</div>
+      <div class="sv-install-desc">Add Nafi's Dua List to your home screen for instant access and offline use — no app store needed.</div>
+      <div class="sv-install-steps" id="settingsInstallSteps"></div>
+      <button class="sv-install-btn" id="settingsInstallBtn" style="display:none">Install App</button>
+      <div style="margin-top:10px">
+        <button onclick="safeSet('install_prompt_dismissed',''); location.reload();"
+          style="background:none;border:none;color:var(--text-m);font-size:11px;
+          letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;
+          -webkit-tap-highlight-color:transparent;touch-action:manipulation;">
+          Show home screen reminder again
+        </button>
+      </div>
+    </div>
+
+    <div class="sv-section-title">Reminders</div>
+<div class="sv-setting-row" style="flex-direction:column;align-items:flex-start;gap:8px;">
+  <div style="font-family:var(--fn);font-size:14px;color:var(--text);line-height:1.6;">
+    Set reminders on your device to keep your adhkar consistent:
+  </div>
+  <div style="font-family:var(--fn);font-size:13px;color:var(--text-d);line-height:1.8;">
+    🌅 <strong>Morning adhkar</strong> — after Fajr<br>
+    🌆 <strong>Evening adhkar</strong> — after Asr<br>
+    🌙 <strong>Before sleep</strong> — 30 mins before bed
+  </div>
+  <div style="font-family:var(--fn);font-size:12px;color:var(--text-m);margin-top:4px;">
+    Open your phone's Clock or Reminders app to set these up.
+  </div>
+</div>
+
+    <div class="sv-section-title">About</div>
+
+    <div class="sv-about">
+      <div class="sv-app-name">Nafi's Dua List</div>
+      <div class="sv-version">Version 2.0 · Daily Worship Edition</div>
+      <div class="sv-about-desc">Authentic supplications from the Qur'an &amp; Sunnah — Arabic, transliteration, translation, and source for every dua.</div>
+      <div class="sv-hadith">"The dua of a believer is never wasted — it is either answered, stored as reward, or used to divert a harm." — Ahmad</div>
+      <div class="sv-copy">Free to share &amp; distribute — لا حقوق محفوظة<br>No rights reserved for the sake of Allah</div>
+    </div>
+  </div>
+</div><!-- end settings-view -->
+
 <!-- =================== LEARN TOPIC INTRO & DECK SCREENS =================== -->
 
 <!-- LEARN INTRO: PRAYER TIMES -->
@@ -7641,84 +7720,6 @@ body.light .guided-nav {
   </div>
 </div>
 
-
-</div><!-- end learn-view -->
-
-
-<!-- =================== SETTINGS VIEW =================== -->
-<div class="spa-view" id="settings-view" data-view="settings">
-  <div class="settings-view-inner">
-    <div class="settings-view-header">
-      <div class="bismillah" style="font-size:calc(clamp(18px,4.5vw,26px)*var(--ar-scale));margin-bottom:6px;">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
-      <h2 style="font-family:var(--fs);font-size:clamp(20px,5vw,28px);color:var(--gold-l);font-weight:400;margin-bottom:4px;">Settings</h2>
-      <p style="font-size:11px;color:var(--text-m);letter-spacing:.15em;text-transform:uppercase;">Nafi's Dua List</p>
-    </div>
-
-    <div class="sv-section-title">Appearance</div>
-
-    <div class="sv-row">
-      <div>
-        <div class="sv-label">Theme</div>
-        <div class="sv-sub">Light or dark mode</div>
-      </div>
-      <button class="theme-toggle sv-theme-btn" id="themeToggleSV" aria-label="Toggle theme">🌙</button>
-    </div>
-
-    <div class="sv-row">
-      <div>
-        <div class="sv-label">Arabic Font Size</div>
-        <div class="sv-sub">Adjust Quranic text size</div>
-      </div>
-      <div style="display:flex;align-items:center;gap:8px;">
-        <button class="fc-btn fc-small" id="fcDownSV" aria-label="Smaller Arabic">A</button>
-        <span class="fc-label" id="fcLabelSV">Arabic</span>
-        <button class="fc-btn fc-large" id="fcUpSV" aria-label="Larger Arabic">A</button>
-      </div>
-    </div>
-
-
-    <div class="sv-section-title">Install App</div>
-    <div class="sv-install-section">
-      <div class="sv-install-icon">📲</div>
-      <div class="sv-install-desc">Add Nafi's Dua List to your home screen for instant access and offline use — no app store needed.</div>
-      <div class="sv-install-steps" id="settingsInstallSteps"></div>
-      <button class="sv-install-btn" id="settingsInstallBtn" style="display:none">Install App</button>
-      <div style="margin-top:10px">
-        <button onclick="safeSet('install_prompt_dismissed',''); location.reload();"
-          style="background:none;border:none;color:var(--text-m);font-size:11px;
-          letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;
-          -webkit-tap-highlight-color:transparent;touch-action:manipulation;">
-          Show home screen reminder again
-        </button>
-      </div>
-    </div>
-
-    <div class="sv-section-title">Reminders</div>
-<div class="sv-setting-row" style="flex-direction:column;align-items:flex-start;gap:8px;">
-  <div style="font-family:var(--fn);font-size:14px;color:var(--text);line-height:1.6;">
-    Set reminders on your device to keep your adhkar consistent:
-  </div>
-  <div style="font-family:var(--fn);font-size:13px;color:var(--text-d);line-height:1.8;">
-    🌅 <strong>Morning adhkar</strong> — after Fajr<br>
-    🌆 <strong>Evening adhkar</strong> — after Asr<br>
-    🌙 <strong>Before sleep</strong> — 30 mins before bed
-  </div>
-  <div style="font-family:var(--fn);font-size:12px;color:var(--text-m);margin-top:4px;">
-    Open your phone's Clock or Reminders app to set these up.
-  </div>
-</div>
-
-    <div class="sv-section-title">About</div>
-
-    <div class="sv-about">
-      <div class="sv-app-name">Nafi's Dua List</div>
-      <div class="sv-version">Version 2.0 · Daily Worship Edition</div>
-      <div class="sv-about-desc">Authentic supplications from the Qur'an &amp; Sunnah — Arabic, transliteration, translation, and source for every dua.</div>
-      <div class="sv-hadith">"The dua of a believer is never wasted — it is either answered, stored as reward, or used to divert a harm." — Ahmad</div>
-      <div class="sv-copy">Free to share &amp; distribute — لا حقوق محفوظة<br>No rights reserved for the sake of Allah</div>
-    </div>
-  </div>
-</div><!-- end settings-view -->
 
 
 <!-- =================== GUIDED SESSION OVERLAY =================== -->
