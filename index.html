@@ -124,7 +124,7 @@ body.light .dhikr{background:var(--card);}
   margin-bottom:22px;
   text-shadow:0 0 40px rgba(201,168,76,.22);
 }
-.et-ar{font-family:var(--fa);font-size:calc(18px * var(--ar-scale));color:var(--gold-l);direction:rtl;text-align:right;line-height:1.8;}
+.et-ar{font-family:var(--fa);font-size:calc(20px * var(--ar-scale));color:var(--gold-l);direction:rtl;text-align:right;line-height:1.9;}
 .far{font-family:var(--fa);font-size:calc(clamp(18px,5vw,26px) * var(--ar-scale));color:var(--gold-l);direction:rtl;margin-bottom:10px;line-height:2;}
 
 /* Font size control buttons in header */
@@ -870,9 +870,11 @@ body::before{
 .et-num{
   width:40px;height:40px;flex-shrink:0;
   border:1px solid var(--gold-d);
+  background: var(--gold-f);
   display:flex;align-items:center;justify-content:center;
-  font-family:var(--fs);font-size:14px;color:var(--gold);
+  font-family:var(--fs);font-size:15px;color:var(--gold);
   border-radius:var(--radius);
+  box-shadow: 0 0 12px rgba(201,168,76,0.06);
 }
 .et-info{flex:1;}
 /* .et-ar — defined above in font-scale block */
@@ -961,6 +963,7 @@ body::before{
 /* ---- 99 NAMES GRID ---- */
 .asma-grid{
   display:grid;
+  width:100%;
   grid-template-columns:repeat(auto-fill,minmax(min(100%,160px),1fr));
   gap:7px;
   margin-top:14px;
@@ -1295,7 +1298,14 @@ body.light .bn-tab.active { color: #7a5c12; }
   -webkit-tap-highlight-color: transparent;
   transition: background var(--t-instant) var(--ease-out), border-color var(--t-instant) var(--ease-out), color var(--t-instant) var(--ease-out);
 }
-.view-subnav-btn:hover, .view-subnav-btn:active {
+.view-subnav-btn.active {
+  background: rgba(201,168,76,0.18);
+  border-color: var(--gold);
+  color: var(--gold-l);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+.view-subnav-btn:hover {
   background: rgba(201,168,76,0.16);
   border-color: rgba(201,168,76,0.5);
   color: var(--gold-l);
@@ -1564,9 +1574,9 @@ body.light .settings-popover { background: rgba(250,246,238,0.98); }
 .my-duas-overlay { display: none; margin-top: 8px; }
 
 /* Dhikr view header */
-.dhikr-view-header { padding: 20px 0 8px; text-align: center; }
-.dhikr-view-header h2 { font-family:var(--fs);font-size:clamp(20px,5vw,28px);color:var(--gold-l);font-weight:400;margin-bottom:5px; }
-.dhikr-view-header p { font-size:11px;color:var(--text-m);letter-spacing:.12em;text-transform:uppercase; }
+.dhikr-view-header { padding: 22px 0 10px; text-align: center; }
+.dhikr-view-header h2 { font-family:var(--fs);font-size:clamp(22px,5.5vw,30px);color:var(--gold-l);font-weight:400;margin-bottom:6px; }
+.dhikr-view-header p { font-size:11px;color:var(--text-m);letter-spacing:.16em;text-transform:uppercase; }
 
 /* ============================================================
    DHIKR — INDEX ROWS
@@ -1599,21 +1609,25 @@ body.light .settings-popover { background: rgba(250,246,238,0.98); }
 .dho-index-inner { flex: 1; min-width: 0; }
 .dho-index-arabic {
   font-family: var(--fa);
-  font-size: calc(18px * var(--ar-scale));
+  font-size: calc(22px * var(--ar-scale));
   color: var(--gold-l);
   direction: rtl;
   text-align: right;
-  line-height: 1.8;
-  margin-bottom: 3px;
+  line-height: 1.9;
+  margin-bottom: 4px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  text-shadow: 0 0 18px rgba(201,168,76,0.12);
 }
 .dho-index-label {
   font-family: var(--fn);
   font-size: 11px;
   color: var(--text-m);
-  letter-spacing: 0.03em;
+  letter-spacing: 0.05em;
+}
+.dho-index-row {
+  padding: 16px 16px;
 }
 .dho-index-right {
   flex-shrink: 0;
@@ -3130,11 +3144,20 @@ body.light .guided-nav {
 }
 .duas-cat-section-header {
   font-family: var(--fn);
-  font-size: 10px;
-  letter-spacing: 0.18em;
+  font-size: 9px;
+  letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: var(--text-m);
-  padding: 20px 4px 8px;
+  color: var(--gold);
+  padding: 24px 4px 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.duas-cat-section-header::before {
+  content: '✦';
+  font-size: 7px;
+  color: var(--gold);
+  opacity: 0.7;
 }
 .duas-cat-row {
   display: flex;
@@ -3144,7 +3167,7 @@ body.light .guided-nav {
   background: var(--card);
   border: 1px solid var(--bdr);
   border-radius: 12px;
-  padding: 14px 16px;
+  padding: 16px 16px;
   margin-bottom: 8px;
   cursor: pointer;
   text-align: left;
@@ -3156,19 +3179,24 @@ body.light .guided-nav {
               border-color var(--t-instant) var(--ease-out);
   will-change: transform, opacity;
 }
+.duas-cat-row:hover {
+  border-color: rgba(201,168,76,0.4);
+  background: rgba(201,168,76,0.04);
+}
 .duas-cat-row:active {
   opacity: 0.75;
   transform: scale(0.98);
 }
 .duas-cat-icon {
-  font-size: 22px;
-  width: 42px;
-  height: 42px;
+  font-size: 24px;
+  width: 46px;
+  height: 46px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: rgba(201,168,76,0.08);
-  border-radius: 10px;
+  border: 1px solid rgba(201,168,76,0.15);
+  border-radius: 12px;
   flex-shrink: 0;
 }
 .duas-cat-info {
@@ -3177,12 +3205,13 @@ body.light .guided-nav {
 }
 .duas-cat-title {
   font-family: var(--fs);
-  font-size: 16px;
+  font-size: 17px;
   color: var(--text);
-  margin-bottom: 2px;
+  margin-bottom: 3px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  letter-spacing: 0.01em;
 }
 .duas-cat-sub {
   font-family: var(--fn);
@@ -3196,19 +3225,36 @@ body.light .guided-nav {
 .duas-cat-badge {
   font-family: var(--fn);
   font-size: 12px;
+  font-weight: 600;
   color: var(--gold);
   background: rgba(201,168,76,0.1);
   border: 1px solid rgba(201,168,76,0.25);
-  border-radius: 6px;
-  padding: 2px 8px;
+  border-radius: 8px;
+  padding: 3px 9px;
   flex-shrink: 0;
+  letter-spacing: 0.03em;
 }
 .duas-cat-arrow {
-  font-size: 20px;
+  font-size: 22px;
   color: var(--text-m);
   flex-shrink: 0;
-  margin-left: 4px;
+  margin-left: 2px;
+  line-height: 1;
 }
+/* Arabic snippet preview on category rows — borrowed from Hisnul Muslim insight */
+.duas-cat-ar-snip {
+  font-family: var(--fa);
+  font-size: calc(15px * var(--ar-scale));
+  color: rgba(201,168,76,0.55);
+  direction: rtl;
+  line-height: 1.6;
+  margin-top: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: 0.02em;
+}
+
 .duas-index-search {
   position: relative;
   margin-bottom: 4px;
@@ -4946,6 +4992,7 @@ body.light .resume-card {
         <div class="duas-cat-info">
           <div class="duas-cat-title">After Every Salah</div>
           <div class="duas-cat-sub">Essential adhkar after fard prayer</div>
+          <div class="duas-cat-ar-snip">سُبْحَانَ اللَّهِ · الْحَمْدُ لِلَّهِ · اللَّهُ أَكْبَرُ</div>
         </div>
         <div class="duas-cat-badge">7</div>
         <div class="duas-cat-arrow">›</div>
@@ -4956,6 +5003,7 @@ body.light .resume-card {
         <div class="duas-cat-info">
           <div class="duas-cat-title">Morning Adhkar</div>
           <div class="duas-cat-sub">After Fajr — before sunrise</div>
+          <div class="duas-cat-ar-snip">أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ...</div>
         </div>
         <div class="duas-cat-badge">15</div>
         <div class="duas-cat-arrow">›</div>
@@ -4966,6 +5014,7 @@ body.light .resume-card {
         <div class="duas-cat-info">
           <div class="duas-cat-title">Evening Adhkar</div>
           <div class="duas-cat-sub">After Asr — before Maghrib</div>
+          <div class="duas-cat-ar-snip">أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ...</div>
         </div>
         <div class="duas-cat-badge">12</div>
         <div class="duas-cat-arrow">›</div>
@@ -4976,6 +5025,7 @@ body.light .resume-card {
         <div class="duas-cat-info">
           <div class="duas-cat-title">Before Sleep</div>
           <div class="duas-cat-sub">Every night before bed</div>
+          <div class="duas-cat-ar-snip">بِاسْمِكَ اللَّهُمَّ أَمُوتُ وَأَحْيَا...</div>
         </div>
         <div class="duas-cat-badge">9</div>
         <div class="duas-cat-arrow">›</div>
@@ -4988,6 +5038,7 @@ body.light .resume-card {
         <div class="duas-cat-info">
           <div class="duas-cat-title">Duas from the Qur’an</div>
           <div class="duas-cat-sub">The direct words of Allah</div>
+          <div class="duas-cat-ar-snip">رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً...</div>
         </div>
         <div class="duas-cat-badge">21</div>
         <div class="duas-cat-arrow">›</div>
@@ -4998,6 +5049,7 @@ body.light .resume-card {
         <div class="duas-cat-info">
           <div class="duas-cat-title">Duas of the Prophets</div>
           <div class="duas-cat-sub">Supplications of the Prophets ﹰﺀ</div>
+          <div class="duas-cat-ar-snip">رَبِّ إِنِّي لِمَا أَنزَلْتَ إِلَيَّ...</div>
         </div>
         <div class="duas-cat-badge">20</div>
         <div class="duas-cat-arrow">›</div>
@@ -5008,6 +5060,7 @@ body.light .resume-card {
         <div class="duas-cat-info">
           <div class="duas-cat-title">Prophetic Duas</div>
           <div class="duas-cat-sub">Authenticated supplications of the Prophet ﹰﺀ</div>
+          <div class="duas-cat-ar-snip">اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَهَ إِلَّا أَنْتَ...</div>
         </div>
         <div class="duas-cat-badge">14</div>
         <div class="duas-cat-arrow">›</div>
@@ -5148,26 +5201,6 @@ body.light .resume-card {
       <div class="src">Source: <b>Qur'an 25:74</b></div>
     
       <div class="dua-share-footer"><button class="dua-share-btn" onclick="openShareSheet(this)" aria-label="Share this dua"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>Share this Dua</button></div>
-    </div>
-
-    <div class="expand-wrap">
-      <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
-        <div class="et-num">2:286</div>
-        <div class="et-info">
-          <div class="et-ar">رَبَّنَا لَا تُؤَاخِذْنَا إِن نَّسِينَا...</div>
-          <div class="et-en">For Forgiveness &amp; Mercy — End of Al-Baqarah</div>
-          <div class="et-virtue">Tap to read full ayah with transliteration</div>
-        </div>
-        <span class="et-arrow" aria-hidden="true">▾</span>
-      </button>
-      <div class="expand-body">
-<div class="expand-inner">
-        <div class="ar xs">رَبَّنَا لَا تُؤَاخِذْنَا إِن نَّسِينَا أَوْ أَخْطَأْنَا ۚ رَبَّنَا وَلَا تَحْمِلْ عَلَيْنَا إِصْرًا كَمَا حَمَلْتَهُ عَلَى الَّذِينَ مِن قَبْلِنَا ۚ رَبَّنَا وَلَا تُحَمِّلْنَا مَا لَا طَاقَةَ لَنَا بِهِ ۖ وَاعْفُ عَنَّا وَاغْفِرْ لَنَا وَارْحَمْنَا ۚ أَنتَ مَوْلَانَا فَانصُرْنَا عَلَى الْقَوْمِ الْكَافِرِينَ</div>
-        <div class="tr">Rabbanā lā tuʾākhidhnā in nasīnā aw akhṭaʾnā · Rabbanā wa lā taḥmil ʿalaynā iṣran kamā ḥamaltahu ʿalal-ladhīna min qablinā · Rabbanā wa lā tuḥammilnā mā lā ṭāqata lanā bih · Waʿfu ʿannā waghfir lanā warḥamnā · Anta mawlānā fanṣurnā ʿalal-qawmil-kāfirīn</div>
-        <div class="en">"Our Lord, do not hold us accountable if we forget or err. Our Lord, do not burden us as You burdened those before us. Our Lord, do not burden us with what we cannot bear. Pardon us, forgive us, and have mercy upon us. You are our Protector, so help us against the disbelieving people."</div>
-        <div class="src">Source: <b>Qur'an 2:286</b> — Last ayah of Al-Baqarah; brought as a gift from beneath Allah's Throne</div>
-      </div>
-</div>
     </div>
 
     <div class="dua" data-title="Dua of Yunus (AS) from the Darkness — Al-Anbiya 21:87" data-ar="لَّا إِلَٰهَ إِلَّا أَنتَ سُبْحَانَكَ إِنِّي كُنتُ مِنَ الظَّالِمِينَ" data-tr="Lā ilāha illā Anta subḥānaka innī kuntu minaẓ-ẓālimīn" data-en="&quot;There is no god but You. Glory be to You. Indeed, I have been of the wrongdoers.&quot;" data-src="Source: Qur&#39;an 21:87">
@@ -5612,27 +5645,6 @@ body.light .resume-card {
     <div class="sec-h">
       <div class="si">☪</div>
       <div><span class="st">Prophetic Duas</span><span class="ss">Authenticated supplications of the Prophet ﷺ</span></div>
-    </div>
-
-    <div class="expand-wrap">
-      <button class="expand-trigger" onclick="toggleExpand(this)" aria-expanded="false">
-        <div class="et-num" style="font-size:10px;letter-spacing:.05em;">سيد</div>
-        <div class="et-info">
-          <div class="et-ar">اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَٰهَ إِلَّا أَنْتَ...</div>
-          <div class="et-en">Sayyid al-Istighfar — Master Dua of Forgiveness</div>
-          <div class="et-virtue">Whoever says this in morning/evening and dies that day → enters Paradise — Bukhari</div>
-        </div>
-        <span class="et-arrow" aria-hidden="true">▾</span>
-      </button>
-      <div class="expand-body">
-<div class="expand-inner">
-        <div class="ar xs">اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَٰهَ إِلَّا أَنْتَ ۙ خَلَقْتَنِي وَأَنَا عَبْدُكَ ۙ وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ ۙ أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ ۙ أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ ۙ وَأَبُوءُ لَكَ بِذَنْبِي فَاغْفِرْ لِي ۙ فَإِنَّهُ لَا يَغْفِرُ الذُّنُوبَ إِلَّا أَنْتَ</div>
-        <div class="tr">Allāhumma Anta Rabbī lā ilāha illā Anta · khalaqtanī wa anā ʿabduka · wa anā ʿalā ʿahdika wa waʿdika mastaṭaʿtu · aʿūdhu bika min sharri mā ṣanaʿtu · abūʾu laka biniʿmatika ʿalayya · wa abūʾu laka bidhanbī faghfir lī · fa innahu lā yaghfirudh-dhunūba illā Ant</div>
-        <div class="en">"O Allah, You are my Lord. There is no god but You. You created me and I am Your servant. I am upon Your covenant and promise as best I can. I seek refuge in You from the evil of what I have done. I acknowledge Your favour upon me and I acknowledge my sin. So forgive me, for no one forgives sins except You."</div>
-        <div class="src">Source: <b>Sahih al-Bukhari (6306)</b></div>
-        <div class="badge">Say morning &amp; evening believing in it — dies that day → enters Paradise</div>
-      </div>
-</div>
     </div>
 
     <div class="dua" data-title="For Health in Body, Hearing &amp; Sight" data-ar="اللَّهُمَّ عَافِنِي فِي بَدَنِي ۙ اللَّهُمَّ عَافِنِي فِي سَمْعِي ۙ اللَّهُمَّ عَافِنِي فِي بَصَرِي ۙ لَا إِلَهَ إِلَّا أَنْتَ" data-tr="Allāhumma ʿāfinī fī badanī · Allāhumma ʿāfinī fī samʿī · Allāhumma ʿāfinī fī baṣarī · lā ilāha illā Anta" data-en="&quot;O Allah, grant me health in my body. O Allah, grant me health in my hearing. O Allah, grant me health in my sight. There is no god but You.&quot;" data-src="Source: Abu Dawud (5090) — Hasan — Say morning and evening; ideal for the ill">
@@ -6485,6 +6497,26 @@ body.light .resume-card {
   </div>
 </div>
 
+
+
+<div class="learn-intro" id="learn-intro-hub" style="display:none;">
+  <button class="ji-back" onclick="closeLearnTopic()">‹</button>
+  <div class="ji-body">
+    <div class="ji-icon">🤲</div>
+    <div class="ji-eyebrow">A COMPLETE GUIDE</div>
+    <div class="ji-title">The Art of Du'a</div>
+    <div class="ji-hadith">"Du'a is worship." — Abu Dawud 1479, Sahih</div>
+    <div class="ji-features">
+      <div class="ji-feature"><span class="ji-feat-icon">📖</span><span>What du'a truly is</span></div>
+      <div class="ji-feature"><span class="ji-feat-icon">🕌</span><span>The 12 etiquettes of du'a</span></div>
+      <div class="ji-feature"><span class="ji-feat-icon">⏰</span><span>The best times to ask</span></div>
+      <div class="ji-feature"><span class="ji-feat-icon">💡</span><span>How Allah always answers</span></div>
+      <div class="ji-feature"><span class="ji-feat-icon">🌟</span><span>Special types & conditions</span></div>
+    </div>
+    <button class="ji-begin" onclick="beginLearnDeck('hub')">Begin ›</button>
+    <div class="ji-footer">26 cards · 9 sections</div>
+  </div>
+</div>
 
 </div><!-- end learn-view -->
 
@@ -7404,6 +7436,9 @@ body.light .resume-card {
   </div>
 </div>
 
+<!-- Source element for 99 Names — populated by JS on page load, cloned into asmaDeckGrid on open -->
+<div id="asmaGrid" style="display:none;"></div>
+
 <!-- LEARN DECK: 99 NAMES (grid format) -->
 <div class="learn-deck" id="learn-deck-asma" style="display:none;">
   <div class="learn-deck-header">
@@ -7505,21 +7540,6 @@ body.light .resume-card {
 
 
 
-<div class="learn-intro" id="learn-intro-hub" style="display:none;">
-  <button class="learn-intro-back" onclick="closeLearnTopic()">← Back</button>
-  <div class="learn-intro-icon">🤲</div>
-  <div class="learn-intro-title">The Art of Du'a</div>
-  <div class="learn-intro-sub">A complete guide to supplication from the Qur'an and Sunnah</div>
-  <div class="learn-intro-features">
-    <div class="learn-intro-feat"><span>📖</span><span>What du'a truly is</span></div>
-    <div class="learn-intro-feat"><span>🕌</span><span>The 12 etiquettes of du'a</span></div>
-    <div class="learn-intro-feat"><span>⏰</span><span>The best times to ask</span></div>
-    <div class="learn-intro-feat"><span>💡</span><span>How Allah always answers</span></div>
-    <div class="learn-intro-feat"><span>🌟</span><span>Special types & conditions</span></div>
-  </div>
-  <div class="learn-intro-count">26 cards · 9 sections</div>
-  <button class="learn-intro-btn" onclick="beginLearnDeck('hub')">Begin ›</button>
-</div>
 
 <div class="learn-deck" id="learn-deck-hub" style="display:none;">
   <button class="learn-deck-back" onclick="closeLearnTopic()">← Back</button>
