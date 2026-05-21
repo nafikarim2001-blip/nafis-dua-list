@@ -2,25 +2,25 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
 <meta name="description" content="Nafi's Dua List — authentic duas and adhkar from the Qur'an and Sunnah for every day of the year. Morning and evening adhkar, daily dhikr, and supplications for every occasion.">
 <meta name="keywords" content="Islamic duas, morning adhkar, evening adhkar, daily dhikr, supplications, Qur'anic duas, Islamic prayer app">
-<meta property="og:title" content="Nafi's Dua List">
+<meta property="og:title" content="Naafi — Dua &amp; Adhkar">
 <meta property="og:description" content="Authentic duas and adhkar from the Qur'an and Sunnah for every day of the year. Arabic, transliteration and translation.">
 <meta property="og:url" content="https://nafikarim2001-blip.github.io/nafis-dua-list/">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://nafikarim2001-blip.github.io/nafis-dua-list/og-image.svg">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Nafi's Dua List">
+<meta name="twitter:title" content="Naafi — Dua &amp; Adhkar">
 <meta name="twitter:description" content="Authentic duas and adhkar from the Qur'an and Sunnah for every day of the year. Arabic, transliteration and translation.">
 <meta name="twitter:image" content="https://nafikarim2001-blip.github.io/nafis-dua-list/og-image.svg">
 <link rel="canonical" href="https://nafikarim2001-blip.github.io/nafis-dua-list/">
-<title>Nafi's Dua List</title>
+<title>Naafi — Dua &amp; Adhkar</title>
 <meta name="theme-color" content="#C9A84C">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Dua List">
+<meta name="apple-mobile-web-app-title" content="Naafi">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -30,7 +30,7 @@
 {
   "@context": "https://schema.org",
   "@type": "WebApplication",
-  "name": "Nafi's Dua List",
+  "name": "Naafi",
   "url": "https://nafikarim2001-blip.github.io/nafis-dua-list/",
   "description": "Authentic duas and adhkar from the Qur'an and Sunnah for every day of the year. Arabic, transliteration and translation. Free to share for the sake of Allah.",
   "applicationCategory": "LifestyleApplication",
@@ -60,8 +60,8 @@
   --green:#52B788; --gbg:rgba(82,183,136,0.1); --gbd:rgba(82,183,136,0.28);
   --fa:'Scheherazade New','Arabic Typesetting','Traditional Arabic','Amiri','Noto Naskh Arabic','Al Bayan','Geeza Pro','Simplified Arabic',serif;
   --fs:'Palatino Linotype','Palatino','Book Antiqua','Georgia','Times New Roman',serif;
-  --fn:'Gill Sans','Optima','Segoe UI','Helvetica Neue','Arial',sans-serif;
-  --radius:4px;
+  --fn:-apple-system,'BlinkMacSystemFont','Gill Sans','Optima','Segoe UI','Helvetica Neue','Arial',sans-serif;
+  --radius:12px;
   --tap-min:48px;
   --ar-scale:1;
   --t-instant:  80ms;
@@ -177,8 +177,30 @@ body.light .dhikr{background:var(--card);}
 .session-card.sc-done .sc-done-label { display: block; }
 
 .sc-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
-.sc-check { font-size: 18px; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; text-align: center; color: var(--text-d); transition: color 0.2s; cursor: pointer; border-radius: 50%; -webkit-tap-highlight-color: transparent; }
-.session-card.sc-done .sc-check { color: var(--gold); }
+.sc-check {
+  width: 28px; height: 28px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; border-radius: 50%;
+  -webkit-tap-highlight-color: transparent;
+  flex-shrink: 0;
+}
+.sc-check-svg {
+  width: 24px; height: 24px;
+  color: var(--text-m);
+  transition: color var(--t-fast) var(--ease-out), transform var(--t-fast) var(--ease-spring);
+}
+.sc-check-tick {
+  stroke-dasharray: 16;
+  stroke-dashoffset: 16;
+  transition: stroke-dashoffset var(--t-mid) var(--ease-out);
+}
+.session-card.sc-done .sc-check-svg {
+  color: var(--gold);
+  transform: scale(1.1);
+}
+.session-card.sc-done .sc-check-tick {
+  stroke-dashoffset: 0;
+}
 .sc-begin {
   font-family: var(--fn); font-size: 12px; font-weight: 600;
   color: var(--gold-l); background: rgba(201,168,76,0.12);
@@ -192,6 +214,16 @@ body.light .dhikr{background:var(--card);}
 body.light .session-card { background: rgba(0,0,0,0.025); }
 body.light .session-card.sc-done { background: rgba(201,168,76,0.09); }
 .session-card.sc-done:hover, .session-card.sc-done:active { background: rgba(201,168,76,0.07); border-color: rgba(201,168,76,0.45); }
+
+/* Session card colour identity — left border per card */
+#pt-morning  { border-left: 3px solid #C9943A; }
+#pt-evening  { border-left: 3px solid #4A6FA5; }
+#pt-salah    { border-left: 3px solid #3A8A6A; }
+#pt-sleep    { border-left: 3px solid #6A4A8A; }
+#pt-morning.sc-done  { border-left-color: rgba(201,148,58,0.5); }
+#pt-evening.sc-done  { border-left-color: rgba(74,111,165,0.5); }
+#pt-salah.sc-done    { border-left-color: rgba(58,138,106,0.5); }
+#pt-sleep.sc-done    { border-left-color: rgba(106,74,138,0.5); }
 
 /* Theme toggle button */
 .theme-toggle{
@@ -655,6 +687,20 @@ body.light .session-card.sc-done { background: rgba(201,168,76,0.09); }
 /* Hide original .dc watermark (replaced by counter) */
 .dc{display:none!important;}
 
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+* {
+  -webkit-tap-highlight-color: transparent;
+  box-sizing: border-box;
+}
+*:not(input):not(textarea):not([contenteditable]) {
+  user-select: none;
+  -webkit-user-select: none;
+}
+::-webkit-scrollbar { display: none; }
+* { scrollbar-width: none; }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 html{scroll-behavior:smooth;font-size:16px;overscroll-behavior:none;}
 body{
@@ -1629,6 +1675,23 @@ body.light .settings-popover { background: rgba(250,246,238,0.98); }
   font-size: 11px;
   color: var(--text-m);
   letter-spacing: 0.05em;
+}
+.dho-index-virtue {
+  font-family: var(--fn);
+  font-size: 11px;
+  color: var(--gold-d);
+  letter-spacing: 0.02em;
+  line-height: 1.45;
+  margin-top: 5px;
+  opacity: 0.85;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.dho-index-row.dho-done .dho-index-virtue {
+  color: var(--green);
+  opacity: 0.7;
 }
 .dho-index-row {
   padding: 16px 16px;
@@ -4063,8 +4126,17 @@ body.light .band-slate  { background: linear-gradient(135deg, #d8dce8 0%, #c0c8d
   letter-spacing: -0.01em;
 }
 .home-banner-title em {
-  font-style: italic;
-  color: var(--text);
+  font-style: normal;
+  color: var(--gold-l);
+}
+.home-banner-tagline {
+  font-family: var(--fn);
+  font-size: 11px;
+  color: var(--gold-d);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-top: 6px;
+  opacity: 0.8;
 }
 .streak-wrap {
   display: flex; align-items: center; justify-content: center;
@@ -4307,16 +4379,17 @@ body.overlay-open .spa-view.view-active {
   font-family: var(--fn);
   font-size: 13px;
   color: var(--text-d);
-  letter-spacing: 0.04em;
-  margin-bottom: 36px;
+  letter-spacing: 0.02em;
+  margin-bottom: 28px;
   line-height: 1.6;
-  max-width: 280px;
+  max-width: 300px;
 }
 .ob-question {
   font-family: var(--fs);
-  font-size: 16px;
-  color: var(--text);
-  margin-bottom: 16px;
+  font-size: 18px;
+  color: var(--gold-l);
+  margin-bottom: 14px;
+  letter-spacing: -0.01em;
 }
 .ob-cards {
   display: flex;
@@ -4366,10 +4439,10 @@ body.overlay-open .spa-view.view-active {
 }
 .ob-card-sub {
   font-family: var(--fn);
-  font-size: 11px;
+  font-size: 12px;
   color: var(--text-d);
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  line-height: 1.5;
 }
 .ob-card-arrow {
   font-size: 20px;
@@ -4536,7 +4609,8 @@ body.light .resume-card {
 
 <div class="home-banner">
   <div class="home-banner-bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
-  <div class="home-banner-title">Nafi's <em>Dua List</em></div>
+  <div class="home-banner-title">Naafi</div>
+  <div class="home-banner-tagline">Dua &nbsp;·&nbsp; Adhkar &nbsp;·&nbsp; Dhikr</div>
 </div>
 
 
@@ -4604,7 +4678,7 @@ body.light .resume-card {
         <div class="sc-done-label">✓ Completed today</div>
       </div>
       <div class="sc-right">
-        <div class="sc-check" id="ptc-morning" onclick="event.stopPropagation();toggleProgress('morning')">○</div>
+        <div class="sc-check" id="ptc-morning" onclick="event.stopPropagation();toggleProgress('morning')"><svg class="sc-check-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path class="sc-check-tick" d="M8 12l3 3 5-5"/></svg></div>
         <div class="sc-begin">Begin</div>
       </div>
     </div>
@@ -4617,7 +4691,7 @@ body.light .resume-card {
         <div class="sc-done-label">✓ Completed today</div>
       </div>
       <div class="sc-right">
-        <div class="sc-check" id="ptc-evening" onclick="event.stopPropagation();toggleProgress('evening')">○</div>
+        <div class="sc-check" id="ptc-evening" onclick="event.stopPropagation();toggleProgress('evening')"><svg class="sc-check-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path class="sc-check-tick" d="M8 12l3 3 5-5"/></svg></div>
         <div class="sc-begin">Begin</div>
       </div>
     </div>
@@ -4630,7 +4704,7 @@ body.light .resume-card {
         <div class="sc-done-label">✓ Done today</div>
       </div>
       <div class="sc-right">
-        <div class="sc-check" id="ptc-salah" onclick="event.stopPropagation();toggleProgress('salah')">○</div>
+        <div class="sc-check" id="ptc-salah" onclick="event.stopPropagation();toggleProgress('salah')"><svg class="sc-check-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path class="sc-check-tick" d="M8 12l3 3 5-5"/></svg></div>
         <div class="sc-begin">Begin</div>
       </div>
     </div>
@@ -4643,7 +4717,7 @@ body.light .resume-card {
         <div class="sc-done-label">✓ Completed tonight</div>
       </div>
       <div class="sc-right">
-        <div class="sc-check" id="ptc-sleep" onclick="event.stopPropagation();toggleProgress('sleep')">○</div>
+        <div class="sc-check" id="ptc-sleep" onclick="event.stopPropagation();toggleProgress('sleep')"><svg class="sc-check-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path class="sc-check-tick" d="M8 12l3 3 5-5"/></svg></div>
         <div class="sc-begin">Begin</div>
       </div>
     </div>
@@ -6363,8 +6437,9 @@ body.light .resume-card {
 
 <div id="learnIndex">
 
-  <div class="duas-index-search-wrap">
-    <input id="learnIndexSearch" class="duas-index-search" type="search"
+  <div class="duas-index-search" style="padding: 16px 16px 0;">
+    <span class="duas-index-search-icon">🔍</span>
+    <input id="learnIndexSearch" class="duas-index-search-input" type="search"
       placeholder="Search topics…"
       oninput="filterLearnIndex(this.value)"
       autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
@@ -6523,7 +6598,7 @@ body.light .resume-card {
     <div class="settings-view-header">
       <div class="bismillah" style="font-size:calc(clamp(18px,4.5vw,26px)*var(--ar-scale));margin-bottom:6px;">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
       <h2 style="font-family:var(--fs);font-size:clamp(20px,5vw,28px);color:var(--gold-l);font-weight:400;margin-bottom:4px;">Settings</h2>
-      <p style="font-size:11px;color:var(--text-m);letter-spacing:.15em;text-transform:uppercase;">Nafi's Dua List</p>
+      <p style="font-size:11px;color:var(--text-m);letter-spacing:.15em;text-transform:uppercase;">Naafi</p>
     </div>
 
     <div class="sv-section-title">Appearance</div>
@@ -6552,7 +6627,7 @@ body.light .resume-card {
     <div class="sv-section-title">Install App</div>
     <div class="sv-install-section">
       <div class="sv-install-icon">📲</div>
-      <div class="sv-install-desc">Add Nafi's Dua List to your home screen for instant access and offline use — no app store needed.</div>
+      <div class="sv-install-desc">Add Naafi to your home screen for instant access and offline use — no app store needed.</div>
       <div class="sv-install-steps" id="settingsInstallSteps"></div>
       <button class="sv-install-btn" id="settingsInstallBtn" style="display:none">Install App</button>
       <div style="margin-top:10px">
@@ -6588,7 +6663,7 @@ body.light .resume-card {
     </div>
 
     <div class="sv-about">
-      <div class="sv-app-name">Nafi's Dua List</div>
+      <div class="sv-app-name">Naafi</div>
       <div class="sv-version">Version 2.0 · Daily Worship Edition</div>
       <div class="sv-about-desc">Authentic supplications from the Qur'an &amp; Sunnah — Arabic, transliteration, translation, and source for every dua.</div>
       <div class="sv-hadith">"The dua of a believer is never wasted — it is either answered, stored as reward, or used to divert a harm." — Ahmad</div>
@@ -7751,44 +7826,44 @@ body.light .resume-card {
 <!-- ONBOARDING OVERLAY -->
 <div class="onboarding-overlay" id="onboardingOverlay">
   <div class="ob-bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
-  <div class="ob-title">Nafi's <em>Dua List</em></div>
+  <div class="ob-title">Naafi</div>
   <div class="ob-sub">Authentic duas and adhkar from the Qur'an and Sunnah — for every moment of the day</div>
-  <div class="ob-question">Where would you like to begin?</div>
+  <div class="ob-question">What brings you here today?</div>
   <div class="ob-cards">
     <button class="ob-card" onclick="obSelect('morning')" type="button">
       <div class="ob-card-icon">🌅</div>
       <div class="ob-card-body">
-        <div class="ob-card-title">Morning Adhkar</div>
-        <div class="ob-card-sub">Start your day with protection</div>
-      </div>
-      <div class="ob-card-arrow">›</div>
-    </button>
-    <button class="ob-card" onclick="obSelect('dhikr')" type="button">
-      <div class="ob-card-icon">📿</div>
-      <div class="ob-card-body">
-        <div class="ob-card-title">Daily Dhikr</div>
-        <div class="ob-card-sub">SubhanAllah · Alhamdulillah · Allahu Akbar</div>
-      </div>
-      <div class="ob-card-arrow">›</div>
-    </button>
-    <button class="ob-card" onclick="obSelect('duas')" type="button">
-      <div class="ob-card-icon">🤲</div>
-      <div class="ob-card-body">
-        <div class="ob-card-title">Browse Duas</div>
-        <div class="ob-card-sub">188 authentic supplications</div>
+        <div class="ob-card-title">Start my day right</div>
+        <div class="ob-card-sub">Morning adhkar · protection &amp; barakah</div>
       </div>
       <div class="ob-card-arrow">›</div>
     </button>
     <button class="ob-card" onclick="obSelect('sleep')" type="button">
       <div class="ob-card-icon">🌙</div>
       <div class="ob-card-body">
-        <div class="ob-card-title">Sleep Adhkar</div>
-        <div class="ob-card-sub">Protection before bed</div>
+        <div class="ob-card-title">Wind down before sleep</div>
+        <div class="ob-card-sub">Sleep adhkar · peace &amp; protection</div>
+      </div>
+      <div class="ob-card-arrow">›</div>
+    </button>
+    <button class="ob-card" onclick="obSelect('dhikr')" type="button">
+      <div class="ob-card-icon">📿</div>
+      <div class="ob-card-body">
+        <div class="ob-card-title">Build a dhikr habit</div>
+        <div class="ob-card-sub">Daily remembrance · light on tongue, heavy on scales</div>
+      </div>
+      <div class="ob-card-arrow">›</div>
+    </button>
+    <button class="ob-card" onclick="obSelect('duas')" type="button">
+      <div class="ob-card-icon">🤲</div>
+      <div class="ob-card-body">
+        <div class="ob-card-title">Find a specific dua</div>
+        <div class="ob-card-sub">188 authentic supplications · every occasion</div>
       </div>
       <div class="ob-card-arrow">›</div>
     </button>
   </div>
-  <button class="ob-skip" onclick="obSelect('skip')" type="button">Explore on my own</button>
+  <button class="ob-skip" onclick="obSelect('skip')" type="button">I'll explore on my own</button>
 </div>
 
 <!-- =================== GUIDED SESSION OVERLAY =================== -->
@@ -7911,7 +7986,7 @@ body.light .resume-card {
     <span class="bn-label">Home</span>
   </button>
   <button class="bn-tab" data-view="adhkar" onclick="showView('adhkar')">
-    <span class="bn-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3C9 3 6.5 5.5 6.5 9c0 4 3 7 5.5 9 2.5-2 5.5-5 5.5-9C17.5 5.5 15 3 12 3z"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="9" y1="22" x2="15" y2="22"/></svg></span>
+    <span class="bn-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/><path d="M7.5 4.5 C6 6 5 8 5 10"/></svg></span>
     <span class="bn-label">Adhkar</span>
   </button>
   <button class="bn-tab" data-view="duas" onclick="showView('duas')">
@@ -7919,7 +7994,7 @@ body.light .resume-card {
     <span class="bn-label">Duas</span>
   </button>
   <button class="bn-tab" data-view="dhikr" onclick="showView('dhikr')">
-    <span class="bn-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2.5"/><circle cx="12" cy="4" r="1.5"/><circle cx="19.5" cy="8" r="1.5"/><circle cx="19.5" cy="16" r="1.5"/><circle cx="12" cy="20" r="1.5"/><circle cx="4.5" cy="16" r="1.5"/><circle cx="4.5" cy="8" r="1.5"/><line x1="12" y1="5.5" x2="12" y2="9.5"/><line x1="18.1" y1="9" x2="14.1" y2="11"/><line x1="18.1" y1="15" x2="14.1" y2="13"/><line x1="12" y1="18.5" x2="12" y2="14.5"/><line x1="5.9" y1="15" x2="9.9" y2="13"/><line x1="5.9" y1="9" x2="9.9" y2="11"/></svg></span>
+    <span class="bn-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3a3 3 0 0 1 3 3v10a3 3 0 0 1-6 0V6a3 3 0 0 1 3-3z"/><path d="M18 3a3 3 0 0 1 3 3v10a3 3 0 0 1-6 0V6a3 3 0 0 1 3-3z"/><path d="M9 7h6"/><path d="M9 12h6"/><path d="M9 17h6"/></svg></span>
     <span class="bn-label">Dhikr</span>
   </button>
   <button class="bn-tab" data-view="learn" onclick="showView('learn')">
@@ -7966,6 +8041,7 @@ function showView(name) {
   if (!targetEl) return;
 
   // Update tabs + indicator immediately (feels instant)
+  if (navigator.vibrate) navigator.vibrate(8);
   document.querySelectorAll('.bn-tab').forEach(function(tab) {
     tab.classList.toggle('active', tab.getAttribute('data-view') === name);
     tab.style.color = '';
@@ -8428,6 +8504,7 @@ function renderDhikrIndex(){
       '<div class="dho-index-inner">' +
         '<div class="dho-index-arabic">' + d.ar + '</div>' +
         '<div class="dho-index-label">' + d.label + '</div>' +
+        (d.src ? '<div class="dho-index-virtue">' + d.src + '</div>' : '') +
       '</div>' +
       '<div class="dho-index-right">' +
         '<div class="' + countClass + '">' + countStr + '</div>' +
@@ -9265,17 +9342,12 @@ function escapeHtml(s){
 
   function renderProgress(){
     ['morning','evening','salah','sleep'].forEach(function(key){
-      var check = document.getElementById('ptc-'+key);
       var card = document.getElementById('pt-'+key);
-      if(!check) return;
+      if(!card) return;
       if(progress[key]){
-        check.textContent = '✓';
-        check.style.color = '';
-        if(card) card.classList.add('sc-done');
+        card.classList.add('sc-done');
       } else {
-        check.textContent = '○';
-        check.style.color = '';
-        if(card) card.classList.remove('sc-done');
+        card.classList.remove('sc-done');
       }
     });
   }
@@ -10456,6 +10528,34 @@ function estimateHijri(date) {
   }, { passive: true });
 })();
 
+// ============================================================
+//  DUA READER SWIPE GESTURES
+// ============================================================
+(function(){
+  var swipeStartX = 0;
+  var swipeStartY = 0;
+  var SWIPE_THRESHOLD = 48;
+  var overlay = document.getElementById('duaReaderOverlay');
+  if (!overlay) return;
+  overlay.addEventListener('touchstart', function(e) {
+    swipeStartX = e.changedTouches[0].clientX;
+    swipeStartY = e.changedTouches[0].clientY;
+  }, { passive: true });
+  overlay.addEventListener('touchend', function(e) {
+    var dx = e.changedTouches[0].clientX - swipeStartX;
+    var dy = e.changedTouches[0].clientY - swipeStartY;
+    if (Math.abs(dx) < SWIPE_THRESHOLD) return;
+    if (Math.abs(dy) > Math.abs(dx) * 0.75) return;
+    if (dx < 0) {
+      var nxt = document.getElementById('duaReaderNext');
+      if (nxt && !nxt.disabled) nxt.click();
+    } else {
+      var prv = document.getElementById('duaReaderPrev');
+      if (prv && !prv.disabled) prv.click();
+    }
+  }, { passive: true });
+})();
+
 function loadHijriDate() {
   var today = new Date();
   var todayStr = today.getFullYear() + '-' +
@@ -11194,156 +11294,195 @@ function shareAsImage() {
 
   setTimeout(function() {
     try {
-      /* ── Canvas: 1080×1920 native story format ── */
       var W = 1080, H = 1920;
-      var PAD = 80;
-      var inner = W - PAD * 2;
-
+      var cx = W / 2;
       var cv = document.createElement('canvas');
       cv.width = W; cv.height = H;
       var ctx = cv.getContext('2d');
 
-      /* ── Background: navy gradient (same as old version) ── */
-      var bg = ctx.createLinearGradient(0, 0, W, H);
-      bg.addColorStop(0,   '#0C1018');
-      bg.addColorStop(0.5, '#111827');
-      bg.addColorStop(1,   '#0C1018');
+      /* ── 1. Background: deep navy, darker at edges ── */
+      var bg = ctx.createRadialGradient(cx, H * 0.42, 0, cx, H * 0.42, W * 0.9);
+      bg.addColorStop(0,   '#161d2e');
+      bg.addColorStop(0.6, '#0e1420');
+      bg.addColorStop(1,   '#080c14');
       ctx.fillStyle = bg;
       ctx.fillRect(0, 0, W, H);
 
-      /* ── Gold left border strip ── */
-      ctx.fillStyle = '#C9A84C';
-      ctx.fillRect(0, 0, 7, H);
-
-      /* ── Radial glow top-right ── */
-      var glow = ctx.createRadialGradient(W * 0.9, 0, 0, W * 0.9, 0, W * 0.75);
-      glow.addColorStop(0, 'rgba(201,168,76,0.10)');
-      glow.addColorStop(1, 'rgba(0,0,0,0)');
+      /* ── 2. Large centred radial glow behind Arabic ── */
+      var glow = ctx.createRadialGradient(cx, H * 0.38, 0, cx, H * 0.38, 520);
+      glow.addColorStop(0,   'rgba(201,168,76,0.13)');
+      glow.addColorStop(0.5, 'rgba(201,168,76,0.05)');
+      glow.addColorStop(1,   'rgba(0,0,0,0)');
       ctx.fillStyle = glow;
       ctx.fillRect(0, 0, W, H);
 
-      /* ── Pre-measure all text blocks ── */
-      ctx.font = 'bold 34px "Gill Sans","Optima","Segoe UI",sans-serif';
-      var titleLines = _duaWrapLines(ctx, title, inner);
-
-      var arFontSize = 78;
-      ctx.font = arFontSize + 'px "Scheherazade New","Traditional Arabic","Amiri",serif';
-      var arLines = _duaWrapLines(ctx, ar, inner);
-      if (arLines.length > 5) {
-        arFontSize = 64;
-        ctx.font = arFontSize + 'px "Scheherazade New","Traditional Arabic","Amiri",serif';
-        arLines = _duaWrapLines(ctx, ar, inner);
+      /* ── 3. Subtle noise texture overlay (hand-drawn dots) ── */
+      ctx.save();
+      ctx.globalAlpha = 0.018;
+      for (var nx = 0; nx < W; nx += 4) {
+        for (var ny = 0; ny < H; ny += 4) {
+          if (Math.random() > 0.5) {
+            ctx.fillStyle = '#C9A84C';
+            ctx.fillRect(nx, ny, 1, 1);
+          }
+        }
       }
-      if (arLines.length > 7) {
-        arFontSize = 54;
-        ctx.font = arFontSize + 'px "Scheherazade New","Traditional Arabic","Amiri",serif';
-        arLines = _duaWrapLines(ctx, ar, inner);
+      ctx.restore();
+
+      /* ── 4. Top ornament: geometric star in faint gold ── */
+      var starX = cx, starY = 210, starR = 52;
+      ctx.save();
+      ctx.strokeStyle = 'rgba(201,168,76,0.22)';
+      ctx.lineWidth = 1.5;
+      /* 8-pointed star */
+      ctx.beginPath();
+      for (var p = 0; p < 16; p++) {
+        var angle = (p * Math.PI) / 8 - Math.PI / 2;
+        var r = (p % 2 === 0) ? starR : starR * 0.42;
+        var sx = starX + r * Math.cos(angle);
+        var sy = starY + r * Math.sin(angle);
+        if (p === 0) ctx.moveTo(sx, sy); else ctx.lineTo(sx, sy);
       }
-      var arLineH = Math.round(arFontSize * 1.28);
+      ctx.closePath();
+      ctx.stroke();
+      /* outer circle */
+      ctx.beginPath();
+      ctx.arc(starX, starY, starR + 18, 0, Math.PI * 2);
+      ctx.stroke();
+      /* inner circle */
+      ctx.beginPath();
+      ctx.arc(starX, starY, starR * 0.3, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.restore();
 
-      ctx.font = 'italic 28px "Palatino Linotype","Book Antiqua","Georgia",serif';
-      var trLines = _duaWrapLines(ctx, tr, inner);
+      /* ── 5. Measure Arabic text — adaptive font size ── */
+      var arFont = 96;
+      var arInner = W - 160;
+      ctx.font = arFont + 'px "Scheherazade New","Traditional Arabic","Amiri",serif';
+      var arLines = _duaWrapLines(ctx, ar, arInner);
+      if (arLines.length > 4) {
+        arFont = 80;
+        ctx.font = arFont + 'px "Scheherazade New","Traditional Arabic","Amiri",serif';
+        arLines = _duaWrapLines(ctx, ar, arInner);
+      }
+      if (arLines.length > 6) {
+        arFont = 66;
+        ctx.font = arFont + 'px "Scheherazade New","Traditional Arabic","Amiri",serif';
+        arLines = _duaWrapLines(ctx, ar, arInner);
+      }
+      var arLineH = Math.round(arFont * 2.0);
 
-      ctx.font = 'bold 30px "Gill Sans","Optima","Segoe UI",sans-serif';
-      var enLines = _duaWrapLines(ctx, en, inner);
+      /* ── 6. Measure transliteration ── */
+      var trFont = 30;
+      ctx.font = 'italic ' + trFont + 'px "Palatino Linotype","Book Antiqua","Georgia",serif';
+      var trLines = _duaWrapLines(ctx, tr, W - 160);
 
-      /* ── Compute total content height for vertical centering ── */
-      var logoH  = 44 + 36;                       /* logo row + gap */
-      var titleH = titleLines.length * 44 + 28;   /* title + gap */
-      var arH    = arLines.length * arLineH + 20;  /* arabic + gap */
-      var divH   = 28;                            /* divider + gap */
-      var trH    = trLines.length * 38 + 20;      /* transliteration + gap */
-      var enH    = enLines.length * 40 + 32;      /* translation + gap */
-      var srcH   = src ? 28 : 0;                  /* source line */
+      /* ── 7. Measure English ── */
+      var enFont = 38;
+      ctx.font = enFont + 'px "Palatino Linotype","Book Antiqua","Georgia",serif';
+      var enLines = _duaWrapLines(ctx, en, W - 200);
 
-      var totalH = logoH + titleH + arH + divH + trH + enH + srcH;
+      /* ── 8. Compute total block height for vertical centering ── */
+      var arBlockH  = arLines.length * arLineH;
+      var dividerH  = 80;
+      var enBlockH  = enLines.length * (enFont + 18);
+      var trBlockH  = trLines.length * (trFont + 14);
+      var srcBlockH = src ? 52 : 0;
+      var totalH    = arBlockH + dividerH + enBlockH + 24 + trBlockH + srcBlockH;
 
-      /* Vertically centre — clamp so content never starts above 140px or below midpoint */
-      var startY = Math.min(
-        Math.floor((H - totalH) / 2),
-        Math.floor(H * 0.38)
-      );
-      startY = Math.max(startY, 140);
+      var startY = Math.max(340, Math.floor((H - totalH) / 2));
       var y = startY;
 
-      /* ── Logo: moon + app name ── */
-      ctx.font = '600 22px "Gill Sans","Optima","Segoe UI",sans-serif';
-      ctx.fillStyle = '#a78bfa';
-      ctx.textAlign = 'left';
-      ctx.fillText('\uD83C\uDF19  NAFI\u2019S DUA LIST', PAD, y + 16);
-      y += logoH;
-
-      /* ── Title ── */
-      ctx.font = 'bold 34px "Gill Sans","Optima","Segoe UI",sans-serif';
-      ctx.fillStyle = '#C9A84C';
-      ctx.textAlign = 'left';
-      for (var t = 0; t < titleLines.length; t++) {
-        ctx.fillText(titleLines[t], PAD, y);
-        y += 44;
-      }
-      y += 28;
-
-      /* ── Arabic (RTL, right-aligned) ── */
-      ctx.font = arFontSize + 'px "Scheherazade New","Traditional Arabic","Amiri",serif';
+      /* ── 9. Arabic — centred, hero size ── */
+      ctx.font = arFont + 'px "Scheherazade New","Traditional Arabic","Amiri",serif';
       ctx.fillStyle = '#E8CC84';
-      ctx.textAlign = 'right';
+      ctx.textAlign = 'center';
       ctx.direction = 'rtl';
       for (var a = 0; a < arLines.length; a++) {
-        ctx.fillText(arLines[a].trim(), W - PAD, y + arFontSize);
+        ctx.fillText(arLines[a].trim(), cx, y + arFont);
         y += arLineH;
       }
       ctx.direction = 'ltr';
-      ctx.textAlign = 'left';
-      y += 20;
 
-      /* ── Divider (single gold, same as old version) ── */
-      ctx.strokeStyle = 'rgba(201,168,76,0.25)';
-      ctx.lineWidth = 1.5;
-      ctx.beginPath(); ctx.moveTo(PAD, y); ctx.lineTo(W - PAD, y); ctx.stroke();
-      y += 28;
+      /* ── 10. Ornamental divider ── */
+      y += 36;
+      var divW = 280;
+      ctx.strokeStyle = 'rgba(201,168,76,0.35)';
+      ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(cx - divW/2, y); ctx.lineTo(cx - 28, y); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(cx + 28, y); ctx.lineTo(cx + divW/2, y); ctx.stroke();
+      /* centre diamond */
+      ctx.save();
+      ctx.translate(cx, y);
+      ctx.rotate(Math.PI / 4);
+      ctx.strokeRect(-7, -7, 14, 14);
+      ctx.restore();
+      y += 44;
 
-      /* ── Transliteration ── */
-      ctx.font = 'italic 28px "Palatino Linotype","Book Antiqua","Georgia",serif';
-      ctx.fillStyle = '#A89470';
-      for (var b = 0; b < trLines.length; b++) {
-        ctx.fillText(trLines[b].trim(), PAD, y);
-        y += 38;
-      }
-      y += 20;
-
-      /* ── Translation ── */
-      ctx.font = 'bold 30px "Gill Sans","Optima","Segoe UI",sans-serif';
+      /* ── 11. English translation — centred, warm white ── */
+      ctx.font = enFont + 'px "Palatino Linotype","Book Antiqua","Georgia",serif';
       ctx.fillStyle = '#F0E6D0';
+      ctx.textAlign = 'center';
       for (var c = 0; c < enLines.length; c++) {
-        ctx.fillText(enLines[c].trim(), PAD, y);
-        y += 40;
+        ctx.fillText(enLines[c].trim(), cx, y);
+        y += enFont + 18;
       }
-      y += 32;
+      y += 24;
 
-      /* ── Source ── */
+      /* ── 12. Transliteration — centred, muted italic ── */
+      ctx.font = 'italic ' + trFont + 'px "Palatino Linotype","Book Antiqua","Georgia",serif';
+      ctx.fillStyle = 'rgba(168,148,112,0.75)';
+      ctx.textAlign = 'center';
+      for (var b = 0; b < trLines.length; b++) {
+        ctx.fillText(trLines[b].trim(), cx, y);
+        y += trFont + 14;
+      }
+
+      /* ── 13. Source — small, bottom of content ── */
       if (src) {
-        ctx.font = '22px "Gill Sans","Optima","Segoe UI",sans-serif';
-        ctx.fillStyle = '#6B5E48';
-        ctx.fillText(src, PAD, y);
+        y += 20;
+        ctx.font = '26px "Palatino Linotype","Book Antiqua","Georgia",serif';
+        ctx.fillStyle = 'rgba(82,183,136,0.7)';
+        ctx.textAlign = 'center';
+        var srcShort = src.length > 60 ? src.substring(0, 58) + '\u2026' : src;
+        ctx.fillText(srcShort, cx, y);
       }
 
-      /* ── Output ── */
+      /* ── 14. Bottom branding: NAAFI wordmark ── */
+      var brandY = H - 110;
+      /* thin line above */
+      ctx.strokeStyle = 'rgba(201,168,76,0.15)';
+      ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(cx - 120, brandY - 28); ctx.lineTo(cx + 120, brandY - 28); ctx.stroke();
+      /* wordmark */
+      ctx.font = '300 28px "Gill Sans","Optima","Segoe UI",sans-serif';
+      ctx.fillStyle = 'rgba(201,168,76,0.55)';
+      ctx.textAlign = 'center';
+      ctx.letterSpacing = '0.3em';
+      ctx.fillText('N A A F I', cx, brandY);
+      ctx.letterSpacing = '0';
+      /* tagline */
+      ctx.font = '20px "Gill Sans","Optima","Segoe UI",sans-serif';
+      ctx.fillStyle = 'rgba(168,148,112,0.4)';
+      ctx.fillText('Dua \u00B7 Adhkar \u00B7 Dhikr', cx, brandY + 36);
+
+      /* ── 15. Output ── */
       cv.toBlob(function(blob) {
         if (!blob) { ndlToast('Could not create image'); return; }
-        var file = new File([blob], 'dua.png', { type: 'image/png' });
+        var file = new File([blob], 'naafi-dua.png', { type: 'image/png' });
         if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
-          navigator.share({ files: [file], title: title, text: 'Shared from Nafi\u2019s Dua List' }).catch(function(){});
+          navigator.share({ files: [file], title: title, text: 'Shared from Naafi' }).catch(function(){});
         } else if (navigator.share) {
           navigator.share({ files: [file], title: title }).catch(function(err) {
             var url = URL.createObjectURL(blob);
             var a = document.createElement('a');
-            a.href = url; a.download = 'dua-' + Date.now() + '.png'; a.click();
+            a.href = url; a.download = 'naafi-dua-' + Date.now() + '.png'; a.click();
             setTimeout(function() { URL.revokeObjectURL(url); }, 2000);
           });
         } else {
           var url = URL.createObjectURL(blob);
           var a = document.createElement('a');
-          a.href = url; a.download = 'dua-' + Date.now() + '.png'; a.click();
+          a.href = url; a.download = 'naafi-dua-' + Date.now() + '.png'; a.click();
           setTimeout(function() { URL.revokeObjectURL(url); }, 2000);
           ndlToast('Image saved \u2713');
         }
