@@ -1248,16 +1248,20 @@ body.light .bottom-nav {
   position: relative;
   transition: color var(--t-instant) var(--ease-out);
 }
-.bn-tab .bn-icon { font-size: 28px; line-height: 1; }
+.bn-tab .bn-icon { display: flex; align-items: center; justify-content: center; width: 22px; height: 22px; }
+.bn-tab .bn-icon svg { width: 22px; height: 22px; }
 .bn-tab .bn-label { font-size: 11px; letter-spacing: 0.05em; white-space: nowrap; }
 .bn-tab.active { color: #C9A84C; }
 .bn-tab.active::after {
   content: '';
   position: absolute;
-  top: 0; left: 15%; right: 15%;
-  height: 2px;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 4px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
   background: #C9A84C;
-  border-radius: 0 0 2px 2px;
+  border-radius: 50%;
 }
 body.light .bn-tab { color: #9A7A56; }
 body.light .bn-tab.active { color: #7a5c12; }
@@ -3255,6 +3259,97 @@ body.light .guided-nav {
   letter-spacing: 0.02em;
 }
 
+/* ── CATEGORY TILE GRID ── */
+.cat-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  padding: 12px 16px 24px;
+}
+.cat-tile {
+  background: var(--card);
+  border: 1px solid var(--bdr);
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--t-fast) var(--ease-out), border-color var(--t-fast) var(--ease-out);
+  touch-action: manipulation;
+  text-align: left;
+}
+.cat-tile:active {
+  transform: scale(0.96);
+  border-color: var(--gold-d);
+}
+.cat-tile-band {
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  flex-shrink: 0;
+}
+.cat-tile-body {
+  padding: 10px 12px 12px;
+  flex: 1;
+}
+.cat-tile-title {
+  font-family: var(--fs);
+  font-size: 14px;
+  color: var(--text);
+  font-weight: 400;
+  margin-bottom: 3px;
+  line-height: 1.3;
+}
+.cat-tile-sub {
+  font-family: var(--fn);
+  font-size: 11px;
+  color: var(--text-m);
+  letter-spacing: 0.03em;
+  line-height: 1.4;
+}
+.cat-grid-header {
+  grid-column: 1 / -1;
+  font-family: var(--fn);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-d);
+  padding: 4px 0 0;
+}
+.cat-tile.cat-tile-wide {
+  grid-column: 1 / -1;
+  flex-direction: row;
+  align-items: center;
+}
+.cat-tile.cat-tile-wide .cat-tile-band {
+  width: 80px;
+  height: 72px;
+  flex-shrink: 0;
+  border-radius: 0;
+}
+.cat-tile.cat-tile-wide .cat-tile-body {
+  padding: 12px 16px;
+}
+.band-teal   { background: linear-gradient(135deg, #1a3a3a 0%, #0f2828 100%); }
+.band-navy   { background: linear-gradient(135deg, #1a2240 0%, #0f1628 100%); }
+.band-plum   { background: linear-gradient(135deg, #2a1a3a 0%, #1a0f28 100%); }
+.band-earth  { background: linear-gradient(135deg, #2e2010 0%, #1e1408 100%); }
+.band-forest { background: linear-gradient(135deg, #142814 0%, #0a1a0a 100%); }
+.band-gold   { background: linear-gradient(135deg, #2e2200 0%, #1e1600 100%); }
+.band-rose   { background: linear-gradient(135deg, #2e1020 0%, #1e0814 100%); }
+.band-slate  { background: linear-gradient(135deg, #182030 0%, #0e1420 100%); }
+body.light .cat-tile { background: #fff; border-color: rgba(122,92,18,0.15); }
+body.light .band-teal   { background: linear-gradient(135deg, #d4eded 0%, #b8e0e0 100%); }
+body.light .band-navy   { background: linear-gradient(135deg, #d4d8ed 0%, #b8bee0 100%); }
+body.light .band-plum   { background: linear-gradient(135deg, #e0d4ed 0%, #d0b8e0 100%); }
+body.light .band-earth  { background: linear-gradient(135deg, #ede4d4 0%, #e0d4b8 100%); }
+body.light .band-forest { background: linear-gradient(135deg, #d4edd4 0%, #b8e0b8 100%); }
+body.light .band-gold   { background: linear-gradient(135deg, #ede8d4 0%, #e0d8a0 100%); }
+body.light .band-rose   { background: linear-gradient(135deg, #edd4dc 0%, #e0b8c4 100%); }
+body.light .band-slate  { background: linear-gradient(135deg, #d8dce8 0%, #c0c8dc 100%); }
 .duas-index-search {
   position: relative;
   margin-bottom: 4px;
@@ -3948,6 +4043,29 @@ body.light .guided-nav {
 /* ===== END SA'AT AL-ISTIJABAH TIMER ===== */
 
 /* ===== STREAK BADGE ===== */
+/* ── HOME BANNER ── */
+.home-banner {
+  text-align: center;
+  padding: 20px 20px 8px;
+}
+.home-banner-bismillah {
+  font-family: var(--fa);
+  font-size: clamp(16px, 4vw, 20px);
+  color: var(--gold-d);
+  margin-bottom: 6px;
+  direction: rtl;
+}
+.home-banner-title {
+  font-family: var(--fs);
+  font-size: clamp(22px, 5.5vw, 28px);
+  color: var(--gold-l);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+.home-banner-title em {
+  font-style: italic;
+  color: var(--text);
+}
 .streak-wrap {
   display: flex; align-items: center; justify-content: center;
   gap: 8px; margin: 8px 0 4px;
@@ -4416,21 +4534,14 @@ body.light .resume-card {
     <button class="icon-btn" onclick="openSettings()" aria-label="Settings">⚙️</button>
   </div>
 
-<div class="moon-wrap" aria-hidden="true">
-    <svg width="64" height="64" viewBox="0 0 70 70" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M35 8 C20 8 10 20 10 35 C10 50 20 62 35 62 C28 55 24 46 24 35 C24 24 28 15 35 8Z" fill="#C9A84C" opacity="0.82"/>
-      <circle cx="48" cy="18" r="3" fill="#E8CC84" opacity="0.55"/>
-      <circle cx="54" cy="29" r="1.5" fill="#E8CC84" opacity="0.38"/>
-      <circle cx="43" cy="31" r="1" fill="#E8CC84" opacity="0.28"/>
-    </svg>
-  </div>
+<div class="home-banner">
+  <div class="home-banner-bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+  <div class="home-banner-title">Nafi's <em>Dua List</em></div>
+</div>
 
-  <header class="header">
-    <div class="bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
-    <p class="eyebrow">Nafi's Dua List &nbsp;·&nbsp; Daily Worship</p>
-    <h1 class="htitle">Nafi's <em>Dua List</em></h1>
-    <p class="hsub">Authentic supplications from the Qur'an &amp; Sunnah — for every day of the year. Tap any section to begin.</p>
-  </header>
+
+
+
 
   <!-- RESUME CARD -->
   <div class="resume-card" id="resumeCard" onclick="resumeSession()">
@@ -4460,17 +4571,7 @@ body.light .resume-card {
 
   <!-- CONTEXTUAL HOME (Phase A) -->
   <div id="contextualHome" class="contextual-home"></div>
-  <div class="divider"><div class="dl"></div><div class="dg"></div><div class="dgo"></div><div class="dg"></div><div class="dl"></div></div>
 
-  <div class="install-card" id="installCard">
-    <button class="install-card-close" id="installCardClose" aria-label="Dismiss">✕</button>
-    <div class="install-card-icon">📲</div>
-    <div class="install-card-title">Add to Your Home Screen</div>
-    <div class="install-card-body">Use this app offline, anytime — no app store needed. It works like a native app.</div>
-    <div class="install-steps" id="installSteps"></div>
-    <button class="install-card-btn" id="installBtn" style="display:none">Install App</button>
-    <button class="install-card-dismiss" id="installDismiss">Got it — don't show again</button>
-  </div>
 
 
   <!-- DUA OF THE DAY -->
@@ -4597,62 +4698,7 @@ body.light .resume-card {
     </div>
   </div>
 
-  <div class="divider"><div class="dl"></div><div class="dg"></div><div class="dl"></div></div>
 
-  <!-- Essential Duas -->
-  <div class="home-essential-sec-h">
-    <div class="si">🤲</div>
-    <div><span class="st">Essential Duas</span><span class="ss">Core supplications every Muslim should know</span></div>
-  </div>
-
-  <div class="dua feat">
-    <div class="feat-badge">★ Laylatul Qadr Dua ★</div>
-    <div class="dlabel">Taught by the Prophet ﷺ to Aisha رضي الله عنها — specifically for Laylatul Qadr</div>
-    <div class="ar">اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي</div>
-    <div class="tr">Allāhumma innaka ʿafuwwun tuḥibbul-ʿafwa faʿfu ʿannī</div>
-    <div class="en">"O Allah, You are the Pardoner, You love to pardon, so pardon me."</div>
-    <div class="src">Source: <b>al-Tirmidhi (3513), Ibn Majah (3850) — Sahih</b></div>
-    <div class="badge">Say in every sajdah · on your commute · before sleep · after every salah</div>
-  </div>
-
-  <div class="dua">
-    <div class="dlabel">Sayyid al-Istighfar — Master Dua of Forgiveness</div>
-    <div class="ar sm">اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَٰهَ إِلَّا أَنْتَ خَلَقْتَنِي وَأَنَا عَبْدُكَ وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ أَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ أَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ وَأَبُوءُ لَكَ بِذَنْبِي فَاغْفِرْ لِي فَإِنَّهُ لَا يَغْفِرُ الذُّنُوبَ إِلَّا أَنْتَ</div>
-    <div class="tr">Allāhumma Anta Rabbī lā ilāha illā Anta, khalaqtanī wa anā ʿabduka, wa anā ʿalā ʿahdika wa waʿdika mastaṭaʿtu, aʿūdhu bika min sharri mā ṣanaʿtu, abūʾu laka biniʿmatika ʿalayya, wa abūʾu laka bidhanbī faghfir lī, fa innahu lā yaghfirudh-dhunūba illā Ant</div>
-    <div class="en">"O Allah, You are my Lord. There is no god but You. You created me and I am Your servant. I am upon Your covenant and promise as best I can. I seek refuge in You from the evil of what I have done. I acknowledge Your favour upon me and I acknowledge my sin. So forgive me, for no one forgives sins except You."</div>
-    <div class="src">Source: <b>Sahih al-Bukhari (6306)</b> — Say morning &amp; evening: dies that day → enters Paradise</div>
-  </div>
-
-  <div class="dua">
-    <div class="dlabel">Dua of Yunus (AS) — Al-Anbiya 21:87</div>
-    <div class="ar">لَّا إِلَٰهَ إِلَّا أَنتَ سُبْحَانَكَ إِنِّي كُنتُ مِنَ الظَّالِمِينَ</div>
-    <div class="tr">Lā ilāha illā Anta subḥānaka innī kuntu minaẓ-ẓālimīn</div>
-    <div class="en">"There is no god but You. Glory be to You. Indeed, I have been of the wrongdoers."</div>
-    <div class="src">Source: <b>Qur'an 21:87</b></div>
-    <div class="badge">No Muslim supplicates sincerely with this except Allah answers — al-Tirmidhi (Sahih)</div>
-  </div>
-
-  <div class="dua">
-    <div class="dlabel">For Good in Both Worlds — Al-Baqarah 2:201</div>
-    <div class="ar">رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ</div>
-    <div class="tr">Rabbanā ātinā fid-dunyā ḥasanatan wa fil-ākhirati ḥasanatan wa qinā ʿadhāban-nār</div>
-    <div class="en">"Our Lord, give us good in this world and good in the Hereafter, and protect us from the punishment of the Fire."</div>
-    <div class="src">Source: <b>Qur'an 2:201</b> — The Prophet ﷺ made this dua most frequently of all</div>
-    <div class="badge">Best all-encompassing dua — covers both worlds in one breath</div>
-  </div>
-
-
-  <div class="divider"><div class="dl"></div><div class="dg"></div><div class="dl"></div></div>
-
-<footer class="footer">
-    <div class="far">اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي</div>
-    <div class="ftr">"O Allah, You are the Pardoner, You love to pardon, so pardon me."</div>
-    <div class="fsrc">al-Tirmidhi · Ibn Majah — Sahih &nbsp;·&nbsp; The Dua of Laylatul Qadr</div>
-    <div class="fcopy">
-      Nafi's Dua List · All hadith graded Sahih or Hasan unless otherwise noted<br>
-      Free to share, print and distribute — لا حقوق محفوظة — No rights reserved for the sake of Allah
-    </div>
-  </footer>
 
 </div><!-- end home-view -->
 
@@ -4764,7 +4810,7 @@ body.light .resume-card {
       </div>
 
       <!-- Card 1: Istighfar × 3 -->
-      <div class="salah-card" id="sc-0">
+      <div class="salah-card" id="sc-0" onclick="tickSalahCard(0)">
         <div class="salah-card-header">
           <div class="salah-card-title">Istighfar — 3×</div>
           <button class="salah-tick-btn" onclick="event.stopPropagation();tickSalahCard(0)" aria-label="Mark complete">✓</button>
@@ -4776,7 +4822,7 @@ body.light .resume-card {
       </div>
 
       <!-- Card 2: Salam Dua -->
-      <div class="salah-card" id="sc-1">
+      <div class="salah-card" id="sc-1" onclick="tickSalahCard(1)">
         <div class="salah-card-header">
           <div class="salah-card-title">The Salam Dua — 1×</div>
           <button class="salah-tick-btn" onclick="event.stopPropagation();tickSalahCard(1)" aria-label="Mark complete">✓</button>
@@ -4839,7 +4885,7 @@ body.light .resume-card {
       </div>
 
       <!-- Card 6: Tahleel -->
-      <div class="salah-card" id="sc-5">
+      <div class="salah-card" id="sc-5" onclick="tickSalahCard(5)">
         <div class="salah-card-header">
           <div class="salah-card-title">Tahleel — 1×</div>
           <button class="salah-tick-btn" onclick="event.stopPropagation();tickSalahCard(5)" aria-label="Mark complete">✓</button>
@@ -4851,7 +4897,7 @@ body.light .resume-card {
       </div>
 
       <!-- Card 7: Ayatul Kursi -->
-      <div class="salah-card" id="sc-6">
+      <div class="salah-card" id="sc-6" onclick="tickSalahCard(6)">
         <div class="salah-card-header">
           <div class="salah-card-title">Āyatul Kursī — 1×</div>
           <button class="salah-tick-btn" onclick="event.stopPropagation();tickSalahCard(6)" aria-label="Mark complete">✓</button>
@@ -4984,185 +5030,148 @@ body.light .resume-card {
         oninput="filterDuasIndex(this.value)" aria-label="Search Duas categories">
     </div>
     <div class="duas-index" id="duasIndexList">
+<div class="cat-grid">
 
-      <div class="duas-cat-section-header" data-cat-header>DAILY ADHKAR</div>
+  <div class="cat-grid-header">Daily Adhkar</div>
 
-      <button class="duas-cat-row" data-cat-title="After Every Salah" onclick="openDuasCategory('salah', 'adhkar')">
-        <div class="duas-cat-icon">🕌</div>
-        <div class="duas-cat-info">
-          <div class="duas-cat-title">After Every Salah</div>
-          <div class="duas-cat-sub">Essential adhkar after fard prayer</div>
-          <div class="duas-cat-ar-snip">سُبْحَانَ اللَّهِ · الْحَمْدُ لِلَّهِ · اللَّهُ أَكْبَرُ</div>
-        </div>
-        <div class="duas-cat-badge">7</div>
-        <div class="duas-cat-arrow">›</div>
-      </button>
-
-      <button class="duas-cat-row" data-cat-title="Morning Adhkar" onclick="openDuasCategory('morning', 'adhkar')">
-        <div class="duas-cat-icon">☀️</div>
-        <div class="duas-cat-info">
-          <div class="duas-cat-title">Morning Adhkar</div>
-          <div class="duas-cat-sub">After Fajr — before sunrise</div>
-          <div class="duas-cat-ar-snip">أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ...</div>
-        </div>
-        <div class="duas-cat-badge">15</div>
-        <div class="duas-cat-arrow">›</div>
-      </button>
-
-      <button class="duas-cat-row" data-cat-title="Evening Adhkar" onclick="openDuasCategory('evening', 'adhkar')">
-        <div class="duas-cat-icon">🌙</div>
-        <div class="duas-cat-info">
-          <div class="duas-cat-title">Evening Adhkar</div>
-          <div class="duas-cat-sub">After Asr — before Maghrib</div>
-          <div class="duas-cat-ar-snip">أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ...</div>
-        </div>
-        <div class="duas-cat-badge">12</div>
-        <div class="duas-cat-arrow">›</div>
-      </button>
-
-      <button class="duas-cat-row" data-cat-title="Before Sleep" onclick="openDuasCategory('sleep', 'adhkar')">
-        <div class="duas-cat-icon">💤</div>
-        <div class="duas-cat-info">
-          <div class="duas-cat-title">Before Sleep</div>
-          <div class="duas-cat-sub">Every night before bed</div>
-          <div class="duas-cat-ar-snip">بِاسْمِكَ اللَّهُمَّ أَمُوتُ وَأَحْيَا...</div>
-        </div>
-        <div class="duas-cat-badge">9</div>
-        <div class="duas-cat-arrow">›</div>
-      </button>
-
-      <div class="duas-cat-section-header" data-cat-header>QUR’AN &amp; SUNNAH</div>
-
-      <button class="duas-cat-row" data-cat-title="Duas from the Quran" onclick="openDuasCategory('quran')">
-        <div class="duas-cat-icon">📖</div>
-        <div class="duas-cat-info">
-          <div class="duas-cat-title">Duas from the Qur’an</div>
-          <div class="duas-cat-sub">The direct words of Allah</div>
-          <div class="duas-cat-ar-snip">رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً...</div>
-        </div>
-        <div class="duas-cat-badge">21</div>
-        <div class="duas-cat-arrow">›</div>
-      </button>
-
-      <button class="duas-cat-row" data-cat-title="Duas of the Prophets" onclick="openDuasCategory('prophets')">
-        <div class="duas-cat-icon">🌿</div>
-        <div class="duas-cat-info">
-          <div class="duas-cat-title">Duas of the Prophets</div>
-          <div class="duas-cat-sub">Supplications of the Prophets ﹰﺀ</div>
-          <div class="duas-cat-ar-snip">رَبِّ إِنِّي لِمَا أَنزَلْتَ إِلَيَّ...</div>
-        </div>
-        <div class="duas-cat-badge">20</div>
-        <div class="duas-cat-arrow">›</div>
-      </button>
-
-      <button class="duas-cat-row" data-cat-title="Prophetic Duas" onclick="openDuasCategory('sunnah')">
-        <div class="duas-cat-icon">☪️</div>
-        <div class="duas-cat-info">
-          <div class="duas-cat-title">Prophetic Duas</div>
-          <div class="duas-cat-sub">Authenticated supplications of the Prophet ﹰﺀ</div>
-          <div class="duas-cat-ar-snip">اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَهَ إِلَّا أَنْتَ...</div>
-        </div>
-        <div class="duas-cat-badge">14</div>
-        <div class="duas-cat-arrow">›</div>
-      </button>
-
-      <div class="duas-cat-section-header" data-cat-header>SITUATIONAL</div>
-
-      <button class="duas-cat-row" data-cat-title="Daily Life" onclick="openDuasCategory('daily')">
-        <div class="duas-cat-icon">🗓</div>
-        <div class="duas-cat-info">
-          <div class="duas-cat-title">Daily Life</div>
-          <div class="duas-cat-sub">For every moment of the day</div>
-        </div>
-        <div class="duas-cat-badge">23</div>
-        <div class="duas-cat-arrow">›</div>
-      </button>
-
-      <button class="duas-cat-row" data-cat-title="Marriage" onclick="openDuasCategory('marriage')">
-        <div class="duas-cat-icon">💍</div>
-        <div class="duas-cat-info">
-          <div class="duas-cat-title">Marriage</div>
-          <div class="duas-cat-sub">For the nikah and married life</div>
-        </div>
-        <div class="duas-cat-badge">3</div>
-        <div class="duas-cat-arrow">›</div>
-      </button>
-
-      <button class="duas-cat-row" data-cat-title="Illness Hardship" onclick="openDuaReader('daily')">
-        <div class="duas-cat-icon">🤲</div>
-        <div class="duas-cat-info">
-          <div class="duas-cat-title">Illness &amp; Hardship</div>
-          <div class="duas-cat-sub">When you are tested</div>
-        </div>
-        <div class="duas-cat-badge">6</div>
-        <div class="duas-cat-arrow">›</div>
-      </button>
-
-      <button class="duas-cat-row" data-cat-title="Travel" onclick="openDuaReader('daily')">
-        <div class="duas-cat-icon">✈️</div>
-        <div class="duas-cat-info">
-          <div class="duas-cat-title">Travel</div>
-          <div class="duas-cat-sub">Before and during journeys</div>
-        </div>
-        <div class="duas-cat-badge">3</div>
-        <div class="duas-cat-arrow">›</div>
-      </button>
-
-      <button class="duas-cat-row" data-cat-title="Eating Drinking" onclick="openDuaReader('daily')">
-        <div class="duas-cat-icon">🍽</div>
-        <div class="duas-cat-info">
-          <div class="duas-cat-title">Eating &amp; Drinking</div>
-          <div class="duas-cat-sub">Before and after meals</div>
-        </div>
-        <div class="duas-cat-badge">3</div>
-        <div class="duas-cat-arrow">›</div>
-      </button>
-
-      <div class="duas-cat-section-header" data-cat-header>REFERENCE</div>
-
-      <button class="duas-cat-row" data-cat-title="Salawat" onclick="openDuasCategory('salawat')">
-        <div class="duas-cat-icon" style="font-size:17px;">ﷺ</div>
-        <div class="duas-cat-info">
-          <div class="duas-cat-title">Salawat</div>
-          <div class="duas-cat-sub">Blessings on the Prophet ﹰﺀ</div>
-        </div>
-        <div class="duas-cat-badge">2</div>
-        <div class="duas-cat-arrow">›</div>
-      </button>
-
-      <button class="duas-cat-row" data-cat-title="Istighfar" onclick="openDuasCategory('istighfar')">
-        <div class="duas-cat-icon">🤍</div>
-        <div class="duas-cat-info">
-          <div class="duas-cat-title">Istighfar</div>
-          <div class="duas-cat-sub">Seeking forgiveness</div>
-        </div>
-        <div class="duas-cat-badge">4</div>
-        <div class="duas-cat-arrow">›</div>
-      </button>
-
-      <button class="duas-cat-row" data-cat-title="Istikharah" onclick="openDuasCategory('istikharah')">
-        <div class="duas-cat-icon">⭐</div>
-        <div class="duas-cat-info">
-          <div class="duas-cat-title">Istikharah</div>
-          <div class="duas-cat-sub">Seeking Allah’s guidance</div>
-        </div>
-        <div class="duas-cat-badge">1</div>
-        <div class="duas-cat-arrow">›</div>
-      </button>
-
-      <div class="duas-cat-section-header" data-cat-header>SPECIAL OCCASIONS</div>
-
-      <button class="duas-cat-row" data-cat-title="dhul hijjah arafah eid adha ten days qurbani" onclick="openDuasCategory('dhulhijjah-duas')">
-        <span class="duas-cat-icon">🕋</span>
-        <span class="duas-cat-info">
-          <span class="duas-cat-title">Dhul Hijjah &amp; Arafah</span>
-          <span class="duas-cat-sub">The 10 best days — Arafah — Eid al-Adha</span>
-        </span>
-        <span class="duas-cat-badge">5</span>
-        <span class="duas-cat-arrow">›</span>
-      </button>
-
+  <button class="cat-tile" onclick="openDuasCategory('salah', 'adhkar')">
+    <div class="cat-tile-band band-teal">🕌</div>
+    <div class="cat-tile-body">
+      <div class="cat-tile-title">After Every Salah</div>
+      <div class="cat-tile-sub">Post-prayer adhkar · 7 steps</div>
     </div>
+  </button>
+
+  <button class="cat-tile" onclick="openDuasCategory('morning', 'adhkar')">
+    <div class="cat-tile-band band-gold">🌅</div>
+    <div class="cat-tile-body">
+      <div class="cat-tile-title">Morning Adhkar</div>
+      <div class="cat-tile-sub">After Fajr · 15 steps</div>
+    </div>
+  </button>
+
+  <button class="cat-tile" onclick="openDuasCategory('evening', 'adhkar')">
+    <div class="cat-tile-band band-navy">🌆</div>
+    <div class="cat-tile-body">
+      <div class="cat-tile-title">Evening Adhkar</div>
+      <div class="cat-tile-sub">After ʿAsr · 12 steps</div>
+    </div>
+  </button>
+
+  <button class="cat-tile" onclick="openDuasCategory('sleep', 'adhkar')">
+    <div class="cat-tile-band band-plum">🌙</div>
+    <div class="cat-tile-body">
+      <div class="cat-tile-title">Before Sleep</div>
+      <div class="cat-tile-sub">Every night · 9 steps</div>
+    </div>
+  </button>
+
+  <div class="cat-grid-header">Qur'an &amp; Sunnah</div>
+
+  <button class="cat-tile" onclick="openDuasCategory('quran')">
+    <div class="cat-tile-band band-forest">📖</div>
+    <div class="cat-tile-body">
+      <div class="cat-tile-title">Duas from the Qur'an</div>
+      <div class="cat-tile-sub">The direct words of Allah · 21</div>
+    </div>
+  </button>
+
+  <button class="cat-tile" onclick="openDuasCategory('prophets')">
+    <div class="cat-tile-band band-earth">🌿</div>
+    <div class="cat-tile-body">
+      <div class="cat-tile-title">Duas of the Prophets</div>
+      <div class="cat-tile-sub">As recorded in the Qur'an · 20</div>
+    </div>
+  </button>
+
+  <button class="cat-tile cat-tile-wide" onclick="openDuasCategory('sunnah')">
+    <div class="cat-tile-band band-rose">☪️</div>
+    <div class="cat-tile-body">
+      <div class="cat-tile-title">Prophetic Duas</div>
+      <div class="cat-tile-sub">Authenticated supplications of the Prophet ﷺ · 14</div>
+    </div>
+  </button>
+
+  <div class="cat-grid-header">Situational</div>
+
+  <button class="cat-tile" onclick="openDuasCategory('daily')">
+    <div class="cat-tile-band band-teal">🏡</div>
+    <div class="cat-tile-body">
+      <div class="cat-tile-title">Daily Life</div>
+      <div class="cat-tile-sub">Duas for every moment · 23</div>
+    </div>
+  </button>
+
+  <button class="cat-tile" onclick="openDuasCategory('marriage')">
+    <div class="cat-tile-band band-rose">💍</div>
+    <div class="cat-tile-body">
+      <div class="cat-tile-title">Marriage</div>
+      <div class="cat-tile-sub">Nikah, new spouse, family · 3</div>
+    </div>
+  </button>
+
+  <button class="cat-tile" onclick="openDuaReader('daily')">
+    <div class="cat-tile-band band-slate">🤲</div>
+    <div class="cat-tile-body">
+      <div class="cat-tile-title">Illness &amp; Hardship</div>
+      <div class="cat-tile-sub">When you are tested · 6</div>
+    </div>
+  </button>
+
+  <button class="cat-tile" onclick="openDuaReader('daily')">
+    <div class="cat-tile-band band-earth">✈️</div>
+    <div class="cat-tile-body">
+      <div class="cat-tile-title">Travel</div>
+      <div class="cat-tile-sub">Journey supplications · 3</div>
+    </div>
+  </button>
+
+  <button class="cat-tile cat-tile-wide" onclick="openDuaReader('daily')">
+    <div class="cat-tile-band band-forest">🍽️</div>
+    <div class="cat-tile-body">
+      <div class="cat-tile-title">Eating &amp; Drinking</div>
+      <div class="cat-tile-sub">Before, during and after meals · 3</div>
+    </div>
+  </button>
+
+  <div class="cat-grid-header">Reference</div>
+
+  <button class="cat-tile" onclick="openDuasCategory('salawat')">
+    <div class="cat-tile-band band-gold">✨</div>
+    <div class="cat-tile-body">
+      <div class="cat-tile-title">Salawat</div>
+      <div class="cat-tile-sub">Blessings on the Prophet ﷺ · 2</div>
+    </div>
+  </button>
+
+  <button class="cat-tile" onclick="openDuasCategory('istighfar')">
+    <div class="cat-tile-band band-plum">🤍</div>
+    <div class="cat-tile-body">
+      <div class="cat-tile-title">Istighfar</div>
+      <div class="cat-tile-sub">Seeking forgiveness · 4</div>
+    </div>
+  </button>
+
+  <button class="cat-tile cat-tile-wide" onclick="openDuasCategory('istikharah')">
+    <div class="cat-tile-band band-navy">⭐</div>
+    <div class="cat-tile-body">
+      <div class="cat-tile-title">Salah al-Istikharah</div>
+      <div class="cat-tile-sub">Guidance prayer — dua and method · 1</div>
+    </div>
+  </button>
+
+  <div class="cat-grid-header">Special Occasions</div>
+
+  <button class="cat-tile cat-tile-wide" onclick="openDuasCategory('dhulhijjah-duas')">
+    <div class="cat-tile-band band-gold">🕋</div>
+    <div class="cat-tile-body">
+      <div class="cat-tile-title">Dhul Hijjah &amp; Arafah</div>
+      <div class="cat-tile-sub">The ten best days · Arafah · Eid al-Adha · 5</div>
+    </div>
+  </button>
+
+</div>
+</div>
   </div>
 
   <div id="duasContent" style="display:none;">
@@ -6362,139 +6371,126 @@ body.light .resume-card {
   </div>
 
   <div id="learnIndexList">
+<div class="cat-grid">
 
-<div class="hub-featured-row" onclick="openLearnTopic('hub')" role="button" tabindex="0" aria-label="The Art of Du'a — A complete guide">
-  <div class="hub-featured-icon">🤲</div>
-  <div class="hub-featured-text">
-    <div class="hub-featured-title">The Art of Du'a</div>
-    <div class="hub-featured-sub">A COMPLETE GUIDE · 26 CARDS</div>
-  </div>
-  <div class="hub-featured-arrow">›</div>
+  <button class="cat-tile cat-tile-wide" onclick="openLearnTopic('hub')">
+    <div class="cat-tile-band band-gold">🤲</div>
+    <div class="cat-tile-body">
+      <div class="cat-tile-title">The Art of Du'a</div>
+      <div class="cat-tile-sub">A complete guide · 26 cards</div>
+    </div>
+  </button>
+
+  <div class="cat-grid-header">Prayer Times &amp; Occasions</div>
+
+  <button class="cat-tile" onclick="openLearnTopic('times')">
+    <div class="cat-tile-band band-navy">🕐</div>
+    <div class="cat-tile-body">
+      <div class="cat-tile-title">Prayer Times</div>
+      <div class="cat-tile-sub">When duas are answered</div>
+    </div>
+  </button>
+
+  <button class="cat-tile" onclick="openLearnTopic('qadr')">
+    <div class="cat-tile-band band-plum">⭐</div>
+    <div class="cat-tile-body">
+      <div class="cat-tile-title">Laylatul Qadr</div>
+      <div class="cat-tile-sub">Better than 1000 months</div>
+    </div>
+  </button>
+
+  <button class="cat-tile" onclick="openLearnTopic('jumua')">
+    <div class="cat-tile-band band-teal">🕌</div>
+    <div class="cat-tile-body">
+      <div class="cat-tile-title">Jumu'ah</div>
+      <div class="cat-tile-sub">Friday · Surah Kahf · The hour</div>
+    </div>
+  </button>
+
+  <button class="cat-tile" onclick="openLearnTopic('dhulhijjah')">
+    <div class="cat-tile-band band-earth">🕋</div>
+    <div class="cat-tile-body">
+      <div class="cat-tile-title">Dhul Hijjah &amp; Eid</div>
+      <div class="cat-tile-sub">Ten blessed days</div>
+    </div>
+  </button>
+
+  <button class="cat-tile" onclick="startGuidedSession('arafah')">
+    <div class="cat-tile-band band-gold">🌄</div>
+    <div class="cat-tile-body">
+      <div class="cat-tile-title">Yawm Arafah</div>
+      <div class="cat-tile-sub">Full day session · 14 steps</div>
+    </div>
+  </button>
+
+  <button class="cat-tile" onclick="openLearnTopic('ashura')">
+    <div class="cat-tile-band band-slate">📅</div>
+    <div class="cat-tile-body">
+      <div class="cat-tile-title">Ashura</div>
+      <div class="cat-tile-sub">9th &amp; 10th Muharram</div>
+    </div>
+  </button>
+
+  <button class="cat-tile" onclick="openLearnTopic('shaban')">
+    <div class="cat-tile-band band-rose">🌟</div>
+    <div class="cat-tile-body">
+      <div class="cat-tile-title">Sha'ban</div>
+      <div class="cat-tile-sub">The neglected month</div>
+    </div>
+  </button>
+
+  <button class="cat-tile" onclick="openLearnTopic('eid')">
+    <div class="cat-tile-band band-forest">🎉</div>
+    <div class="cat-tile-body">
+      <div class="cat-tile-title">Eid</div>
+      <div class="cat-tile-sub">Sunnah of the celebration</div>
+    </div>
+  </button>
+
+  <div class="cat-grid-header">Knowledge</div>
+
+  <button class="cat-tile" onclick="openLearnTopic('ruqyah')">
+    <div class="cat-tile-band band-slate">🛡️</div>
+    <div class="cat-tile-body">
+      <div class="cat-tile-title">Ruqyah</div>
+      <div class="cat-tile-sub">Healing &amp; protection</div>
+    </div>
+  </button>
+
+  <button class="cat-tile" onclick="openLearnTopic('jumua')">
+    <div class="cat-tile-band band-teal">🤲</div>
+    <div class="cat-tile-body">
+      <div class="cat-tile-title">Qunut al-Nazilah</div>
+      <div class="cat-tile-sub">Dua in times of calamity</div>
+    </div>
+  </button>
+
+  <button class="cat-tile" onclick="openLearnTopic('surahs')">
+    <div class="cat-tile-band band-forest">📖</div>
+    <div class="cat-tile-body">
+      <div class="cat-tile-title">Key Surahs</div>
+      <div class="cat-tile-sub">Al-Mulk, Al-Kahf and more</div>
+    </div>
+  </button>
+
+  <button class="cat-tile" onclick="openLearnTopic('asma')">
+    <div class="cat-tile-band band-gold">✨</div>
+    <div class="cat-tile-body">
+      <div class="cat-tile-title">99 Names of Allah</div>
+      <div class="cat-tile-sub">Asmā al-Ḥusnā</div>
+    </div>
+  </button>
+
+  <button class="cat-tile cat-tile-wide" onclick="openLearnTopic('personal')">
+    <div class="cat-tile-band band-plum">🤍</div>
+    <div class="cat-tile-body">
+      <div class="cat-tile-title">Personal Duas</div>
+      <div class="cat-tile-sub">Your own supplications — saved privately</div>
+    </div>
+  </button>
+
 </div>
-    <div class="duas-cat-section-header" data-cat-header>PRAYER TIMES &amp; OCCASIONS</div>
-
-    <button class="duas-cat-row" data-cat-title="prayer times" onclick="openLearnTopic('times')">
-      <span class="duas-cat-icon">🕐</span>
-      <span class="duas-cat-info">
-        <span class="duas-cat-title">Prayer Times &amp; Windows</span>
-        <span class="duas-cat-sub">When to pray, when duas are answered</span>
-      </span>
-      <span class="duas-cat-arrow">›</span>
-    </button>
-
-    <button class="duas-cat-row" data-cat-title="laylatul qadr night of power" onclick="openLearnTopic('qadr')">
-      <span class="duas-cat-icon">⭐</span>
-      <span class="duas-cat-info">
-        <span class="duas-cat-title">Laylatul Qadr</span>
-        <span class="duas-cat-sub">Night of Power — better than 1000 months</span>
-      </span>
-      <span class="duas-cat-arrow">›</span>
-    </button>
-
-    <button class="duas-cat-row" data-cat-title="jumuah friday" onclick="openLearnTopic('jumua')">
-      <span class="duas-cat-icon">🕌</span>
-      <span class="duas-cat-info">
-        <span class="duas-cat-title">Jumu'ah — Friday</span>
-        <span class="duas-cat-sub">Surah Al-Kahf, salawat, the Friday hour</span>
-      </span>
-      <span class="duas-cat-arrow">›</span>
-    </button>
-
-    <button class="duas-cat-row" data-cat-title="dhul hijjah ten days eid" onclick="openLearnTopic('dhulhijjah')">
-      <span class="duas-cat-icon">🌙</span>
-      <span class="duas-cat-info">
-        <span class="duas-cat-title">Dhul Hijjah &amp; Eid</span>
-        <span class="duas-cat-sub">The ten best days of the year</span>
-      </span>
-      <span class="duas-cat-arrow">›</span>
-    </button>
-
-    <button class="duas-cat-row" data-cat-title="yawm arafah dhul hijjah ten days guided session" onclick="startGuidedSession('arafah')">
-      <span class="duas-cat-icon">🕋</span>
-      <span class="duas-cat-info">
-        <span class="duas-cat-title">Yawm Arafah — Day Session</span>
-        <span class="duas-cat-sub">14 steps · Greatest day of the year</span>
-      </span>
-      <span class="duas-cat-arrow">›</span>
-    </button>
-
-    <button class="duas-cat-row" data-cat-title="ashura muharram fasting" onclick="openLearnTopic('ashura')">
-      <span class="duas-cat-icon">📅</span>
-      <span class="duas-cat-info">
-        <span class="duas-cat-title">Ashura — 9th &amp; 10th Muharram</span>
-        <span class="duas-cat-sub">Fasting that expiates the previous year</span>
-      </span>
-      <span class="duas-cat-arrow">›</span>
-    </button>
-
-    <button class="duas-cat-row" data-cat-title="shaban mid sha ban" onclick="openLearnTopic('shaban')">
-      <span class="duas-cat-icon">🌟</span>
-      <span class="duas-cat-info">
-        <span class="duas-cat-title">Sha'ban &amp; Mid-Sha'ban</span>
-        <span class="duas-cat-sub">The neglected month before Ramadan</span>
-      </span>
-      <span class="duas-cat-arrow">›</span>
-    </button>
-
-    <button class="duas-cat-row" data-cat-title="eid prayer" onclick="openLearnTopic('eid')">
-      <span class="duas-cat-icon">🎉</span>
-      <span class="duas-cat-info">
-        <span class="duas-cat-title">Eid</span>
-        <span class="duas-cat-sub">Sunnah acts, adhkar, and greetings of Eid</span>
-      </span>
-      <span class="duas-cat-arrow">›</span>
-    </button>
-
-    <div class="duas-cat-section-header" data-cat-header>WORSHIP &amp; PROTECTION</div>
-
-    <button class="duas-cat-row" data-cat-title="ruqyah healing protection" onclick="openLearnTopic('ruqyah')">
-      <span class="duas-cat-icon">🛡️</span>
-      <span class="duas-cat-info">
-        <span class="duas-cat-title">Ruqyah — Healing &amp; Protection</span>
-        <span class="duas-cat-sub">Quranic recitation for healing and protection</span>
-      </span>
-      <span class="duas-cat-arrow">›</span>
-    </button>
-
-    <button class="duas-cat-row" data-cat-title="qunut nazilah witr prayer" onclick="openLearnTopic('jumua')">
-      <span class="duas-cat-icon">🤲</span>
-      <span class="duas-cat-info">
-        <span class="duas-cat-title">Qunut al-Nazilah</span>
-        <span class="duas-cat-sub">Supplication in times of hardship for the Ummah</span>
-      </span>
-      <span class="duas-cat-arrow">›</span>
-    </button>
-
-    <button class="duas-cat-row" data-cat-title="key surahs al mulk al kahf quran" onclick="openLearnTopic('surahs')">
-      <span class="duas-cat-icon">📖</span>
-      <span class="duas-cat-info">
-        <span class="duas-cat-title">Key Surahs</span>
-        <span class="duas-cat-sub">Al-Mulk, Al-Kahf, Al-Waqi'ah and more</span>
-      </span>
-      <span class="duas-cat-arrow">›</span>
-    </button>
-
-    <div class="duas-cat-section-header" data-cat-header>KNOWLEDGE</div>
-
-    <button class="duas-cat-row" data-cat-title="99 names allah asma al husna" onclick="openLearnTopic('asma')">
-      <span class="duas-cat-icon">✨</span>
-      <span class="duas-cat-info">
-        <span class="duas-cat-title">99 Names of Allah</span>
-        <span class="duas-cat-sub">Asmā al-Ḥusnā — meaning and transliteration</span>
-      </span>
-      <span class="duas-cat-arrow">›</span>
-    </button>
-
-    <button class="duas-cat-row" data-cat-title="personal duas notes" onclick="openLearnTopic('personal')">
-      <span class="duas-cat-icon">🤍</span>
-      <span class="duas-cat-info">
-        <span class="duas-cat-title">Personal Duas</span>
-        <span class="duas-cat-sub">Your own supplications and intentions</span>
-      </span>
-      <span class="duas-cat-arrow">›</span>
-    </button>
-
-  </div>
+</div>
 </div>
 
 
@@ -7911,19 +7907,24 @@ body.light .resume-card {
 <!-- BOTTOM TAB BAR -->
 <nav class="bottom-nav" role="navigation" aria-label="Main navigation">
   <button class="bn-tab" data-view="home" onclick="showView('home')">
-    <span class="bn-icon">🏠</span><span class="bn-label">Home</span>
+    <span class="bn-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12L12 3l9 9"/><path d="M9 21V12h6v9"/><path d="M3 12v9h18v-9"/></svg></span>
+    <span class="bn-label">Home</span>
   </button>
   <button class="bn-tab" data-view="adhkar" onclick="showView('adhkar')">
-    <span class="bn-icon">☀️</span><span class="bn-label">Adhkar</span>
+    <span class="bn-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3C9 3 6.5 5.5 6.5 9c0 4 3 7 5.5 9 2.5-2 5.5-5 5.5-9C17.5 5.5 15 3 12 3z"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="9" y1="22" x2="15" y2="22"/></svg></span>
+    <span class="bn-label">Adhkar</span>
   </button>
   <button class="bn-tab" data-view="duas" onclick="showView('duas')">
-    <span class="bn-icon">📖</span><span class="bn-label">Duas</span>
+    <span class="bn-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>
+    <span class="bn-label">Duas</span>
   </button>
   <button class="bn-tab" data-view="dhikr" onclick="showView('dhikr')">
-    <span class="bn-icon">🤲</span><span class="bn-label">Dhikr</span>
+    <span class="bn-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2.5"/><circle cx="12" cy="4" r="1.5"/><circle cx="19.5" cy="8" r="1.5"/><circle cx="19.5" cy="16" r="1.5"/><circle cx="12" cy="20" r="1.5"/><circle cx="4.5" cy="16" r="1.5"/><circle cx="4.5" cy="8" r="1.5"/><line x1="12" y1="5.5" x2="12" y2="9.5"/><line x1="18.1" y1="9" x2="14.1" y2="11"/><line x1="18.1" y1="15" x2="14.1" y2="13"/><line x1="12" y1="18.5" x2="12" y2="14.5"/><line x1="5.9" y1="15" x2="9.9" y2="13"/><line x1="5.9" y1="9" x2="9.9" y2="11"/></svg></span>
+    <span class="bn-label">Dhikr</span>
   </button>
   <button class="bn-tab" data-view="learn" onclick="showView('learn')">
-    <span class="bn-icon">📚</span><span class="bn-label">Learn</span>
+    <span class="bn-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></span>
+    <span class="bn-label">Learn</span>
   </button>
 </nav>
 
@@ -7981,6 +7982,31 @@ function showView(name) {
   // Reset duas index when navigating to duas view
   if (name === 'duas') {
     closeDuasCategory();
+  }
+
+  // Reset learn tab — restore index, close any open topic overlays
+  if (name === 'learn') {
+    var learnIdx = document.getElementById('learnIndex');
+    if (learnIdx) learnIdx.style.display = 'block';
+    var learnSubnav = document.querySelector('#learn-view .view-subnav');
+    if (learnSubnav) learnSubnav.style.display = 'flex';
+    document.querySelectorAll('.learn-intro, .learn-deck').forEach(function(el) {
+      el.classList.remove('is-open', 'is-closing');
+      el.style.display = 'none';
+    });
+    learnCurrentTopic = null;
+    document.body.classList.remove('overlay-open');
+  }
+
+  // Reset dhikr tab — close focused counter if left open
+  if (name === 'dhikr') {
+    var dhoOverlay = document.getElementById('dhikrFocusedOverlay');
+    if (dhoOverlay && dhoOverlay.classList.contains('dho-open')) {
+      dhoOverlay.classList.remove('dho-open', 'is-open', 'is-closing');
+      document.body.style.overflow = '';
+      document.body.classList.remove('overlay-open');
+      renderDhikrIndex();
+    }
   }
 
   if (_spaCurrentView === name) {
@@ -10898,24 +10924,20 @@ function closeDuasCategory() {
 
 function filterDuasIndex(query) {
   var q = (query || '').toLowerCase().trim();
-  var rows = document.querySelectorAll('#duasIndexList .duas-cat-row');
-  var headers = document.querySelectorAll('#duasIndexList .duas-cat-section-header');
-  rows.forEach(function(row) {
-    var title = (row.getAttribute('data-cat-title') || '').toLowerCase();
-    var titleEl = row.querySelector('.duas-cat-title');
-    if (titleEl) title += ' ' + titleEl.textContent.toLowerCase();
-    row.style.display = (!q || title.indexOf(q) > -1) ? '' : 'none';
+  var grid = document.getElementById('duasIndexList');
+  if (!grid) return;
+  var tiles = grid.querySelectorAll('.cat-tile');
+  var headers = grid.querySelectorAll('.cat-grid-header');
+  if (!q) {
+    tiles.forEach(function(t){ t.style.display = ''; });
+    headers.forEach(function(h){ h.style.display = ''; });
+    return;
+  }
+  tiles.forEach(function(t){
+    var text = t.textContent.toLowerCase();
+    t.style.display = text.indexOf(q) > -1 ? '' : 'none';
   });
-  // Hide section headers if all their rows are hidden
-  headers.forEach(function(hdr) {
-    var next = hdr.nextElementSibling;
-    var anyVisible = false;
-    while (next && !next.hasAttribute('data-cat-header')) {
-      if (next.style.display !== 'none') anyVisible = true;
-      next = next.nextElementSibling;
-    }
-    hdr.style.display = anyVisible ? '' : 'none';
-  });
+  headers.forEach(function(h){ h.style.display = 'none'; });
 }
 
 // ============================================================
@@ -11069,23 +11091,20 @@ function closeLearnCategory() {
 
 function filterLearnIndex(query) {
   var q = (query || '').toLowerCase().trim();
-  var rows = document.querySelectorAll('#learnIndexList .duas-cat-row');
-  var headers = document.querySelectorAll('#learnIndexList .duas-cat-section-header');
-  rows.forEach(function(row) {
-    var title = (row.getAttribute('data-cat-title') || '').toLowerCase();
-    var titleEl = row.querySelector('.duas-cat-title');
-    if (titleEl) title += ' ' + titleEl.textContent.toLowerCase();
-    row.style.display = (!q || title.indexOf(q) > -1) ? '' : 'none';
+  var grid = document.getElementById('learnIndexList');
+  if (!grid) return;
+  var tiles = grid.querySelectorAll('.cat-tile');
+  var headers = grid.querySelectorAll('.cat-grid-header');
+  if (!q) {
+    tiles.forEach(function(t){ t.style.display = ''; });
+    headers.forEach(function(h){ h.style.display = ''; });
+    return;
+  }
+  tiles.forEach(function(t){
+    var text = t.textContent.toLowerCase();
+    t.style.display = text.indexOf(q) > -1 ? '' : 'none';
   });
-  headers.forEach(function(hdr) {
-    var next = hdr.nextElementSibling;
-    var anyVisible = false;
-    while (next && !next.hasAttribute('data-cat-header')) {
-      if (next.style.display !== 'none') anyVisible = true;
-      next = next.nextElementSibling;
-    }
-    hdr.style.display = anyVisible ? '' : 'none';
-  });
+  headers.forEach(function(h){ h.style.display = 'none'; });
 }
 
 // ============================================================
