@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
-<meta name="description" content="Nafi's Dua List — authentic duas and adhkar from the Qur'an and Sunnah for every day of the year. Morning and evening adhkar, daily dhikr, and supplications for every occasion.">
+<meta name="description" content="Naafi — authentic duas and adhkar from the Qur'an and Sunnah for every day of the year. Morning and evening adhkar, daily dhikr, and supplications for every occasion.">
 <meta name="keywords" content="Islamic duas, morning adhkar, evening adhkar, daily dhikr, supplications, Qur'anic duas, Islamic prayer app">
 <meta property="og:title" content="Naafi — Dua &amp; Adhkar">
 <meta property="og:description" content="Authentic duas and adhkar from the Qur'an and Sunnah for every day of the year. Arabic, transliteration and translation.">
@@ -305,8 +305,11 @@ body.light .session-card.sc-done { background: rgba(201,168,76,0.09); }
   opacity: 0.75;
   transform: scale(0.98);
 }
+.ctx-card { border-left: 2px solid rgba(201,168,76,0.3); }
+.ctx-card-highlight { border-left-color: var(--gold); }
 .ctx-card-highlight {
   border-color: var(--gold);
+  border-left: 3px solid var(--gold);
   background: linear-gradient(135deg, var(--card) 0%, rgba(201,168,76,0.07) 100%);
 }
 .ctx-card-inner {
@@ -340,10 +343,10 @@ body.light .session-card.sc-done { background: rgba(201,168,76,0.09); }
   text-overflow: ellipsis;
 }
 .ctx-arrow {
-  font-size: 22px;
-  color: var(--text-m);
+  color: rgba(201,168,76,0.4);
   flex-shrink: 0;
   margin-left: 4px;
+  font-size: 20px;
   line-height: 1;
 }
 
@@ -687,6 +690,53 @@ body.light .session-card.sc-done { background: rgba(201,168,76,0.09); }
 /* Hide original .dc watermark (replaced by counter) */
 .dc{display:none!important;}
 
+/* ===== SPLASH SCREEN ===== */
+#naafi-splash {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: #0C1018;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+#naafi-splash.splash-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.splash-inner {
+  text-align: center;
+  animation: splashEnter 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes splashEnter {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.splash-bismillah {
+  font-family: 'Scheherazade New','Traditional Arabic','Amiri',serif;
+  font-size: 28px;
+  color: rgba(201,168,76,0.6);
+  margin-bottom: 18px;
+  direction: rtl;
+}
+.splash-wordmark {
+  font-family: 'Palatino Linotype','Palatino','Book Antiqua','Georgia',serif;
+  font-size: 42px;
+  color: #E8CC84;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  margin-bottom: 10px;
+}
+.splash-tagline {
+  font-family: 'Gill Sans','Optima','Segoe UI',sans-serif;
+  font-size: 11px;
+  color: rgba(201,168,76,0.45);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+}
 html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
@@ -1494,13 +1544,28 @@ body.light .settings-popover { background: rgba(250,246,238,0.98); }
 /* Home view elements */
 
 .home-section-title {
-  font-size: 10px; color: var(--gold);
-  letter-spacing: 0.4em; text-transform: uppercase;
+  font-size: 10px; color: var(--text-d);
+  letter-spacing: 0.25em; text-transform: uppercase;
   margin: 0 0 14px; font-weight: 400;
   font-family: var(--fn);
-  display: flex; align-items: center; gap: 7px;
+  display: flex; align-items: center; gap: 10px;
+  padding: 0 2px;
 }
-.home-section-title::before { content: '✦'; font-size: 8px; }
+.home-section-title::before {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(201,168,76,0.2));
+  order: -1;
+  max-width: 32px;
+}
+.home-section-title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to left, transparent, rgba(201,168,76,0.2));
+  max-width: 32px;
+}
 
 /* ---- HOME FRIDAY HOUR CARD ---- */
 .home-jumuah-card {
@@ -2655,6 +2720,12 @@ body.light .guided-overlay { background: var(--deep); }
   color: var(--gold-l);
   margin-bottom: 4px;
 }
+.sv-row-icon {
+  font-size: 18px;
+  flex-shrink: 0;
+  width: 28px;
+  text-align: center;
+}
 .sv-version {
   font-size: 10px;
   letter-spacing: .2em;
@@ -3086,7 +3157,7 @@ body.light .bn-tab-indicator { background: #7a5c12; }
 /* ---- GUIDED NAV BAR (fixed above bottom tab bar) ---- */
 .guided-nav {
   position: fixed;
-  bottom: calc(64px + env(safe-area-inset-bottom, 0px));
+  bottom: 0;
   left: 0;
   right: 0;
   z-index: 9100;
@@ -3434,12 +3505,13 @@ body.light .band-slate  { background: linear-gradient(135deg, #d8dce8 0%, #c0c8d
 .duas-index-search-input::placeholder { color: var(--text-m); }
 .duas-index-search-icon {
   position: absolute;
-  left: 12px;
+  left: 13px;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 14px;
   color: var(--text-m);
   pointer-events: none;
+  display: flex;
+  align-items: center;
 }
 
 
@@ -3855,7 +3927,13 @@ body.light .band-slate  { background: linear-gradient(135deg, #d8dce8 0%, #c0c8d
   position: fixed; inset: 0; z-index: 10002;
   background: var(--deep);
   display: flex; flex-direction: column;
-  animation: viewEnter 250ms cubic-bezier(0.25,0.46,0.45,0.94) forwards;
+  transition: opacity var(--t-mid) var(--ease-out), transform var(--t-mid) var(--ease-out);
+  opacity: 0;
+  transform: translateY(16px);
+}
+.dua-reader.is-open {
+  opacity: 1;
+  transform: translateY(0);
 }
 .dua-reader-header {
   display: flex; align-items: center; justify-content: space-between;
@@ -3968,7 +4046,8 @@ body.light .band-slate  { background: linear-gradient(135deg, #d8dce8 0%, #c0c8d
 }
 .dua-reader-nav {
   display: flex; align-items: center; justify-content: space-between;
-  padding: 14px 20px calc(env(safe-area-inset-bottom, 0px) + 80px);
+  padding: 12px 20px;
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 12px);
   border-top: 1px solid var(--bdr); flex-shrink: 0; gap: 12px;
 }
 .dua-reader-nav-prev,
@@ -4143,18 +4222,24 @@ body.light .band-slate  { background: linear-gradient(135deg, #d8dce8 0%, #c0c8d
   gap: 8px; margin: 8px 0 4px;
 }
 .streak-badge {
-  display: inline-flex; align-items: center; gap: 5px;
-  background: rgba(201,168,76,.08); border: 1px solid rgba(201,168,76,.2);
-  border-radius: 20px; padding: 5px 14px;
+  display: inline-flex; align-items: center; gap: 8px;
+  background: linear-gradient(135deg, rgba(201,168,76,0.1) 0%, rgba(201,168,76,0.04) 100%);
+  border: 1px solid rgba(201,168,76,0.25);
+  border-radius: 24px; padding: 7px 18px;
   font-family: var(--fn); font-size: 13px; color: var(--gold-l);
   letter-spacing: .04em; transition: opacity .3s ease;
+  box-shadow: 0 2px 12px rgba(201,168,76,0.06);
 }
-.streak-badge .streak-fire { font-size: 16px; line-height: 1; }
+.streak-badge .streak-fire { font-size: 18px; line-height: 1; }
 .streak-badge .streak-num {
-  font-size: 16px; font-weight: 700; color: var(--gold);
+  font-size: 22px; font-weight: 700; color: var(--gold);
+  letter-spacing: -0.02em; line-height: 1;
 }
-.streak-badge .streak-label { color: var(--text-d); font-size: 12px; }
-.streak-badge.streak-zero { opacity: 0.4; }
+.streak-badge .streak-label {
+  color: var(--text-d); font-size: 11px;
+  letter-spacing: 0.08em; text-transform: uppercase;
+}
+.streak-badge.streak-zero { opacity: 0.35; }
 body.light .streak-badge {
   background: rgba(122,92,18,.06); border-color: rgba(122,92,18,.2);
 }
@@ -4598,6 +4683,14 @@ body.light .resume-card {
   </div>
 </div>
 
+<!-- ===== SPLASH SCREEN ===== -->
+<div id="naafi-splash">
+  <div class="splash-inner">
+    <div class="splash-bismillah">بِسْمِ اللَّهِ</div>
+    <div class="splash-wordmark">Naafi</div>
+    <div class="splash-tagline">Dua &nbsp;·&nbsp; Adhkar &nbsp;·&nbsp; Dhikr</div>
+  </div>
+</div>
 <div class="page" id="mainPage">
 
 <!-- =================== HOME VIEW =================== -->
@@ -4757,10 +4850,10 @@ body.light .resume-card {
   <div class="intention-wrap">
     <div class="intention-title">What do you need right now?</div>
     <div class="intention-chips">
-      <button class="intention-chip" onclick="showView('duas'); setTimeout(function(){ scrollToSection('quran'); }, 80);">
+      <button class="intention-chip" onclick="showView('duas'); setTimeout(function(){ scrollToSection('daily'); }, 80);">
         <span class="chip-emoji">😔</span> Feeling stressed
       </button>
-      <button class="intention-chip" onclick="showView('duas'); setTimeout(function(){ scrollToSection('sunnah'); }, 80);">
+      <button class="intention-chip" onclick="showView('duas'); setTimeout(function(){ scrollToSection('istighfar'); }, 80);">
         <span class="chip-emoji">🤍</span> Want forgiveness
       </button>
       <button class="intention-chip" onclick="startGuidedSession('morning')">
@@ -5098,7 +5191,7 @@ body.light .resume-card {
 <div id="duasIndex">
     <!-- Search bar -->
     <div class="duas-index-search" style="padding:16px 16px 0;">
-      <span class="duas-index-search-icon">🔍</span>
+      <span class="duas-index-search-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
       <input type="search" class="duas-index-search-input" id="duasIndexSearch"
         placeholder="Search categories…" autocomplete="off"
         oninput="filterDuasIndex(this.value)" aria-label="Search Duas categories">
@@ -6438,7 +6531,7 @@ body.light .resume-card {
 <div id="learnIndex">
 
   <div class="duas-index-search" style="padding: 16px 16px 0;">
-    <span class="duas-index-search-icon">🔍</span>
+    <span class="duas-index-search-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
     <input id="learnIndexSearch" class="duas-index-search-input" type="search"
       placeholder="Search topics…"
       oninput="filterLearnIndex(this.value)"
@@ -6658,6 +6751,7 @@ body.light .resume-card {
     <div class="sv-section-title">About</div>
 
     <div class="sv-row" onclick="safeSet('onboarding_done',''); openOnboarding();" style="cursor:pointer;">
+      <div class="sv-row-icon">🌙</div>
       <div class="sv-row-label">Replay Introduction</div>
       <div class="sv-row-value">›</div>
     </div>
@@ -7986,7 +8080,7 @@ body.light .resume-card {
     <span class="bn-label">Home</span>
   </button>
   <button class="bn-tab" data-view="adhkar" onclick="showView('adhkar')">
-    <span class="bn-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/><path d="M7.5 4.5 C6 6 5 8 5 10"/></svg></span>
+    <span class="bn-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 6 12 12 16 14"/></svg></span>
     <span class="bn-label">Adhkar</span>
   </button>
   <button class="bn-tab" data-view="duas" onclick="showView('duas')">
@@ -7994,7 +8088,7 @@ body.light .resume-card {
     <span class="bn-label">Duas</span>
   </button>
   <button class="bn-tab" data-view="dhikr" onclick="showView('dhikr')">
-    <span class="bn-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3a3 3 0 0 1 3 3v10a3 3 0 0 1-6 0V6a3 3 0 0 1 3-3z"/><path d="M18 3a3 3 0 0 1 3 3v10a3 3 0 0 1-6 0V6a3 3 0 0 1 3-3z"/><path d="M9 7h6"/><path d="M9 12h6"/><path d="M9 17h6"/></svg></span>
+    <span class="bn-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span>
     <span class="bn-label">Dhikr</span>
   </button>
   <button class="bn-tab" data-view="learn" onclick="showView('learn')">
@@ -8117,13 +8211,13 @@ function showView(name) {
 
   // Incoming view fades in
   targetEl.style.display = 'block';
+  window.scrollTo(0, 0);
   targetEl.classList.remove('view-active','view-leaving');
   targetEl.classList.add('view-entering');
   requestAnimationFrame(function() {
     requestAnimationFrame(function() {
       targetEl.classList.remove('view-entering');
       targetEl.classList.add('view-active');
-      window.scrollTo(0, 0);
       // Retrigger list stagger animation on tab switch
       var rows = targetEl.querySelectorAll('.duas-cat-row, .session-card, .dhikr-item, .learn-topic-row, .duas-cat-section-header');
       rows.forEach(function(el) {
@@ -8579,7 +8673,6 @@ function _dhoRenderCount(){
   var doneEl = document.getElementById('dhoDoneMsg');
 
   if(countEl) {
-    countEl.textContent = _dhoCount;
     countEl.classList.toggle('dho-count-done', isDone);
   }
   if(progressEl) {
@@ -10799,6 +10892,10 @@ function openDuaReader(catId, startIndex) {
   document.getElementById('duaReaderTitle').textContent = cat.title;
   var overlay = document.getElementById('duaReader');
   overlay.style.display = 'flex';
+  overlay.classList.remove('is-open');
+  requestAnimationFrame(function(){ requestAnimationFrame(function(){
+    overlay.classList.add('is-open');
+  }); });
   document.body.style.overflow = 'hidden';
   document.body.classList.add('overlay-open');
 
@@ -10854,6 +10951,7 @@ function renderDuaReaderIntro() {
 
 function closeDuaReader() {
   var _dr = document.getElementById('duaReader');
+  _dr.classList.remove('is-open');
   _dr.classList.add('is-closing');
   setTimeout(function() {
     _dr.style.display = 'none';
@@ -12305,5 +12403,22 @@ window.satRestartTimer = function() {
     <button onclick="closeShareSheet()" style="background:none;border:1px solid var(--bdr);border-radius:10px;padding:13px;font-family:var(--fn);font-size:14px;color:var(--text-m);cursor:pointer;width:100%;letter-spacing:0.04em;-webkit-tap-highlight-color:transparent;">Cancel</button>
   </div>
 </div>
+<script>
+(function() {
+  var splash = document.getElementById('naafi-splash');
+  if (!splash) return;
+  /* Dismiss after fonts likely loaded — 900ms feels intentional not slow */
+  var dismiss = function() {
+    splash.classList.add('splash-hidden');
+  };
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(function() {
+      setTimeout(dismiss, 320);
+    });
+  } else {
+    setTimeout(dismiss, 900);
+  }
+})();
+</script>
 </body>
 </html>
