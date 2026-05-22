@@ -745,7 +745,12 @@ html {
   -webkit-tap-highlight-color: transparent;
   box-sizing: border-box;
 }
-*:not(input):not(textarea):not([contenteditable]) {
+/* Scoped user-select: only interactive controls, not text content.
+   This allows users to copy Arabic text, transliterations, and source references. */
+button, .tab-btn, .nav, .nav-tab, .fav-star, .copy-btn, .dhikr-count,
+.session-card, .tasbih-step, .dua-reader-nav-btn, .learn-topic-row,
+.expand-trigger, .cat-tile, .ob-path-btn, .settings-row,
+[role="button"], [role="tab"] {
   user-select: none;
   -webkit-user-select: none;
 }
@@ -8761,10 +8766,40 @@ function _dhoDoCount(){
 // ============================================================
 //  FEATURE 2: FAVOURITES SYSTEM
 // ============================================================
-var favState = {};
-try{ favState = JSON.parse(safeGet('dua_favourites','{}'))||{}; }catch(e){}
+// ---- Unified favourites: single key 'favourites', array format ----
+// Legacy migration: if old 'dua_favourites' object exists, absorb into 'favourites' array and remove it.
+(function migrateLegacyFavs() {
+  try {
+    var legacyRaw = safeGet('dua_favourites', '');
+    if (!legacyRaw) return;
+    var legacy = JSON.parse(legacyRaw) || {};
+    var keys = Object.keys(legacy);
+    if (!keys.length) { safeSet('dua_favourites', ''); return; }
+    var unified = JSON.parse(safeGet('favourites') || '[]');
+    var existingIds = unified.map(function(f){ return f.id; });
+    keys.forEach(function(id) {
+      if (existingIds.indexOf(id) === -1) {
+        var d = legacy[id];
+        unified.push({ id: id, type: 'adhkar', catId: '', title: d.label || '', ar: d.ar || '', tr: d.tr || '', en: d.en || '', src: d.src || '' });
+      }
+    });
+    safeSet('favourites', JSON.stringify(unified));
+    safeSet('dua_favourites', ''); // clear legacy
+  } catch(e) {}
+})();
 
-function saveFavs(){ safeSet('dua_favourites', JSON.stringify(favState)); }
+// favState is a live in-memory mirror of the 'favourites' array, keyed by id, for O(1) lookups.
+var favState = {};
+(function buildFavState() {
+  try {
+    var arr = JSON.parse(safeGet('favourites') || '[]');
+    arr.forEach(function(f){ favState[f.id] = f; });
+  } catch(e) {}
+})();
+
+function saveFavs() {
+  safeSet('favourites', JSON.stringify(Object.values(favState)));
+}
 
 function genId(el){
   // Generate a stable ID from first arabic text + position
@@ -8800,8 +8835,13 @@ function makeStar(targetEl, wrappedLabel){
       var tr = targetEl.querySelector('.tr,.dt,.step-tr');
       var en = targetEl.querySelector('.en,.de,.step-en');
       var src = targetEl.querySelector('.src,.step-src,.dr');
+      var titleText = label ? label.textContent.trim() : (wrappedLabel||'');
       favState[id] = {
-        label: label ? label.textContent.trim() : (wrappedLabel||''),
+        id: id,
+        type: 'adhkar',
+        catId: '',
+        title: titleText,
+        label: titleText,
         ar: ar ? ar.outerHTML : '',
         tr: tr ? tr.outerHTML : '',
         en: en ? en.outerHTML : '',
@@ -11001,9 +11041,8 @@ function renderDuaReaderCard() {
     next.textContent = 'Next →';
     next.classList.remove('btn-complete');
   }
-  var favs = JSON.parse(safeGet('favourites') || '[]');
   var duaKey = 'dua:' + duaReaderCurrentCat + ':' + idx;
-  var isFav = favs.some(function(f) { return f.id === duaKey; });
+  var isFav = !!favState[duaKey];
   document.getElementById('duaReaderFavIcon').textContent = isFav ? '★' : '☆';
   var favBtn = document.getElementById('duaReaderFavBtn');
   if (isFav) favBtn.classList.add('starred'); else favBtn.classList.remove('starred');
@@ -11052,15 +11091,13 @@ function toggleDuaReaderFav() {
   var dua = cat.duas[duaReaderCurrentIndex];
   if (!dua) return;
   var duaKey = 'dua:' + duaReaderCurrentCat + ':' + duaReaderCurrentIndex;
-  var favs = JSON.parse(safeGet('favourites') || '[]');
-  var existingIdx = favs.findIndex(function(f) { return f.id === duaKey; });
-  if (existingIdx > -1) {
-    favs.splice(existingIdx, 1);
+  if (favState[duaKey]) {
+    delete favState[duaKey];
   } else {
-    favs.push({ id: duaKey, type: 'dua', catId: duaReaderCurrentCat,
-      title: dua.title, ar: dua.ar, tr: dua.tr, en: dua.en, src: dua.src });
+    favState[duaKey] = { id: duaKey, type: 'dua', catId: duaReaderCurrentCat,
+      title: dua.title, label: dua.title, ar: dua.ar, tr: dua.tr, en: dua.en, src: dua.src };
   }
-  safeSet('favourites', JSON.stringify(favs));
+  saveFavs();
   renderDuaReaderCard();
 }
 
@@ -11083,6 +11120,9 @@ function openDuaReaderShare() {
 function openDuasCategory(sectionId, targetView, scrollToId) {
   var view = targetView || 'duas';
   showView(view);
+  // Save index scroll position so we can restore it on close
+  var duasView = document.getElementById('duas-view');
+  if (duasView) sessionStorage.setItem('duas_index_scroll', duasView.scrollTop);
   var index = document.getElementById('duasIndex');
   var content = document.getElementById('duasContent');
   if (index) index.style.display = 'none';
@@ -11113,8 +11153,13 @@ function closeDuasCategory() {
   if (index)   index.style.display = 'block';
   if (content) content.style.display = 'none';
   if (backBtn) backBtn.style.display = 'none';
+  // Restore saved index scroll position
   var duasView = document.getElementById('duas-view');
-  if (duasView) duasView.scrollTo(0, 0);
+  if (duasView) {
+    var saved = sessionStorage.getItem('duas_index_scroll');
+    duasView.scrollTo(0, saved ? parseInt(saved, 10) : 0);
+    sessionStorage.removeItem('duas_index_scroll');
+  }
   // Clear search
   var searchInput = document.getElementById('duasIndexSearch');
   if (searchInput) { searchInput.value = ''; filterDuasIndex(''); }
