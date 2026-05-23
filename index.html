@@ -9315,11 +9315,12 @@ function escapeHtml(s){
 
     var dotdBtn = document.getElementById('dotdShareBtn');
     if (dotdBtn && d) {
-      dotdBtn.setAttribute('data-title', d.section || 'Dua of the Day');
-      dotdBtn.setAttribute('data-ar',    d.ar    || '');
-      dotdBtn.setAttribute('data-tr',    d.tr    || '');
-      dotdBtn.setAttribute('data-en',    d.en    || '');
-      dotdBtn.setAttribute('data-src',   d.src   || '');
+      dotdBtn.setAttribute('data-title',   d.label   || d.section || 'Dua of the Day');
+      dotdBtn.setAttribute('data-section', d.section || '');
+      dotdBtn.setAttribute('data-ar',      d.ar      || '');
+      dotdBtn.setAttribute('data-tr',      d.tr      || '');
+      dotdBtn.setAttribute('data-en',      d.en      || '');
+      dotdBtn.setAttribute('data-src',     d.src     || '');
       dotdBtn.style.display = 'flex';
     }
 
@@ -11460,14 +11461,17 @@ function _rrect(ctx, x, y, w, h, r) {
 
 function shareAsImage() {
   if (!_shareCardEl) return;
-  var title = _shareCardEl.getAttribute('data-title') || '';
-  var ar    = _shareCardEl.getAttribute('data-ar')    || '';
-  var tr    = _shareCardEl.getAttribute('data-tr')    || '';
-  var en    = _shareCardEl.getAttribute('data-en')    || '';
-  var src   = _shareCardEl.getAttribute('data-src')   || '';
+  var title   = _shareCardEl.getAttribute('data-title')   || '';
+  var section = _shareCardEl.getAttribute('data-section') || '';
+  var ar      = _shareCardEl.getAttribute('data-ar')      || '';
+  var tr      = _shareCardEl.getAttribute('data-tr')      || '';
+  var en      = _shareCardEl.getAttribute('data-en')      || '';
+  var src     = _shareCardEl.getAttribute('data-src')     || '';
 
-  /* Category label: strip " — source ref" from title */
-  var catLabel = title.replace(/\s+[—–-].*$/, '').toUpperCase();
+  /* Category = full title as-is (it IS the dua name).
+     Optional section eyebrow above (strip emoji). */
+  var catLabel     = title.toUpperCase();
+  var sectionLabel = section.replace(/[^\x00-\x7F]/g, '').trim().toUpperCase();
 
   closeShareSheet();
   ndlToast('Creating image\u2026');
@@ -11516,32 +11520,47 @@ function shareAsImage() {
 
       /* ── Category label ── */
       var PAD = 120, innerW = W - PAD*2;
-      ctx.font = '600 27px "Gill Sans","Optima","Trebuchet MS",sans-serif';
-      ctx.fillStyle = 'rgba(201,168,76,0.75)';
+      var catY = bPad + 88;
+
+      /* Section eyebrow — only for DOTD (small, teal) */
+      if (sectionLabel) {
+        ctx.font = '500 24px "Gill Sans","Optima","Trebuchet MS",sans-serif';
+        ctx.fillStyle = 'rgba(56,189,148,0.75)';
+        ctx.textAlign = 'center';
+        ctx.letterSpacing = '0.22em';
+        ctx.fillText('\u2736  ' + sectionLabel + '  \u2736', cx, catY);
+        ctx.letterSpacing = '0';
+        catY += 42;
+      }
+
+      /* Main category title — larger, gold, spaced */
+      ctx.font = '700 32px "Gill Sans","Optima","Trebuchet MS",sans-serif';
+      ctx.fillStyle = 'rgba(201,168,76,0.85)';
       ctx.textAlign = 'center';
-      ctx.letterSpacing = '0.16em';
-      var catLines = _duaWrapLines(ctx, catLabel, innerW - 40);
-      var catY = bPad + 90;
-      catLines.forEach(function(cl, i) { ctx.fillText(cl, cx, catY + i*38); });
+      ctx.letterSpacing = '0.12em';
+      var catLines = _duaWrapLines(ctx, catLabel, innerW - 80);
+      catLines.forEach(function(cl, i) { ctx.fillText(cl, cx, catY + i * 44); });
       ctx.letterSpacing = '0';
-      var ruleY = catY + catLines.length * 38 + 20;
-      ctx.strokeStyle = 'rgba(201,168,76,0.22)'; ctx.lineWidth = 1;
-      ctx.beginPath(); ctx.moveTo(cx-180, ruleY); ctx.lineTo(cx+180, ruleY); ctx.stroke();
+      var ruleY = catY + catLines.length * 44 + 24;
+
+      /* rule under category */
+      ctx.strokeStyle = 'rgba(201,168,76,0.25)'; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(cx-200, ruleY); ctx.lineTo(cx+200, ruleY); ctx.stroke();
 
       /* ── Measure text ── */
-      var arFont = 78;
+      var arFont = 88;
       ctx.font = arFont + 'px "Scheherazade New","Traditional Arabic","Amiri",serif';
       var arLines = _duaWrapLines(ctx, ar, innerW);
-      if (arLines.length > 5) { arFont = 66; ctx.font = arFont + 'px "Scheherazade New","Traditional Arabic","Amiri",serif'; arLines = _duaWrapLines(ctx, ar, innerW); }
-      if (arLines.length > 8) { arFont = 54; ctx.font = arFont + 'px "Scheherazade New","Traditional Arabic","Amiri",serif'; arLines = _duaWrapLines(ctx, ar, innerW); }
+      if (arLines.length > 5) { arFont = 74; ctx.font = arFont + 'px "Scheherazade New","Traditional Arabic","Amiri",serif'; arLines = _duaWrapLines(ctx, ar, innerW); }
+      if (arLines.length > 8) { arFont = 60; ctx.font = arFont + 'px "Scheherazade New","Traditional Arabic","Amiri",serif'; arLines = _duaWrapLines(ctx, ar, innerW); }
       var arLineH = Math.round(arFont * 1.95);
 
-      var trFont = Math.max(34, Math.round(arFont * 0.50));
+      var trFont = Math.max(38, Math.round(arFont * 0.52));
       ctx.font = 'italic ' + trFont + 'px "Palatino Linotype","Book Antiqua","Georgia",serif';
       var trLines = _duaWrapLines(ctx, tr, innerW);
       var trLineH = Math.round(trFont * 1.72);
 
-      var enFont = Math.max(30, Math.round(trFont * 0.90));
+      var enFont = Math.max(34, Math.round(trFont * 0.92));
       ctx.font = '600 ' + enFont + 'px "Palatino Linotype","Book Antiqua","Georgia",serif';
       var enLines = _duaWrapLines(ctx, en, innerW - 40);
       var enLineH = Math.round(enFont * 1.62);
