@@ -4616,7 +4616,7 @@ body.light .resume-card {
 
 
   <!-- RESUME CARD -->
-  <div class="resume-card" id="resumeCard" onclick="resumeSession()">
+  <div class="resume-card" id="resumeCard" data-action="resume-session">
     <div class="resume-card-icon" id="resumeIcon">🌅</div>
     <div class="resume-card-body">
       <div class="resume-card-eyebrow">Continue where you left off</div>
@@ -4906,7 +4906,7 @@ body.light .resume-card {
       </div>
 
       <!-- Card 3: SubhanAllah × 33 (tasbih) -->
-      <div class="salah-card tasbih-tappable" id="sc-2" onclick="incTasbih(2,33)">
+      <div class="salah-card tasbih-tappable" id="sc-2" data-action="inc-tasbih-card" data-idx="2" data-target="33">
         <div class="salah-card-header">
           <div class="salah-card-title">SubḥānAllāh — 33×</div>
           <button class="salah-tick-btn" id="sc-2-tick" style="display:none;" data-action="tick-salah-stop" data-idx="2" aria-label="Mark complete">✓</button>
@@ -4923,7 +4923,7 @@ body.light .resume-card {
       </div>
 
       <!-- Card 4: Alhamdulillah × 33 (tasbih) -->
-      <div class="salah-card tasbih-tappable" id="sc-3" onclick="incTasbih(3,33)">
+      <div class="salah-card tasbih-tappable" id="sc-3" data-action="inc-tasbih-card" data-idx="3" data-target="33">
         <div class="salah-card-header">
           <div class="salah-card-title">Alḥamdulillāh — 33×</div>
           <button class="salah-tick-btn" id="sc-3-tick" style="display:none;" data-action="tick-salah-stop" data-idx="3" aria-label="Mark complete">✓</button>
@@ -4940,7 +4940,7 @@ body.light .resume-card {
       </div>
 
       <!-- Card 5: Allahu Akbar × 34 (tasbih) -->
-      <div class="salah-card tasbih-tappable" id="sc-4" onclick="incTasbih(4,34)">
+      <div class="salah-card tasbih-tappable" id="sc-4" data-action="inc-tasbih-card" data-idx="4" data-target="34">
         <div class="salah-card-header">
           <div class="salah-card-title">Allāhu Akbar — 34×</div>
           <button class="salah-tick-btn" id="sc-4-tick" style="display:none;" data-action="tick-salah-stop" data-idx="4" aria-label="Mark complete">✓</button>
@@ -4993,7 +4993,7 @@ body.light .resume-card {
       </div>
 
       <!-- Reset -->
-      <button class="salah-reset-btn" onclick="resetSalahSession()">↺ Reset Session</button>
+      <button class="salah-reset-btn" data-action="reset-salah">↺ Reset Session</button>
     </div>
     <!-- end salah-tracker -->
 
@@ -5106,7 +5106,7 @@ body.light .resume-card {
 
   <div class="cat-grid-header">Daily Adhkar</div>
 
-  <button class="cat-tile" onclick="openDuasCategory('salah', 'adhkar')">
+  <button class="cat-tile" data-action="open-duas-cat-adhkar" data-cat="salah">
     <div class="cat-tile-band band-teal">🕌</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">After Every Salah</div>
@@ -5114,7 +5114,7 @@ body.light .resume-card {
     </div>
   </button>
 
-  <button class="cat-tile" onclick="openDuasCategory('morning', 'adhkar')">
+  <button class="cat-tile" data-action="open-duas-cat-adhkar" data-cat="morning">
     <div class="cat-tile-band band-gold">🌅</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Morning Adhkar</div>
@@ -5122,7 +5122,7 @@ body.light .resume-card {
     </div>
   </button>
 
-  <button class="cat-tile" onclick="openDuasCategory('evening', 'adhkar')">
+  <button class="cat-tile" data-action="open-duas-cat-adhkar" data-cat="evening">
     <div class="cat-tile-band band-navy">🌆</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Evening Adhkar</div>
@@ -5130,7 +5130,7 @@ body.light .resume-card {
     </div>
   </button>
 
-  <button class="cat-tile" onclick="openDuasCategory('sleep', 'adhkar')">
+  <button class="cat-tile" data-action="open-duas-cat-adhkar" data-cat="sleep">
     <div class="cat-tile-band band-plum">🌙</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Before Sleep</div>
@@ -5140,7 +5140,7 @@ body.light .resume-card {
 
   <div class="cat-grid-header">Qur'an &amp; Sunnah</div>
 
-  <button class="cat-tile" onclick="openDuasCategory('quran')">
+  <button class="cat-tile" data-action="open-duas-cat-simple" data-cat="quran">
     <div class="cat-tile-band band-forest">📖</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Duas from the Qur'an</div>
@@ -5148,7 +5148,7 @@ body.light .resume-card {
     </div>
   </button>
 
-  <button class="cat-tile" onclick="openDuasCategory('prophets')">
+  <button class="cat-tile" data-action="open-duas-cat-simple" data-cat="prophets">
     <div class="cat-tile-band band-earth">🌿</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Duas of the Prophets</div>
@@ -5156,7 +5156,7 @@ body.light .resume-card {
     </div>
   </button>
 
-  <button class="cat-tile cat-tile-wide" onclick="openDuasCategory('sunnah')">
+  <button class="cat-tile cat-tile-wide" data-action="open-duas-cat-simple" data-cat="sunnah">
     <div class="cat-tile-band band-rose">☪️</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Prophetic Duas</div>
@@ -5166,7 +5166,7 @@ body.light .resume-card {
 
   <div class="cat-grid-header">Situational</div>
 
-  <button class="cat-tile" onclick="openDuasCategory('daily')">
+  <button class="cat-tile" data-action="open-duas-cat-simple" data-cat="daily">
     <div class="cat-tile-band band-teal">🏡</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Daily Life</div>
@@ -5174,7 +5174,7 @@ body.light .resume-card {
     </div>
   </button>
 
-  <button class="cat-tile" onclick="openDuasCategory('marriage')">
+  <button class="cat-tile" data-action="open-duas-cat-simple" data-cat="marriage">
     <div class="cat-tile-band band-rose">💍</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Marriage</div>
@@ -5208,7 +5208,7 @@ body.light .resume-card {
 
   <div class="cat-grid-header">Reference</div>
 
-  <button class="cat-tile" onclick="openDuasCategory('salawat')">
+  <button class="cat-tile" data-action="open-duas-cat-simple" data-cat="salawat">
     <div class="cat-tile-band band-gold">✨</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Salawat</div>
@@ -5216,7 +5216,7 @@ body.light .resume-card {
     </div>
   </button>
 
-  <button class="cat-tile" onclick="openDuasCategory('istighfar')">
+  <button class="cat-tile" data-action="open-duas-cat-simple" data-cat="istighfar">
     <div class="cat-tile-band band-plum">🤍</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Istighfar</div>
@@ -5224,7 +5224,7 @@ body.light .resume-card {
     </div>
   </button>
 
-  <button class="cat-tile cat-tile-wide" onclick="openDuasCategory('istikharah')">
+  <button class="cat-tile cat-tile-wide" data-action="open-duas-cat-simple" data-cat="istikharah">
     <div class="cat-tile-band band-navy">⭐</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Salah al-Istikharah</div>
@@ -5234,7 +5234,7 @@ body.light .resume-card {
 
   <div class="cat-grid-header">Special Occasions</div>
 
-  <button class="cat-tile cat-tile-wide" onclick="openDuasCategory('dhulhijjah-duas')">
+  <button class="cat-tile cat-tile-wide" data-action="open-duas-cat-simple" data-cat="dhulhijjah-duas">
     <div class="cat-tile-band band-gold">🕋</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Dhul Hijjah &amp; Arafah</div>
@@ -6595,24 +6595,6 @@ body.light .resume-card {
 
 
 
-<div class="learn-intro" id="learn-intro-hub" style="display:none;">
-  <button class="ji-back" data-action="close-learn-topic">‹</button>
-  <div class="ji-body">
-    <div class="ji-icon">🤲</div>
-    <div class="ji-eyebrow">A COMPLETE GUIDE</div>
-    <div class="ji-title">The Art of Du'a</div>
-    <div class="ji-hadith">"Du'a is worship." — Abu Dawud 1479, Sahih</div>
-    <div class="ji-features">
-      <div class="ji-feature"><span class="ji-feat-icon">📖</span><span>What du'a truly is</span></div>
-      <div class="ji-feature"><span class="ji-feat-icon">🕌</span><span>The 12 etiquettes of du'a</span></div>
-      <div class="ji-feature"><span class="ji-feat-icon">⏰</span><span>The best times to ask</span></div>
-      <div class="ji-feature"><span class="ji-feat-icon">💡</span><span>How Allah always answers</span></div>
-      <div class="ji-feature"><span class="ji-feat-icon">🌟</span><span>Special types & conditions</span></div>
-    </div>
-    <button class="ji-begin" data-action="begin-learn-deck" data-topic="hub">Begin ›</button>
-    <div class="ji-footer">26 cards · 9 sections</div>
-  </div>
-</div>
 
 </div><!-- end learn-view -->
 
@@ -6730,7 +6712,7 @@ body.light .resume-card {
     <div class="dua-reader-complete-title">Complete</div>
     <div class="dua-reader-complete-sub" id="duaReaderCompleteSub">May Allah accept every du'a.</div>
     <div class="dua-reader-complete-btns">
-      <button class="dua-reader-btn-primary" onclick="openDuaReader(duaReaderCurrentCat, 0)">Read Again</button>
+      <button class="dua-reader-btn-primary" data-action="dua-reader-restart">Read Again</button>
       <button class="dua-reader-btn-secondary" data-action="close-dua-reader">Back to Duas</button>
     </div>
   </div>
@@ -6742,6 +6724,25 @@ body.light .resume-card {
 </div>
 <!-- ===== END DUA READER OVERLAY ===== -->
 
+
+<div class="learn-intro" id="learn-intro-hub" style="display:none;">
+  <button class="ji-back" data-action="close-learn-topic">‹</button>
+  <div class="ji-body">
+    <div class="ji-icon">🤲</div>
+    <div class="ji-eyebrow">A COMPLETE GUIDE</div>
+    <div class="ji-title">The Art of Du'a</div>
+    <div class="ji-hadith">"Du'a is worship." — Abu Dawud 1479, Sahih</div>
+    <div class="ji-features">
+      <div class="ji-feature"><span class="ji-feat-icon">📖</span><span>What du'a truly is</span></div>
+      <div class="ji-feature"><span class="ji-feat-icon">🕌</span><span>The 12 etiquettes of du'a</span></div>
+      <div class="ji-feature"><span class="ji-feat-icon">⏰</span><span>The best times to ask</span></div>
+      <div class="ji-feature"><span class="ji-feat-icon">💡</span><span>How Allah always answers</span></div>
+      <div class="ji-feature"><span class="ji-feat-icon">🌟</span><span>Special types & conditions</span></div>
+    </div>
+    <button class="ji-begin" data-action="begin-learn-deck" data-topic="hub">Begin ›</button>
+    <div class="ji-footer">26 cards · 9 sections</div>
+  </div>
+</div>
 
 <div class="learn-deck" id="learn-deck-hub" style="display:none;">
   <button class="learn-deck-back" data-action="close-learn-topic">← Back</button>
@@ -6949,7 +6950,7 @@ body.light .resume-card {
     <div class="learn-complete-icon">🤲</div>
     <div class="learn-complete-title">May Allah accept your du'a</div>
     <div class="learn-complete-sub">You have finished The Art of Du'a. Now go and ask Him — with certainty that He hears.</div>
-    <button class="learn-complete-btn-primary" onclick="restartLearnDeck('hub')">Review Again</button>
+    <button class="learn-complete-btn-primary" data-action="restart-hub">Review Again</button>
     <button class="learn-complete-btn-secondary" data-action="close-learn-topic">Back to Learn</button>
   </div>
 </div>
@@ -7137,11 +7138,100 @@ body.light .resume-card {
 <script>
 
 // ============================================================
+var APP_STATE = {
+
+  // ── Navigation ──────────────────────────────────────────
+  navigation: {
+    currentView: null,          // mirrors _spaCurrentView
+    previousView: null
+  },
+
+  // ── Session (Guided adhkar) ──────────────────────────────
+  session: {
+    active: null,               // mirrors guidedState.session
+    step: 0,                    // mirrors guidedState.step
+    totalSteps: 0
+  },
+
+  // ── Dhikr counter ───────────────────────────────────────
+  dhikr: {
+    currentIndex: 0,            // mirrors _dhoCurrentIdx
+    count: 0,                   // mirrors _dhoCount
+    tapped: false               // mirrors _dhoTapped
+  },
+
+  // ── Dua Reader ──────────────────────────────────────────
+  duaReader: {
+    currentCategory: null,      // mirrors duaReaderCurrentCat
+    currentIndex: 0             // mirrors duaReaderCurrentIndex
+  },
+
+  // ── Learn tab ───────────────────────────────────────────
+  learn: {
+    currentTopic: null,         // mirrors learnCurrentTopic
+    currentCard: 0              // mirrors learnCurrentCard
+  },
+
+  // ── Share ────────────────────────────────────────────────
+  share: {
+    activeCard: null            // mirrors _shareCardEl
+  },
+
+  // ── Onboarding ──────────────────────────────────────────
+  onboarding: {
+    locked: false               // mirrors _obLocked
+  },
+
+  // ── Jumu'ah timer ───────────────────────────────────────
+  jumuahTimer: {
+    duration:     60 * 60,     // mirrors _satDuration
+    remaining:    60 * 60,     // mirrors _satRemaining
+    interval:     null,        // mirrors _satInterval
+    paused:       false,       // mirrors _satPaused
+    warnShown:    false,       // mirrors _satWarningShown
+    expired:      false        // mirrors _satExpired
+  },
+
+  // ── Favourites (in-memory mirror of Storage) ────────────
+  favourites: {},               // mirrors favState
+
+  // ── User preferences (loaded from Storage on init) ──────
+  preferences: {
+    theme:        'dark',
+    arabicScale:  1.0
+  },
+
+  // ── Daily progress (loaded from Storage on init) ────────
+  progress: {
+    date:    null,
+    morning: false,
+    evening: false,
+    salah:   false,
+    sleep:   false
+  },
+
+  // ── Streak ──────────────────────────────────────────────
+  streak: {
+    current: 0,
+    lastDate: null
+  }
+};
+
+// Initialise APP_STATE from Storage on load
+
+
+
+// ============================================================
 //  SPA CORE — view switcher, bottom nav, search, settings
 // ============================================================
 
 // State variable for smooth view transitions
-var _spaCurrentView = null;
+// _spaCurrentView → APP_STATE.navigation.currentView
+Object.defineProperty(window, '_spaCurrentView', {
+  get: function() { return APP_STATE.navigation.currentView; },
+  set: function(v) { APP_STATE.navigation.currentView = v; },
+  configurable: true
+});
 
 // Tab indicator updater
 function _updateTabIndicator(name){
@@ -7436,93 +7526,6 @@ var Storage = (function() {
   return { KEYS: KEYS, get: get, set: set, getJSON: getJSON, setJSON: setJSON, remove: remove };
 })();
 
-// ============================================================
-//  APP_STATE — Central state object
-//  All feature state lives here. Existing globals are kept
-//  for backward compatibility and will be migrated in future
-//  sprints. New code should read/write APP_STATE directly.
-//  Maps directly to a Zustand/Context store in Expo.
-// ============================================================
-var APP_STATE = {
-
-  // ── Navigation ──────────────────────────────────────────
-  navigation: {
-    currentView: null,          // mirrors _spaCurrentView
-    previousView: null
-  },
-
-  // ── Session (Guided adhkar) ──────────────────────────────
-  session: {
-    active: null,               // mirrors guidedState.session
-    step: 0,                    // mirrors guidedState.step
-    totalSteps: 0
-  },
-
-  // ── Dhikr counter ───────────────────────────────────────
-  dhikr: {
-    currentIndex: 0,            // mirrors _dhoCurrentIdx
-    count: 0,                   // mirrors _dhoCount
-    tapped: false               // mirrors _dhoTapped
-  },
-
-  // ── Dua Reader ──────────────────────────────────────────
-  duaReader: {
-    currentCategory: null,      // mirrors duaReaderCurrentCat
-    currentIndex: 0             // mirrors duaReaderCurrentIndex
-  },
-
-  // ── Learn tab ───────────────────────────────────────────
-  learn: {
-    currentTopic: null,         // mirrors learnCurrentTopic
-    currentCard: 0              // mirrors learnCurrentCard
-  },
-
-  // ── Share ────────────────────────────────────────────────
-  share: {
-    activeCard: null            // mirrors _shareCardEl
-  },
-
-  // ── Onboarding ──────────────────────────────────────────
-  onboarding: {
-    locked: false               // mirrors _obLocked
-  },
-
-  // ── Jumu'ah timer ───────────────────────────────────────
-  jumuahTimer: {
-    duration:     60 * 60,     // mirrors _satDuration
-    remaining:    60 * 60,     // mirrors _satRemaining
-    interval:     null,        // mirrors _satInterval
-    paused:       false,       // mirrors _satPaused
-    warnShown:    false,       // mirrors _satWarningShown
-    expired:      false        // mirrors _satExpired
-  },
-
-  // ── Favourites (in-memory mirror of Storage) ────────────
-  favourites: {},               // mirrors favState
-
-  // ── User preferences (loaded from Storage on init) ──────
-  preferences: {
-    theme:        'dark',
-    arabicScale:  1.0
-  },
-
-  // ── Daily progress (loaded from Storage on init) ────────
-  progress: {
-    date:    null,
-    morning: false,
-    evening: false,
-    salah:   false,
-    sleep:   false
-  },
-
-  // ── Streak ──────────────────────────────────────────────
-  streak: {
-    current: 0,
-    lastDate: null
-  }
-};
-
-// Initialise APP_STATE from Storage on load
 (function initAppState() {
   // Preferences
   var theme = Storage.get(Storage.KEYS.THEME, 'dark');
@@ -7556,6 +7559,12 @@ var APP_STATE = {
   }
 })();
 
+// ============================================================
+//  APP_STATE — Central state object
+//  All feature state lives here. Existing globals are kept
+//  for backward compatibility and will be migrated in future
+//  sprints. New code should read/write APP_STATE directly.
+//  Maps directly to a Zustand/Context store in Expo.
 
 
 // ---- EXPAND ALL / COLLAPSE ALL ----
@@ -7781,9 +7790,22 @@ var DHIKR_DATA = [
   }
 ];
 
-var _dhoCurrentIdx = 0;
-var _dhoCount = 0;
-var _dhoTapped = false;
+// Dhikr counter globals → APP_STATE.dhikr
+Object.defineProperty(window, '_dhoCurrentIdx', {
+  get: function() { return APP_STATE.dhikr.currentIndex; },
+  set: function(v) { APP_STATE.dhikr.currentIndex = v; },
+  configurable: true
+});
+Object.defineProperty(window, '_dhoCount', {
+  get: function() { return APP_STATE.dhikr.count; },
+  set: function(v) { APP_STATE.dhikr.count = v; },
+  configurable: true
+});
+Object.defineProperty(window, '_dhoTapped', {
+  get: function() { return APP_STATE.dhikr.tapped; },
+  set: function(v) { APP_STATE.dhikr.tapped = v; },
+  configurable: true
+});
 
 function dhiStorageKey(idx){ return 'dhikr_count_' + idx; }
 
@@ -7804,7 +7826,7 @@ function renderDhikrIndex(){
     var countClass = isDone ? 'dho-index-count dho-done-count' : 'dho-index-count';
     var rowClass = isDone ? 'dho-index-row dho-done' : 'dho-index-row';
     var targetLabel = target === Infinity ? '∞' : target + '×';
-    html += '<div class="' + rowClass + '" onclick="openDhikrFocused(' + idx + ')" role="button" tabindex="0">' +
+    html += '<div class="' + rowClass + '" data-action="open-dhikr" data-idx="' + idx + '" role="button" tabindex="0">' +
       '<div class="dho-index-inner">' +
         '<div class="dho-index-arabic">' + d.ar + '</div>' +
         '<div class="dho-index-label">' + d.label + '</div>' +
@@ -7994,7 +8016,8 @@ function _dhoDoCount(){
 })();
 
 // favState is a live in-memory mirror of the 'favourites' array, keyed by id, for O(1) lookups.
-var favState = {};
+// favState → APP_STATE.favourites (object reference)
+var favState = APP_STATE.favourites;
 (function buildFavState() {
   try {
     var arr = JSON.parse(safeGet('favourites') || '[]');
@@ -9334,6 +9357,8 @@ var LEARN_DATA = {
 function renderLearnDeck(topicId) {
   var data = LEARN_DATA[topicId];
   if (!data) return;
+  // Guard: hub deck uses hardcoded HTML only
+  if (topicId === 'hub') return;
 
   // ── Build learn-intro ──────────────────────────────────
   var introEl = document.getElementById('learn-intro-' + topicId);
@@ -9356,7 +9381,10 @@ function renderLearnDeck(topicId) {
     introHTML += '<div class="ji-footer">Tap any card to continue · swipe or use arrows</div>';
     introHTML += '</div>';
     introEl.innerHTML = introHTML;
-    document.getElementById('learn-view').parentNode.insertBefore(introEl, document.getElementById('learn-deck-hub'));
+    var hubDeck = document.getElementById('learn-deck-hub');
+    var insertParent = hubDeck ? hubDeck.parentNode : document.body;
+    var insertRef = hubDeck || null;
+    insertParent.insertBefore(introEl, insertRef);
   }
 
   // ── Build learn-deck ───────────────────────────────────
@@ -9413,7 +9441,12 @@ function renderLearnDeck(topicId) {
   deckHTML += '<button class="guided-nav-next learn-nav-next" data-action="learn-nav" data-dir="1">Next →</button>';
   deckHTML += '</div>';
 
-  introEl.parentNode.insertBefore(deckEl, introEl.nextSibling);
+  deckEl.innerHTML = deckHTML;
+
+  var hubDeck = document.getElementById('learn-deck-hub');
+  var insertParent2 = hubDeck ? hubDeck.parentNode : document.body;
+  var insertRef2 = hubDeck || null;
+  insertParent2.insertBefore(deckEl, insertRef2);
 }
 
 
@@ -9493,7 +9526,12 @@ function closeOnboarding(callback) {
   }, 220);
 }
 
-var _obLocked = false;
+// _obLocked → APP_STATE.onboarding.locked
+Object.defineProperty(window, '_obLocked', {
+  get: function() { return APP_STATE.onboarding.locked; },
+  set: function(v) { APP_STATE.onboarding.locked = v; },
+  configurable: true
+});
 function obSelect(choice) {
   if (_obLocked) return;
   _obLocked = true;
@@ -9513,7 +9551,8 @@ function obSelect(choice) {
   });
 }
 
-var guidedState = { session: null, step: 0 };
+// guidedState → APP_STATE.session (object reference)
+var guidedState = APP_STATE.session;
 
 window.startGuidedSession = function(sessionKey, startStep){
   var session = GUIDED_SESSIONS[sessionKey];
@@ -10438,8 +10477,17 @@ initInstallPrompt();
 // ============================================================
 // ===== DUA READER SYSTEM =====
 var DUAS_DATA = {};
-var duaReaderCurrentCat = null;
-var duaReaderCurrentIndex = 0;
+// Dua Reader globals → APP_STATE.duaReader
+Object.defineProperty(window, 'duaReaderCurrentCat', {
+  get: function() { return APP_STATE.duaReader.currentCategory; },
+  set: function(v) { APP_STATE.duaReader.currentCategory = v; },
+  configurable: true
+});
+Object.defineProperty(window, 'duaReaderCurrentIndex', {
+  get: function() { return APP_STATE.duaReader.currentIndex; },
+  set: function(v) { APP_STATE.duaReader.currentIndex = v; },
+  configurable: true
+});
 
 function buildDuasData() {
   var sections = {
@@ -10746,8 +10794,17 @@ function filterDuasIndex(query) {
 // ============================================================
 //  LEARN TOPIC SYSTEM
 // ============================================================
-var learnCurrentTopic = null;
-var learnCurrentCard = 0;
+// Learn tab globals → APP_STATE.learn
+Object.defineProperty(window, 'learnCurrentTopic', {
+  get: function() { return APP_STATE.learn.currentTopic; },
+  set: function(v) { APP_STATE.learn.currentTopic = v; },
+  configurable: true
+});
+Object.defineProperty(window, 'learnCurrentCard', {
+  get: function() { return APP_STATE.learn.currentCard; },
+  set: function(v) { APP_STATE.learn.currentCard = v; },
+  configurable: true
+});
 
 function openLearnTopic(topicId) {
   renderLearnDeck(topicId);
@@ -10915,7 +10972,12 @@ function filterLearnIndex(query) {
 // ============================================================
 //  SHARE FEATURE  (v2 — Canvas 2D, no external libraries)
 // ============================================================
-var _shareCardEl = null;
+// _shareCardEl → APP_STATE.share.activeCard
+Object.defineProperty(window, '_shareCardEl', {
+  get: function() { return APP_STATE.share.activeCard; },
+  set: function(v) { APP_STATE.share.activeCard = v; },
+  configurable: true
+});
 
 /* ── Toast helper (defined here; not present elsewhere in app) ── */
 function ndlToast(msg) {
@@ -11307,7 +11369,28 @@ function shareAsImage() {
     },
 
     // Open focused dhikr
-    'open-dhikr': function(el) { openDhikrFocused(parseInt(el.getAttribute('data-idx'), 10)); }
+    'open-dhikr': function(el) { openDhikrFocused(parseInt(el.getAttribute('data-idx'), 10)); },
+
+    // Duas category tiles
+    'open-duas-cat-adhkar': function(el) { openDuasCategory(el.getAttribute('data-cat'), 'adhkar'); },
+    'open-duas-cat-simple': function(el) { openDuasCategory(el.getAttribute('data-cat')); },
+
+    // Dua reader - read again
+    'dua-reader-restart': function() {
+      if (duaReaderCurrentCat) openDuaReader(duaReaderCurrentCat, 0);
+    },
+
+    // After salah tracker
+    'reset-salah': function() { resetSalahSession(); },
+    'resume-session': function() { resumeSession(); },
+
+    // Inc tasbih (whole-card tap for sc-2/3/4)
+    'inc-tasbih-card': function(el) {
+      incTasbih(parseInt(el.getAttribute('data-idx'), 10), parseInt(el.getAttribute('data-target'), 10));
+    },
+
+    // Hub learn deck restart
+    'restart-hub': function() { restartLearnDeck('hub'); }
   };
 
   document.addEventListener('click', function(e) {
@@ -11861,12 +11944,37 @@ setInterval(renderContextualHome, 600000);
 window.refreshContextualHome = renderContextualHome;
 
 // ===== SA'AT AL-ISTIJABAH TIMER =====
-var _satDuration    = 60 * 60;
-var _satRemaining   = _satDuration;
-var _satInterval    = null;
-var _satPaused      = false;
-var _satWarningShown = false;
-var _satExpired     = false;
+// Jumu'ah timer globals → APP_STATE.jumuahTimer
+Object.defineProperty(window, '_satDuration', {
+  get: function() { return APP_STATE.jumuahTimer.duration; },
+  set: function(v) { APP_STATE.jumuahTimer.duration = v; },
+  configurable: true
+});
+Object.defineProperty(window, '_satRemaining', {
+  get: function() { return APP_STATE.jumuahTimer.remaining; },
+  set: function(v) { APP_STATE.jumuahTimer.remaining = v; },
+  configurable: true
+});
+Object.defineProperty(window, '_satInterval', {
+  get: function() { return APP_STATE.jumuahTimer.interval; },
+  set: function(v) { APP_STATE.jumuahTimer.interval = v; },
+  configurable: true
+});
+Object.defineProperty(window, '_satPaused', {
+  get: function() { return APP_STATE.jumuahTimer.paused; },
+  set: function(v) { APP_STATE.jumuahTimer.paused = v; },
+  configurable: true
+});
+Object.defineProperty(window, '_satWarningShown', {
+  get: function() { return APP_STATE.jumuahTimer.warnShown; },
+  set: function(v) { APP_STATE.jumuahTimer.warnShown = v; },
+  configurable: true
+});
+Object.defineProperty(window, '_satExpired', {
+  get: function() { return APP_STATE.jumuahTimer.expired; },
+  set: function(v) { APP_STATE.jumuahTimer.expired = v; },
+  configurable: true
+});
 
 window.satStart = function() {
   _satRemaining    = _satDuration;
