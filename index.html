@@ -1253,7 +1253,7 @@ body.light .bottom-nav {
 }
 .bn-tab .bn-icon { display: flex; align-items: center; justify-content: center; width: 22px; height: 22px; }
 .bn-tab .bn-icon svg { width: 22px; height: 22px; }
-.bn-tab .bn-label { font-size: 11px; letter-spacing: 0.05em; white-space: nowrap; }
+.bn-tab .bn-label { font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap; font-family: var(--fn); }
 .bn-tab.active { color: #C9A84C; }
 .bn-tab.active::after {
   content: '';
@@ -1555,29 +1555,39 @@ body.light .settings-popover { background: rgba(250,246,238,0.98); }
 /* Intention prompt chips */
 .intention-wrap { margin: 0 0 4px; }
 .intention-title {
-  font-size: 10px; color: var(--gold);
-  letter-spacing: 0.4em; text-transform: uppercase;
-  margin: 0 0 12px; font-weight: 400;
   font-family: var(--fn);
-  display: flex; align-items: center; gap: 7px;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-d);
+  display: flex; align-items: center; gap: 10px;
 }
 .intention-title::before { content: '✦'; font-size: 8px; }
 .intention-chips {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 10px;
 }
 .intention-chip {
-  background: var(--card); border: 1px solid var(--bdr);
-  border-radius: 30px; padding: 9px 14px; cursor: pointer;
-  font-family: var(--fn); font-size: 12px; color: var(--text-d);
-  display: flex; align-items: center; gap: 7px;
-  min-height: 42px; -webkit-tap-highlight-color: transparent;
-  transition: border-color .15s, background .15s, color .15s;
-  white-space: nowrap; justify-content: center;
+  display: flex; align-items: center; gap: 10px;
+  background: var(--card);
+  border: 1px solid var(--bdr);
+  border-radius: 14px;
+  padding: 12px 16px;
+  font-family: var(--fn); font-size: 13px;
+  color: var(--text);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  transition: border-color var(--t-fast) var(--ease-out), background var(--t-fast) var(--ease-out);
+  text-align: left;
+  width: 100%;
 }
 .intention-chip:hover, .intention-chip:active {
   border-color: var(--bdr-h); background: var(--card2); color: var(--gold-l);
 }
-.intention-chip .chip-emoji { font-size: 15px; line-height: 1; flex-shrink: 0; }
+.intention-chip .chip-emoji { font-size: 20px; line-height: 1; flex-shrink: 0; }
 
 /* Laylatul Qadr banner */
 .qadr-banner {
@@ -1903,7 +1913,7 @@ body.light .settings-popover { background: rgba(250,246,238,0.98); }
               transform var(--t-fast) var(--ease-out),
               opacity var(--t-fast) var(--ease-out);
 }
-.session-card:active { transform: scale(0.982); opacity: 0.85; }
+.session-card:active { transform: scale(0.978); opacity: 0.9; background: rgba(201,168,76,0.06); }
 .session-card.sc-done {
   border-color: rgba(201,168,76,0.45);
   background: rgba(201,168,76,0.07);
@@ -3070,7 +3080,7 @@ body.light .bn-tab-indicator { background: #7a5c12; }
   align-items: center;
   justify-content: space-between;
   padding: 12px 20px;
-  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 16px);
+  padding-bottom: max(16px, env(safe-area-inset-bottom, 16px));
   background: rgba(12, 16, 24, 0.97);
   border-top: 1px solid rgba(201,168,76,0.25);
   backdrop-filter: blur(12px);
@@ -3082,33 +3092,37 @@ body.light .guided-nav {
 }
 .guided-nav-prev,
 .guided-nav-next {
-  min-width: 90px;
-  min-height: 48px;
-  padding: 10px 18px;
-  border-radius: 8px;
-  background: rgba(201,168,76,0.1);
-  border: 1px solid rgba(201,168,76,0.35);
-  color: var(--gold-l);
   font-family: var(--fn);
-  font-size: 13px;
-  letter-spacing: 0.08em;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 12px 24px;
+  border-radius: 24px;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
-  user-select: none;
-  transition: background var(--t-instant) var(--ease-out), transform var(--t-instant) var(--ease-out), opacity var(--t-instant) var(--ease-out);
-}
-.guided-nav-prev:hover, .guided-nav-next:hover {
-  background: rgba(201,168,76,0.2);
+  transition: opacity var(--t-fast) var(--ease-out), transform var(--t-fast) var(--ease-spring);
+  letter-spacing: 0.02em;
 }
 .guided-nav-prev:active, .guided-nav-next:active {
-  transform: scale(0.95);
-  opacity: 0.82;
+  transform: scale(0.96);
+  opacity: 0.8;
+}
+.guided-nav-prev {
+  background: rgba(201,168,76,0.08);
+  border: 1px solid rgba(201,168,76,0.2);
+  color: var(--text-d);
 }
 .guided-nav-prev:disabled {
-  opacity: 0.3;
+  opacity: 0.25;
   pointer-events: none;
 }
+.guided-nav-next {
+  background: var(--gold);
+  border: 1px solid transparent;
+  color: #0C1018;
+  min-width: 120px;
+}
+body.light .guided-nav-next { color: #fff; }
 .guided-nav-next.done {
   background: rgba(201,168,76,0.2);
   border-color: var(--gold);
@@ -3842,16 +3856,23 @@ body.light .band-slate  { background: linear-gradient(135deg, #d8dce8 0%, #c0c8d
 }
 .dua-reader-header {
   display: flex; align-items: center; justify-content: space-between;
-  padding: max(16px, env(safe-area-inset-top)) 20px 0;
+  padding: max(20px, env(safe-area-inset-top, 20px)) 20px 0;
   gap: 12px; flex-shrink: 0;
 }
 .dua-reader-close {
-  background: rgba(201,168,76,.08); border: 1px solid var(--bdr);
-  border-radius: 50%; color: var(--text-d); font-size: 18px;
-  width: 38px; height: 38px; display: flex; align-items: center;
-  justify-content: center; cursor: pointer; flex-shrink: 0;
-  -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.08);
+  border: none;
+  color: var(--text);
+  font-size: 18px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  -webkit-tap-highlight-color: transparent;
+  flex-shrink: 0;
+  transition: background var(--t-fast) var(--ease-out);
 }
+.dua-reader-close:active { background: rgba(255,255,255,0.15); transform: scale(0.93); }
 .dua-reader-title {
   font-family: var(--fn); font-size: 13px; color: var(--gold);
   letter-spacing: .1em; text-transform: uppercase;
@@ -3862,12 +3883,17 @@ body.light .band-slate  { background: linear-gradient(135deg, #d8dce8 0%, #c0c8d
   letter-spacing: .08em; white-space: nowrap; flex-shrink: 0;
 }
 .dua-reader-progress {
-  height: 3px; background: rgba(201,168,76,.12);
-  flex-shrink: 0; margin-top: 12px;
+  height: 3px;
+  background: rgba(201,168,76,0.12);
+  border-radius: 2px;
+  margin: 10px 20px 0;
+  flex-shrink: 0;
+  overflow: hidden;
 }
 .dua-reader-fill {
   height: 100%; background: var(--gold);
-  transition: width .3s ease; border-radius: 0 2px 2px 0;
+  border-radius: 2px;
+  transition: width var(--t-mid) var(--ease-out);
 }
 .dua-reader-body {
   flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch;
@@ -3957,13 +3983,29 @@ body.light .band-slate  { background: linear-gradient(135deg, #d8dce8 0%, #c0c8d
 }
 .dua-reader-nav-prev,
 .dua-reader-nav-next {
-  font-family: var(--fn); font-size: 14px; font-weight: 500;
-  color: var(--gold); background: rgba(201,168,76,.08);
-  border: 1px solid var(--bdr); border-radius: var(--radius);
-  padding: 11px 20px; cursor: pointer; min-width: 80px;
-  -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+  font-family: var(--fn);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 11px 22px;
+  border-radius: 24px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  transition: opacity var(--t-fast) var(--ease-out), transform var(--t-fast) var(--ease-spring);
 }
-.dua-reader-nav-prev:disabled { opacity: .3; pointer-events: none; }
+.dua-reader-nav-prev:active, .dua-reader-nav-next:active { transform: scale(0.96); }
+.dua-reader-nav-prev {
+  background: rgba(201,168,76,0.08);
+  border: 1px solid rgba(201,168,76,0.2);
+  color: var(--text-d);
+}
+.dua-reader-nav-prev:disabled { opacity: 0.25; pointer-events: none; }
+.dua-reader-nav-next {
+  background: var(--gold);
+  border: 1px solid transparent;
+  color: #0C1018;
+  min-width: 100px;
+}
 .dua-reader-nav-next.btn-complete {
   background: var(--gold); color: var(--deep); border-color: var(--gold);
   font-weight: 600;
@@ -4093,7 +4135,7 @@ body.light .band-slate  { background: linear-gradient(135deg, #d8dce8 0%, #c0c8d
 /* ── HOME BANNER ── */
 .home-banner {
   text-align: center;
-  padding: 20px 20px 8px;
+  padding: 12px 20px 4px;
 }
 .home-banner-bismillah {
   font-family: var(--fa);
@@ -4606,7 +4648,6 @@ body.light .resume-card {
   </div>
 
 <div class="home-banner">
-  <div class="home-banner-bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
   <div class="home-banner-title">Naafi</div>
   <div class="home-banner-tagline">Dua &nbsp;·&nbsp; Adhkar &nbsp;·&nbsp; Dhikr</div>
 </div>
@@ -4627,45 +4668,8 @@ body.light .resume-card {
     <button class="resume-card-dismiss" id="resumeDismiss" data-action="dismiss-resume" aria-label="Dismiss">✕</button>
   </div>
 
-  <!-- STREAK BADGE -->
-  <div class="streak-wrap">
-    <div class="streak-badge streak-zero" id="streakBadge">
-      <span class="streak-fire">🔥</span>
-      <span class="streak-num" id="streakNum">0</span>
-      <span class="streak-label" id="streakLabel">day streak</span>
-    </div>
-  </div>
-  <!-- END STREAK BADGE -->
-
-  <div class="divider"><div class="dl"></div><div class="dg"></div><div class="dgo"></div><div class="dg"></div><div class="dl"></div></div>
-
-  <div class="hijri-date loading" id="hijriDisplay"></div>
-
-  <!-- CONTEXTUAL HOME (Phase A) -->
-  <div id="contextualHome" class="contextual-home"></div>
-
-
-
-  <!-- DUA OF THE DAY -->
-
-<div id="duaOfDay" class="dua feat" aria-label="Dua of the Day">
-    <div class="dotd-eyebrow">Dua of the Day</div>
-    <div class="dotd-section" id="dotdSection"></div>
-    <div class="dlabel" id="dotdLabel"></div>
-    <div class="ar" id="dotdAr"></div>
-    <div class="tr" id="dotdTr"></div>
-    <div class="en" id="dotdEn"></div>
-    <div class="src" id="dotdSrc"></div>
-    <button id="dotdShareBtn" class="dua-share-btn" style="display:none;margin:12px auto 0;padding:8px 20px;border:1px solid var(--bdr);border-radius:20px;font-size:13px;gap:6px;" aria-label="Share Dua of the Day" data-action="open-dotd-share">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-      Share this Dua
-    </button>
-  </div>
-
-  <div class="divider"><div class="dl"></div><div class="dg"></div><div class="dl"></div></div>
-
   <!-- Daily Progress Tracker -->
-  <div class="home-section-title">Today's Progress</div>
+  <div class="home-section-title">Today's Adhkar</div>
   <div class="session-cards" id="progressTracker">
 
     <div class="session-card" id="pt-morning" data-action="start-session" data-session="morning">
@@ -4722,7 +4726,59 @@ body.light .resume-card {
 
   </div>
 
-  <div class="divider"><div class="dl"></div><div class="dg"></div><div class="dl"></div></div>
+  <!-- STREAK BADGE -->
+  <div class="streak-wrap">
+    <div class="streak-badge streak-zero" id="streakBadge">
+      <span class="streak-fire">🔥</span>
+      <span class="streak-num" id="streakNum">0</span>
+      <span class="streak-label" id="streakLabel">day streak</span>
+    </div>
+  </div>
+  <!-- END STREAK BADGE -->
+
+  <div class="divider"><div class="dl"></div><div class="dg"></div><div class="dgo"></div><div class="dg"></div><div class="dl"></div></div>
+
+  <div class="hijri-date loading" id="hijriDisplay"></div>
+
+  <!-- CONTEXTUAL HOME (Phase A) -->
+  <div id="contextualHome" class="contextual-home"></div>
+
+
+
+  <!-- Quick-Start Intention Prompt -->
+  <div class="intention-wrap">
+    <div class="intention-title">What do you need right now?</div>
+    <div class="intention-chips">
+      <button class="intention-chip" data-action="open-dua-reader" data-cat="daily">
+        <span class="chip-emoji">😔</span> Feeling stressed
+      </button>
+      <button class="intention-chip" data-action="open-dua-reader" data-cat="istighfar">
+        <span class="chip-emoji">🤍</span> Want forgiveness
+      </button>
+      <button class="intention-chip" data-action="start-session" data-session="morning">
+        <span class="chip-emoji">☀️</span> Starting my day
+      </button>
+      <button class="intention-chip" data-action="start-session" data-session="sleep">
+        <span class="chip-emoji">🌙</span> Going to sleep
+      </button>
+    </div>
+  </div>
+
+  <!-- DUA OF THE DAY -->
+
+<div id="duaOfDay" class="dua feat" aria-label="Dua of the Day">
+    <div class="dotd-eyebrow">Dua of the Day</div>
+    <div class="dotd-section" id="dotdSection"></div>
+    <div class="dlabel" id="dotdLabel"></div>
+    <div class="ar" id="dotdAr"></div>
+    <div class="tr" id="dotdTr"></div>
+    <div class="en" id="dotdEn"></div>
+    <div class="src" id="dotdSrc"></div>
+    <button id="dotdShareBtn" class="dua-share-btn" style="display:none;margin:12px auto 0;padding:8px 20px;border:1px solid var(--bdr);border-radius:20px;font-size:13px;gap:6px;" aria-label="Share Dua of the Day" data-action="open-dotd-share">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      Share this Dua
+    </button>
+  </div>
 
   <!-- Friday Hour Home Card -->
   <div class="home-jumuah-card" data-action="open-jumuah">
@@ -4748,28 +4804,6 @@ body.light .resume-card {
     <div id="favList"></div>
   </div>
   </div>
-
-  <div class="divider"><div class="dl"></div><div class="dg"></div><div class="dl"></div></div>
-
-  <!-- Quick-Start Intention Prompt -->
-  <div class="intention-wrap">
-    <div class="intention-title">What do you need right now?</div>
-    <div class="intention-chips">
-      <button class="intention-chip" data-action="show-duas-scroll" data-section="daily">
-        <span class="chip-emoji">😔</span> Feeling stressed
-      </button>
-      <button class="intention-chip" data-action="show-duas-scroll" data-section="istighfar">
-        <span class="chip-emoji">🤍</span> Want forgiveness
-      </button>
-      <button class="intention-chip" data-action="start-session" data-session="morning">
-        <span class="chip-emoji">☀️</span> Starting my day
-      </button>
-      <button class="intention-chip" data-action="start-session" data-session="sleep">
-        <span class="chip-emoji">🌙</span> Going to sleep
-      </button>
-    </div>
-  </div>
-
 
 
 </div><!-- end home-view -->
@@ -5408,11 +5442,11 @@ body.light .resume-card {
     </div>
   </button>
 
-  <button class="cat-tile" data-action="start-session" data-session="arafah">
+  <button class="cat-tile" data-action="open-learn-topic" data-topic="arafah">
     <div class="cat-tile-band band-gold">🌄</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Yawm Arafah</div>
-      <div class="cat-tile-sub">Full day session · 14 steps</div>
+      <div class="cat-tile-sub">Day of Arafah · guide &amp; duas</div>
     </div>
   </button>
 
@@ -5610,7 +5644,7 @@ body.light .resume-card {
     </div>
   </div>
   <div class="dua-reader-nav" id="duaReaderNav">
-    <button class="dua-reader-nav-prev" id="duaReaderPrev" data-action="dua-reader-nav" data-dir="-1" disabled>← Prev</button>
+    <button class="dua-reader-nav-prev" id="duaReaderPrev" data-action="dua-reader-nav" data-dir="-1" disabled>← Back</button>
     <div class="dua-reader-nav-dots" id="duaReaderDots">1 / 1</div>
     <button class="dua-reader-nav-next" id="duaReaderNext" data-action="dua-reader-nav" data-dir="1">Next →</button>
   </div>
@@ -5966,9 +6000,9 @@ body.light .resume-card {
     </button>
   </div>
   <div class="guided-nav" id="guidedNav">
-    <button class="guided-nav-prev" id="guidedPrev" data-action="guided-nav" data-dir="-1" aria-label="Previous step">← Prev</button>
+    <button class="guided-nav-prev" id="guidedPrev" data-action="guided-nav" data-dir="-1" aria-label="Previous step">← Back</button>
     <div class="guided-nav-indicator" id="guidedCounter">Step 1 of 1</div>
-    <button class="guided-nav-next" id="guidedNext" data-action="guided-nav" data-dir="1" aria-label="Next step">Next →</button>
+    <button class="guided-nav-next" id="guidedNext" data-action="guided-nav" data-dir="1" aria-label="Next step">Continue →</button>
   </div>
 </div>
 
@@ -8034,7 +8068,7 @@ var LEARN_DATA = {
       { eyebrow: 'TIME WINDOW 2', heading: 'In Sujood — Prostration', body: '<em>"The closest a servant is to his Lord is when he is in sujood — so make plenty of du\'a."</em><br><br>In every sujood of every prayer, after Subhana Rabbiyal A\'la, pour out your personal duas. Arabic or your own language — both valid in nafl.', src: 'Sahih Muslim 482' },
       { eyebrow: 'TIME WINDOW 3', heading: 'Between Adhan and Iqamah', body: '<em>"Du\'a between the adhan and iqamah is not rejected."</em><br><br>Even 2–3 minutes in this window before every prayer is enormously powerful. Stop, raise your hands, and ask.', src: 'Abu Dawud 521, Tirmidhi 212 — Sahih' },
       { eyebrow: 'TIME WINDOW 4', heading: 'After the Obligatory Prayer', body: 'The Prophet ﷺ was asked which du\'a is most accepted. He said: <em>"In the middle of the last part of the night, and after the obligatory prayers."</em><br><br>Stay on your mat after adhkar — make personal du\'a before standing.', src: 'Tirmidhi 3499' },
-      { eyebrow: 'TIME WINDOW 5', heading: "Sa'at al-Istijabah — The Friday Hour", body: '<em>"On Friday there is an hour in which no Muslim asks Allah for good except that He gives it to him."</em><br><br>Strongest scholarly opinion: the last hour before Maghrib. Sit in dhikr and du\'a from after Asr. Do not miss it.', src: 'Sahih al-Bukhari 935', action: { text: '→ Open Friday Hour Session', dataAction: 'close-learn-then-jumuah' } },
+      { eyebrow: 'TIME WINDOW 5', heading: "Sa'at al-Istijabah — The Friday Hour", body: '<em>"On Friday there is an hour in which no Muslim asks Allah for good except that He gives it to him."</em><br><br>Strongest scholarly opinion: the last hour before Maghrib. Sit in dhikr and du\'a from after Asr. Do not miss it.', src: 'Sahih al-Bukhari 935' },
       { eyebrow: 'TIME WINDOW 6', heading: 'While Fasting — Before Iftar', body: '<em>"Three du\'as are not rejected: the du\'a of the fasting person at the time of breaking fast..."</em><br><br>In the last minutes before Maghrib — hands raised, heart present. Do not let this window pass.', src: 'Tirmidhi 3598' }
     ]
   },
@@ -8085,7 +8119,7 @@ var LEARN_DATA = {
       { eyebrow: 'THE RECITATION', heading: 'Surah Al-Kahf — Read Before Maghrib', body: '<em>"Whoever reads Surah Al-Kahf on Friday, a light will shine for him between the two Fridays."</em><br><br>Read from after Fajr until Maghrib. The first and last 10 ayahs protect from the Dajjal.', src: 'Al-Hakim, Sahih by Al-Albani' },
       { eyebrow: 'THE SALAWAT', heading: 'Increase Salawat — It Reaches the Prophet ﷺ', body: '<em>"Send abundant salawat upon me on Fridays — your salawat are presented to me."</em>', arabic: 'اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ', bodyExtra: 'Say it abundantly from Fajr to Maghrib on Friday.', src: 'Abu Dawud 1047 — Sahih' },
       { eyebrow: 'THE HOUR', heading: "Sa'at al-Istijabah — The Blessed Hour", body: '<em>"On Friday there is an hour in which no Muslim asks Allah for good except that He gives it to him."</em><br><br>Strongest scholarly opinion: the last hour before Maghrib (after Asr). Sit, face qiblah, raise hands, pour out your duas. Do not miss it.', src: 'Sahih al-Bukhari 935' },
-      { eyebrow: 'THE SUNNAH', heading: "The Jumu'ah Sunnah Acts", body: "Ghusl before Fajr. Wear good clothes. Go early to the masjid. Listen to the khutbah. Say abundant salawat. Read Al-Kahf. Make du'a in the last hour before Maghrib.", action: { text: '→ Open Friday Hour Session', dataAction: 'close-learn-then-jumuah' } }
+      { eyebrow: 'THE SUNNAH', heading: "The Jumu'ah Sunnah Acts", body: "Ghusl before Fajr. Wear good clothes. Go early to the masjid. Listen to the khutbah. Say abundant salawat. Read Al-Kahf. Make du'a in the last hour before Maghrib." }
     ]
   },
 
@@ -8109,7 +8143,7 @@ var LEARN_DATA = {
       { eyebrow: 'THE DAYS', heading: 'Why These Days Are the Greatest', body: 'Allah ﷻ swears by them in Surah Al-Fajr: <em>"By the dawn. And by the ten nights."</em> — 89:1-2<br><br>Ibn Hajar said these days combine all major acts of worship — prayer, fasting, charity, and Hajj — which does not occur in any other days.<br><br>Ibn Abbas: <em>"More beloved to Allah for good deeds than any other days."</em>' },
       { eyebrow: 'THE ACTIONS', heading: 'What to Do — The First 9 Days', body: 'Fast all 9 days if able — especially Day 8 (Tarwiyah) and Day 9 (Arafah).<br><br>Increase: <strong>Takbeer</strong> (Allahu Akbar), <strong>Tahmid</strong> (Alhamdulillah), <strong>Tahleel</strong> (La ilaha illallah), <strong>Tasbih</strong> (SubhanAllah).<br><br>Give sadaqah. Read Qur\'an. Make tawbah. If you intend Qurbani — do not cut hair or nails from 1st Dhul Hijjah until after slaughter.', src: 'Sahih Muslim 1977' },
       { eyebrow: 'THE TAKBEER', heading: 'Takbeer al-Tashriq — Wājib', arabic: 'اللَّهُ أَكْبَرُ اللَّهُ أَكْبَرُ لَا إِلَهَ إِلَّا اللَّهُ وَاللَّهُ أَكْبَرُ اللَّهُ أَكْبَرُ وَلِلَّهِ الْحَمْدُ', body: '<strong>Hanafi ruling:</strong> Wājib for every Muslim — male and female, travelling or resident — to say once after every fard salah.<br><br>Begins: Fajr of 9th Dhul Hijjah. Ends: Asr of 13th Dhul Hijjah. Total: 23 prayers.' },
-      { eyebrow: 'THE DAY', heading: 'Yawm Arafah — The Greatest Day', body: '<em>"The best du\'a is the du\'a of the Day of Arafah."</em><br><br>Fast this day — it expiates sins of the previous year and the coming year.<br><br>For non-pilgrims: spend the day in worship, du\'a, fasting, dhikr, Qur\'an.', src: 'Tirmidhi 3585 · Sahih Muslim 1162', action: { text: '→ Open Yawm Arafah Session', dataAction: 'close-learn-then-session', dataSession: 'arafah' } },
+      { eyebrow: 'THE DAY', heading: 'Yawm Arafah — The Greatest Day', body: '<em>"The best du\'a is the du\'a of the Day of Arafah."</em><br><br>Fast this day — it expiates sins of the previous year and the coming year.<br><br>For non-pilgrims: spend the day in worship, du\'a, fasting, dhikr, Qur\'an.', src: 'Tirmidhi 3585 · Sahih Muslim 1162' },
       { eyebrow: 'EID AL-ADHA', heading: 'Eid al-Adha — 10th Dhul Hijjah', body: 'Sunnah acts: ghusl, wear best clothes, eat nothing before Eid salah (opposite of Eid al-Fitr). Say Eid takbeer from Fajr of Arafah.<br><br>Greeting: <em>Taqabbalallahu minna wa minkum</em> — "May Allah accept from us and from you."<br><br>Do not fast on Eid — it is forbidden.' },
       { eyebrow: 'QURBANI', heading: 'Qurbani — Udhiyah', body: '<strong>Wājib</strong> for every adult Muslim of means (nisab holder) — Hanafi position.<br><br>Performed on 10th, 11th, or 12th Dhul Hijjah. One sheep/goat per household. One seventh of a cow or camel.<br><br>Distribute: one third for yourself, one third for family/friends, one third for the poor. Do not give the butcher his wage from the meat.' },
       { eyebrow: 'AYYAM AL-TASHRIQ', heading: '11th, 12th & 13th — Days of Remembrance', body: 'Days of eating, drinking, and remembering Allah. Fasting on these days is forbidden.<br><br>Continue Takbeer al-Tashriq after every fard salah until Asr of 13th.<br><br><em>"The days of Tashriq are days of eating, drinking, and remembrance of Allah."</em>', src: 'Sahih Muslim 1141' }
@@ -8356,9 +8390,9 @@ function renderLearnDeck(topicId) {
   deckHTML += '</div>'; // learn-deck-body
 
   deckHTML += '<div class="guided-nav" style="border-top:1px solid var(--bdr);">';
-  deckHTML += '<button class="guided-nav-prev learn-nav-prev" data-action="learn-nav" data-dir="-1" disabled>← Prev</button>';
+  deckHTML += '<button class="guided-nav-prev learn-nav-prev" data-action="learn-nav" data-dir="-1" disabled>← Back</button>';
   deckHTML += '<div class="guided-nav-indicator" id="learn-counter-' + topicId + '">1 / ' + total + '</div>';
-  deckHTML += '<button class="guided-nav-next learn-nav-next" data-action="learn-nav" data-dir="1">Next →</button>';
+  deckHTML += '<button class="guided-nav-next learn-nav-next" data-action="learn-nav" data-dir="1">Continue →</button>';
   deckHTML += '</div>';
 
   deckEl.innerHTML = deckHTML;
@@ -8870,7 +8904,7 @@ function renderGuidedStep(){
   if (_gn) {
     var isDone = (idx === total - 1);
     var isJumuah = (guidedState.session === 'jumuah');
-    _gn.textContent = isDone ? (isJumuah ? 'Complete ✓' : 'Done ✓') : (isJumuah ? 'Next Section ›' : 'Next →');
+    _gn.textContent = isDone ? (isJumuah ? 'Complete ✓' : 'Done ✓') : (isJumuah ? 'Next Section ›' : 'Continue →');
     _gn.classList.toggle('done', isDone);
     _gn.onclick = isDone ? function(){
       clearSessionProgress();
@@ -10541,6 +10575,14 @@ function shareAsImage() {
 
     // Open focused dhikr
     'open-dhikr': function(el) { openDhikrFocused(parseInt(el.getAttribute('data-idx'), 10)); },
+    // Contextual home card actions (legacy string actions, decoded safely)
+    'ctx-action': function(el) {
+      var action = decodeURIComponent(el.getAttribute('data-ctx') || '');
+      if (!action) return;
+      // Only allow known safe action patterns
+      var safe = /^(startGuidedSession|showView|openDuaReader|scrollToSection)\(/.test(action);
+      if (safe) { try { eval(action); } catch(e) {} }
+    },
 
     // Duas category tiles
     'open-duas-cat-adhkar': function(el) { openDuasCategory(el.getAttribute('data-cat'), 'adhkar'); },
@@ -11060,7 +11102,7 @@ function renderContextualHome() {
   var cardsHtml = '';
   ctx.cards.forEach(function(card) {
     var isHighlight = card.highlight;
-    cardsHtml += '<button class="ctx-card' + (isHighlight ? ' ctx-card-highlight' : '') + '" onclick="' + card.action + '" type="button">' +
+    cardsHtml += '<button class="ctx-card' + (isHighlight ? ' ctx-card-highlight' : '') + '" data-action="ctx-action" data-ctx="' + encodeURIComponent(card.action) + '" type="button">' +
       '<div class="ctx-card-inner">' +
         '<div class="ctx-eyebrow">' + card.eyebrow + '</div>' +
         '<div class="ctx-title">' + card.title + '</div>' +
