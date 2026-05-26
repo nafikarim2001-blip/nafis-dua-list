@@ -8804,11 +8804,13 @@ function renderGuidedStep(){
       if (step.ar) {
         var duaCard = document.createElement('div');
         duaCard.className = 'jstep-dua-card';
-        duaCard.setAttribute('data-title', step.title || step.label || '');
-        duaCard.setAttribute('data-ar',    step.ar    || '');
-        duaCard.setAttribute('data-tr',    step.tr    || '');
-        duaCard.setAttribute('data-en',    step.en    || '');
-        duaCard.setAttribute('data-src',   step.src   || '');
+        duaCard.setAttribute('data-title',   step.title || step.label || '');
+        duaCard.setAttribute('data-section', session.title || '');
+        duaCard.setAttribute('data-ar',      step.ar    || '');
+        duaCard.setAttribute('data-tr',      step.tr    || '');
+        duaCard.setAttribute('data-en',      step.en    || '');
+        duaCard.setAttribute('data-src',     step.src   || '');
+        duaCard.setAttribute('data-note',    step.note  || '');
         var duaHtml = '<div class="jstep-ar">' + step.ar + '</div>';
         if (step.tr) duaHtml += '<div class="jstep-tr">' + step.tr + '</div>';
         if (step.en) duaHtml += '<div class="jstep-en">' + step.en + '</div>';
@@ -8827,11 +8829,13 @@ function renderGuidedStep(){
         step.extra.forEach(function(ex) {
           var exDiv = document.createElement('div');
           exDiv.className = 'jstep-dua-card';
-          exDiv.setAttribute('data-title', ex.title || ex.label || '');
-          exDiv.setAttribute('data-ar',    ex.ar    || '');
-          exDiv.setAttribute('data-tr',    ex.tr    || '');
-          exDiv.setAttribute('data-en',    ex.en    || '');
-          exDiv.setAttribute('data-src',   ex.src   || '');
+          exDiv.setAttribute('data-title',   ex.title || ex.label || '');
+          exDiv.setAttribute('data-section', session.title || '');
+          exDiv.setAttribute('data-ar',      ex.ar    || '');
+          exDiv.setAttribute('data-tr',      ex.tr    || '');
+          exDiv.setAttribute('data-en',      ex.en    || '');
+          exDiv.setAttribute('data-src',     ex.src   || '');
+          exDiv.setAttribute('data-note',    ex.note  || '');
           var exHtml = '';
           if (ex.note) exHtml += '<div class="jstep-note-card" style="margin-bottom:12px;"><div class="jstep-note-text">' + ex.note + '</div></div>';
           if (ex.ar) exHtml += '<div class="jstep-ar">' + ex.ar + '</div>';
@@ -8911,11 +8915,13 @@ function renderGuidedStep(){
     if (_gshr) {
       if (step.ar) {
         _gshr.style.display = 'flex';
-        _gshr.setAttribute('data-title', step.label || '');
-        _gshr.setAttribute('data-ar',    step.ar    || '');
-        _gshr.setAttribute('data-tr',    step.tr    || '');
-        _gshr.setAttribute('data-en',    step.en    || '');
-        _gshr.setAttribute('data-src',   step.src   || '');
+        _gshr.setAttribute('data-title',   step.label || '');
+        _gshr.setAttribute('data-section', session.title || '');
+        _gshr.setAttribute('data-ar',      step.ar    || '');
+        _gshr.setAttribute('data-tr',      step.tr    || '');
+        _gshr.setAttribute('data-en',      step.en    || '');
+        _gshr.setAttribute('data-src',     step.src   || '');
+        _gshr.setAttribute('data-note',    step.note  || '');
       } else {
         _gshr.style.display = 'none';
       }
@@ -10298,167 +10304,207 @@ function _rrect(ctx, x, y, w, h, r) {
 
 function shareAsImage() {
   if (!_shareCardEl) return;
-  var title   = _shareCardEl.getAttribute('data-title')   || '';
-  var section = _shareCardEl.getAttribute('data-section') || '';
-  var ar      = _shareCardEl.getAttribute('data-ar')      || '';
-  var tr      = _shareCardEl.getAttribute('data-tr')      || '';
-  var en      = _shareCardEl.getAttribute('data-en')      || '';
-  var src     = _shareCardEl.getAttribute('data-src')     || '';
+  var rawTitle = _shareCardEl.getAttribute('data-title')   || '';
+  var section  = _shareCardEl.getAttribute('data-section') || '';
+  var ar       = _shareCardEl.getAttribute('data-ar')      || '';
+  var tr       = _shareCardEl.getAttribute('data-tr')      || '';
+  var en       = _shareCardEl.getAttribute('data-en')      || '';
+  var src      = _shareCardEl.getAttribute('data-src')     || '';
+  var note     = _shareCardEl.getAttribute('data-note')    || '';
 
-  var sectionLabel = section.replace(/[^\x00-\x7F]/g, '').trim().toUpperCase();
+  /* Fix 1: eyebrow = session title (data-section).
+     Strip "Step N — " prefix from title so header stays clean. */
+  var cleanTitle   = rawTitle.replace(/^Step\s+\d+\s*[\u2014\u2013-]+\s*/i, '').trim();
+  var eyebrowText  = (section || cleanTitle).replace(/[^\x00-\x7F]/g, '').trim().toUpperCase();
+  var title        = cleanTitle; /* used for share metadata only */
 
   closeShareSheet();
   ndlToast('Creating image\u2026');
 
   setTimeout(function() {
     try {
-      /* ── Canvas: portrait story format ── */
+      /* ── Canvas: 9:16 story format — Instagram / Snapchat / WhatsApp ── */
       var W = 1080, H = 1920, cx = W / 2;
       var cv = document.createElement('canvas');
       cv.width = W; cv.height = H;
       var ctx = cv.getContext('2d');
 
-      /* ── Background — matches app deep navy ── */
+      /* ── Background — deep navy matching the app ── */
       var bg = ctx.createLinearGradient(0, 0, 0, H);
       bg.addColorStop(0, '#0C1018'); bg.addColorStop(0.5, '#111827'); bg.addColorStop(1, '#0A0F1A');
       ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
 
-      /* Amber glow — centred, matches app card hover glow */
-      var glow = ctx.createRadialGradient(cx, H * 0.42, 0, cx, H * 0.42, 680);
-      glow.addColorStop(0, 'rgba(201,168,76,0.09)');
-      glow.addColorStop(0.5, 'rgba(201,168,76,0.03)');
-      glow.addColorStop(1, 'rgba(0,0,0,0)');
+      /* Ambient gold glow centred on card */
+      var glow = ctx.createRadialGradient(cx, H * 0.45, 0, cx, H * 0.45, 760);
+      glow.addColorStop(0,   'rgba(201,168,76,0.10)');
+      glow.addColorStop(0.5, 'rgba(201,168,76,0.04)');
+      glow.addColorStop(1,   'rgba(0,0,0,0)');
       ctx.fillStyle = glow; ctx.fillRect(0, 0, W, H);
 
-      /* Subtle noise */
-      ctx.save(); ctx.globalAlpha = 0.012;
+      /* Subtle noise texture */
+      ctx.save(); ctx.globalAlpha = 0.010;
       for (var nx = 0; nx < W; nx += 4) for (var ny = 0; ny < H; ny += 4)
         if (Math.random() > 0.5) { ctx.fillStyle = '#C9A84C'; ctx.fillRect(nx, ny, 1, 1); }
       ctx.restore();
 
-      /* ── Card area — mimics in-app .dua card ── */
-      var PAD = 80;
-      var CPAD = 64;   /* inner content padding */
-      var cardX = PAD, cardW = W - PAD * 2;
-      var cardY = 220, cardH = H - 220 - 220;
+      /* ── Layout constants ── */
+      var PAD      = 72;
+      var CPAD     = 60;
+      var BRAND_H  = 160;
+      var BRAND_BOT = 80;
+      var cardX = PAD;
+      var cardW = W - PAD * 2;
+      var cardY = BRAND_H;
+      var cardH = H - BRAND_H - BRAND_BOT;
       var cardR = 28;
+      var innerX = cardX + CPAD;
+      var innerW = cardW - CPAD * 2;
 
-      /* Card shadow */
+      /* ── Card shadow ── */
       ctx.save();
-      ctx.shadowColor = 'rgba(0,0,0,0.55)';
-      ctx.shadowBlur = 48;
-      ctx.shadowOffsetY = 12;
+      ctx.shadowColor = 'rgba(0,0,0,0.60)';
+      ctx.shadowBlur  = 56;
+      ctx.shadowOffsetY = 14;
       _rrect(ctx, cardX, cardY, cardW, cardH, cardR);
-      ctx.fillStyle = '#111827';
-      ctx.fill();
+      ctx.fillStyle = '#111827'; ctx.fill();
       ctx.restore();
 
-      /* Card background */
+      /* Card fill */
       _rrect(ctx, cardX, cardY, cardW, cardH, cardR);
       ctx.fillStyle = '#111827'; ctx.fill();
 
-      /* Gold left-border accent — matches .feat card in app */
-      ctx.fillStyle = 'rgba(201,168,76,0.55)';
+      /* Gold left-border accent */
+      ctx.fillStyle = 'rgba(201,168,76,0.60)';
       ctx.fillRect(cardX, cardY + cardR, 3, cardH - cardR * 2);
 
       /* Card border */
       _rrect(ctx, cardX, cardY, cardW, cardH, cardR);
       ctx.strokeStyle = 'rgba(201,168,76,0.22)'; ctx.lineWidth = 1.5; ctx.stroke();
 
-      /* ── Eyebrow / category label ── */
-      var innerX = cardX + CPAD;
-      var innerW = cardW - CPAD * 2;
-      var y = cardY + 90;
+      /* Clip content to card so nothing escapes (Fix 2) */
+      ctx.save();
+      _rrect(ctx, cardX + 3, cardY, cardW - 3, cardH, cardR);
+      ctx.clip();
 
-      if (sectionLabel || title) {
-        var eyebrowText = sectionLabel || title.toUpperCase();
-        ctx.font = '500 24px "Gill Sans","Optima","Trebuchet MS",sans-serif';
-        ctx.fillStyle = 'rgba(201,168,76,0.70)';
+      /* ── Fix 1: Eyebrow = session title, never "Step N — …" ── */
+      var y = cardY + 80;
+      if (eyebrowText) {
+        ctx.font = '500 26px "Gill Sans","Optima","Trebuchet MS",sans-serif';
+        ctx.fillStyle = 'rgba(201,168,76,0.72)';
         ctx.textAlign = 'left';
-        /* letter-spacing simulation: draw char by char isn't needed, just set it */
-        ctx.letterSpacing = '0.18em';
-        /* truncate if needed */
-        var eyebrowShort = eyebrowText.length > 40 ? eyebrowText.substring(0, 38) + '\u2026' : eyebrowText;
-        ctx.fillText(eyebrowShort, innerX, y);
+        ctx.letterSpacing = '0.16em';
+        var ebShort = eyebrowText.length > 44 ? eyebrowText.substring(0, 42) + '\u2026' : eyebrowText;
+        ctx.fillText(ebShort, innerX, y);
         ctx.letterSpacing = '0';
-        y += 44;
-
-        /* thin rule under eyebrow */
-        ctx.strokeStyle = 'rgba(201,168,76,0.15)'; ctx.lineWidth = 1;
+        y += 46;
+        ctx.strokeStyle = 'rgba(201,168,76,0.16)'; ctx.lineWidth = 1;
         ctx.beginPath(); ctx.moveTo(innerX, y); ctx.lineTo(innerX + innerW, y); ctx.stroke();
-        y += 52;
+        y += 50;
       } else {
-        y += 20;
+        y += 24;
       }
 
-      /* ── Arabic — large, right-aligned, gold ── */
-      var arFont = 96;
-      ctx.font = arFont + 'px "Scheherazade New","Traditional Arabic","Amiri",serif';
-      var arLines = _duaWrapLines(ctx, ar, innerW);
-      /* Scale down if too many lines */
-      if (arLines.length > 4) { arFont = 80; ctx.font = arFont + 'px "Scheherazade New","Traditional Arabic","Amiri",serif'; arLines = _duaWrapLines(ctx, ar, innerW); }
-      if (arLines.length > 6) { arFont = 66; ctx.font = arFont + 'px "Scheherazade New","Traditional Arabic","Amiri",serif'; arLines = _duaWrapLines(ctx, ar, innerW); }
-      var arLineH = Math.round(arFont * 2.0);
-
+      /* ── Fix 2+3: Arabic — starts at 72px (was 96px), progressive scale-down ── */
+      var arSizes = [72, 62, 52, 44, 36];
+      var arFont = arSizes[0];
+      var arLines;
+      for (var si = 0; si < arSizes.length; si++) {
+        arFont = arSizes[si];
+        ctx.font = arFont + 'px "Scheherazade New","Traditional Arabic","Amiri",serif';
+        arLines = _duaWrapLines(ctx, ar, innerW);
+        if (arLines.length <= 5) break;
+      }
+      var arLineH = Math.round(arFont * 1.85);
       ctx.font = arFont + 'px "Scheherazade New","Traditional Arabic","Amiri",serif';
       ctx.fillStyle = '#E8CC84'; ctx.textAlign = 'right'; ctx.direction = 'rtl';
       for (var a = 0; a < arLines.length; a++) {
-        ctx.fillText(arLines[a].trim(), innerX + innerW, y + arFont * 0.85);
+        ctx.fillText(arLines[a].trim(), innerX + innerW, y + arFont * 0.82);
         y += arLineH;
       }
       ctx.direction = 'ltr';
-      y += 36;
+      y += 30;
 
       /* ── Thin divider ── */
       ctx.strokeStyle = 'rgba(201,168,76,0.18)'; ctx.lineWidth = 1;
       ctx.beginPath(); ctx.moveTo(innerX, y); ctx.lineTo(innerX + innerW, y); ctx.stroke();
-      y += 40;
+      y += 38;
 
-      /* ── Transliteration — notably smaller than Arabic ── */
-      var trFont = Math.round(arFont * 0.52); /* ~50px when ar=96 */
-      trFont = Math.max(38, Math.min(trFont, 52));
+      /* ── Transliteration — italic, muted gold ── */
+      var trFont = Math.max(30, Math.min(Math.round(arFont * 0.54), 42));
       ctx.font = 'italic ' + trFont + 'px "Palatino Linotype","Book Antiqua","Georgia",serif';
       var trLines = _duaWrapLines(ctx, tr, innerW);
-      var trLineH = Math.round(trFont * 1.7);
-
+      var trLineH = Math.round(trFont * 1.65);
       ctx.fillStyle = 'rgba(220,200,158,0.62)'; ctx.textAlign = 'left';
       for (var b = 0; b < trLines.length; b++) {
         ctx.fillText(trLines[b].trim(), innerX, y + trFont);
         y += trLineH;
       }
-      y += 44;
+      y += 38;
 
-      /* ── Translation — smallest, warm white ── */
-      var enFont = Math.round(trFont * 0.80); /* ~40px */
-      enFont = Math.max(32, Math.min(enFont, 44));
+      /* ── Translation — warm white ── */
+      var enFont = Math.max(26, Math.min(Math.round(trFont * 0.82), 36));
       ctx.font = enFont + 'px "Palatino Linotype","Book Antiqua","Georgia",serif';
       var enLines = _duaWrapLines(ctx, en, innerW);
-      var enLineH = Math.round(enFont * 1.65);
-
-      ctx.fillStyle = 'rgba(240,230,210,0.75)'; ctx.textAlign = 'left';
+      var enLineH = Math.round(enFont * 1.60);
+      ctx.fillStyle = 'rgba(240,230,210,0.78)'; ctx.textAlign = 'left';
       for (var c = 0; c < enLines.length; c++) {
         ctx.fillText(enLines[c].trim(), innerX, y + enFont);
         y += enLineH;
       }
 
-      /* ── Source ref — teal, small ── */
+      /* ── Source ref — teal ── */
       if (src) {
-        y += 32;
-        ctx.font = '28px "Palatino Linotype","Book Antiqua","Georgia",serif';
-        ctx.fillStyle = 'rgba(82,183,136,0.70)'; ctx.textAlign = 'left';
+        y += 28;
+        var srcFont = Math.max(22, Math.min(enFont - 4, 28));
+        ctx.font = srcFont + 'px "Palatino Linotype","Book Antiqua","Georgia",serif';
+        ctx.fillStyle = 'rgba(82,183,136,0.75)'; ctx.textAlign = 'left';
         var srcShort = src.replace(/^Source:\s*/i, '');
-        srcShort = srcShort.length > 60 ? srcShort.substring(0, 58) + '\u2026' : srcShort;
-        ctx.fillText(srcShort, innerX, y + 28);
+        srcShort = srcShort.length > 70 ? srcShort.substring(0, 68) + '\u2026' : srcShort;
+        ctx.fillText(srcShort, innerX, y + srcFont);
+        y += Math.round(srcFont * 1.4);
       }
 
-      /* ── Branding — top of canvas above card ── */
-      var brandY = cardY - 68;
-      ctx.font = '400 30px "Palatino Linotype","Book Antiqua","Georgia",serif';
-      ctx.fillStyle = 'rgba(201,168,76,0.55)'; ctx.textAlign = 'center';
-      ctx.letterSpacing = '0.3em'; ctx.fillText('N A A F I', cx, brandY); ctx.letterSpacing = '0';
+      /* ── Fix 4: Note blockquote — gold left-bar card, matches in-app style ── */
+      if (note) {
+        y += 28;
+        var noteFont = Math.max(22, Math.min(enFont - 2, 30));
+        ctx.font = 'italic ' + noteFont + 'px "Palatino Linotype","Book Antiqua","Georgia",serif';
+        var noteLines = _duaWrapLines(ctx, note, innerW - 28);
+        var noteLineH = Math.round(noteFont * 1.60);
+        var noteBlockH = noteLines.length * noteLineH + 32;
+
+        /* Note card background */
+        ctx.fillStyle = 'rgba(201,168,76,0.06)';
+        _rrect(ctx, innerX, y, innerW, noteBlockH, 8);
+        ctx.fill();
+
+        /* Gold left accent bar */
+        ctx.fillStyle = 'rgba(201,168,76,0.55)';
+        ctx.fillRect(innerX, y, 3, noteBlockH);
+
+        /* Note text */
+        ctx.fillStyle = 'rgba(220,200,158,0.70)';
+        ctx.textAlign = 'left';
+        for (var d = 0; d < noteLines.length; d++) {
+          ctx.fillText(noteLines[d].trim(), innerX + 20, y + noteFont + 14 + d * noteLineH);
+        }
+      }
+
+      ctx.restore(); /* end card clip */
+
+      /* ── Branding — NAAFI wordmark centred above card ── */
+      var brandMidY = cardY / 2;
+      ctx.font = '400 34px "Palatino Linotype","Book Antiqua","Georgia",serif';
+      ctx.fillStyle = 'rgba(201,168,76,0.60)'; ctx.textAlign = 'center';
+      ctx.letterSpacing = '0.32em'; ctx.fillText('N A A F I', cx, brandMidY); ctx.letterSpacing = '0';
+      ctx.font = '24px "Gill Sans","Optima","Trebuchet MS",sans-serif';
+      ctx.fillStyle = 'rgba(168,148,112,0.40)';
+      ctx.fillText('Dua \u00B7 Adhkar \u00B7 Dhikr', cx, brandMidY + 40);
+
+      /* ── Bottom watermark ── */
       ctx.font = '22px "Gill Sans","Optima","Trebuchet MS",sans-serif';
-      ctx.fillStyle = 'rgba(168,148,112,0.35)';
-      ctx.fillText('Dua \u00B7 Adhkar \u00B7 Dhikr', cx, brandY + 36);
+      ctx.fillStyle = 'rgba(168,148,112,0.28)';
+      ctx.fillText('naafiapp.netlify.app', cx, cardY + cardH + 50);
 
       /* ── Output ── */
       cv.toBlob(function(blob) {
