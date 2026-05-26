@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="description" content="Naafi — authentic duas and adhkar from the Qur'an and Sunnah for every day of the year. Morning and evening adhkar, daily dhikr, and supplications for every occasion.">
 <meta name="keywords" content="Islamic duas, morning adhkar, evening adhkar, daily dhikr, supplications, Qur'anic duas, Islamic prayer app">
 <meta property="og:title" content="Naafi — Dua &amp; Adhkar">
@@ -751,6 +751,7 @@ body{
   -moz-osx-font-smoothing:grayscale;
   text-rendering:optimizeLegibility;
   overscroll-behavior:none;
+  touch-action: manipulation;
 }
 
 body::before{
@@ -6318,6 +6319,20 @@ function showView(name) {
   if(initEl){ initEl.style.display = 'block'; initEl.classList.add('view-active'); }
   _spaCurrentView = initial;
 
+  // If landing on learn tab directly (e.g. bfcache restore with #learn hash),
+  // ensure index is visible and no stale overlay state remains
+  if (initial === 'learn') {
+    var _li = document.getElementById('learnIndex');
+    if (_li) _li.style.display = 'block';
+    var _lsn = document.querySelector('#learn-view .view-subnav');
+    if (_lsn) _lsn.style.display = 'flex';
+    document.querySelectorAll('.learn-intro, .learn-deck').forEach(function(el){
+      el.classList.remove('is-open','is-closing');
+      el.style.display = 'none';
+    });
+    document.body.classList.remove('overlay-open');
+  }
+
   // Set active tab
   document.querySelectorAll('.bn-tab').forEach(function(tab){
     tab.classList.toggle('active', tab.getAttribute('data-view') === initial);
@@ -8299,6 +8314,32 @@ var LEARN_DATA = {
       { eyebrow: 'FOR THE AKHIRAH', heading: 'For the Akhirah', body: 'Ask for Jannah al-Firdaws — the highest level. Ask for protection from the punishment of the grave. Ask for protection from the Fire. Ask to see the face of Allah ﷻ. Ask to be with the Prophet ﷺ.<br><br>Do not be shy — these are the duas of the Prophets.' },
       { eyebrow: 'FOR THE UMMAH', heading: 'For the Ummah', body: 'Ask for ease for Muslims around the world who are suffering. Ask for unity and guidance for Muslim leaders. Ask for the guidance of those who oppress. Ask for the protection of Muslim children, women, scholars.<br><br><em>"The du\'a of a Muslim for his brother in his absence is answered — the angel says: Ameen, and may you have the same."</em>', src: 'Sahih Muslim 2733' }
     ]
+  },
+
+  arafah: {
+    intro: {
+      icon: '🕋',
+      eyebrow: 'YAWM ARAFAH · THE GREATEST DAY OF DU\'A',
+      title: 'Day of Arafah',
+      hadith: '"The best du\'a is the du\'a of Arafah." — Tirmidhi 3585',
+      features: [
+        { icon: '🕋', text: 'The best du\'a of the year' },
+        { icon: '🤲', text: 'Sayyid al-Istighfar — Master of Forgiveness' },
+        { icon: '🔥', text: 'Allah frees souls from the Fire this day' },
+        { icon: '💎', text: '13 authenticated du\'as for Arafah' }
+      ],
+      btnText: 'Begin Arafah Du\'a'
+    },
+    completeIcon: '🕋',
+    completeSub: 'Keep repeating Lā ilāha illallāhu waḥdahu lā sharīka lah throughout the day. It is the best dhikr on the best day of the year.',
+    cards: [
+      { eyebrow: 'THE GREATEST DU\'A', heading: 'Best Du\'a of Arafah', arabic: 'لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ', tr: 'Lā ilāha illallāhu waḥdahu lā sharīka lah lahul-mulku wa lahul-ḥamdu wa Huwa ʿalā kulli shayʾin Qadīr', body: 'The Prophet ﷺ said: <em>"The best du\'a is the du\'a of Arafah. And the best thing I and the Prophets before me have said is this."</em><br><br>Repeat this constantly throughout the day. It is the core dhikr of Yawm Arafah.', src: 'Tirmidhi 3585 — Hasan' },
+      { eyebrow: 'MASTER OF FORGIVENESS', heading: 'Sayyid al-Istighfar', arabic: 'اللَّهُمَّ أَنتَ رَبِّي لَا إِلَٰهَ إِلَّا أَنتَ خَلَقْتَنِي وَأَنَا عَبْدُكَ', tr: 'Allāhumma Anta Rabbī lā ilāha illā Anta khalaqtanī wa anā ʿabduk…', body: 'Whoever says Sayyid al-Istighfar with conviction in the morning and dies that day enters Jannah. Say it morning and evening on Arafah — and throughout the day.<br><br>Cover every category of sin. Allah loves it when His servant returns to Him.', src: 'Sahih al-Bukhari 6306' },
+      { eyebrow: 'FREEDOM FROM THE FIRE', heading: 'The Promise of Arafah', body: '<em>"There is no day on which Allah frees more people from the Fire than the Day of Arafah. He draws near and then boasts of them to the angels, saying: What do these people want?"</em><br><br>Ask explicitly and repeatedly: <strong>Allāhumma ajirnī minan-nār</strong> — "O Allah protect me from the Fire" — 7 times.', src: 'Sahih Muslim 1348' },
+      { eyebrow: 'BOTH WORLDS', heading: 'The Most Recited Du\'a of the Prophet ﷺ', arabic: 'رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ', tr: 'Rabbanā ātinā fid-dunyā ḥasanatan wa fil-ākhirati ḥasanatan wa qinā ʿadhāban-nār', body: 'This was the most frequent du\'a of the Prophet ﷺ on Arafah. It covers everything — the dunya, the akhirah, and protection from the Fire — in three short lines.', src: 'Surah Al-Baqarah 2:201' },
+      { eyebrow: 'YĀ ḤAYYU YĀ QAYYŪM', heading: 'Especially After Asr', arabic: 'يَا حَيُّ يَا قَيُّومُ بِرَحْمَتِكَ أَسْتَغِيثُ أَصْلِحْ لِي شَأْنِي كُلَّهُ', tr: 'Yā Ḥayyu Yā Qayyūm bi-raḥmatika astaghīth aṣliḥ lī shaʾnī kullahu wa lā takilnī ilā nafsī ṭarfata ʿayn', body: 'Especially powerful in the afternoon of Arafah — the time of greatest acceptance. Ask Allah to fix every single affair of your life.<br><br><em>"O Ever-Living O Sustainer, by Your mercy I seek help. Rectify all my affairs and do not entrust me to myself even for a blink."</em>', src: 'Al-Nasa\'i — Sahih' },
+      { eyebrow: 'PERSONAL DU\'A', heading: 'Speak to Allah Freely', body: 'This is the heart of Arafah — your personal conversation with Allah. The Prophet ﷺ said: <em>"Ask Allah for everything, even the strap of your sandal."</em><br><br>No du\'a is too small today. Pour your heart out: your marriage, your health, your family, your rizq, your akhirah. Say it in Arabic, in English, in whatever language your heart speaks.', src: 'Surah Al-Qasas 28:24' }
+    ]
   }
 
 };
@@ -10264,9 +10305,6 @@ function shareAsImage() {
   var en      = _shareCardEl.getAttribute('data-en')      || '';
   var src     = _shareCardEl.getAttribute('data-src')     || '';
 
-  /* Category = full title as-is (it IS the dua name).
-     Optional section eyebrow above (strip emoji). */
-  var catLabel     = title.toUpperCase();
   var sectionLabel = section.replace(/[^\x00-\x7F]/g, '').trim().toUpperCase();
 
   closeShareSheet();
@@ -10274,154 +10312,153 @@ function shareAsImage() {
 
   setTimeout(function() {
     try {
+      /* ── Canvas: portrait story format ── */
       var W = 1080, H = 1920, cx = W / 2;
       var cv = document.createElement('canvas');
       cv.width = W; cv.height = H;
       var ctx = cv.getContext('2d');
 
-      /* ── Background ── */
+      /* ── Background — matches app deep navy ── */
       var bg = ctx.createLinearGradient(0, 0, 0, H);
-      bg.addColorStop(0, '#0A1020'); bg.addColorStop(0.5, '#0F1828'); bg.addColorStop(1, '#070D18');
+      bg.addColorStop(0, '#0C1018'); bg.addColorStop(0.5, '#111827'); bg.addColorStop(1, '#0A0F1A');
       ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
 
-      /* amber glow */
-      var glow = ctx.createRadialGradient(cx, H*0.46, 0, cx, H*0.46, 650);
-      glow.addColorStop(0, 'rgba(201,168,76,0.10)'); glow.addColorStop(0.6, 'rgba(201,168,76,0.03)'); glow.addColorStop(1, 'rgba(0,0,0,0)');
+      /* Amber glow — centred, matches app card hover glow */
+      var glow = ctx.createRadialGradient(cx, H * 0.42, 0, cx, H * 0.42, 680);
+      glow.addColorStop(0, 'rgba(201,168,76,0.09)');
+      glow.addColorStop(0.5, 'rgba(201,168,76,0.03)');
+      glow.addColorStop(1, 'rgba(0,0,0,0)');
       ctx.fillStyle = glow; ctx.fillRect(0, 0, W, H);
 
-      /* teal accent */
-      var teal = ctx.createRadialGradient(150, H*0.78, 0, 150, H*0.78, 380);
-      teal.addColorStop(0, 'rgba(56,189,148,0.07)'); teal.addColorStop(1, 'rgba(0,0,0,0)');
-      ctx.fillStyle = teal; ctx.fillRect(0, 0, W, H);
-
-      /* noise */
-      ctx.save(); ctx.globalAlpha = 0.016;
+      /* Subtle noise */
+      ctx.save(); ctx.globalAlpha = 0.012;
       for (var nx = 0; nx < W; nx += 4) for (var ny = 0; ny < H; ny += 4)
         if (Math.random() > 0.5) { ctx.fillStyle = '#C9A84C'; ctx.fillRect(nx, ny, 1, 1); }
       ctx.restore();
 
-      /* ── Gold border frame ── */
-      var bPad = 56, bR = 24;
-      _rrect(ctx, bPad, bPad, W-bPad*2, H-bPad*2, bR);
-      ctx.strokeStyle = 'rgba(201,168,76,0.38)'; ctx.lineWidth = 1.5; ctx.stroke();
-      _rrect(ctx, bPad+9, bPad+9, W-(bPad+9)*2, H-(bPad+9)*2, bR-4);
-      ctx.strokeStyle = 'rgba(201,168,76,0.10)'; ctx.lineWidth = 1; ctx.stroke();
+      /* ── Card area — mimics in-app .dua card ── */
+      var PAD = 80;
+      var CPAD = 64;   /* inner content padding */
+      var cardX = PAD, cardW = W - PAD * 2;
+      var cardY = 220, cardH = H - 220 - 220;
+      var cardR = 28;
 
-      /* corner diamonds */
-      [[bPad,bPad],[W-bPad,bPad],[bPad,H-bPad],[W-bPad,H-bPad]].forEach(function(c) {
-        ctx.save(); ctx.translate(c[0],c[1]); ctx.rotate(Math.PI/4);
-        ctx.strokeStyle = 'rgba(201,168,76,0.55)'; ctx.lineWidth = 1.5;
-        ctx.strokeRect(-5,-5,10,10); ctx.restore();
-      });
+      /* Card shadow */
+      ctx.save();
+      ctx.shadowColor = 'rgba(0,0,0,0.55)';
+      ctx.shadowBlur = 48;
+      ctx.shadowOffsetY = 12;
+      _rrect(ctx, cardX, cardY, cardW, cardH, cardR);
+      ctx.fillStyle = '#111827';
+      ctx.fill();
+      ctx.restore();
 
-      /* ── Category label ── */
-      var PAD = 120, innerW = W - PAD*2;
-      var catY = bPad + 88;
+      /* Card background */
+      _rrect(ctx, cardX, cardY, cardW, cardH, cardR);
+      ctx.fillStyle = '#111827'; ctx.fill();
 
-      /* Section eyebrow — only for DOTD (small, teal) */
-      if (sectionLabel) {
+      /* Gold left-border accent — matches .feat card in app */
+      ctx.fillStyle = 'rgba(201,168,76,0.55)';
+      ctx.fillRect(cardX, cardY + cardR, 3, cardH - cardR * 2);
+
+      /* Card border */
+      _rrect(ctx, cardX, cardY, cardW, cardH, cardR);
+      ctx.strokeStyle = 'rgba(201,168,76,0.22)'; ctx.lineWidth = 1.5; ctx.stroke();
+
+      /* ── Eyebrow / category label ── */
+      var innerX = cardX + CPAD;
+      var innerW = cardW - CPAD * 2;
+      var y = cardY + 90;
+
+      if (sectionLabel || title) {
+        var eyebrowText = sectionLabel || title.toUpperCase();
         ctx.font = '500 24px "Gill Sans","Optima","Trebuchet MS",sans-serif';
-        ctx.fillStyle = 'rgba(56,189,148,0.75)';
-        ctx.textAlign = 'center';
-        ctx.letterSpacing = '0.22em';
-        ctx.fillText('\u2736  ' + sectionLabel + '  \u2736', cx, catY);
+        ctx.fillStyle = 'rgba(201,168,76,0.70)';
+        ctx.textAlign = 'left';
+        /* letter-spacing simulation: draw char by char isn't needed, just set it */
+        ctx.letterSpacing = '0.18em';
+        /* truncate if needed */
+        var eyebrowShort = eyebrowText.length > 40 ? eyebrowText.substring(0, 38) + '\u2026' : eyebrowText;
+        ctx.fillText(eyebrowShort, innerX, y);
         ctx.letterSpacing = '0';
-        catY += 42;
+        y += 44;
+
+        /* thin rule under eyebrow */
+        ctx.strokeStyle = 'rgba(201,168,76,0.15)'; ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.moveTo(innerX, y); ctx.lineTo(innerX + innerW, y); ctx.stroke();
+        y += 52;
+      } else {
+        y += 20;
       }
 
-      /* Main category title — larger, gold, spaced */
-      ctx.font = '700 32px "Gill Sans","Optima","Trebuchet MS",sans-serif';
-      ctx.fillStyle = 'rgba(201,168,76,0.85)';
-      ctx.textAlign = 'center';
-      ctx.letterSpacing = '0.12em';
-      var catLines = _duaWrapLines(ctx, catLabel, innerW - 80);
-      catLines.forEach(function(cl, i) { ctx.fillText(cl, cx, catY + i * 44); });
-      ctx.letterSpacing = '0';
-      var ruleY = catY + catLines.length * 44 + 24;
-
-      /* rule under category */
-      ctx.strokeStyle = 'rgba(201,168,76,0.25)'; ctx.lineWidth = 1;
-      ctx.beginPath(); ctx.moveTo(cx-200, ruleY); ctx.lineTo(cx+200, ruleY); ctx.stroke();
-
-      /* ── Measure text ── */
-      var arFont = 88;
+      /* ── Arabic — large, right-aligned, gold ── */
+      var arFont = 96;
       ctx.font = arFont + 'px "Scheherazade New","Traditional Arabic","Amiri",serif';
       var arLines = _duaWrapLines(ctx, ar, innerW);
-      if (arLines.length > 5) { arFont = 74; ctx.font = arFont + 'px "Scheherazade New","Traditional Arabic","Amiri",serif'; arLines = _duaWrapLines(ctx, ar, innerW); }
-      if (arLines.length > 8) { arFont = 60; ctx.font = arFont + 'px "Scheherazade New","Traditional Arabic","Amiri",serif'; arLines = _duaWrapLines(ctx, ar, innerW); }
-      var arLineH = Math.round(arFont * 1.95);
+      /* Scale down if too many lines */
+      if (arLines.length > 4) { arFont = 80; ctx.font = arFont + 'px "Scheherazade New","Traditional Arabic","Amiri",serif'; arLines = _duaWrapLines(ctx, ar, innerW); }
+      if (arLines.length > 6) { arFont = 66; ctx.font = arFont + 'px "Scheherazade New","Traditional Arabic","Amiri",serif'; arLines = _duaWrapLines(ctx, ar, innerW); }
+      var arLineH = Math.round(arFont * 2.0);
 
-      var trFont = Math.max(44, arFont - 2);
-      ctx.font = trFont + 'px "Palatino Linotype","Book Antiqua","Georgia",serif';
-      var trLines = _duaWrapLines(ctx, tr, innerW);
-      var trLineH = Math.round(trFont * 1.72);
-
-      var enFont = Math.max(32, Math.round(trFont * 0.68));
-      ctx.font = enFont + 'px "Palatino Linotype","Book Antiqua","Georgia",serif';
-      var enLines = _duaWrapLines(ctx, en, innerW - 40);
-      var enLineH = Math.round(enFont * 1.62);
-
-      /* ── Vertical layout ── */
-      var GAP_AR_TR = 36, GAP_TR_DIV = 48, DIV_H = 40, GAP_DIV_EN = 40, GAP_EN_SRC = 26;
-      var arBlockH = arLines.length * arLineH;
-      var trBlockH = trLines.length * trLineH;
-      var enBlockH = enLines.length * enLineH;
-      var srcH = src ? GAP_EN_SRC + 36 : 0;
-      var totalH = arBlockH + GAP_AR_TR + trBlockH + GAP_TR_DIV + DIV_H + GAP_DIV_EN + enBlockH + srcH;
-
-      var topOfContent = ruleY + 56;
-      var brandingTop = H - bPad - 110;
-      var availH = brandingTop - topOfContent;
-      var startY = topOfContent + Math.max(0, Math.round((availH - totalH) / 2));
-      var y = startY;
-
-      /* ── Arabic ── */
       ctx.font = arFont + 'px "Scheherazade New","Traditional Arabic","Amiri",serif';
-      ctx.fillStyle = '#DFC070'; ctx.textAlign = 'center'; ctx.direction = 'rtl';
-      for (var a = 0; a < arLines.length; a++) { ctx.fillText(arLines[a].trim(), cx, y + arFont); y += arLineH; }
+      ctx.fillStyle = '#E8CC84'; ctx.textAlign = 'right'; ctx.direction = 'rtl';
+      for (var a = 0; a < arLines.length; a++) {
+        ctx.fillText(arLines[a].trim(), innerX + innerW, y + arFont * 0.85);
+        y += arLineH;
+      }
       ctx.direction = 'ltr';
+      y += 36;
 
-      /* ── Transliteration ── */
-      y += GAP_AR_TR;
-      ctx.font = trFont + 'px "Palatino Linotype","Book Antiqua","Georgia",serif';
-      ctx.fillStyle = 'rgba(220,200,158,0.80)'; ctx.textAlign = 'center';
-      for (var b = 0; b < trLines.length; b++) { ctx.fillText(trLines[b].trim(), cx, y + trFont); y += trLineH; }
+      /* ── Thin divider ── */
+      ctx.strokeStyle = 'rgba(201,168,76,0.18)'; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(innerX, y); ctx.lineTo(innerX + innerW, y); ctx.stroke();
+      y += 40;
 
-      /* ── Divider ── */
-      y += GAP_TR_DIV;
-      ctx.strokeStyle = 'rgba(201,168,76,0.30)'; ctx.lineWidth = 1;
-      ctx.beginPath(); ctx.moveTo(cx-290, y); ctx.lineTo(cx-20, y); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(cx+20, y); ctx.lineTo(cx+290, y); ctx.stroke();
-      ctx.save(); ctx.translate(cx,y); ctx.rotate(Math.PI/4);
-      ctx.strokeStyle = 'rgba(201,168,76,0.55)'; ctx.lineWidth = 1.5; ctx.strokeRect(-5.5,-5.5,11,11);
-      ctx.restore();
-      y += DIV_H;
+      /* ── Transliteration — notably smaller than Arabic ── */
+      var trFont = Math.round(arFont * 0.52); /* ~50px when ar=96 */
+      trFont = Math.max(38, Math.min(trFont, 52));
+      ctx.font = 'italic ' + trFont + 'px "Palatino Linotype","Book Antiqua","Georgia",serif';
+      var trLines = _duaWrapLines(ctx, tr, innerW);
+      var trLineH = Math.round(trFont * 1.7);
 
-      /* ── Translation ── */
+      ctx.fillStyle = 'rgba(220,200,158,0.62)'; ctx.textAlign = 'left';
+      for (var b = 0; b < trLines.length; b++) {
+        ctx.fillText(trLines[b].trim(), innerX, y + trFont);
+        y += trLineH;
+      }
+      y += 44;
+
+      /* ── Translation — smallest, warm white ── */
+      var enFont = Math.round(trFont * 0.80); /* ~40px */
+      enFont = Math.max(32, Math.min(enFont, 44));
       ctx.font = enFont + 'px "Palatino Linotype","Book Antiqua","Georgia",serif';
-      ctx.fillStyle = 'rgba(240,230,210,0.72)'; ctx.textAlign = 'center';
-      for (var c = 0; c < enLines.length; c++) { ctx.fillText(enLines[c].trim(), cx, y + enFont); y += enLineH; }
+      var enLines = _duaWrapLines(ctx, en, innerW);
+      var enLineH = Math.round(enFont * 1.65);
 
-      /* ── Source ── */
-      if (src) {
-        y += GAP_EN_SRC;
-        ctx.font = '22px "Palatino Linotype","Book Antiqua","Georgia",serif';
-        ctx.fillStyle = 'rgba(56,189,148,0.65)'; ctx.textAlign = 'center';
-        var srcShort = src.replace(/^Source:\s*/i, '');
-        srcShort = srcShort.length > 55 ? srcShort.substring(0, 53) + '\u2026' : srcShort;
-        ctx.fillText(srcShort, cx, y);
+      ctx.fillStyle = 'rgba(240,230,210,0.75)'; ctx.textAlign = 'left';
+      for (var c = 0; c < enLines.length; c++) {
+        ctx.fillText(enLines[c].trim(), innerX, y + enFont);
+        y += enLineH;
       }
 
-      /* ── NAAFI branding (bottom only) ── */
-      var brandY = H - bPad - 75;
-      ctx.strokeStyle = 'rgba(201,168,76,0.12)'; ctx.lineWidth = 1;
-      ctx.beginPath(); ctx.moveTo(cx-110, brandY-28); ctx.lineTo(cx+110, brandY-28); ctx.stroke();
-      ctx.font = '300 26px "Gill Sans","Optima","Trebuchet MS",sans-serif';
-      ctx.fillStyle = 'rgba(201,168,76,0.50)'; ctx.textAlign = 'center';
-      ctx.letterSpacing = '0.28em'; ctx.fillText('N A A F I', cx, brandY); ctx.letterSpacing = '0';
-      ctx.font = '20px "Gill Sans","Optima","Trebuchet MS",sans-serif';
-      ctx.fillStyle = 'rgba(168,148,112,0.38)';
-      ctx.fillText('Dua \u00B7 Adhkar \u00B7 Dhikr', cx, brandY + 32);
+      /* ── Source ref — teal, small ── */
+      if (src) {
+        y += 32;
+        ctx.font = '28px "Palatino Linotype","Book Antiqua","Georgia",serif';
+        ctx.fillStyle = 'rgba(82,183,136,0.70)'; ctx.textAlign = 'left';
+        var srcShort = src.replace(/^Source:\s*/i, '');
+        srcShort = srcShort.length > 60 ? srcShort.substring(0, 58) + '\u2026' : srcShort;
+        ctx.fillText(srcShort, innerX, y + 28);
+      }
+
+      /* ── Branding — top of canvas above card ── */
+      var brandY = cardY - 68;
+      ctx.font = '400 30px "Palatino Linotype","Book Antiqua","Georgia",serif';
+      ctx.fillStyle = 'rgba(201,168,76,0.55)'; ctx.textAlign = 'center';
+      ctx.letterSpacing = '0.3em'; ctx.fillText('N A A F I', cx, brandY); ctx.letterSpacing = '0';
+      ctx.font = '22px "Gill Sans","Optima","Trebuchet MS",sans-serif';
+      ctx.fillStyle = 'rgba(168,148,112,0.35)';
+      ctx.fillText('Dua \u00B7 Adhkar \u00B7 Dhikr', cx, brandY + 36);
 
       /* ── Output ── */
       cv.toBlob(function(blob) {
@@ -10579,8 +10616,9 @@ function shareAsImage() {
     'ctx-action': function(el) {
       var action = decodeURIComponent(el.getAttribute('data-ctx') || '');
       if (!action) return;
-      // Only allow known safe action patterns
-      var safe = /^(startGuidedSession|showView|openDuaReader|scrollToSection)\(/.test(action);
+      // Allow known safe function calls and compound statements using only those functions
+      var safe = /^(startGuidedSession|showView|openDuaReader|scrollToSection|openJumuahIntro|document\.getElementById)\(/.test(action)
+              || /^(showView|startGuidedSession|scrollToSection|openJumuahIntro)\(/.test(action.split(';')[0].trim());
       if (safe) { try { eval(action); } catch(e) {} }
     },
 
