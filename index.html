@@ -10381,30 +10381,15 @@ function shareAsImage() {
       _rrect(ctx, cardX, cardY, cardW, cardH, cardR);
       ctx.strokeStyle = 'rgba(201,168,76,0.22)'; ctx.lineWidth = 1.5; ctx.stroke();
 
-      /* Clip content to card so nothing escapes (Fix 2) */
+      /* Clip content to card */
       ctx.save();
       _rrect(ctx, cardX + 3, cardY, cardW - 3, cardH, cardR);
       ctx.clip();
 
-      /* ── Fix 1: Eyebrow = session title, never "Step N — …" ── */
-      var y = cardY + 80;
-      if (eyebrowText) {
-        ctx.font = '500 26px "Gill Sans","Optima","Trebuchet MS",sans-serif';
-        ctx.fillStyle = 'rgba(201,168,76,0.72)';
-        ctx.textAlign = 'left';
-        ctx.letterSpacing = '0.16em';
-        var ebShort = eyebrowText.length > 44 ? eyebrowText.substring(0, 42) + '\u2026' : eyebrowText;
-        ctx.fillText(ebShort, innerX, y);
-        ctx.letterSpacing = '0';
-        y += 46;
-        ctx.strokeStyle = 'rgba(201,168,76,0.16)'; ctx.lineWidth = 1;
-        ctx.beginPath(); ctx.moveTo(innerX, y); ctx.lineTo(innerX + innerW, y); ctx.stroke();
-        y += 50;
-      } else {
-        y += 24;
-      }
+      /* ── Eyebrow = dua title only (not section/category) ── */
+      var eyebrowLabel = cleanTitle.toUpperCase();
 
-      /* ── Fix 2+3: Arabic — starts at 72px (was 96px), progressive scale-down ── */
+      /* ── Pre-measure all text to compute total content height ── */
       var arSizes = [72, 62, 52, 44, 36];
       var arFont = arSizes[0];
       var arLines;
@@ -10415,6 +10400,54 @@ function shareAsImage() {
         if (arLines.length <= 5) break;
       }
       var arLineH = Math.round(arFont * 1.85);
+
+      var trFont = Math.max(30, Math.min(Math.round(arFont * 0.54), 42));
+      ctx.font = 'italic ' + trFont + 'px "Palatino Linotype","Book Antiqua","Georgia",serif';
+      var trLines = _duaWrapLines(ctx, tr, innerW);
+      var trLineH = Math.round(trFont * 1.65);
+
+      var enFont = Math.max(26, Math.min(Math.round(trFont * 0.82), 36));
+      ctx.font = enFont + 'px "Palatino Linotype","Book Antiqua","Georgia",serif';
+      var enLines = _duaWrapLines(ctx, en, innerW);
+      var enLineH = Math.round(enFont * 1.60);
+
+      var srcFont = Math.max(22, Math.min(enFont - 4, 28));
+      var noteFont = Math.max(22, Math.min(enFont - 2, 30));
+      var noteLines = note ? _duaWrapLines(ctx, note, innerW - 28) : [];
+      var noteLineH = Math.round(noteFont * 1.60);
+
+      /* Compute total content height */
+      var ebH   = eyebrowLabel ? (46 + 50) : 24;
+      var arH   = arLines.length * arLineH + 30;
+      var divH  = 1 + 38;
+      var trH   = trLines.length * trLineH + 38;
+      var enH   = enLines.length * enLineH;
+      var srcH  = src ? (28 + Math.round(srcFont * 1.4)) : 0;
+      var noteH = note ? (28 + noteLines.length * noteLineH + 32) : 0;
+      var totalH = ebH + arH + divH + trH + enH + srcH + noteH;
+
+      /* Vertically centre content within card */
+      var topPad = Math.max(CPAD, Math.round((cardH - totalH) / 2));
+      var y = cardY + topPad;
+
+      /* ── Eyebrow ── */
+      if (eyebrowLabel) {
+        ctx.font = '500 26px "Gill Sans","Optima","Trebuchet MS",sans-serif';
+        ctx.fillStyle = 'rgba(201,168,76,0.72)';
+        ctx.textAlign = 'left';
+        ctx.letterSpacing = '0.16em';
+        var ebShort = eyebrowLabel.length > 44 ? eyebrowLabel.substring(0, 42) + '\u2026' : eyebrowLabel;
+        ctx.fillText(ebShort, innerX, y);
+        ctx.letterSpacing = '0';
+        y += 46;
+        ctx.strokeStyle = 'rgba(201,168,76,0.16)'; ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.moveTo(innerX, y); ctx.lineTo(innerX + innerW, y); ctx.stroke();
+        y += 50;
+      } else {
+        y += 24;
+      }
+
+      /* ── Arabic ── */
       ctx.font = arFont + 'px "Scheherazade New","Traditional Arabic","Amiri",serif';
       ctx.fillStyle = '#E8CC84'; ctx.textAlign = 'right'; ctx.direction = 'rtl';
       for (var a = 0; a < arLines.length; a++) {
@@ -10430,10 +10463,8 @@ function shareAsImage() {
       y += 38;
 
       /* ── Transliteration — italic, muted gold ── */
-      var trFont = Math.max(30, Math.min(Math.round(arFont * 0.54), 42));
       ctx.font = 'italic ' + trFont + 'px "Palatino Linotype","Book Antiqua","Georgia",serif';
-      var trLines = _duaWrapLines(ctx, tr, innerW);
-      var trLineH = Math.round(trFont * 1.65);
+      /* trLines and trLineH already computed above */
       ctx.fillStyle = 'rgba(220,200,158,0.62)'; ctx.textAlign = 'left';
       for (var b = 0; b < trLines.length; b++) {
         ctx.fillText(trLines[b].trim(), innerX, y + trFont);
