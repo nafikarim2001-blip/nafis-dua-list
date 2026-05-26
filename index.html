@@ -745,7 +745,7 @@ body{
   color:var(--text);
   font-family:var(--fn);
   font-weight:300;
-  line-height:1.65;
+  line-height:1.72;
   overflow-x:hidden;
   -webkit-font-smoothing:antialiased;
   -moz-osx-font-smoothing:grayscale;
@@ -811,7 +811,7 @@ body::before{
 .dg{width:7px;height:7px;background:var(--gold-d);transform:rotate(45deg);flex-shrink:0;}
 .dgo{width:7px;height:7px;border:1px solid var(--gold-d);transform:rotate(45deg);flex-shrink:0;}
 
-.sec{margin-bottom:48px;}
+.sec{margin-bottom:60px;}
 .sec-h{display:flex;align-items:center;gap:12px;margin-bottom:20px;}
 .si{
   width:36px;height:36px;flex-shrink:0;
@@ -826,7 +826,7 @@ body::before{
   background:var(--card);border:1px solid var(--bdr);
   border-left:3px solid var(--gold-d);
   border-radius:var(--radius);
-  padding:20px 18px 16px;margin-bottom:12px;position:relative;
+  padding:26px 22px 20px;margin-bottom:20px;position:relative;
 }
 .dua.feat{
   border:1px solid var(--gold);border-left:4px solid var(--gold);
@@ -839,8 +839,8 @@ body::before{
 }
 .dlabel{font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;}
 /* .ar, .ar.sm, .ar.xs — defined above in the font-scale block */
-.tr{font-family:var(--fs);font-style:italic;font-size:13.5px;color:var(--text-d);margin-bottom:9px;line-height:1.65;}
-.en{font-size:13px;color:var(--text);line-height:1.75;padding-top:9px;border-top:1px solid rgba(201,168,76,.1);}
+.tr{font-family:var(--fs);font-style:italic;font-size:13px;color:var(--text-m);margin-bottom:10px;line-height:1.75;letter-spacing:0.01em;}
+.en{font-size:13.5px;color:var(--text);line-height:1.9;padding-top:11px;border-top:1px solid rgba(201,168,76,.1);letter-spacing:0.01em;}
 .src{font-size:10px;color:var(--text-m);margin-top:8px;line-height:1.5;}
 .src b{color:var(--green);font-weight:400;}
 .badge{
@@ -857,7 +857,7 @@ body::before{
 .note strong{color:var(--gold-l);}
 .note em{color:var(--text);font-style:normal;}
 
-.expand-wrap{margin-bottom:12px;}
+.expand-wrap{margin-bottom:16px;}
 .expand-trigger{
   width:100%;background:var(--card);
   border:1px solid var(--bdr);border-radius:var(--radius);
@@ -996,7 +996,7 @@ body::before{
 .fcopy{margin-top:24px;font-size:11px;color:var(--text-m);opacity:.5;letter-spacing:.08em;line-height:1.8;}
 
 @media(max-width:480px){
-  .dua{padding:16px 14px 14px;padding-left:40px;padding-right:80px;}
+  .dua{padding:20px 16px 18px;padding-left:40px;padding-right:80px;}
   .ar{font-size:calc(clamp(19px,6vw,26px) * var(--ar-scale));}
   .tgrid,.dgrid,.pgrid{grid-template-columns:1fr;}
   .nav-tab,.nav-btn{padding:0 8px;font-size:9px;letter-spacing:.12em;}
@@ -3847,9 +3847,9 @@ body.light .band-slate  { background: linear-gradient(135deg, #d8dce8 0%, #c0c8d
   position: fixed; inset: 0; z-index: 10002;
   background: var(--deep);
   display: flex; flex-direction: column;
-  transition: opacity var(--t-mid) var(--ease-out), transform var(--t-mid) var(--ease-out);
+  transition: opacity 380ms cubic-bezier(0.22,1,0.36,1), transform 380ms cubic-bezier(0.22,1,0.36,1);
   opacity: 0;
-  transform: translateY(16px);
+  transform: translateY(20px);
 }
 .dua-reader.is-open {
   opacity: 1;
@@ -4016,6 +4016,84 @@ body.light .band-slate  { background: linear-gradient(135deg, #d8dce8 0%, #c0c8d
   letter-spacing: .06em;
 }
 /* ===== END DUA READER OVERLAY ===== */
+
+/* ===== REFLECTION MODE OVERLAY ===== */
+.reflect-overlay {
+  position: fixed; inset: 0; z-index: 10020;
+  background: var(--deep);
+  display: flex; flex-direction: column; align-items: center;
+  opacity: 0; pointer-events: none;
+  transition: opacity 400ms cubic-bezier(0.22,1,0.36,1);
+}
+.reflect-overlay.rm-open {
+  opacity: 1; pointer-events: all;
+}
+.reflect-close {
+  position: absolute; top: max(20px, env(safe-area-inset-top, 20px)); right: 20px;
+  background: rgba(255,255,255,0.07); border: none; border-radius: 50%;
+  width: 34px; height: 34px; color: var(--text-m); font-size: 16px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; -webkit-tap-highlight-color: transparent;
+  transition: background var(--t-fast) var(--ease-out);
+}
+.reflect-close:active { background: rgba(255,255,255,0.14); }
+.reflect-body {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 60px 32px 40px; text-align: center;
+  max-width: 540px; width: 100%;
+  opacity: 0; transform: translateY(14px);
+  transition: opacity 500ms 120ms cubic-bezier(0.22,1,0.36,1),
+              transform 500ms 120ms cubic-bezier(0.22,1,0.36,1);
+}
+.reflect-overlay.rm-open .reflect-body {
+  opacity: 1; transform: translateY(0);
+}
+.reflect-eyebrow {
+  font-family: var(--fn); font-size: 9px; letter-spacing: 0.28em;
+  text-transform: uppercase; color: var(--gold); opacity: 0.7;
+  margin-bottom: 36px;
+}
+.reflect-en {
+  font-family: var(--fn); font-size: clamp(15px,4vw,17px);
+  color: var(--text); line-height: 2.0; margin-bottom: 32px;
+  letter-spacing: 0.01em;
+}
+.reflect-tr {
+  font-family: var(--fs); font-style: italic;
+  font-size: clamp(13px,3.5vw,14.5px); color: var(--text-m);
+  line-height: 1.85; margin-bottom: 36px; opacity: 0.85;
+}
+.reflect-ar {
+  font-family: var(--fa);
+  font-size: calc(clamp(22px, 6vw, 32px) * var(--ar-scale));
+  color: var(--gold-l); direction: rtl; line-height: 2.1;
+  opacity: 0.9; text-shadow: 0 0 30px rgba(201,168,76,0.12);
+  margin-bottom: 40px;
+}
+.reflect-src {
+  font-family: var(--fn); font-size: 11px; color: var(--text-m);
+  letter-spacing: 0.06em; margin-bottom: 32px; opacity: 0.65;
+}
+.reflect-hint {
+  font-family: var(--fn); font-size: 11px; color: var(--text-m);
+  letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.4;
+  margin-top: auto;
+}
+/* The "reflect" button shown on dua cards */
+.dua-reflect-btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  margin-top: 14px;
+  background: none; border: none;
+  color: var(--gold); opacity: 0.55;
+  font-family: var(--fn); font-size: 10px;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  cursor: pointer; padding: 4px 0;
+  -webkit-tap-highlight-color: transparent;
+  transition: opacity var(--t-fast) var(--ease-out);
+}
+.dua-reflect-btn:hover, .dua-reflect-btn:active { opacity: 1; }
+/* ===== END REFLECTION MODE ===== */
 
 /* ===== EXPANDED TAP TARGETS ON NAV BUTTONS ===== */
 .guided-nav-prev,.guided-nav-next,
@@ -11565,6 +11643,109 @@ window.satRestartTimer = function() {
     <button data-action="close-share" style="background:none;border:1px solid var(--bdr);border-radius:10px;padding:13px;font-family:var(--fn);font-size:14px;color:var(--text-m);cursor:pointer;width:100%;letter-spacing:0.04em;-webkit-tap-highlight-color:transparent;">Cancel</button>
   </div>
 </div>
+<!-- ===== REFLECTION MODE OVERLAY ===== -->
+<div class="reflect-overlay" id="reflectOverlay" role="dialog" aria-modal="true" aria-label="Reflection Mode">
+  <button class="reflect-close" id="reflectClose" aria-label="Close reflection">✕</button>
+  <div class="reflect-body" id="reflectBody">
+    <div class="reflect-eyebrow" id="reflectLabel">Recite with presence</div>
+    <div class="reflect-en" id="reflectEn"></div>
+    <div class="reflect-tr" id="reflectTr"></div>
+    <div class="reflect-ar" id="reflectAr"></div>
+    <div class="reflect-src" id="reflectSrc"></div>
+    <div class="reflect-hint">breathe · recite slowly · be present</div>
+  </div>
+</div>
+<script>
+// ===== REFLECTION MODE =====
+(function() {
+  var overlay = document.getElementById('reflectOverlay');
+  var closeBtn = document.getElementById('reflectClose');
+  var elLabel = document.getElementById('reflectLabel');
+  var elEn = document.getElementById('reflectEn');
+  var elTr = document.getElementById('reflectTr');
+  var elAr = document.getElementById('reflectAr');
+  var elSrc = document.getElementById('reflectSrc');
+
+  function openReflect(data) {
+    elLabel.textContent = data.label || 'Recite with presence';
+    elEn.textContent = data.en || '';
+    elTr.textContent = data.tr || '';
+    elAr.textContent = data.ar || '';
+    elSrc.textContent = data.src || '';
+    // hide empty rows
+    elTr.style.display = data.tr ? '' : 'none';
+    elSrc.style.display = data.src ? '' : 'none';
+    overlay.classList.add('rm-open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeReflect() {
+    overlay.classList.remove('rm-open');
+    document.body.style.overflow = '';
+  }
+
+  closeBtn.addEventListener('click', closeReflect);
+  overlay.addEventListener('click', function(e) {
+    if (e.target === overlay) closeReflect();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeReflect();
+  });
+
+  // Delegate clicks on .dua-reflect-btn anywhere in the document
+  document.addEventListener('click', function(e) {
+    var btn = e.target.closest('.dua-reflect-btn');
+    if (!btn) return;
+    e.stopPropagation();
+    var card = btn.closest('.dua');
+    if (!card) return;
+    var ar = card.querySelector('.ar');
+    var tr = card.querySelector('.tr');
+    var en = card.querySelector('.en');
+    var src = card.querySelector('.src');
+    var label = card.querySelector('.dlabel');
+    openReflect({
+      label: label ? label.textContent.trim() : 'Recite with presence',
+      en: en ? en.textContent.trim() : '',
+      tr: tr ? tr.textContent.trim() : '',
+      ar: ar ? ar.textContent.trim() : '',
+      src: src ? src.textContent.replace('Source:', '').trim() : ''
+    });
+  });
+
+  // Inject reflect buttons into all .dua cards that have an .en child
+  function injectReflectButtons(root) {
+    root = root || document;
+    root.querySelectorAll('.dua').forEach(function(card) {
+      if (card.querySelector('.dua-reflect-btn')) return; // already injected
+      var en = card.querySelector('.en');
+      if (!en) return;
+      var btn = document.createElement('button');
+      btn.className = 'dua-reflect-btn';
+      btn.setAttribute('aria-label', 'Open reflection mode');
+      btn.innerHTML = '&#9670; read slowly';
+      card.appendChild(btn);
+    });
+  }
+
+  // Run on load + observe DOM for dynamically rendered cards
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() { injectReflectButtons(); });
+  } else {
+    injectReflectButtons();
+  }
+  var obs = new MutationObserver(function(muts) {
+    muts.forEach(function(m) {
+      m.addedNodes.forEach(function(n) {
+        if (n.nodeType === 1) injectReflectButtons(n.querySelectorAll ? n : document);
+      });
+    });
+  });
+  obs.observe(document.body, { childList: true, subtree: true });
+})();
+// ===== END REFLECTION MODE =====
+</script>
+
 <script>
 (function() {
   var splash = document.getElementById('naafi-splash');
