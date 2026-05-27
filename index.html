@@ -54,7 +54,7 @@
    ======================================== */
 :root{
   --gold:#C9A84C; --gold-l:#E8CC84; --gold-d:#7a5c12; --gold-f:rgba(201,168,76,0.09);
-  --deep:#0C1018; --card:#111827; --card2:#1a2535;
+  --deep:#0C1018; --card:#0F1420; --card2:#141d2e;
   --text:#F0E6D0; --text-d:#A89470; --text-m:#6B5E48;
   --bdr:rgba(201,168,76,0.2); --bdr-h:rgba(201,168,76,0.5);
   --green:#52B788; --gbg:rgba(82,183,136,0.1); --gbd:rgba(82,183,136,0.28);
@@ -99,8 +99,8 @@ body.light #duaSearch{background:var(--card);color:var(--text);}
 body.light #duaSearch::placeholder{color:var(--text-m);}
 body.light .dua.feat{background:linear-gradient(135deg,rgba(201,168,76,.10) 0%,var(--card) 60%);}
 body.light .note{background:rgba(201,168,76,.06);}
-body.light .expand-trigger:active{background:var(--card2);}
-body.light .step-item{background:var(--card);}
+body.light .expand-trigger:active{opacity:0.6;}
+body.light .step-item{background:transparent;}
 body.light .tl-box{background:var(--card);}
 body.light .pcard{border-color:var(--bdr);}
 body.light .tc{background:var(--card);}
@@ -109,13 +109,13 @@ body.light .dhikr{background:var(--card);}
 /* ---- FONT SIZE CONTROLS ---- */
 .ar{
   font-family:var(--fa);
-  font-size:calc(clamp(20px,5.5vw,28px) * var(--ar-scale));
+  font-size:calc(clamp(26px,6.5vw,36px) * var(--ar-scale));
   color:var(--gold-l);text-align:right;direction:rtl;
-  line-height:2.1;margin-bottom:12px;
-  text-shadow:0 0 20px rgba(201,168,76,.1);
+  line-height:2.1;margin-bottom:14px;
+  text-shadow:0 0 30px rgba(201,168,76,.18);
 }
-.ar.sm{font-size:calc(clamp(17px,4.5vw,22px) * var(--ar-scale));}
-.ar.xs{font-size:calc(clamp(15px,3.8vw,19px) * var(--ar-scale));}
+.ar.sm{font-size:calc(clamp(20px,5vw,26px) * var(--ar-scale));}
+.ar.xs{font-size:calc(clamp(17px,4vw,22px) * var(--ar-scale));}
 .da{font-family:var(--fa);font-size:calc(18px * var(--ar-scale));color:var(--gold-l);text-align:right;direction:rtl;line-height:1.9;margin-bottom:7px;}
 .step-ar{font-family:var(--fa);font-size:calc(clamp(16px,4vw,20px) * var(--ar-scale));color:var(--gold-l);text-align:right;direction:rtl;line-height:2;margin-bottom:5px;}
 .bismillah{
@@ -397,10 +397,11 @@ body.light .session-card { background: transparent; }
 
 /* ---- POST-SALAH TASBIH SET ---- */
 .tasbih-set {
-  background: var(--card);
-  border: 1px solid var(--bdr);
-  border-radius: var(--radius);
-  padding: 18px;
+  background: transparent;
+  border: none;
+  border-top: 1px solid rgba(201,168,76,0.08);
+  border-radius: 0;
+  padding: 20px 0;
   margin-bottom: 16px;
 }
 .tasbih-set-title {
@@ -645,7 +646,7 @@ body{
     #0C1018;
   color:var(--text);
   font-family:var(--fn);
-  font-weight:300;
+  font-weight:400;
   line-height:1.72;
   overflow-x:hidden;
   -webkit-font-smoothing:antialiased;
@@ -684,7 +685,7 @@ body::before{
   100% { opacity: 1.0; transform: translateY(-3px); }
 }
 
-.page{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:0 16px 80px;}
+.page{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:8px 20px 80px;}
 
 
 /* ---- EXPAND ALL / COLLAPSE ALL ---- */
@@ -738,18 +739,19 @@ body::before{
 .ss{display:block;font-size:10px;font-family:var(--fn);color:var(--text-m);letter-spacing:.12em;text-transform:uppercase;margin-top:2px;}
 
 .dua{
-  background:var(--card);border:1px solid var(--bdr);
-  border-left:3px solid var(--gold-d);
-  border-radius:var(--radius);
-  padding:26px 22px 20px;margin-bottom:20px;position:relative;
+  background: transparent;
+  border: none;
+  border-top: 1px solid rgba(201,168,76,0.15);
+  border-bottom: 1px solid rgba(201,168,76,0.08);
+  border-radius: 0;
+  padding:32px 0 28px;margin-bottom:0;position:relative;
 }
 .dua.feat{
-  border: none;
   border-top: 1px solid rgba(201,168,76,0.2);
   border-bottom: 1px solid rgba(201,168,76,0.1);
   background: transparent;
-  padding-top: 32px;
-  padding-bottom: 32px;
+  padding-top: 36px;
+  padding-bottom: 36px;
 }
 .feat-badge{
   display:inline-block;font-size:9px;letter-spacing:.2em;color:var(--gold);
@@ -778,18 +780,18 @@ body::before{
 
 .expand-wrap{margin-bottom:16px;}
 .expand-trigger{
-  width:100%;background:var(--card);
-  border:1px solid var(--bdr);border-radius:var(--radius);
+  width:100%;background:transparent;
+  border:none;border-bottom:1px solid rgba(201,168,76,0.08);border-radius:0;
   display:flex;align-items:center;gap:12px;
-  padding:14px 16px;cursor:pointer;
+  padding:16px 0;cursor:pointer;
   min-height:var(--tap-min);
   text-align:left;
-  transition:border-color .2s,background .2s;
+  transition:opacity .2s;
   -webkit-tap-highlight-color:transparent;
   font-family:inherit;font-size:inherit;color:inherit;
 }
-.expand-trigger:active{background:var(--card2);}
-.expand-trigger.open{border-color:var(--gold-d);background:var(--card2);}
+.expand-trigger:active{opacity:0.6;}
+.expand-trigger.open{border-bottom-color:rgba(201,168,76,0.2);opacity:1;}
 .et-num{
   width:40px;height:40px;flex-shrink:0;
   border:1px solid var(--gold-d);
@@ -813,9 +815,9 @@ body::before{
   display:grid;
   grid-template-rows:0fr;
   transition:grid-template-rows var(--t-mid) var(--ease-out);
-  background:var(--card2);
-  border:1px solid var(--bdr);border-top:none;
-  border-radius:0 0 var(--radius) var(--radius);
+  background:transparent;
+  border:none;border-bottom:1px solid rgba(201,168,76,0.08);
+  border-radius:0;
   overflow:hidden;
   position:relative;
 }
@@ -832,8 +834,9 @@ body::before{
 .step-list{list-style:none;padding:0;margin:0;}
 .step-item{
   display:flex;gap:12px;align-items:flex-start;
-  background:var(--card);border:1px solid var(--bdr);
-  border-radius:var(--radius);padding:14px 16px;margin-bottom:8px;
+  background:transparent;border:none;
+  border-bottom:1px solid rgba(201,168,76,0.08);
+  border-radius:0;padding:16px 0;margin-bottom:0;
 }
 .step-num{
   width:28px;height:28px;flex-shrink:0;
@@ -1248,7 +1251,7 @@ body.light .bn-tab.active { color: #7a5c12; }
   position: sticky;
   top: 0;
   z-index: 200;
-  background: linear-gradient(to bottom, #0C1018 60%, transparent);
+  background: linear-gradient(to bottom, rgba(12,16,24,0.95) 0%, rgba(12,16,24,0.6) 70%, transparent 100%);
 }
 body.light .spa-header-bar { background: var(--deep); }
 
@@ -1427,7 +1430,7 @@ body.light .settings-popover { background: rgba(250,246,238,0.98); }
 .my-duas-overlay { display: none; margin-top: 8px; }
 
 /* Dhikr view header */
-.dhikr-view-header { padding: 22px 0 10px; text-align: center; }
+.dhikr-view-header { padding: 32px 0 14px; text-align: center; }
 .dhikr-view-header h2 { font-family:var(--fs);font-size:clamp(22px,5.5vw,30px);color:var(--gold-l);font-weight:400;margin-bottom:6px; }
 .dhikr-view-header p { font-size:11px;color:var(--text-m);letter-spacing:.16em;text-transform:uppercase; }
 
@@ -1442,7 +1445,7 @@ body.light .settings-popover { background: rgba(250,246,238,0.98); }
   border: none;
   border-bottom: 1px solid rgba(201,168,76,0.08);
   border-radius: 0;
-  padding: 18px 4px;
+  padding: 18px 0;
   margin-bottom: 0;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
@@ -1721,7 +1724,7 @@ body.light .settings-popover { background: rgba(250,246,238,0.98); }
    ============================================================ */
 
 /* ---- SESSION CARDS (Adhkar tab) ---- */
-.adhkar-sessions-header { padding: 14px 0 0; }
+.adhkar-sessions-header { padding: 24px 0 0; }
 .session-cards { display: flex; flex-direction: column; gap: 0; margin-bottom: 32px; }
 /* ---- SESSION CARD — consolidated ---- */
 .session-card {
@@ -1730,9 +1733,9 @@ body.light .settings-popover { background: rgba(250,246,238,0.98); }
   gap: 0;
   background: transparent;
   border: none;
-  border-bottom: 1px solid rgba(201,168,76,0.1);
+  border-bottom: 1px solid rgba(201,168,76,0.08);
   border-radius: 0;
-  padding: 16px 4px;
+  padding: 16px 0;
   cursor: pointer;
   position: relative;
   -webkit-tap-highlight-color: transparent;
@@ -1741,7 +1744,7 @@ body.light .settings-popover { background: rgba(250,246,238,0.98); }
   will-change: opacity;
 }
 .session-card:first-child {
-  border-top: 1px solid rgba(201,168,76,0.1);
+  border-top: 1px solid rgba(201,168,76,0.08);
 }
 .session-card:active {
   opacity: 0.6;
@@ -1795,7 +1798,7 @@ body.light .settings-popover { background: rgba(250,246,238,0.98); }
   border-top: 1px solid rgba(201,168,76,0.12);
   border-bottom: 1px solid rgba(201,168,76,0.08);
   border-radius: 0;
-  padding: 16px 4px;
+  padding: 16px 0;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
@@ -1836,7 +1839,7 @@ body.light .settings-popover { background: rgba(250,246,238,0.98); }
 }
 
 /* ---- GUIDED EXTRA DUA ---- */
-.guided-extra-dua { margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(201,168,76,0.15); }
+.guided-extra-dua { margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(201,168,76,0.08); }
 
 /* ---- JUMUAH SESSION BUTTON (Learn view) ---- */
 .jumuah-session-btn {
@@ -3206,7 +3209,7 @@ body.light .guided-nav-next { color: #fff; }
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--text-d);
-  padding: 4px 0 0;
+  padding: 28px 0 0;
 }
 .cat-tile.cat-tile-wide {
   grid-column: 1 / -1;
