@@ -79,6 +79,7 @@ body.light{
   --bdr:rgba(122,92,18,0.25); --bdr-h:rgba(122,92,18,0.5);
   --gold-f:rgba(201,168,76,0.12);
   --gbg:rgba(52,130,90,0.1); --gbd:rgba(52,130,90,0.28);
+  background: #FAF6EE;
 }
 body.light::before{
   background-image:
@@ -148,13 +149,13 @@ body.light .dhikr{background:var(--card);}
 .fc-btn.fc-small{font-size:12px;}
 
 /* ---- SESSION CARDS (Home Progress Tracker upgrade) ---- */
-.session-cards { display: flex; flex-direction: column; gap: 10px; margin: 0 0 6px; }
+.session-cards { display: flex; flex-direction: column; gap: 0; margin: 0 0 6px; }
 
 
-.sc-icon { font-size: 26px; flex-shrink: 0; width: 36px; text-align: center; }
+.sc-icon { display: none; }
 .sc-body { flex: 1; min-width: 0; }
-.sc-title { font-family: var(--fs); font-size: 16px; color: var(--text); margin-bottom: 2px; }
-.sc-sub { font-family: var(--fn); font-size: 11px; color: var(--text-d); letter-spacing: 0.04em; text-transform: uppercase; }
+.sc-title { font-family: var(--fs); font-size: 20px; color: var(--text); margin-bottom: 3px; }
+.sc-sub { font-family: var(--fn); font-size: 10px; color: var(--text-m); letter-spacing: 0.1em; text-transform: uppercase; }
 .sc-done-label { display: none; font-family: var(--fn); font-size: 11px; color: var(--gold); letter-spacing: 0.04em; margin-top: 2px; }
 .session-card.sc-done .sc-sub { display: none; }
 .session-card.sc-done .sc-done-label { display: block; }
@@ -185,28 +186,19 @@ body.light .dhikr{background:var(--card);}
   stroke-dashoffset: 0;
 }
 .sc-begin {
-  font-family: var(--fn); font-size: 12px; font-weight: 600;
-  color: var(--gold-l); background: rgba(201,168,76,0.12);
-  border: 1px solid rgba(201,168,76,0.3);
-  border-radius: 20px; padding: 5px 14px;
-  letter-spacing: 0.05em;
-  transition: background var(--t-instant) var(--ease-out), opacity var(--t-instant) var(--ease-out);
+  font-family: var(--fn); font-size: 11px; font-weight: 500;
+  color: var(--gold); background: transparent;
+  border: none;
+  border-radius: 0; padding: 0;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.8;
 }
-.session-card:active .sc-begin { background: rgba(201,168,76,0.22); }
+.session-card:active .sc-begin { opacity: 0.4; }
 
-body.light .session-card { background: rgba(0,0,0,0.025); }
-body.light .session-card.sc-done { background: rgba(201,168,76,0.09); }
-.session-card.sc-done:hover, .session-card.sc-done:active { background: rgba(201,168,76,0.07); border-color: rgba(201,168,76,0.45); }
+body.light .session-card { background: transparent; }
+.session-card.sc-done:active { opacity: 0.5; }
 
-/* Session card colour identity — left border per card */
-#pt-morning  { border-left: 3px solid #C9943A; }
-#pt-evening  { border-left: 3px solid #4A6FA5; }
-#pt-salah    { border-left: 3px solid #3A8A6A; }
-#pt-sleep    { border-left: 3px solid #6A4A8A; }
-#pt-morning.sc-done  { border-left-color: rgba(201,148,58,0.5); }
-#pt-evening.sc-done  { border-left-color: rgba(74,111,165,0.5); }
-#pt-salah.sc-done    { border-left-color: rgba(58,138,106,0.5); }
-#pt-sleep.sc-done    { border-left-color: rgba(106,74,138,0.5); }
 
 /* Theme toggle button */
 .theme-toggle{
@@ -224,114 +216,19 @@ body.light .session-card.sc-done { background: rgba(201,168,76,0.09); }
   margin-top:14px;flex-wrap:wrap;
 }
 
+/* ---- HOME PROGRESS STRIP ---- */
+/* When the progress key is ticked (sc-done class on parent) */
+
+/* ---- HOME RULE ---- */
+
+/* ---- CONTEXTUAL HERO ---- */
+
+/* ---- CONTEXTUAL SECONDARY LIST ---- */
+
 /* ============================================================
    CONTEXTUAL GREETING + PRAYER PERIOD CARDS  (Phase A)
    ============================================================ */
 
-.contextual-home {
-  margin-bottom: 8px;
-}
-.ctx-greeting-row {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  margin-bottom: 16px;
-  padding: 0 2px;
-}
-.ctx-icon {
-  font-size: 32px;
-  line-height: 1;
-  margin-top: 2px;
-  flex-shrink: 0;
-}
-.ctx-greeting-text {
-  flex: 1;
-}
-.ctx-greeting {
-  font-family: var(--fs);
-  font-size: 28px;
-  color: var(--gold-l);
-  line-height: 1.15;
-  margin-bottom: 4px;
-}
-.ctx-greetsub {
-  font-family: var(--fn);
-  font-size: 13px;
-  color: var(--text-d);
-  line-height: 1.5;
-}
-.ctx-cards {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-bottom: 24px;
-}
-.ctx-card {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  background: var(--card);
-  border: 1px solid var(--bdr);
-  border-radius: 12px;
-  padding: 14px 16px;
-  cursor: pointer;
-  text-align: left;
-  width: 100%;
-  -webkit-tap-highlight-color: transparent;
-  touch-action: manipulation;
-  transition: opacity var(--t-instant) var(--ease-out),
-              transform 200ms cubic-bezier(0.34,1.56,0.64,1),
-              background var(--t-instant) var(--ease-out);
-  will-change: transform, opacity;
-}
-.ctx-card:active {
-  opacity: 0.75;
-  transform: scale(0.98);
-}
-.ctx-card { border-left: 2px solid rgba(201,168,76,0.3); }
-.ctx-card-highlight { border-left-color: var(--gold); }
-.ctx-card-highlight {
-  border-color: var(--gold);
-  border-left: 3px solid var(--gold);
-  background: linear-gradient(135deg, var(--card) 0%, rgba(201,168,76,0.07) 100%);
-}
-.ctx-card-inner {
-  flex: 1;
-  min-width: 0;
-}
-.ctx-eyebrow {
-  font-family: var(--fn);
-  font-size: 9px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 3px;
-}
-.ctx-title {
-  font-family: var(--fs);
-  font-size: 17px;
-  color: var(--text);
-  margin-bottom: 3px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.ctx-sub {
-  font-family: var(--fn);
-  font-size: 11px;
-  color: var(--text-m);
-  line-height: 1.45;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.ctx-arrow {
-  color: rgba(201,168,76,0.4);
-  flex-shrink: 0;
-  margin-left: 4px;
-  font-size: 20px;
-  line-height: 1;
-}
 
 /* ---- FAVOURITES STAR ---- */
 .fav-star{
@@ -741,7 +638,11 @@ button, .tab-btn, .nav, .nav-tab, .fav-star, .copy-btn, .dhikr-count,
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 html{scroll-behavior:smooth;font-size:16px;overscroll-behavior:none;}
 body{
-  background:var(--deep);
+  background:
+    radial-gradient(ellipse 120% 60% at 50% -5%, rgba(201,168,76,0.07) 0%, transparent 60%),
+    radial-gradient(ellipse 80% 40% at 85% 15%, rgba(255,255,255,0.025) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 30% at 15% 80%, rgba(201,168,76,0.04) 0%, transparent 70%),
+    #0C1018;
   color:var(--text);
   font-family:var(--fn);
   font-weight:300;
@@ -757,16 +658,30 @@ body{
 body::before{
   content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
   background-image:
-    radial-gradient(1px 1px at  8% 12%,rgba(201,168,76,.4)  0%,transparent 100%),
-    radial-gradient(1px 1px at 22% 58%,rgba(255,255,255,.1)  0%,transparent 100%),
-    radial-gradient(1px 1px at 38% 22%,rgba(201,168,76,.28)  0%,transparent 100%),
-    radial-gradient(1px 1px at 55% 78%,rgba(255,255,255,.08) 0%,transparent 100%),
-    radial-gradient(1px 1px at 70%  8%,rgba(201,168,76,.32)  0%,transparent 100%),
-    radial-gradient(1px 1px at 84% 44%,rgba(255,255,255,.10) 0%,transparent 100%),
-    radial-gradient(1px 1px at 92% 68%,rgba(201,168,76,.2)   0%,transparent 100%),
-    radial-gradient(1px 1px at 15% 88%,rgba(255,255,255,.08) 0%,transparent 100%),
-    radial-gradient(1.5px 1.5px at 60% 50%,rgba(201,168,76,.16) 0%,transparent 100%),
-    radial-gradient(1px 1px at 76% 26%,rgba(201,168,76,.22)  0%,transparent 100%);
+    radial-gradient(1.5px 1.5px at  8% 12%, rgba(201,168,76,0.55) 0%,transparent 100%),
+    radial-gradient(1px   1px   at 22% 58%, rgba(255,255,255,0.18) 0%,transparent 100%),
+    radial-gradient(1.5px 1.5px at 38% 22%, rgba(201,168,76,0.40) 0%,transparent 100%),
+    radial-gradient(1px   1px   at 55% 78%, rgba(255,255,255,0.14) 0%,transparent 100%),
+    radial-gradient(1.5px 1.5px at 70%  8%, rgba(201,168,76,0.45) 0%,transparent 100%),
+    radial-gradient(1px   1px   at 84% 44%, rgba(255,255,255,0.16) 0%,transparent 100%),
+    radial-gradient(1px   1px   at 92% 68%, rgba(201,168,76,0.30) 0%,transparent 100%),
+    radial-gradient(1px   1px   at 15% 88%, rgba(255,255,255,0.12) 0%,transparent 100%),
+    radial-gradient(2px   2px   at 60% 50%, rgba(201,168,76,0.22) 0%,transparent 100%),
+    radial-gradient(1px   1px   at 76% 26%, rgba(201,168,76,0.32) 0%,transparent 100%),
+    radial-gradient(1px   1px   at 30% 40%, rgba(255,255,255,0.10) 0%,transparent 100%),
+    radial-gradient(1px   1px   at 48% 65%, rgba(201,168,76,0.18) 0%,transparent 100%),
+    radial-gradient(1px   1px   at 18% 35%, rgba(255,255,255,0.10) 0%,transparent 100%),
+    radial-gradient(1.5px 1.5px at 65% 15%, rgba(201,168,76,0.38) 0%,transparent 100%),
+    radial-gradient(1px   1px   at 88% 80%, rgba(255,255,255,0.12) 0%,transparent 100%),
+    radial-gradient(1px   1px   at 42% 92%, rgba(201,168,76,0.20) 0%,transparent 100%),
+    radial-gradient(1px   1px   at  5% 52%, rgba(255,255,255,0.08) 0%,transparent 100%),
+    radial-gradient(1.5px 1.5px at 33% 72%, rgba(201,168,76,0.28) 0%,transparent 100%);
+  animation: star-drift 12s ease-in-out infinite alternate;
+}
+
+@keyframes star-drift {
+  0%   { opacity: 0.7; transform: translateY(0px); }
+  100% { opacity: 1.0; transform: translateY(-3px); }
 }
 
 .page{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:0 16px 80px;}
@@ -829,8 +744,12 @@ body::before{
   padding:26px 22px 20px;margin-bottom:20px;position:relative;
 }
 .dua.feat{
-  border:1px solid var(--gold);border-left:4px solid var(--gold);
-  background:linear-gradient(135deg,rgba(201,168,76,.07) 0%,var(--card) 60%);
+  border: none;
+  border-top: 1px solid rgba(201,168,76,0.2);
+  border-bottom: 1px solid rgba(201,168,76,0.1);
+  background: transparent;
+  padding-top: 32px;
+  padding-bottom: 32px;
 }
 .feat-badge{
   display:inline-block;font-size:9px;letter-spacing:.2em;color:var(--gold);
@@ -850,7 +769,7 @@ body::before{
   border-radius:var(--radius);line-height:1.5;
 }
 .note{
-  background:rgba(201,168,76,.04);border:1px solid var(--bdr);
+  background:transparent;border:none;border-left:2px solid rgba(201,168,76,0.3);
   border-radius:var(--radius);
   padding:16px 18px;font-size:13px;color:var(--text-d);line-height:1.8;margin-bottom:12px;
 }
@@ -1307,8 +1226,8 @@ body.light .bn-tab.active { color: #7a5c12; }
   transition: background var(--t-instant) var(--ease-out), border-color var(--t-instant) var(--ease-out), color var(--t-instant) var(--ease-out);
 }
 .view-subnav-btn.active {
-  background: rgba(201,168,76,0.18);
-  border-color: var(--gold);
+  background: rgba(201,168,76,0.1);
+  border-color: rgba(201,168,76,0.3);
   color: var(--gold-l);
   font-weight: 600;
   letter-spacing: 0.08em;
@@ -1329,9 +1248,21 @@ body.light .bn-tab.active { color: #7a5c12; }
   position: sticky;
   top: 0;
   z-index: 200;
-  background: var(--deep);
+  background: linear-gradient(to bottom, #0C1018 60%, transparent);
 }
 body.light .spa-header-bar { background: var(--deep); }
+
+/* Home tab — transparent header so atmospheric background shows through */
+.home-header-float {
+  background: transparent !important;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+/* Fade to transparent when scrolled — home header dissolves into background */
+.home-header-float .icon-btn {
+  background: rgba(201,168,76,0.06);
+  border-color: rgba(201,168,76,0.14);
+}
 
 .icon-btn {
   touch-action: manipulation;
@@ -1451,84 +1382,8 @@ body.light .settings-popover { background: rgba(250,246,238,0.98); }
 
 /* Home view elements */
 
-.home-section-title {
-  font-size: 10px; color: var(--text-d);
-  letter-spacing: 0.25em; text-transform: uppercase;
-  margin: 0 0 14px; font-weight: 400;
-  font-family: var(--fn);
-  display: flex; align-items: center; gap: 10px;
-  padding: 0 2px;
-}
-.home-section-title::before {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: linear-gradient(to right, transparent, rgba(201,168,76,0.2));
-  order: -1;
-  max-width: 32px;
-}
-.home-section-title::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: linear-gradient(to left, transparent, rgba(201,168,76,0.2));
-  max-width: 32px;
-}
 
 /* ---- HOME FRIDAY HOUR CARD ---- */
-.home-jumuah-card {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: linear-gradient(135deg, rgba(201,168,76,0.12) 0%, var(--card) 70%);
-  border: 1px solid var(--gold);
-  border-radius: 14px;
-  padding: 18px 18px 18px 20px;
-  margin-bottom: 0;
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-  touch-action: manipulation;
-  transition: background var(--t-instant) var(--ease-out), transform var(--t-instant) var(--ease-out);
-}
-.home-jumuah-card:active { background: rgba(201,168,76,0.18); transform: scale(0.98); }
-.hjc-left { flex: 1; }
-.hjc-eyebrow {
-  font-family: var(--fn);
-  font-size: 9px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 5px;
-}
-.hjc-title {
-  font-family: var(--fs);
-  font-size: 22px;
-  font-weight: 400;
-  color: var(--text);
-  line-height: 1.15;
-  margin-bottom: 5px;
-}
-.hjc-sub {
-  font-family: var(--fn);
-  font-size: 12px;
-  color: var(--text-d);
-  line-height: 1.5;
-}
-.hjc-right {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  flex-shrink: 0;
-  padding-left: 14px;
-}
-.hjc-icon { font-size: 30px; }
-.hjc-arrow {
-  font-size: 20px;
-  color: var(--gold);
-  font-weight: 300;
-  line-height: 1;
-}
 
 /* Essential Duas section header */
 .home-essential-sec-h {
@@ -1554,41 +1409,6 @@ body.light .settings-popover { background: rgba(250,246,238,0.98); }
 /* Seasonal Qadr tile — hidden by default, shown via JS */
 
 /* Intention prompt chips */
-.intention-wrap { margin: 0 0 4px; }
-.intention-title {
-  font-family: var(--fn);
-  font-size: 10px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--text-d);
-  display: flex; align-items: center; gap: 10px;
-}
-.intention-title::before { content: '✦'; font-size: 8px; }
-.intention-chips {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-top: 10px;
-}
-.intention-chip {
-  display: flex; align-items: center; gap: 10px;
-  background: var(--card);
-  border: 1px solid var(--bdr);
-  border-radius: 14px;
-  padding: 12px 16px;
-  font-family: var(--fn); font-size: 13px;
-  color: var(--text);
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-  touch-action: manipulation;
-  transition: border-color var(--t-fast) var(--ease-out), background var(--t-fast) var(--ease-out);
-  text-align: left;
-  width: 100%;
-}
-.intention-chip:hover, .intention-chip:active {
-  border-color: var(--bdr-h); background: var(--card2); color: var(--gold-l);
-}
-.intention-chip .chip-emoji { font-size: 20px; line-height: 1; flex-shrink: 0; }
 
 /* Laylatul Qadr banner */
 .qadr-banner {
@@ -1618,26 +1438,31 @@ body.light .settings-popover { background: rgba(250,246,238,0.98); }
   display: flex;
   align-items: center;
   gap: 14px;
-  background: var(--card);
-  border: 1px solid var(--bdr);
-  border-radius: var(--radius);
-  padding: 14px 16px;
-  margin-bottom: 8px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(201,168,76,0.08);
+  border-radius: 0;
+  padding: 18px 4px;
+  margin-bottom: 0;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
-  transition: background var(--t-instant) var(--ease-out), border-color var(--t-instant) var(--ease-out), transform 200ms cubic-bezier(0.34,1.56,0.64,1);
-  will-change: transform;
+  transition: opacity var(--t-instant) var(--ease-out);
+  will-change: opacity;
   user-select: none;
 }
+.dho-index-row:first-child {
+  border-top: 1px solid rgba(201,168,76,0.08);
+}
 .dho-index-row:active {
-  background: rgba(201,168,76,0.07);
-  border-color: var(--bdr-h);
-  transform: scale(0.985);
+  opacity: 0.6;
+  transform: none;
 }
 .dho-index-row.dho-done {
-  border-color: rgba(82,183,136,0.35);
-  background: rgba(82,183,136,0.05);
+  opacity: 0.65;
+}
+.dho-index-row.dho-done .dho-index-arabic {
+  color: var(--gold-d);
 }
 .dho-index-inner { flex: 1; min-width: 0; }
 .dho-index-arabic {
@@ -1897,36 +1722,43 @@ body.light .settings-popover { background: rgba(250,246,238,0.98); }
 
 /* ---- SESSION CARDS (Adhkar tab) ---- */
 .adhkar-sessions-header { padding: 14px 0 0; }
-.session-cards { display: flex; flex-direction: column; gap: 10px; margin-bottom: 8px; }
+.session-cards { display: flex; flex-direction: column; gap: 0; margin-bottom: 32px; }
 /* ---- SESSION CARD — consolidated ---- */
 .session-card {
-  display: flex; align-items: center; gap: 14px;
-  background: var(--card);
-  border: 1px solid var(--bdr);
-  border-radius: var(--radius);
-  padding: 14px 16px;
-  min-height: 64px;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(201,168,76,0.1);
+  border-radius: 0;
+  padding: 16px 4px;
   cursor: pointer;
+  position: relative;
   -webkit-tap-highlight-color: transparent;
-  position: relative; overflow: hidden;
-  transition: border-color .15s cubic-bezier(0.25,0.46,0.45,0.94),
-              background .15s cubic-bezier(0.25,0.46,0.45,0.94),
-              transform var(--t-fast) var(--ease-out),
-              opacity var(--t-fast) var(--ease-out);
+  touch-action: manipulation;
+  transition: opacity var(--t-instant) var(--ease-out);
+  will-change: opacity;
 }
-.session-card:active { transform: scale(0.978); opacity: 0.9; background: rgba(201,168,76,0.06); }
+.session-card:first-child {
+  border-top: 1px solid rgba(201,168,76,0.1);
+}
+.session-card:active {
+  opacity: 0.6;
+  transform: none;
+}
 .session-card.sc-done {
-  border-color: rgba(201,168,76,0.45);
-  background: rgba(201,168,76,0.07);
 }
 .session-card.sc-done .sc-begin { opacity: 0; pointer-events: none; }
 .session-card-qadr {
-  border-color: rgba(201,168,76,0.4);
-  background: linear-gradient(135deg, rgba(201,168,76,.07) 0%, var(--card) 60%);
+  border-bottom-color: rgba(201,168,76,0.35);
+  border-top-color: rgba(201,168,76,0.35);
+}
+.session-card-qadr .session-card-title {
+  color: var(--gold-l);
 }
 .session-card-arafah {
-  background: linear-gradient(135deg, rgba(180,100,20,0.18) 0%, rgba(201,168,76,0.10) 100%);
-  border-color: rgba(201,168,76,0.45);
+  border-bottom-color: rgba(201,148,58,0.3);
 }
 .session-card-arafah .session-card-title {
   color: var(--gold);
@@ -1958,20 +1790,20 @@ body.light .settings-popover { background: rgba(250,246,238,0.98); }
   display: flex;
   align-items: center;
   gap: 14px;
-  background: rgba(201,168,76,0.08);
-  border: 1px solid rgba(201,168,76,0.3);
-  border-radius: 14px;
-  padding: 14px 16px;
+  background: transparent;
+  border: none;
+  border-top: 1px solid rgba(201,168,76,0.12);
+  border-bottom: 1px solid rgba(201,168,76,0.08);
+  border-radius: 0;
+  padding: 16px 4px;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
-  transition: background var(--t-instant) var(--ease-out),
-              transform 200ms cubic-bezier(0.34,1.56,0.64,1),
-              opacity var(--t-fast) var(--ease-out);
-  margin-top: 10px;
-  will-change: transform, opacity;
+  transition: opacity var(--t-fast) var(--ease-out);
+  margin-top: 4px;
+  will-change: opacity;
 }
-.gs-card:active { background: rgba(201,168,76,0.16); transform: scale(0.97); opacity: 0.82; }
+.gs-card:active { opacity: 0.55; transform: none; }
 .gs-icon { font-size: 24px; flex-shrink: 0; line-height: 1; }
 .gs-info { flex: 1; }
 .gs-title { font-family: var(--fn); font-size: 15px; font-weight: 600; color: var(--gold-l); line-height: 1.3; }
@@ -2692,7 +2524,7 @@ body.light .guided-overlay { background: var(--deep); }
   text-transform:uppercase;
   color:var(--gold);
   opacity:0.8;
-  margin:4px 0 16px;
+  margin:0;
   min-height:16px;
   transition: opacity var(--t-slow);
 }
@@ -3321,21 +3153,24 @@ body.light .guided-nav-next { color: #fff; }
   padding: 12px 16px 24px;
 }
 .cat-tile {
-  background: var(--card);
-  border: 1px solid var(--bdr);
-  border-radius: 16px;
+  background: rgba(255,255,255,0.025);
+  border: 1px solid rgba(201,168,76,0.1);
+  border-radius: 14px;
   overflow: hidden;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   display: flex;
   flex-direction: column;
-  transition: transform var(--t-fast) var(--ease-out), border-color var(--t-fast) var(--ease-out);
+  transition: transform var(--t-fast) var(--ease-out),
+              border-color var(--t-fast) var(--ease-out),
+              background var(--t-fast) var(--ease-out);
   touch-action: manipulation;
   text-align: left;
 }
 .cat-tile:active {
   transform: scale(0.96);
-  border-color: var(--gold-d);
+  background: rgba(201,168,76,0.05);
+  border-color: rgba(201,168,76,0.22);
 }
 .cat-tile-band {
   height: 72px;
@@ -3395,7 +3230,10 @@ body.light .guided-nav-next { color: #fff; }
 .band-gold   { background: linear-gradient(135deg, #2e2200 0%, #1e1600 100%); }
 .band-rose   { background: linear-gradient(135deg, #2e1020 0%, #1e0814 100%); }
 .band-slate  { background: linear-gradient(135deg, #182030 0%, #0e1420 100%); }
-body.light .cat-tile { background: #fff; border-color: rgba(122,92,18,0.15); }
+body.light .cat-tile { background: rgba(255,255,255,0.8); border-color: rgba(122,92,18,0.12); }
+body.light .dho-index-row { border-bottom-color: rgba(122,92,18,0.12); }
+body.light .dho-index-row:first-child { border-top-color: rgba(122,92,18,0.12); }
+body.light .gs-card { border-color: rgba(122,92,18,0.1); }
 body.light .band-teal   { background: linear-gradient(135deg, #d4eded 0%, #b8e0e0 100%); }
 body.light .band-navy   { background: linear-gradient(135deg, #d4d8ed 0%, #b8bee0 100%); }
 body.light .band-plum   { background: linear-gradient(135deg, #e0d4ed 0%, #d0b8e0 100%); }
@@ -4212,41 +4050,6 @@ body.light .band-slate  { background: linear-gradient(135deg, #d8dce8 0%, #c0c8d
 
 /* ===== STREAK BADGE ===== */
 /* ── HOME BANNER ── */
-.home-banner {
-  text-align: center;
-  padding: 12px 20px 4px;
-}
-.home-banner-bismillah {
-  font-family: var(--fa);
-  font-size: clamp(16px, 4vw, 20px);
-  color: var(--gold-d);
-  margin-bottom: 6px;
-  direction: rtl;
-}
-.home-banner-title {
-  font-family: var(--fs);
-  font-size: clamp(22px, 5.5vw, 28px);
-  color: var(--gold-l);
-  font-weight: 400;
-  letter-spacing: -0.01em;
-}
-.home-banner-title em {
-  font-style: normal;
-  color: var(--gold-l);
-}
-.home-banner-tagline {
-  font-family: var(--fn);
-  font-size: 11px;
-  color: var(--gold-d);
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  margin-top: 6px;
-  opacity: 0.8;
-}
-.streak-wrap {
-  display: flex; align-items: center; justify-content: center;
-  gap: 8px; margin: 8px 0 4px;
-}
 .streak-badge {
   display: inline-flex; align-items: center; gap: 8px;
   background: linear-gradient(135deg, rgba(201,168,76,0.1) 0%, rgba(201,168,76,0.04) 100%);
@@ -4270,6 +4073,7 @@ body.light .streak-badge {
   background: rgba(122,92,18,.06); border-color: rgba(122,92,18,.2);
 }
 /* ===== END STREAK BADGE ===== */
+/* ---- HOME META ROW (hijri + streak inline) ---- */
 /* ---- HUB FEATURED ROW (Art of Du'a) ---- */
 .hub-featured-row {
   display: flex;
@@ -4667,6 +4471,377 @@ body.light .ob-card.is-pressing {
 body.light .resume-card {
   background: rgba(201,168,76,0.09);
 }
+
+/* ============================================================
+   HOME SCREEN — ATMOSPHERIC REDESIGN
+   ============================================================ */
+
+/* Wordmark */
+.home-wordmark {
+  text-align: center;
+  padding: 44px 20px 0;
+}
+.home-wordmark-title {
+  font-family: var(--fs);
+  font-size: clamp(36px, 9vw, 48px);
+  color: var(--gold-l);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  text-shadow:
+    0 0 30px rgba(201,168,76,0.45),
+    0 0 70px rgba(201,168,76,0.18),
+    0 0 120px rgba(201,168,76,0.08);
+}
+.home-wordmark-sub {
+  font-family: var(--fn);
+  font-size: 10px;
+  color: var(--gold-d);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  margin-top: 10px;
+  opacity: 0.6;
+}
+
+/* Meta row — hijri + streak, minimal */
+.home-meta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 4px 32px;
+  gap: 12px;
+}
+.home-meta-row .hijri-date {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-m);
+  font-family: var(--fn);
+  margin: 0;
+  opacity: 0.75;
+}
+.home-meta-row .streak-badge {
+  padding: 4px 12px;
+  font-size: 11px;
+  background: transparent;
+  border-color: rgba(201,168,76,0.15);
+}
+.home-meta-row .streak-badge .streak-num {
+  font-size: 16px;
+}
+
+/* Contextual home — atmospheric spacing */
+.contextual-home {
+  margin-bottom: 0;
+  padding-top: 0;
+}
+
+/* Greeting row */
+.ctx-greeting-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 32px;
+  padding: 0 4px;
+}
+.ctx-icon {
+  font-size: 44px;
+  line-height: 1;
+  margin-top: 4px;
+  flex-shrink: 0;
+  filter: drop-shadow(0 0 12px rgba(201,168,76,0.25));
+}
+.ctx-greeting {
+  font-family: var(--fs);
+  font-size: clamp(30px, 8vw, 40px);
+  color: var(--text);
+  line-height: 1.1;
+  margin-bottom: 8px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+.ctx-greetsub {
+  font-family: var(--fn);
+  font-size: 13px;
+  color: var(--text-d);
+  line-height: 1.65;
+  opacity: 0.85;
+}
+
+/* Hero action */
+.ctx-hero {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-left: 2px solid rgba(201,168,76,0.35);
+  padding: 20px 16px 20px 24px;
+  cursor: pointer;
+  text-align: left;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  margin-bottom: 6px;
+  transition: opacity var(--t-fast) var(--ease-out),
+              border-left-color var(--t-fast) var(--ease-out);
+  box-shadow: -4px 0 20px rgba(201,168,76,0.08);
+}
+.ctx-hero:active {
+  opacity: 0.55;
+  border-left-color: var(--gold);
+}
+.ctx-hero-inner { flex: 1; min-width: 0; }
+.ctx-hero-eyebrow {
+  font-family: var(--fn);
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+  opacity: 0.9;
+}
+.ctx-hero-title {
+  font-family: var(--fs);
+  font-size: clamp(24px, 6vw, 32px);
+  color: var(--text);
+  line-height: 1.15;
+  margin-bottom: 8px;
+  font-weight: 400;
+}
+.ctx-hero-sub {
+  font-family: var(--fn);
+  font-size: 13px;
+  color: var(--text-d);
+  line-height: 1.6;
+  opacity: 0.8;
+}
+.ctx-hero-arrow {
+  font-size: 26px;
+  color: rgba(201,168,76,0.35);
+  flex-shrink: 0;
+  margin-left: 12px;
+}
+
+/* Secondary actions */
+.ctx-secondary-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-bottom: 40px;
+  padding-left: 26px;
+  border-left: 1px solid rgba(201,168,76,0.1);
+  margin-left: 1px;
+}
+.ctx-secondary {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(201,168,76,0.06);
+  padding: 13px 8px 13px 0;
+  cursor: pointer;
+  text-align: left;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  transition: opacity var(--t-fast) var(--ease-out);
+}
+.ctx-secondary:active { opacity: 0.5; }
+.ctx-sec-inner {
+  flex: 1;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  min-width: 0;
+}
+.ctx-sec-eyebrow {
+  font-family: var(--fn);
+  font-size: 8px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  flex-shrink: 0;
+  opacity: 0.5;
+}
+.ctx-sec-title {
+  font-family: var(--fs);
+  font-size: 15px;
+  color: var(--text-m);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ctx-sec-arrow {
+  font-size: 16px;
+  color: rgba(201,168,76,0.2);
+  flex-shrink: 0;
+  margin-left: 8px;
+}
+
+/* Progress strip */
+.home-progress-strip {
+  display: flex;
+  align-items: center;
+  padding: 0 4px 36px;
+  gap: 0;
+  opacity: 0.55;
+}
+.hps-label {
+  font-family: var(--fn);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-m);
+  margin-right: 20px;
+  flex-shrink: 0;
+}
+.hps-dots {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  justify-content: space-around;
+}
+.hps-dot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px 6px;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.hps-dot-label {
+  font-family: var(--fn);
+  font-size: 8px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-m);
+  line-height: 1;
+  opacity: 0.6;
+}
+.hps-dot-check {
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hps-dot-check svg {
+  width: 22px;
+  height: 22px;
+  color: rgba(201,168,76,0.2);
+  transition: color var(--t-mid) var(--ease-out),
+              filter var(--t-mid) var(--ease-out);
+}
+.hps-dot-check svg .sc-check-tick {
+  stroke-dasharray: 16;
+  stroke-dashoffset: 16;
+  transition: stroke-dashoffset var(--t-mid) var(--ease-out);
+}
+.hps-dot.sc-done .hps-dot-check svg {
+  color: var(--gold);
+  filter: drop-shadow(0 0 6px rgba(201,168,76,0.4));
+}
+.hps-dot.sc-done .hps-dot-check svg .sc-check-tick {
+  stroke-dashoffset: 0;
+}
+.hps-dot.sc-done .hps-dot-label {
+  color: var(--gold);
+  opacity: 0.8;
+}
+.hps-dot:active { opacity: 0.5; }
+
+/* My Duas section */
+.home-favs-section {
+  padding: 0 0 32px;
+  opacity: 0.9;
+}
+.home-favs-header {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 16px;
+  padding: 0 4px;
+}
+.home-favs-title {
+  font-family: var(--fs);
+  font-size: 16px;
+  color: var(--text-d);
+  font-weight: 400;
+}
+.home-favs-sub {
+  font-family: var(--fn);
+  font-size: 10px;
+  color: var(--text-m);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+/* ---- CONTEXTUAL FRIDAY HOUR ROW ---- */
+.ctx-jumuah-row {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-top: 1px solid rgba(201,168,76,0.08);
+  padding: 16px 4px 16px 8px;
+  cursor: pointer;
+  text-align: left;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  transition: opacity var(--t-fast) var(--ease-out);
+  margin-top: 8px;
+}
+.ctx-jumuah-row:active { opacity: 0.5; }
+.ctx-jumuah-inner {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+.ctx-jumuah-eyebrow {
+  font-family: var(--fn);
+  font-size: 8px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.6;
+}
+.ctx-jumuah-title {
+  font-family: var(--fs);
+  font-size: 17px;
+  color: var(--text-d);
+}
+.ctx-jumuah-sub {
+  font-family: var(--fn);
+  font-size: 11px;
+  color: var(--text-m);
+  line-height: 1.5;
+  opacity: 0.7;
+}
+.ctx-jumuah-arrow {
+  font-size: 18px;
+  color: rgba(201,168,76,0.2);
+  flex-shrink: 0;
+  margin-left: 8px;
+}
+
+/* Light mode adjustments */
+body.light .home-wordmark-title {
+  text-shadow: 0 0 30px rgba(122,92,18,0.2);
+}
+body.light .ctx-hero {
+  box-shadow: -4px 0 20px rgba(201,168,76,0.05);
+}
+body.light .hps-dot-check svg { color: rgba(122,92,18,0.2); }
+body.light .home-progress-strip { opacity: 0.8; }
+
 </style>
 </head>
 <body>
@@ -4721,21 +4896,30 @@ body.light .resume-card {
 
 <!-- =================== HOME VIEW =================== -->
 <div class="spa-view" id="home-view" data-view="home">
-  <div class="spa-header-bar">
+
+  <!-- Floating header — search + settings -->
+  <div class="spa-header-bar home-header-float">
     <button class="icon-btn" data-action="open-search" aria-label="Search">🔍</button>
     <button class="icon-btn" data-action="open-settings" aria-label="Settings">⚙️</button>
   </div>
 
-<div class="home-banner">
-  <div class="home-banner-title">Naafi</div>
-  <div class="home-banner-tagline">Dua &nbsp;·&nbsp; Adhkar &nbsp;·&nbsp; Dhikr</div>
-</div>
+  <!-- Wordmark -->
+  <div class="home-wordmark">
+    <div class="home-wordmark-title">Naafi</div>
+    <div class="home-wordmark-sub">Dua · Adhkar · Dhikr</div>
+  </div>
 
+  <!-- Hijri + streak — quiet meta row -->
+  <div class="home-meta-row">
+    <div class="hijri-date loading" id="hijriDisplay"></div>
+    <div class="streak-badge streak-zero" id="streakBadge">
+      <span class="streak-fire">🔥</span>
+      <span class="streak-num" id="streakNum">0</span>
+      <span class="streak-label" id="streakLabel">day streak</span>
+    </div>
+  </div>
 
-
-
-
-  <!-- RESUME CARD -->
+  <!-- Resume card — shown by JS only when session in progress -->
   <div class="resume-card" id="resumeCard" data-action="resume-session">
     <div class="resume-card-icon" id="resumeIcon">🌅</div>
     <div class="resume-card-body">
@@ -4747,143 +4931,53 @@ body.light .resume-card {
     <button class="resume-card-dismiss" id="resumeDismiss" data-action="dismiss-resume" aria-label="Dismiss">✕</button>
   </div>
 
-  <!-- Daily Progress Tracker -->
-  <div class="home-section-title">Today's Adhkar</div>
-  <div class="session-cards" id="progressTracker">
-
-    <div class="session-card" id="pt-morning" data-action="start-session" data-session="morning">
-      <div class="sc-icon">🌅</div>
-      <div class="sc-body">
-        <div class="sc-title">Morning Adhkar</div>
-        <div class="sc-sub">15 STEPS · START YOUR DAY</div>
-        <div class="sc-done-label">✓ Completed today</div>
-      </div>
-      <div class="sc-right">
-        <div class="sc-check" id="ptc-morning" data-action="toggle-progress" data-key="morning"><svg class="sc-check-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path class="sc-check-tick" d="M8 12l3 3 5-5"/></svg></div>
-        <div class="sc-begin">Begin</div>
-      </div>
-    </div>
-
-    <div class="session-card" id="pt-evening" data-action="start-session" data-session="evening">
-      <div class="sc-icon">🌆</div>
-      <div class="sc-body">
-        <div class="sc-title">Evening Adhkar</div>
-        <div class="sc-sub">14 STEPS · AFTER ʿASR</div>
-        <div class="sc-done-label">✓ Completed today</div>
-      </div>
-      <div class="sc-right">
-        <div class="sc-check" id="ptc-evening" data-action="toggle-progress" data-key="evening"><svg class="sc-check-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path class="sc-check-tick" d="M8 12l3 3 5-5"/></svg></div>
-        <div class="sc-begin">Begin</div>
-      </div>
-    </div>
-
-    <div class="session-card" id="pt-salah" data-action="show-adhkar">
-      <div class="sc-icon">🕌</div>
-      <div class="sc-body">
-        <div class="sc-title">Salah Adhkar</div>
-        <div class="sc-sub">AFTER EVERY PRAYER</div>
-        <div class="sc-done-label">✓ Done today</div>
-      </div>
-      <div class="sc-right">
-        <div class="sc-check" id="ptc-salah" data-action="toggle-progress" data-key="salah"><svg class="sc-check-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path class="sc-check-tick" d="M8 12l3 3 5-5"/></svg></div>
-        <div class="sc-begin">Begin</div>
-      </div>
-    </div>
-
-    <div class="session-card" id="pt-sleep" data-action="start-session" data-session="sleep">
-      <div class="sc-icon">🌙</div>
-      <div class="sc-body">
-        <div class="sc-title">Sleep Adhkar</div>
-        <div class="sc-sub">BEFORE BED · PROTECTION</div>
-        <div class="sc-done-label">✓ Completed tonight</div>
-      </div>
-      <div class="sc-right">
-        <div class="sc-check" id="ptc-sleep" data-action="toggle-progress" data-key="sleep"><svg class="sc-check-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path class="sc-check-tick" d="M8 12l3 3 5-5"/></svg></div>
-        <div class="sc-begin">Begin</div>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- STREAK BADGE -->
-  <div class="streak-wrap">
-    <div class="streak-badge streak-zero" id="streakBadge">
-      <span class="streak-fire">🔥</span>
-      <span class="streak-num" id="streakNum">0</span>
-      <span class="streak-label" id="streakLabel">day streak</span>
-    </div>
-  </div>
-  <!-- END STREAK BADGE -->
-
-  <div class="divider"><div class="dl"></div><div class="dg"></div><div class="dgo"></div><div class="dg"></div><div class="dl"></div></div>
-
-  <div class="hijri-date loading" id="hijriDisplay"></div>
-
-  <!-- CONTEXTUAL HOME (Phase A) -->
+  <!-- CONTEXTUAL HOME — hero + secondary — rendered by JS -->
   <div id="contextualHome" class="contextual-home"></div>
 
-
-
-  <!-- Quick-Start Intention Prompt -->
-  <div class="intention-wrap">
-    <div class="intention-title">What do you need right now?</div>
-    <div class="intention-chips">
-      <button class="intention-chip" data-action="open-dua-reader" data-cat="daily">
-        <span class="chip-emoji">😔</span> Feeling stressed
+  <!-- DAILY PROGRESS STRIP -->
+  <div class="home-progress-strip" id="homeProgressStrip">
+    <div class="hps-label">Today</div>
+    <div class="hps-dots">
+      <button class="hps-dot" id="hpd-morning" data-action="start-session" data-session="morning" title="Morning Adhkar">
+        <div class="hps-dot-check" id="ptc-morning" data-action="toggle-progress" data-key="morning"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path class="sc-check-tick" d="M8 12l3 3 5-5"/></svg></div>
+        <span class="hps-dot-label">Morning</span>
       </button>
-      <button class="intention-chip" data-action="open-dua-reader" data-cat="istighfar">
-        <span class="chip-emoji">🤍</span> Want forgiveness
+      <button class="hps-dot" id="hpd-evening" data-action="start-session" data-session="evening" title="Evening Adhkar">
+        <div class="hps-dot-check" id="ptc-evening" data-action="toggle-progress" data-key="evening"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path class="sc-check-tick" d="M8 12l3 3 5-5"/></svg></div>
+        <span class="hps-dot-label">Evening</span>
       </button>
-      <button class="intention-chip" data-action="start-session" data-session="morning">
-        <span class="chip-emoji">☀️</span> Starting my day
+      <button class="hps-dot" id="hpd-salah" data-action="show-adhkar" title="Salah Adhkar">
+        <div class="hps-dot-check" id="ptc-salah" data-action="toggle-progress" data-key="salah"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path class="sc-check-tick" d="M8 12l3 3 5-5"/></svg></div>
+        <span class="hps-dot-label">Salah</span>
       </button>
-      <button class="intention-chip" data-action="start-session" data-session="sleep">
-        <span class="chip-emoji">🌙</span> Going to sleep
+      <button class="hps-dot" id="hpd-sleep" data-action="start-session" data-session="sleep" title="Sleep Adhkar">
+        <div class="hps-dot-check" id="ptc-sleep" data-action="toggle-progress" data-key="sleep"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path class="sc-check-tick" d="M8 12l3 3 5-5"/></svg></div>
+        <span class="hps-dot-label">Sleep</span>
       </button>
     </div>
   </div>
 
-  <!-- DUA OF THE DAY -->
-
-<div id="duaOfDay" class="dua feat" aria-label="Dua of the Day">
-    <div class="dotd-eyebrow">Dua of the Day</div>
-    <div class="dotd-section" id="dotdSection"></div>
-    <div class="dlabel" id="dotdLabel"></div>
-    <div class="ar" id="dotdAr"></div>
-    <div class="tr" id="dotdTr"></div>
-    <div class="en" id="dotdEn"></div>
-    <div class="src" id="dotdSrc"></div>
-    <button id="dotdShareBtn" class="dua-share-btn" style="display:none;margin:12px auto 0;padding:8px 20px;border:1px solid var(--bdr);border-radius:20px;font-size:13px;gap:6px;" aria-label="Share Dua of the Day" data-action="open-dotd-share">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-      Share this Dua
-    </button>
-  </div>
-
-  <!-- Friday Hour Home Card -->
-  <div class="home-jumuah-card" data-action="open-jumuah">
-    <div class="hjc-left">
-      <div class="hjc-eyebrow">SA'AT AL-ISTIJĀBAH</div>
-      <div class="hjc-title">The Friday Hour</div>
-      <div class="hjc-sub">The last hour before Maghrib — duas are answered</div>
-    </div>
-    <div class="hjc-right">
-      <div class="hjc-icon">🕌</div>
-      <div class="hjc-arrow">›</div>
+  <!-- My Duas — visible when favourites exist -->
+  <div class="home-favs-section" id="myDuasOverlay">
+    <div id="favView">
+      <div class="home-favs-header">
+        <span class="home-favs-title">My Duas</span>
+        <span class="home-favs-sub">Your starred supplications</span>
+      </div>
+      <div id="favList"></div>
     </div>
   </div>
 
-  <!-- My Duas inline -->
-  <div class="my-duas-overlay" id="myDuasOverlay">
-    <div class="divider"><div class="dl"></div><div class="dg"></div><div class="dl"></div></div>
-<div id="favView">
-    <div class="sec-h" style="margin-bottom:20px;">
-      <div class="si">⭐</div>
-      <div><span class="st">My Duas</span><span class="ss">Your starred supplications</span></div>
-    </div>
-    <div id="favList"></div>
+  <!-- Hidden DotD hooks — JS populates these but they don't display -->
+  <div id="duaOfDay" style="display:none;" aria-hidden="true">
+    <div id="dotdSection"></div>
+    <div id="dotdLabel"></div>
+    <div id="dotdAr"></div>
+    <div id="dotdTr"></div>
+    <div id="dotdEn"></div>
+    <div id="dotdSrc"></div>
+    <button id="dotdShareBtn" style="display:none;" aria-hidden="true" data-action="open-dotd-share"></button>
   </div>
-  </div>
-
 
 </div><!-- end home-view -->
 
@@ -5563,7 +5657,7 @@ body.light .resume-card {
     </div>
   </button>
 
-  <button class="cat-tile" data-action="open-learn-topic" data-topic="jumua">
+  <button class="cat-tile" data-action="open-learn-topic" data-topic="qunut">
     <div class="cat-tile-band band-teal">🤲</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Qunut al-Nazilah</div>
@@ -6225,7 +6319,10 @@ var APP_STATE = {
   streak: {
     current: 0,
     lastDate: null
-  }
+  },
+
+  // ── Prayer times (cached from Aladhan, refreshed daily) ─
+  _prayerTimes: null
 };
 
 // Initialise APP_STATE from Storage on load
@@ -7747,12 +7844,17 @@ function escapeHtml(s){
 
   function renderProgress(){
     ['morning','evening','salah','sleep'].forEach(function(key){
+      // Update home progress strip dots
+      var dot = document.getElementById('hpd-'+key);
+      if(dot){
+        if(progress[key]){ dot.classList.add('sc-done'); }
+        else { dot.classList.remove('sc-done'); }
+      }
+      // Also update any session-card elements (Adhkar tab)
       var card = document.getElementById('pt-'+key);
-      if(!card) return;
-      if(progress[key]){
-        card.classList.add('sc-done');
-      } else {
-        card.classList.remove('sc-done');
+      if(card){
+        if(progress[key]){ card.classList.add('sc-done'); }
+        else { card.classList.remove('sc-done'); }
       }
     });
   }
@@ -8417,6 +8519,60 @@ var LEARN_DATA = {
       { eyebrow: 'BOTH WORLDS', heading: 'The Most Recited Du\'a of the Prophet ﷺ', arabic: 'رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ', tr: 'Rabbanā ātinā fid-dunyā ḥasanatan wa fil-ākhirati ḥasanatan wa qinā ʿadhāban-nār', body: 'This was the most frequent du\'a of the Prophet ﷺ on Arafah. It covers everything — the dunya, the akhirah, and protection from the Fire — in three short lines.', src: 'Surah Al-Baqarah 2:201' },
       { eyebrow: 'YĀ ḤAYYU YĀ QAYYŪM', heading: 'Especially After Asr', arabic: 'يَا حَيُّ يَا قَيُّومُ بِرَحْمَتِكَ أَسْتَغِيثُ أَصْلِحْ لِي شَأْنِي كُلَّهُ', tr: 'Yā Ḥayyu Yā Qayyūm bi-raḥmatika astaghīth aṣliḥ lī shaʾnī kullahu wa lā takilnī ilā nafsī ṭarfata ʿayn', body: 'Especially powerful in the afternoon of Arafah — the time of greatest acceptance. Ask Allah to fix every single affair of your life.<br><br><em>"O Ever-Living O Sustainer, by Your mercy I seek help. Rectify all my affairs and do not entrust me to myself even for a blink."</em>', src: 'Al-Nasa\'i — Sahih' },
       { eyebrow: 'PERSONAL DU\'A', heading: 'Speak to Allah Freely', body: 'This is the heart of Arafah — your personal conversation with Allah. The Prophet ﷺ said: <em>"Ask Allah for everything, even the strap of your sandal."</em><br><br>No du\'a is too small today. Pour your heart out: your marriage, your health, your family, your rizq, your akhirah. Say it in Arabic, in English, in whatever language your heart speaks.', src: 'Surah Al-Qasas 28:24' }
+    ]
+  },
+
+  qunut: {
+    intro: {
+      icon: '🤲',
+      eyebrow: "QUNUT AL-NAZILAH · DU'A IN CALAMITY",
+      title: "Qunut al-Nazilah",
+      hadith: '"The Prophet ﷺ performed Qunut for a month, making du\'a against those who had killed his Companions." — Sahih al-Bukhari 1002',
+      features: [
+        { icon: '🤲', text: 'A special du\'a recited in salah during trials' },
+        { icon: '📖', text: 'Established Sunnah — Hanafi, Shafi\'i, Maliki positions' },
+        { icon: '🛡️', text: 'For calamities affecting the Ummah' },
+        { icon: '💧', text: 'The du\'a of the distressed — Allah responds' }
+      ],
+      btnText: 'Learn Qunut al-Nazilah'
+    },
+    completeIcon: '🤲',
+    completeSub: 'Qunut al-Nazilah is a communal act of turning to Allah in hardship. When the Ummah suffers, the believer lifts his hands — in salah and outside it.',
+    cards: [
+      {
+        eyebrow: 'WHAT IS IT?',
+        heading: 'Qunut al-Nazilah — Du\'a in Times of Trial',
+        body: 'Qunut al-Nazilah is a special supplication made during salah — typically in the final rak\'ah before ruku\' or after it — when the Muslim community faces a calamity: war, famine, epidemic, or oppression.<br><br>It was practised by the Prophet ﷺ himself and is established in all four major madhabs, though the rulings differ on when and how it is performed.',
+        src: 'Sahih al-Bukhari 1002, Sahih Muslim 677'
+      },
+      {
+        eyebrow: 'HANAFI POSITION',
+        heading: 'Qunut in Witr — The Hanafi View',
+        body: 'In the Hanafi madhab, Qunut al-Nazilah is recited <strong>silently by the individual</strong> in any of the five daily prayers during a time of calamity — added to the normal Witr qunut or recited separately.<br><br>The Imam may also recite it aloud in congregation. It is a collective turning of the community toward Allah in the face of trial.',
+        src: 'Al-Hidayah, Marghinani'
+      },
+      {
+        eyebrow: 'THE DU\'A',
+        heading: 'What to Say',
+        arabic: 'اللَّهُمَّ اهْدِنَا فِيمَنْ هَدَيْتَ وَعَافِنَا فِيمَنْ عَافَيْتَ وَتَوَلَّنَا فِيمَنْ تَوَلَّيْتَ',
+        tr: 'Allāhumma-hdinā fīman hadayt, wa \'āfinā fīman \'āfayt, wa tawallanā fīman tawallayt…',
+        body: 'The Prophet ﷺ taught al-Hasan ibn \'Ali this du\'a for the Witr prayer. It is also the basis of Qunut al-Nazilah — to which the imam adds specific du\'as for those afflicted.<br><br>You may also make du\'a in your own words for the specific calamity facing the Ummah — the Prophet ﷺ used to name the groups in need of help.',
+        src: 'Abu Dawud 1425, Tirmidhi 464 — Sahih'
+      },
+      {
+        eyebrow: 'WHEN TO USE IT',
+        heading: 'Signs a Calamity Warrants Qunut',
+        body: 'Scholars have noted that Qunut al-Nazilah is appropriate when:<br><br>• A war or persecution is causing widespread harm to Muslims<br>• A disease or natural disaster is afflicting a community<br>• There is a specific crisis the Ummah has no power to solve except through du\'a<br><br>It is not for personal afflictions — for those, there are other duas of distress (du\'a al-karb).',
+        src: 'Fiqh al-Islami wa Adillatuh'
+      },
+      {
+        eyebrow: 'DU\'A AL-KARB',
+        heading: 'For Personal Distress',
+        arabic: 'لَا إِلَٰهَ إِلَّا اللَّهُ الْعَظِيمُ الْحَلِيمُ لَا إِلَٰهَ إِلَّا اللَّهُ رَبُّ الْعَرْشِ الْعَظِيمِ',
+        tr: 'Lā ilāha illallāhul-\'Aẓīmul-Ḥalīm, lā ilāha illallāhu Rabbul-\'Arshil-\'Aẓīm…',
+        body: 'When you personally are in distress, this is what the Prophet ﷺ would say.<br><br><em>"There is no god but Allah, the All-Mighty, the Forbearing. There is no god but Allah, Lord of the Magnificent Throne."</em><br><br>Not Qunut al-Nazilah — but the du\'a of the distressed believer. Say it when your own world feels heavy.',
+        src: 'Sahih al-Bukhari 6346, Sahih Muslim 2730'
+      }
     ]
   }
 
@@ -9445,6 +9601,66 @@ function showHijriDate(data) {
 loadHijriDate();
 
 // ============================================================
+//  PRAYER TIMES — fetch from Aladhan, cache for the day
+// ============================================================
+function loadPrayerTimes() {
+  var today = new Date();
+  var dateKey = today.toDateString();
+  var cacheKey = 'prayer_times_cache';
+  try {
+    var cached = JSON.parse(localStorage.getItem(cacheKey) || 'null');
+    if (cached && cached.date === dateKey && cached.times) {
+      APP_STATE._prayerTimes = cached.times;
+      renderContextualHome();
+      return;
+    }
+  } catch(e) {}
+
+  // Default to London; use Geolocation if available
+  var lat = 51.5074, lng = -0.1278;
+  var dd = String(today.getDate()).padStart(2,'0');
+  var mm = String(today.getMonth()+1).padStart(2,'0');
+  var yyyy = today.getFullYear();
+
+  function fetchTimes(la, lo) {
+    var url = 'https://api.aladhan.com/v1/timings/' + dd + '-' + mm + '-' + yyyy +
+              '?latitude=' + la + '&longitude=' + lo + '&method=2&school=1';
+    fetch(url).then(function(r){ return r.json(); }).then(function(data){
+      var t = data.data.timings;
+      function toMins(str) {
+        var parts = str.split(':'); return parseInt(parts[0],10)*60 + parseInt(parts[1],10);
+      }
+      var times = {
+        fajr:    toMins(t.Fajr),
+        sunrise: toMins(t.Sunrise),
+        dhuhr:   toMins(t.Dhuhr),
+        asr:     toMins(t.Asr),
+        maghrib: toMins(t.Maghrib),
+        isha:    toMins(t.Isha)
+      };
+      APP_STATE._prayerTimes = times;
+      try { localStorage.setItem(cacheKey, JSON.stringify({ date: dateKey, times: times })); } catch(e) {}
+      renderContextualHome();
+    }).catch(function(){
+      // Silently fail — fallback hardcoded values used
+    });
+  }
+
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      function(pos) { fetchTimes(pos.coords.latitude, pos.coords.longitude); },
+      function()    { fetchTimes(lat, lng); }, // denied — use London
+      { timeout: 4000, maximumAge: 86400000 }
+    );
+  } else {
+    fetchTimes(lat, lng);
+  }
+}
+
+// Call on load
+loadPrayerTimes();
+
+// ============================================================
 //  INSTALL PROMPT
 // ============================================================
 function initInstallPrompt() {
@@ -10390,85 +10606,56 @@ function shareAsImage() {
   var src      = _shareCardEl.getAttribute('data-src')     || '';
   var note     = _shareCardEl.getAttribute('data-note')    || '';
 
-  /* Fix 1: eyebrow = session title (data-section).
-     Strip "Step N — " prefix from title so header stays clean. */
-  var cleanTitle   = rawTitle.replace(/^Step\s+\d+\s*[\u2014\u2013-]+\s*/i, '').trim();
-  var eyebrowText  = (section || cleanTitle).replace(/[^\x00-\x7F]/g, '').trim().toUpperCase();
-  var title        = cleanTitle; /* used for share metadata only */
+  var cleanTitle  = rawTitle.replace(/^Step\s+\d+\s*[—–-]+\s*/i, '').trim();
+  var eyebrowLabel = (section && section.trim() ? section.trim() : cleanTitle).toUpperCase();
+  var title = cleanTitle;
 
   closeShareSheet();
-  ndlToast('Creating image\u2026');
+  ndlToast('Creating image…');
 
   setTimeout(function() {
     try {
-      /* ── Canvas: 9:16 story format — Instagram / Snapchat / WhatsApp ── */
+      /* 9:16 canvas — Instagram / WhatsApp story */
       var W = 1080, H = 1920, cx = W / 2;
       var cv = document.createElement('canvas');
       cv.width = W; cv.height = H;
       var ctx = cv.getContext('2d');
 
-      /* ── Background — deep navy matching the app ── */
-      var bg = ctx.createLinearGradient(0, 0, 0, H);
-      bg.addColorStop(0, '#0C1018'); bg.addColorStop(0.5, '#111827'); bg.addColorStop(1, '#0A0F1A');
-      ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
+      /* ── Background — deep navy, matching app ── */
+      ctx.fillStyle = '#0C1018';
+      ctx.fillRect(0, 0, W, H);
 
-      /* Ambient gold glow centred on card */
-      var glow = ctx.createRadialGradient(cx, H * 0.45, 0, cx, H * 0.45, 760);
-      glow.addColorStop(0,   'rgba(201,168,76,0.10)');
-      glow.addColorStop(0.5, 'rgba(201,168,76,0.04)');
-      glow.addColorStop(1,   'rgba(0,0,0,0)');
-      ctx.fillStyle = glow; ctx.fillRect(0, 0, W, H);
+      /* Subtle radial depth glow — matches app body atmospheric layer */
+      var depthGlow = ctx.createRadialGradient(cx, H * 0.3, 0, cx, H * 0.3, W * 0.9);
+      depthGlow.addColorStop(0,   'rgba(201,168,76,0.07)');
+      depthGlow.addColorStop(0.5, 'rgba(201,168,76,0.02)');
+      depthGlow.addColorStop(1,   'rgba(0,0,0,0)');
+      ctx.fillStyle = depthGlow;
+      ctx.fillRect(0, 0, W, H);
 
-      /* Subtle noise texture */
-      ctx.save(); ctx.globalAlpha = 0.010;
-      for (var nx = 0; nx < W; nx += 4) for (var ny = 0; ny < H; ny += 4)
-        if (Math.random() > 0.5) { ctx.fillStyle = '#C9A84C'; ctx.fillRect(nx, ny, 1, 1); }
-      ctx.restore();
+      /* Star field — matches app body::before */
+      var stars = [
+        [0.08, 0.12, 1, 0.40], [0.22, 0.58, 1, 0.10], [0.38, 0.22, 1, 0.28],
+        [0.55, 0.78, 1, 0.08], [0.70, 0.08, 1, 0.32], [0.84, 0.44, 1, 0.10],
+        [0.92, 0.68, 1, 0.20], [0.15, 0.88, 1, 0.08], [0.60, 0.50, 1.5, 0.16],
+        [0.76, 0.26, 1, 0.22], [0.30, 0.40, 1, 0.15], [0.48, 0.65, 1, 0.12],
+        [0.18, 0.35, 1, 0.18], [0.65, 0.15, 1, 0.25], [0.88, 0.80, 1, 0.14]
+      ];
+      stars.forEach(function(s) {
+        var sx = s[0]*W, sy = s[1]*H, sr = s[2], sa = s[3];
+        ctx.beginPath();
+        ctx.arc(sx, sy, sr, 0, Math.PI*2);
+        ctx.fillStyle = 'rgba(201,168,76,' + sa + ')';
+        ctx.fill();
+      });
 
-      /* ── Layout constants ── */
-      var PAD      = 72;
-      var CPAD     = 60;
-      var BRAND_H  = 160;
-      var BRAND_BOT = 80;
-      var cardX = PAD;
-      var cardW = W - PAD * 2;
-      var cardY = BRAND_H;
-      var cardH = H - BRAND_H - BRAND_BOT;
-      var cardR = 28;
-      var innerX = cardX + CPAD;
-      var innerW = cardW - CPAD * 2;
+      /* ── Layout — full bleed, generous padding ── */
+      var PAD   = 88;          /* side padding */
+      var TOP   = 160;         /* top starting Y */
+      var innerW = W - PAD * 2;
 
-      /* ── Card shadow ── */
-      ctx.save();
-      ctx.shadowColor = 'rgba(0,0,0,0.60)';
-      ctx.shadowBlur  = 56;
-      ctx.shadowOffsetY = 14;
-      _rrect(ctx, cardX, cardY, cardW, cardH, cardR);
-      ctx.fillStyle = '#111827'; ctx.fill();
-      ctx.restore();
-
-      /* Card fill */
-      _rrect(ctx, cardX, cardY, cardW, cardH, cardR);
-      ctx.fillStyle = '#111827'; ctx.fill();
-
-      /* Gold left-border accent */
-      ctx.fillStyle = 'rgba(201,168,76,0.60)';
-      ctx.fillRect(cardX, cardY + cardR, 3, cardH - cardR * 2);
-
-      /* Card border */
-      _rrect(ctx, cardX, cardY, cardW, cardH, cardR);
-      ctx.strokeStyle = 'rgba(201,168,76,0.22)'; ctx.lineWidth = 1.5; ctx.stroke();
-
-      /* Clip content to card */
-      ctx.save();
-      _rrect(ctx, cardX + 3, cardY, cardW - 3, cardH, cardR);
-      ctx.clip();
-
-      /* ── Eyebrow = dua title only (not section/category) ── */
-      var eyebrowLabel = cleanTitle.toUpperCase();
-
-      /* ── Pre-measure all text to compute total content height ── */
-      var arSizes = [72, 62, 52, 44, 36];
+      /* ── Font sizing ── */
+      var arSizes = [90, 76, 62, 52, 44];
       var arFont = arSizes[0];
       var arLines;
       for (var si = 0; si < arSizes.length; si++) {
@@ -10477,150 +10664,134 @@ function shareAsImage() {
         arLines = _duaWrapLines(ctx, ar, innerW);
         if (arLines.length <= 5) break;
       }
-      var arLineH = Math.round(arFont * 1.85);
+      var arLineH = Math.round(arFont * 1.9);
 
-      var trFont = Math.max(30, Math.min(Math.round(arFont * 0.54), 42));
+      var trFont = Math.max(34, Math.min(Math.round(arFont * 0.52), 46));
       ctx.font = 'italic ' + trFont + 'px "Palatino Linotype","Book Antiqua","Georgia",serif';
       var trLines = _duaWrapLines(ctx, tr, innerW);
-      var trLineH = Math.round(trFont * 1.65);
+      var trLineH = Math.round(trFont * 1.7);
 
-      var enFont = Math.max(26, Math.min(Math.round(trFont * 0.82), 36));
+      var enFont = Math.max(30, Math.min(Math.round(trFont * 0.84), 40));
       ctx.font = enFont + 'px "Palatino Linotype","Book Antiqua","Georgia",serif';
       var enLines = _duaWrapLines(ctx, en, innerW);
-      var enLineH = Math.round(enFont * 1.60);
+      var enLineH = Math.round(enFont * 1.65);
 
-      var srcFont = Math.max(22, Math.min(enFont - 4, 28));
-      var noteFont = Math.max(22, Math.min(enFont - 2, 30));
-      var noteLines = note ? _duaWrapLines(ctx, note, innerW - 28) : [];
-      var noteLineH = Math.round(noteFont * 1.60);
+      var srcFont = Math.max(24, Math.min(enFont - 4, 30));
+      var noteFont = Math.max(24, Math.min(enFont - 2, 32));
+      var noteLines = note ? _duaWrapLines(ctx, note, innerW - 32) : [];
+      var noteLineH = Math.round(noteFont * 1.65);
 
-      /* Compute total content height */
-      var ebH   = eyebrowLabel ? (46 + 50) : 24;
-      var arH   = arLines.length * arLineH + 30;
-      var divH  = 1 + 38;
-      var trH   = trLines.length * trLineH + 38;
+      /* ── Compute total content height ── */
+      var ebH   = eyebrowLabel ? (32 + 64) : 0;   /* eyebrow label + gap */
+      var arH   = arLines.length * arLineH + 48;
+      var trH   = trLines.length * trLineH + 48;
       var enH   = enLines.length * enLineH;
-      var srcH  = src ? (28 + Math.round(srcFont * 1.4)) : 0;
-      var noteH = note ? (28 + noteLines.length * noteLineH + 32) : 0;
-      var totalH = ebH + arH + divH + trH + enH + srcH + noteH;
+      var srcH  = src ? (40 + Math.round(srcFont * 1.4)) : 0;
+      var noteH = note ? (48 + noteLines.length * noteLineH + 32) : 0;
+      var totalH = ebH + arH + trH + enH + srcH + noteH;
 
-      /* Vertically centre content within card */
-      var topPad = Math.max(CPAD, Math.round((cardH - totalH) / 2));
-      var y = cardY + topPad;
+      /* ── Vertically centre content ── */
+      var availH = H - TOP - 120; /* bottom safe area */
+      var y = TOP + Math.max(0, Math.round((availH - totalH) / 2));
 
-      /* ── Eyebrow ── */
+      /* ── Eyebrow — tiny gold label ── */
       if (eyebrowLabel) {
-        ctx.font = '500 26px "Gill Sans","Optima","Trebuchet MS",sans-serif';
-        ctx.fillStyle = 'rgba(201,168,76,0.72)';
-        ctx.textAlign = 'left';
-        ctx.letterSpacing = '0.16em';
-        var ebShort = eyebrowLabel.length > 44 ? eyebrowLabel.substring(0, 42) + '\u2026' : eyebrowLabel;
-        ctx.fillText(ebShort, innerX, y);
+        ctx.font = '400 28px "Gill Sans","Optima","Trebuchet MS",sans-serif';
+        ctx.fillStyle = 'rgba(201,168,76,0.60)';
+        ctx.textAlign = 'center';
+        ctx.letterSpacing = '0.2em';
+        var ebShort = eyebrowLabel.length > 52 ? eyebrowLabel.substring(0, 50) + '…' : eyebrowLabel;
+        ctx.fillText(ebShort, cx, y + 28);
         ctx.letterSpacing = '0';
-        y += 46;
-        ctx.strokeStyle = 'rgba(201,168,76,0.16)'; ctx.lineWidth = 1;
-        ctx.beginPath(); ctx.moveTo(innerX, y); ctx.lineTo(innerX + innerW, y); ctx.stroke();
-        y += 50;
-      } else {
-        y += 24;
+        y += 32 + 64;
       }
 
-      /* ── Arabic ── */
+      /* ── Arabic — large gold, RTL centre ── */
       ctx.font = arFont + 'px "Scheherazade New","Traditional Arabic","Amiri",serif';
-      ctx.fillStyle = '#E8CC84'; ctx.textAlign = 'right'; ctx.direction = 'rtl';
+      ctx.fillStyle = '#E8CC84';
+      ctx.textAlign = 'center';
+      ctx.direction = 'rtl';
       for (var a = 0; a < arLines.length; a++) {
-        ctx.fillText(arLines[a].trim(), innerX + innerW, y + arFont * 0.82);
+        ctx.fillText(arLines[a].trim(), cx, y + arFont * 0.88);
         y += arLineH;
       }
       ctx.direction = 'ltr';
-      y += 30;
+      y += 48;
 
-      /* ── Thin divider ── */
-      ctx.strokeStyle = 'rgba(201,168,76,0.18)'; ctx.lineWidth = 1;
-      ctx.beginPath(); ctx.moveTo(innerX, y); ctx.lineTo(innerX + innerW, y); ctx.stroke();
-      y += 38;
+      /* ── Thin gold divider ── */
+      var divW = Math.round(innerW * 0.55);
+      ctx.strokeStyle = 'rgba(201,168,76,0.18)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(cx - divW/2, y);
+      ctx.lineTo(cx + divW/2, y);
+      ctx.stroke();
+      y += 48;
 
       /* ── Transliteration — italic, muted gold ── */
       ctx.font = 'italic ' + trFont + 'px "Palatino Linotype","Book Antiqua","Georgia",serif';
-      /* trLines and trLineH already computed above */
-      ctx.fillStyle = 'rgba(220,200,158,0.62)'; ctx.textAlign = 'left';
+      ctx.fillStyle = 'rgba(220,200,158,0.58)';
+      ctx.textAlign = 'center';
       for (var b = 0; b < trLines.length; b++) {
-        ctx.fillText(trLines[b].trim(), innerX, y + trFont);
+        ctx.fillText(trLines[b].trim(), cx, y + trFont);
         y += trLineH;
       }
-      y += 38;
+      y += 48;
 
       /* ── Translation — warm white ── */
-      var enFont = Math.max(26, Math.min(Math.round(trFont * 0.82), 36));
       ctx.font = enFont + 'px "Palatino Linotype","Book Antiqua","Georgia",serif';
-      var enLines = _duaWrapLines(ctx, en, innerW);
-      var enLineH = Math.round(enFont * 1.60);
-      ctx.fillStyle = 'rgba(240,230,210,0.78)'; ctx.textAlign = 'left';
+      ctx.fillStyle = 'rgba(240,230,210,0.82)';
+      ctx.textAlign = 'left';
       for (var c = 0; c < enLines.length; c++) {
-        ctx.fillText(enLines[c].trim(), innerX, y + enFont);
+        ctx.fillText(enLines[c].trim(), PAD, y + enFont);
         y += enLineH;
       }
 
-      /* ── Source ref — teal ── */
+      /* ── Source — teal ── */
       if (src) {
-        y += 28;
-        var srcFont = Math.max(22, Math.min(enFont - 4, 28));
+        y += 40;
         ctx.font = srcFont + 'px "Palatino Linotype","Book Antiqua","Georgia",serif';
-        ctx.fillStyle = 'rgba(82,183,136,0.75)'; ctx.textAlign = 'left';
+        ctx.fillStyle = 'rgba(82,183,136,0.70)';
+        ctx.textAlign = 'left';
         var srcShort = src.replace(/^Source:\s*/i, '');
-        srcShort = srcShort.length > 70 ? srcShort.substring(0, 68) + '\u2026' : srcShort;
-        ctx.fillText(srcShort, innerX, y + srcFont);
+        srcShort = srcShort.length > 72 ? srcShort.substring(0, 70) + '…' : srcShort;
+        ctx.fillText(srcShort, PAD, y + srcFont);
         y += Math.round(srcFont * 1.4);
       }
 
-      /* ── Fix 4: Note blockquote — gold left-bar card, matches in-app style ── */
-      if (note) {
-        y += 28;
-        var noteFont = Math.max(22, Math.min(enFont - 2, 30));
-        ctx.font = 'italic ' + noteFont + 'px "Palatino Linotype","Book Antiqua","Georgia",serif';
-        var noteLines = _duaWrapLines(ctx, note, innerW - 28);
-        var noteLineH = Math.round(noteFont * 1.60);
-        var noteBlockH = noteLines.length * noteLineH + 32;
-
-        /* Note card background */
-        ctx.fillStyle = 'rgba(201,168,76,0.06)';
-        _rrect(ctx, innerX, y, innerW, noteBlockH, 8);
+      /* ── Note blockquote — gold left bar ── */
+      if (note && noteLines.length) {
+        y += 48;
+        var noteBlockH = noteLines.length * noteLineH + 40;
+        /* Note background */
+        ctx.fillStyle = 'rgba(201,168,76,0.05)';
+        _rrect(ctx, PAD, y, innerW, noteBlockH, 10);
         ctx.fill();
-
-        /* Gold left accent bar */
-        ctx.fillStyle = 'rgba(201,168,76,0.55)';
-        ctx.fillRect(innerX, y, 3, noteBlockH);
-
+        /* Gold left accent */
+        ctx.fillStyle = 'rgba(201,168,76,0.50)';
+        ctx.fillRect(PAD, y, 3, noteBlockH);
         /* Note text */
-        ctx.fillStyle = 'rgba(220,200,158,0.70)';
+        ctx.font = 'italic ' + noteFont + 'px "Palatino Linotype","Book Antiqua","Georgia",serif';
+        ctx.fillStyle = 'rgba(220,200,158,0.65)';
         ctx.textAlign = 'left';
         for (var d = 0; d < noteLines.length; d++) {
-          ctx.fillText(noteLines[d].trim(), innerX + 20, y + noteFont + 14 + d * noteLineH);
+          ctx.fillText(noteLines[d].trim(), PAD + 24, y + noteFont + 18 + d * noteLineH);
         }
+        y += noteBlockH + 32;
       }
 
-      ctx.restore(); /* end card clip */
-
-      /* ── Branding — NAAFI wordmark centred above card ── */
-      var brandMidY = cardY / 2;
-      ctx.font = '400 34px "Palatino Linotype","Book Antiqua","Georgia",serif';
-      ctx.fillStyle = 'rgba(201,168,76,0.60)'; ctx.textAlign = 'center';
-      ctx.letterSpacing = '0.32em'; ctx.fillText('N A A F I', cx, brandMidY); ctx.letterSpacing = '0';
-      ctx.font = '24px "Gill Sans","Optima","Trebuchet MS",sans-serif';
-      ctx.fillStyle = 'rgba(168,148,112,0.40)';
-      ctx.fillText('Dua \u00B7 Adhkar \u00B7 Dhikr', cx, brandMidY + 40);
-
-      /* ── Bottom watermark ── */
+      /* ── Bottom watermark — very faint ── */
       ctx.font = '22px "Gill Sans","Optima","Trebuchet MS",sans-serif';
-      ctx.fillStyle = 'rgba(168,148,112,0.28)';
-      ctx.fillText('naafiapp.netlify.app', cx, cardY + cardH + 50);
+      ctx.fillStyle = 'rgba(168,148,112,0.20)';
+      ctx.textAlign = 'center';
+      ctx.fillText('naafiapp.netlify.app', cx, H - 60);
 
-      /* ── Output ── */
+      /* ── Export ── */
       cv.toBlob(function(blob) {
         if (!blob) { ndlToast('Could not create image'); return; }
         var file = new File([blob], 'naafi-dua.png', { type: 'image/png' });
         if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
-          navigator.share({ files: [file], title: title, text: 'Shared from NAAFI' }).catch(function(){});
+          navigator.share({ files: [file], title: title, text: 'Shared from Naafi' }).catch(function(){});
         } else if (navigator.share) {
           navigator.share({ files: [file], title: title }).catch(function(err) {
             var url = URL.createObjectURL(blob);
@@ -10631,7 +10802,7 @@ function shareAsImage() {
           var url = URL.createObjectURL(blob);
           var a = document.createElement('a'); a.href = url; a.download = 'naafi-dua-' + Date.now() + '.png'; a.click();
           setTimeout(function() { URL.revokeObjectURL(url); }, 2000);
-          ndlToast('Image saved \u2713');
+          ndlToast('Image saved ✓');
         }
       }, 'image/png');
 
@@ -10772,8 +10943,8 @@ function shareAsImage() {
       var action = decodeURIComponent(el.getAttribute('data-ctx') || '');
       if (!action) return;
       // Allow known safe function calls and compound statements using only those functions
-      var safe = /^(startGuidedSession|showView|openDuaReader|scrollToSection|openJumuahIntro|document\.getElementById)\(/.test(action)
-              || /^(showView|startGuidedSession|scrollToSection|openJumuahIntro)\(/.test(action.split(';')[0].trim());
+      var safe = /^(startGuidedSession|showView|openDuaReader|scrollToSection|openJumuahIntro|openLearnTopic|document\.getElementById)\(/.test(action)
+              || /^(showView|startGuidedSession|scrollToSection|openJumuahIntro|openLearnTopic)\(/.test(action.split(';')[0].trim());
       if (safe) { try { eval(action); } catch(e) {} }
     },
 
@@ -11122,25 +11293,68 @@ function getContextualHome() {
   var totalMins = hour * 60 + min;
   var isFriday = now.getDay() === 5;
 
-  var periods = [
-    { id: 'fajr',      from:  240, to:  390 },
-    { id: 'morning',   from:  390, to:  720 },
-    { id: 'dhuhr',     from:  720, to:  810 },
-    { id: 'afternoon', from:  810, to: 1020 },
-    { id: 'asr',       from: 1020, to: 1110 },
-    { id: 'maghrib',   from: 1110, to: 1230 },
-    { id: 'isha',      from: 1230, to: 1380 },
-    { id: 'night',     from: 1380, to: 1440 },
-    { id: 'night',     from:    0, to:  240 }
-  ];
+  // --- Islamic special day detection ---
+  var hijri = estimateHijri(now);
+  var hDay = hijri.day;
+  var hMonth = hijri.month; // 1-indexed: 9=Ramadan, 10=Shawwal, 12=Dhul Hijjah
+
+  // Special day flags
+  var isEidAlFitr    = (hMonth === 10 && hDay === 1);
+  var isEidAlAdha    = (hMonth === 12 && hDay === 10);
+  var isArafah       = (hMonth === 12 && hDay === 9);
+  var isDhulHijjahFirst10 = (hMonth === 12 && hDay >= 1 && hDay <= 9);
+  var isAyyamTashriq = (hMonth === 12 && hDay >= 11 && hDay <= 13);
+  var isEid          = isEidAlFitr || isEidAlAdha;
+
+  // Use cached dynamic prayer times if available, else fall back to hardcoded
+  var _pt = APP_STATE._prayerTimes || null;
 
   var period = 'morning';
-  for (var i = 0; i < periods.length; i++) {
-    if (totalMins >= periods[i].from && totalMins < periods[i].to) {
-      period = periods[i].id;
-      break;
+  if (_pt) {
+    // Dynamic period detection from real prayer times
+    var _pList = [
+      { id: 'fajr',      from: _pt.fajr,          to: _pt.sunrise },
+      { id: 'morning',   from: _pt.sunrise,        to: _pt.dhuhr },
+      { id: 'dhuhr',     from: _pt.dhuhr,          to: _pt.dhuhr + 60 },
+      { id: 'afternoon', from: _pt.dhuhr + 60,     to: _pt.asr },
+      { id: 'asr',       from: _pt.asr,            to: _pt.maghrib - 60 },
+      { id: 'maghrib',   from: _pt.maghrib - 60,   to: _pt.maghrib + 90 },
+      { id: 'isha',      from: _pt.maghrib + 90,   to: _pt.isha + 90 },
+      { id: 'night',     from: _pt.isha + 90,      to: 1440 },
+      { id: 'night',     from: 0,                  to: _pt.fajr }
+    ];
+    for (var i = 0; i < _pList.length; i++) {
+      var _from = _pList[i].from, _to = _pList[i].to;
+      if (_from > _to) continue; // skip wraparound duplicates
+      if (totalMins >= _from && totalMins < _to) { period = _pList[i].id; break; }
+    }
+    // Handle midnight wraparound for night
+    if (period === 'morning' && (totalMins >= (_pt.isha + 90) || totalMins < _pt.fajr)) {
+      period = 'night';
+    }
+  } else {
+    // Fallback hardcoded periods (London approximate)
+    var periods = [
+      { id: 'fajr',      from:  240, to:  390 },
+      { id: 'morning',   from:  390, to:  720 },
+      { id: 'dhuhr',     from:  720, to:  810 },
+      { id: 'afternoon', from:  810, to: 1020 },
+      { id: 'asr',       from: 1020, to: 1110 },
+      { id: 'maghrib',   from: 1110, to: 1230 },
+      { id: 'isha',      from: 1230, to: 1380 },
+      { id: 'night',     from: 1380, to: 1440 },
+      { id: 'night',     from:    0, to:  240 }
+    ];
+    for (var i = 0; i < periods.length; i++) {
+      if (totalMins >= periods[i].from && totalMins < periods[i].to) { period = periods[i].id; break; }
     }
   }
+
+  // --- Override period with special Islamic day if applicable ---
+  if (isEidAlAdha)              period = 'eid_adha';
+  else if (isEidAlFitr)         period = 'eid_fitr';
+  else if (isArafah)            period = 'arafah_day';
+  else if (isDhulHijjahFirst10) period = 'dhul_hijjah';
 
   var contexts = {
     fajr: {
@@ -11222,6 +11436,46 @@ function getContextualHome() {
         { eyebrow: 'NIGHT PRAYER', title: 'Tahajjud Dua', sub: 'The best prayer after fard is the night prayer', action: "startGuidedSession('sleep')" },
         { eyebrow: 'NIGHTLY', title: 'Surah Al-Mulk', sub: 'Intercedes until forgiven', action: "showView('learn'); setTimeout(function(){scrollToSection('surahs')},120);" }
       ]
+    },
+    eid_adha: {
+      greeting: 'Eid Mubarak',
+      sub: 'Taqabbalallahu minna wa minkum — may Allah accept from us and from you',
+      icon: '🎉',
+      cards: [
+        { eyebrow: 'EID AL-ADHA', title: 'Eid Adhkar & Duas', sub: 'Ghusl, Eid takbeer, sunnah acts of the day', action: "showView('duas'); setTimeout(function(){ scrollToSection('eid'); }, 120);" },
+        { eyebrow: 'AFTER SALAH', title: 'Post-Salah Adhkar', sub: 'Istighfar, Salam Dua, Tasbih, Ayatul Kursi', action: "showView('adhkar'); setTimeout(function(){document.getElementById('salah-interactive').scrollIntoView({behavior:'smooth'})},120);" },
+        { eyebrow: 'LEARN', title: 'Eid — The Full Guide', sub: 'Takbeer, qurbani, sunnah acts', action: "openLearnTopic('eid')" }
+      ]
+    },
+    eid_fitr: {
+      greeting: 'Eid Mubarak',
+      sub: 'Taqabbalallahu minna wa minkum — may Allah accept from us and from you',
+      icon: '🌙',
+      cards: [
+        { eyebrow: 'EID AL-FITR', title: 'Eid Adhkar & Duas', sub: 'Eid takbeer, sunnah acts of the day', action: "showView('duas'); setTimeout(function(){ scrollToSection('eid'); }, 120);" },
+        { eyebrow: 'AFTER SALAH', title: 'Post-Salah Adhkar', sub: 'Istighfar, Salam Dua, Tasbih, Ayatul Kursi', action: "showView('adhkar'); setTimeout(function(){document.getElementById('salah-interactive').scrollIntoView({behavior:'smooth'})},120);" },
+        { eyebrow: 'LEARN', title: 'Eid — The Full Guide', sub: 'Both Eids explained, sunnah acts', action: "openLearnTopic('eid')" }
+      ]
+    },
+    arafah_day: {
+      greeting: 'Yawm Arafah',
+      sub: 'The greatest day of the year for du\'a — fast if not on Hajj',
+      icon: '🕋',
+      cards: [
+        { eyebrow: 'TODAY\'S SUNNAH', title: 'Yawm Arafah Adhkar', sub: 'The guided session — 14 steps', action: "startGuidedSession('arafah')" },
+        { eyebrow: 'FAST TODAY', title: 'The Arafah Fast', sub: 'Expiates sins of two years', action: "openLearnTopic('arafah')" },
+        { eyebrow: 'MAKE DU\'A', title: 'Duas for Arafah', sub: 'The best dua is dua on Arafah', action: "showView('duas'); setTimeout(function(){ scrollToSection('arafah-duas'); }, 120);" }
+      ]
+    },
+    dhul_hijjah: {
+      greeting: 'The Blessed Ten Days',
+      sub: 'The greatest days of the year — increase in worship and good deeds',
+      icon: '🌙',
+      cards: [
+        { eyebrow: 'THESE DAYS', title: 'Dhul Hijjah — Full Guide', sub: 'Takbeer, fasting, deeds multiplied', action: "openLearnTopic('dhulhijjah')" },
+        { eyebrow: 'DAILY DHIKR', title: 'Dhul Hijjah Takbeer', sub: 'Allahu Akbar, Allahu Akbar, La ilaha illallah...', action: "showView('duas'); setTimeout(function(){ scrollToSection('dhulhijjah-duas'); }, 120);" },
+        { eyebrow: 'BEST ADHKAR', title: 'Morning Adhkar', sub: 'Deeds are more beloved to Allah these days', action: "startGuidedSession('morning')" }
+      ]
     }
   };
 
@@ -11263,8 +11517,6 @@ function renderContextualHome() {
   var todayKey = 'progress_' + new Date().toDateString();
   var progress = {};
   try { progress = JSON.parse(safeGet(todayKey, '{}')); } catch(e) {}
-
-  // Also check legacy progress_data key
   try {
     var legacyProgress = JSON.parse(safeGet('progress_data', '{}'));
     if (legacyProgress && typeof legacyProgress === 'object') {
@@ -11282,7 +11534,7 @@ function renderContextualHome() {
     return true;
   });
 
-  // Always show at least 2 cards
+  // Ensure at least 2 cards
   while (ctx.cards.length < 2) {
     ctx.cards.push({
       eyebrow: 'BROWSE',
@@ -11292,18 +11544,19 @@ function renderContextualHome() {
     });
   }
 
-  var cardsHtml = '';
-  ctx.cards.forEach(function(card) {
-    var isHighlight = card.highlight;
-    cardsHtml += '<button class="ctx-card' + (isHighlight ? ' ctx-card-highlight' : '') + '" data-action="ctx-action" data-ctx="' + encodeURIComponent(card.action) + '" type="button">' +
-      '<div class="ctx-card-inner">' +
-        '<div class="ctx-eyebrow">' + card.eyebrow + '</div>' +
-        '<div class="ctx-title">' + card.title + '</div>' +
-        '<div class="ctx-sub">' + card.sub + '</div>' +
+  // First card = hero. Remaining = secondary.
+  var hero = ctx.cards[0];
+  var secondary = ctx.cards.slice(1);
+
+  var secondaryHtml = secondary.map(function(card) {
+    return '<button class="ctx-secondary" data-action="ctx-action" data-ctx="' + encodeURIComponent(card.action) + '" type="button">' +
+      '<div class="ctx-sec-inner">' +
+        '<span class="ctx-sec-eyebrow">' + card.eyebrow + '</span>' +
+        '<span class="ctx-sec-title">' + card.title + '</span>' +
       '</div>' +
-      '<div class="ctx-arrow">›</div>' +
+      '<span class="ctx-sec-arrow">›</span>' +
     '</button>';
-  });
+  }).join('');
 
   el.innerHTML =
     '<div class="ctx-greeting-row">' +
@@ -11313,7 +11566,23 @@ function renderContextualHome() {
         '<div class="ctx-greetsub">' + ctx.sub + '</div>' +
       '</div>' +
     '</div>' +
-    '<div class="ctx-cards">' + cardsHtml + '</div>';
+    '<button class="ctx-hero" data-action="ctx-action" data-ctx="' + encodeURIComponent(hero.action) + '" type="button">' +
+      '<div class="ctx-hero-inner">' +
+        '<div class="ctx-hero-eyebrow">' + hero.eyebrow + '</div>' +
+        '<div class="ctx-hero-title">' + hero.title + '</div>' +
+        '<div class="ctx-hero-sub">' + hero.sub + '</div>' +
+      '</div>' +
+      '<div class="ctx-hero-arrow">›</div>' +
+    '</button>' +
+    (secondary.length ? '<div class="ctx-secondary-list">' + secondaryHtml + '</div>' : '') +
+    (new Date().getDay() === 5 ? '<button class="ctx-jumuah-row" data-action="open-jumuah" type="button">' +
+      '<span class="ctx-jumuah-inner">' +
+        '<span class="ctx-jumuah-eyebrow">SA\'AT AL-ISTIJĀBAH</span>' +
+        '<span class="ctx-jumuah-title">The Friday Hour</span>' +
+        '<span class="ctx-jumuah-sub">Last hour before Maghrib — duas are answered</span>' +
+      '</span>' +
+      '<span class="ctx-jumuah-arrow">›</span>' +
+    '</button>' : '');
 }
 
 // Run on load
