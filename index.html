@@ -112,7 +112,10 @@ body.light .dhikr{background:var(--card);}
   font-size:calc(clamp(26px,6.5vw,36px) * var(--ar-scale));
   color:var(--gold-l);text-align:right;direction:rtl;
   line-height:2.1;margin-bottom:14px;
-  text-shadow:0 0 30px rgba(201,168,76,.18);
+  text-shadow:
+    0 0 40px rgba(201,168,76,.28),
+    0 0 80px rgba(201,168,76,.12),
+    0 0 120px rgba(201,168,76,.05);
 }
 .ar.sm{font-size:calc(clamp(20px,5vw,26px) * var(--ar-scale));}
 .ar.xs{font-size:calc(clamp(17px,4vw,22px) * var(--ar-scale));}
@@ -123,7 +126,10 @@ body.light .dhikr{background:var(--card);}
   font-size:calc(clamp(26px,7vw,42px) * var(--ar-scale));
   color:var(--gold-l);direction:rtl;line-height:2;
   margin-bottom:22px;
-  text-shadow:0 0 40px rgba(201,168,76,.22);
+  text-shadow:
+    0 0 50px rgba(201,168,76,.32),
+    0 0 100px rgba(201,168,76,.14),
+    0 0 150px rgba(201,168,76,.06);
 }
 .et-ar{font-family:var(--fa);font-size:calc(20px * var(--ar-scale));color:var(--gold-l);direction:rtl;text-align:right;line-height:1.9;}
 .far{font-family:var(--fa);font-size:calc(clamp(18px,5vw,26px) * var(--ar-scale));color:var(--gold-l);direction:rtl;margin-bottom:10px;line-height:2;}
@@ -685,6 +691,26 @@ body::before{
   100% { opacity: 1.0; transform: translateY(-3px); }
 }
 
+/* PART 2: Mid-layer ambient glow — depth illusion behind content */
+.spa-view::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 70% 55% at 50% 25%, rgba(201,168,76,0.055) 0%, transparent 65%),
+    radial-gradient(ellipse 40% 35% at 20% 60%, rgba(201,168,76,0.025) 0%, transparent 70%),
+    radial-gradient(ellipse 35% 28% at 80% 70%, rgba(201,168,76,0.02) 0%, transparent 70%);
+  animation: glow-breathe 8s ease-in-out infinite alternate;
+}
+body.light .spa-view::before { display: none; }
+
+@keyframes glow-breathe {
+  0%   { opacity: 0.6; }
+  100% { opacity: 1.0; }
+}
+
 .page{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:8px 20px 80px;}
 
 
@@ -727,8 +753,8 @@ body::before{
 .dg{width:7px;height:7px;background:var(--gold-d);transform:rotate(45deg);flex-shrink:0;}
 .dgo{width:7px;height:7px;border:1px solid var(--gold-d);transform:rotate(45deg);flex-shrink:0;}
 
-.sec{margin-bottom:60px;}
-.sec-h{display:flex;align-items:center;gap:12px;margin-bottom:20px;}
+.sec{margin-bottom:72px;}
+.sec-h{display:flex;align-items:center;gap:12px;margin-bottom:28px;padding-top:8px;}
 .si{
   width:36px;height:36px;flex-shrink:0;
   border:1px solid var(--gold-d);background:var(--gold-f);
@@ -741,18 +767,18 @@ body::before{
 .dua{
   background: transparent;
   border: none;
-  border-top: 1px solid rgba(201,168,76,0.15);
-  border-bottom: 1px solid rgba(201,168,76,0.08);
   border-radius: 0;
-  padding:32px 0 28px;margin-bottom:0;position:relative;
+  padding:40px 0 32px;margin-bottom:0;position:relative;
 }
 .dua.feat{
-  border-top: 1px solid rgba(201,168,76,0.2);
-  border-bottom: 1px solid rgba(201,168,76,0.1);
+  border: none;
   background: transparent;
-  padding-top: 36px;
-  padding-bottom: 36px;
+  padding-top: 48px;
+  padding-bottom: 44px;
 }
+/* Breathing gaps: every 3rd .dua gets extra top space for irregular rhythm */
+.dua:nth-child(3n){padding-top:56px;}
+.dua:nth-child(5n){padding-bottom:52px;}
 .feat-badge{
   display:inline-block;font-size:9px;letter-spacing:.2em;color:var(--gold);
   background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.3);
@@ -761,7 +787,7 @@ body::before{
 .dlabel{font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;}
 /* .ar, .ar.sm, .ar.xs — defined above in the font-scale block */
 .tr{font-family:var(--fs);font-style:italic;font-size:13px;color:var(--text-m);margin-bottom:10px;line-height:1.75;letter-spacing:0.01em;}
-.en{font-size:13.5px;color:var(--text);line-height:1.9;padding-top:11px;border-top:1px solid rgba(201,168,76,.1);letter-spacing:0.01em;}
+.en{font-size:13.5px;color:var(--text);line-height:1.9;padding-top:9px;letter-spacing:0.01em;}
 .src{font-size:10px;color:var(--text-m);margin-top:8px;line-height:1.5;}
 .src b{color:var(--green);font-weight:400;}
 .badge{
@@ -778,12 +804,12 @@ body::before{
 .note strong{color:var(--gold-l);}
 .note em{color:var(--text);font-style:normal;}
 
-.expand-wrap{margin-bottom:16px;}
+.expand-wrap{margin-bottom:20px;}
 .expand-trigger{
   width:100%;background:transparent;
-  border:none;border-bottom:1px solid rgba(201,168,76,0.08);border-radius:0;
+  border:none;border-bottom:1px solid rgba(201,168,76,0.05);border-radius:0;
   display:flex;align-items:center;gap:12px;
-  padding:16px 0;cursor:pointer;
+  padding:18px 0;cursor:pointer;
   min-height:var(--tap-min);
   text-align:left;
   transition:opacity .2s;
@@ -791,7 +817,7 @@ body::before{
   font-family:inherit;font-size:inherit;color:inherit;
 }
 .expand-trigger:active{opacity:0.6;}
-.expand-trigger.open{border-bottom-color:rgba(201,168,76,0.2);opacity:1;}
+.expand-trigger.open{border-bottom-color:rgba(201,168,76,0.08);opacity:1;}
 .et-num{
   width:40px;height:40px;flex-shrink:0;
   border:1px solid var(--gold-d);
@@ -816,7 +842,7 @@ body::before{
   grid-template-rows:0fr;
   transition:grid-template-rows var(--t-mid) var(--ease-out);
   background:transparent;
-  border:none;border-bottom:1px solid rgba(201,168,76,0.08);
+  border:none;
   border-radius:0;
   overflow:hidden;
   position:relative;
@@ -835,8 +861,8 @@ body::before{
 .step-item{
   display:flex;gap:12px;align-items:flex-start;
   background:transparent;border:none;
-  border-bottom:1px solid rgba(201,168,76,0.08);
-  border-radius:0;padding:16px 0;margin-bottom:0;
+  border-bottom:1px solid rgba(201,168,76,0.05);
+  border-radius:0;padding:18px 0;margin-bottom:0;
 }
 .step-num{
   width:28px;height:28px;flex-shrink:0;
@@ -918,7 +944,7 @@ body::before{
 .fcopy{margin-top:24px;font-size:11px;color:var(--text-m);opacity:.5;letter-spacing:.08em;line-height:1.8;}
 
 @media(max-width:480px){
-  .dua{padding:20px 16px 18px;padding-left:40px;padding-right:80px;}
+  .dua{padding:32px 16px 28px;padding-left:40px;padding-right:80px;}
   .ar{font-size:calc(clamp(19px,6vw,26px) * var(--ar-scale));}
   .tgrid,.dgrid,.pgrid{grid-template-columns:1fr;}
   .nav-tab,.nav-btn{padding:0 8px;font-size:9px;letter-spacing:.12em;}
@@ -1123,6 +1149,7 @@ body::before{
 .spa-view.view-active,
 .spa-view.view-entering {
   padding-bottom: calc(100px + env(safe-area-inset-bottom, 0px));
+  padding-top: 8px;
 }
 .spa-view.view-leaving {
   display: block;
@@ -1443,7 +1470,7 @@ body.light .settings-popover { background: rgba(250,246,238,0.98); }
   gap: 14px;
   background: transparent;
   border: none;
-  border-bottom: 1px solid rgba(201,168,76,0.08);
+  border-bottom: 1px solid rgba(201,168,76,0.05);
   border-radius: 0;
   padding: 18px 0;
   margin-bottom: 0;
@@ -1455,7 +1482,7 @@ body.light .settings-popover { background: rgba(250,246,238,0.98); }
   user-select: none;
 }
 .dho-index-row:first-child {
-  border-top: 1px solid rgba(201,168,76,0.08);
+  border-top: 1px solid rgba(201,168,76,0.05);
 }
 .dho-index-row:active {
   opacity: 0.6;
@@ -1733,9 +1760,9 @@ body.light .settings-popover { background: rgba(250,246,238,0.98); }
   gap: 0;
   background: transparent;
   border: none;
-  border-bottom: 1px solid rgba(201,168,76,0.08);
+  border-bottom: 1px solid rgba(201,168,76,0.05);
   border-radius: 0;
-  padding: 16px 0;
+  padding: 18px 0;
   cursor: pointer;
   position: relative;
   -webkit-tap-highlight-color: transparent;
@@ -1744,7 +1771,7 @@ body.light .settings-popover { background: rgba(250,246,238,0.98); }
   will-change: opacity;
 }
 .session-card:first-child {
-  border-top: 1px solid rgba(201,168,76,0.08);
+  border-top: 1px solid rgba(201,168,76,0.05);
 }
 .session-card:active {
   opacity: 0.6;
@@ -1786,6 +1813,41 @@ body.light .settings-popover { background: rgba(250,246,238,0.98); }
   color: var(--gold-d);
   flex-shrink: 0;
   line-height: 1;
+}
+
+/* ---- TIME-AWARE SESSION CARD STATES ---- */
+/* Active session: comes forward with gold accent */
+[data-active-session="morning"] .session-card[data-session="morning"],
+[data-active-session="evening"] .session-card[data-session="evening"],
+[data-active-session="salah"]   .session-card[data-session="salah"],
+[data-active-session="sleep"]   .session-card[data-session="sleep"] {
+  border-bottom-color: rgba(201,168,76,0.25);
+  border-top-color: rgba(201,168,76,0.18);
+}
+[data-active-session="morning"] .session-card[data-session="morning"] .session-card-title,
+[data-active-session="evening"] .session-card[data-session="evening"] .session-card-title,
+[data-active-session="salah"]   .session-card[data-session="salah"]   .session-card-title,
+[data-active-session="sleep"]   .session-card[data-session="sleep"]   .session-card-title {
+  color: var(--gold-l);
+}
+[data-active-session="morning"] .session-card[data-session="morning"] .session-card-arrow,
+[data-active-session="evening"] .session-card[data-session="evening"] .session-card-arrow,
+[data-active-session="salah"]   .session-card[data-session="salah"]   .session-card-arrow,
+[data-active-session="sleep"]   .session-card[data-session="sleep"]   .session-card-arrow {
+  color: var(--gold);
+}
+
+/* Inactive sessions: step back slightly */
+[data-active-session="morning"] .session-card:not([data-session="morning"]):not(.session-card-qadr):not(.session-card-arafah),
+[data-active-session="evening"] .session-card:not([data-session="evening"]):not(.session-card-qadr):not(.session-card-arafah),
+[data-active-session="salah"]   .session-card:not([data-session="salah"]):not(.session-card-qadr):not(.session-card-arafah),
+[data-active-session="sleep"]   .session-card:not([data-session="sleep"]):not(.session-card-qadr):not(.session-card-arafah) {
+  opacity: 0.5;
+}
+
+/* No active session set — all cards normal */
+[data-active-session=""] .session-card {
+  opacity: 1;
 }
 
 /* ---- JUMUAH SESSION CARD ---- */
@@ -2266,7 +2328,9 @@ body.light .guided-overlay { background: var(--deep); }
   direction: rtl;
   line-height: 2.2;
   margin-bottom: 24px;
-  text-shadow: 0 0 30px rgba(201,168,76,.15);
+  text-shadow:
+    0 0 40px rgba(201,168,76,.28),
+    0 0 80px rgba(201,168,76,.10);
 }
 .guided-tr {
   font-family: var(--fs);
@@ -2516,6 +2580,29 @@ body.light .guided-overlay { background: var(--deep); }
   opacity: .6;
   line-height: 1.8;
   letter-spacing: .06em;
+}
+.sv-time-input {
+  background: rgba(201,168,76,0.06);
+  border: 1px solid rgba(201,168,76,0.2);
+  border-radius: 8px;
+  color: var(--text);
+  font-family: var(--fn);
+  font-size: 15px;
+  padding: 6px 10px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  min-width: 100px;
+  text-align: center;
+}
+.sv-time-input:focus {
+  outline: none;
+  border-color: var(--gold);
+}
+body.light .sv-time-input {
+  color-scheme: light;
+}
+body:not(.light) .sv-time-input {
+  color-scheme: dark;
 }
 
 /* ---- HIJRI DATE DISPLAY ---- */
@@ -3648,6 +3735,154 @@ body.light .band-slate  { background: linear-gradient(135deg, #d8dce8 0%, #c0c8d
   font-family: var(--fn); font-size: 11px; color: var(--green);
   letter-spacing: .05em; margin-top: 8px;
 }
+
+/* ============================================================
+   ART OF DU'A — PROSE SCROLL MODE (hub deck)
+   ============================================================ */
+
+/* Hub deck: full scroll, no card-flip */
+#learn-deck-hub {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+#learn-deck-hub .learn-deck-back {
+  display: none;
+}
+#learn-deck-hub .hub-scroll-body {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+/* ======================================================
+   ART OF DU'A — READING EXPERIENCE
+   ====================================================== */
+.hub-scroll-body {
+  padding: 0 20px 80px;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.hub-entry {
+  padding: 40px 0 36px;
+  border-bottom: 1px solid rgba(201,168,76,0.06);
+}
+.hub-entry:last-child { border-bottom: none; }
+
+.learn-card-section {
+  font-family: var(--fn);
+  font-size: 8px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.7;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.learn-card-section::before {
+  content: '✦';
+  font-size: 7px;
+  opacity: 0.8;
+}
+
+.learn-card-title {
+  font-family: var(--fs);
+  font-size: clamp(22px, 5.5vw, 30px);
+  font-weight: 400;
+  color: var(--text);
+  line-height: 1.2;
+  margin-bottom: 20px;
+  letter-spacing: -0.01em;
+}
+
+.learn-card-body {
+  font-family: var(--fs);
+  font-size: clamp(14px, 3.8vw, 16px);
+  color: var(--text-d);
+  line-height: 1.9;
+  letter-spacing: 0.01em;
+}
+#learn-deck-hub .learn-card-body em {
+  color: var(--gold-l);
+  font-style: italic;
+  display: block;
+  font-size: clamp(15px, 4vw, 17px);
+  line-height: 1.75;
+  margin: 20px 0;
+  padding-left: 20px;
+  border-left: 2px solid rgba(201,168,76,0.35);
+}
+#learn-deck-hub .learn-card-body strong {
+  color: var(--text);
+  font-weight: 400;
+}
+#learn-deck-hub .learn-card-body br + br {
+  display: block;
+  content: '';
+  margin-top: 12px;
+}
+
+.learn-card-src {
+  font-family: var(--fn);
+  font-size: 11px;
+  color: var(--green);
+  letter-spacing: 0.06em;
+  margin-top: 20px;
+  opacity: 0.8;
+}
+
+/* Section break — ornamental divider between major sections */
+.hub-section-break {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 0 40px;
+}
+.hub-section-break-ornament {
+  font-size: 26px;
+  color: var(--gold);
+  opacity: 0.25;
+  line-height: 1;
+}
+
+/* Hub header */
+#learn-deck-hub .hub-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px 12px;
+  border-bottom: 1px solid var(--bdr);
+  background: var(--deep);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  flex-shrink: 0;
+}
+#learn-deck-hub .hub-header-title {
+  font-family: var(--fs);
+  font-size: 17px;
+  color: var(--gold-l);
+  font-weight: 400;
+  flex: 1;
+  text-align: center;
+}
+#learn-deck-hub .hub-close {
+  background: rgba(201,168,76,.07);
+  border: 1px solid var(--bdr);
+  border-radius: var(--radius);
+  color: var(--text-d);
+  font-size: 14px;
+  min-height: 36px; min-width: 36px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
 .learn-card-action {
   display: inline-flex; align-items: center; gap: 6px;
   margin-top: 16px; padding: 10px 16px;
@@ -3743,29 +3978,36 @@ body.light .band-slate  { background: linear-gradient(135deg, #d8dce8 0%, #c0c8d
   display: flex; flex-direction: column;
 }
 .dua-reader-label {
-  font-family: var(--fn); font-size: 11px; color: var(--text-m);
-  letter-spacing: .16em; text-transform: uppercase;
-  margin-bottom: 20px; text-align: center;
+  font-family: var(--fn); font-size: 9px; color: var(--gold);
+  letter-spacing: .22em; text-transform: uppercase;
+  margin-bottom: 24px; text-align: center;
+  opacity: 0.75;
 }
 .dua-reader-ar {
   font-family: var(--fa);
-  font-size: calc(clamp(24px, 7vw, 34px) * var(--ar-scale));
+  font-size: calc(clamp(26px, 7.5vw, 38px) * var(--ar-scale));
   color: var(--gold-l); direction: rtl; text-align: center;
-  line-height: 2.0; margin-bottom: 20px;
+  line-height: 2.1; margin-bottom: 28px;
+  text-shadow: 0 0 20px rgba(201,168,76,0.15);
 }
 .dua-reader-tr {
   font-family: var(--fs); font-style: italic;
-  font-size: clamp(14px, 3.5vw, 16px); color: var(--text-d);
-  line-height: 1.8; text-align: center; margin-bottom: 16px;
+  font-size: clamp(13px, 3.2vw, 15px); color: var(--text-m);
+  line-height: 1.8; text-align: center; margin-bottom: 24px;
+  opacity: 0.8;
+  border-top: 1px solid rgba(201,168,76,0.1);
+  padding-top: 20px;
 }
 .dua-reader-en {
-  font-family: var(--fn); font-size: clamp(14px, 3.5vw, 15px);
-  color: var(--text); line-height: 1.8; text-align: center;
-  margin-bottom: 16px;
+  font-family: var(--fs); font-size: clamp(15px, 3.8vw, 17px);
+  color: var(--text); line-height: 1.85; text-align: center;
+  margin-bottom: 20px;
+  font-style: normal;
 }
 .dua-reader-src {
-  font-family: var(--fn); font-size: 12px; color: var(--green);
-  text-align: center; margin-bottom: 12px; letter-spacing: .04em;
+  font-family: var(--fn); font-size: 11px; color: var(--green);
+  text-align: center; margin-bottom: 16px; letter-spacing: .06em;
+  opacity: 0.8;
 }
 .dua-reader-badge {
   font-family: var(--fn); font-size: 12px; color: var(--gold);
@@ -3821,7 +4063,7 @@ body.light .band-slate  { background: linear-gradient(135deg, #d8dce8 0%, #c0c8d
   display: flex; align-items: center; justify-content: space-between;
   padding: 12px 20px;
   padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 12px);
-  border-top: 1px solid var(--bdr); flex-shrink: 0; gap: 12px;
+  border-top: 1px solid rgba(201,168,76,0.1); flex-shrink: 0; gap: 12px;
 }
 .dua-reader-nav-prev,
 .dua-reader-nav-next {
@@ -4543,32 +4785,32 @@ body.light .resume-card {
 .ctx-greeting-row {
   display: flex;
   align-items: flex-start;
-  gap: 16px;
-  margin-bottom: 32px;
+  gap: 12px;
+  margin-bottom: 20px;
   padding: 0 4px;
 }
 .ctx-icon {
-  font-size: 44px;
+  font-size: 32px;
   line-height: 1;
   margin-top: 4px;
   flex-shrink: 0;
-  filter: drop-shadow(0 0 12px rgba(201,168,76,0.25));
+  filter: drop-shadow(0 0 10px rgba(201,168,76,0.2));
 }
 .ctx-greeting {
   font-family: var(--fs);
-  font-size: clamp(30px, 8vw, 40px);
-  color: var(--text);
+  font-size: clamp(22px, 5.5vw, 28px);
+  color: var(--text-d);
   line-height: 1.1;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
   font-weight: 400;
   letter-spacing: -0.01em;
 }
 .ctx-greetsub {
   font-family: var(--fn);
-  font-size: 13px;
-  color: var(--text-d);
-  line-height: 1.65;
-  opacity: 0.85;
+  font-size: 12px;
+  color: var(--text-m);
+  line-height: 1.6;
+  opacity: 0.75;
 }
 
 /* Hero action */
@@ -4605,11 +4847,19 @@ body.light .resume-card {
 }
 .ctx-hero-title {
   font-family: var(--fs);
-  font-size: clamp(24px, 6vw, 32px);
+  font-size: clamp(28px, 7vw, 38px);
   color: var(--text);
-  line-height: 1.15;
+  line-height: 1.1;
   margin-bottom: 8px;
   font-weight: 400;
+}
+.ctx-hero-time {
+  font-family: var(--fn);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  color: var(--gold);
+  opacity: 0.65;
+  font-style: normal;
 }
 .ctx-hero-sub {
   font-family: var(--fn);
@@ -4967,6 +5217,10 @@ body.light .home-progress-strip { opacity: 0.8; }
         <span class="home-favs-title">My Duas</span>
         <span class="home-favs-sub">Your starred supplications</span>
       </div>
+      <div id="favFoldersSection" style="margin-bottom: 28px;display:none;">
+        <div style="font-family:var(--fs);font-size:13px;color:var(--text-m);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:12px;opacity:0.6;">Folders</div>
+        <div id="favFoldersGrid" style="display:flex;flex-direction:column;gap:8px;"></div>
+      </div>
       <div id="favList"></div>
     </div>
   </div>
@@ -5022,7 +5276,7 @@ body.light .home-progress-strip { opacity: 0.8; }
       </div>
       <div class="session-card-arrow">›</div>
     </div>
-    <div class="session-card" data-action="scroll-salah-interactive">
+    <div class="session-card" data-action="scroll-salah-interactive" data-session="salah">
       <div class="session-card-icon">🕌</div>
       <div class="session-card-body">
         <div class="session-card-title">After Every Salah</div>
@@ -5392,7 +5646,7 @@ body.light .home-progress-strip { opacity: 0.8; }
     </div>
   </button>
 
-  <button class="cat-tile" data-action="open-dua-reader" data-cat="daily">
+  <button class="cat-tile" data-action="open-dua-reader" data-cat="illness">
     <div class="cat-tile-band band-slate">🤲</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Illness &amp; Hardship</div>
@@ -5400,7 +5654,7 @@ body.light .home-progress-strip { opacity: 0.8; }
     </div>
   </button>
 
-  <button class="cat-tile" data-action="open-dua-reader" data-cat="daily">
+  <button class="cat-tile" data-action="open-dua-reader" data-cat="travel">
     <div class="cat-tile-band band-earth">✈️</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Travel</div>
@@ -5408,7 +5662,7 @@ body.light .home-progress-strip { opacity: 0.8; }
     </div>
   </button>
 
-  <button class="cat-tile cat-tile-wide" data-action="open-dua-reader" data-cat="daily">
+  <button class="cat-tile cat-tile-wide" data-action="open-dua-reader" data-cat="eating">
     <div class="cat-tile-band band-forest">🍽️</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Eating &amp; Drinking</div>
@@ -5750,6 +6004,87 @@ body.light .home-progress-strip { opacity: 0.8; }
       </div>
     </div>
 
+    <div class="sv-section-title">Prayer Times</div>
+    <div style="font-family:var(--fn);font-size:13px;color:var(--text-d);line-height:1.6;padding:4px 0 16px;">
+      Set your local prayer times. Naafi uses these to show the right content at the right moment.
+    </div>
+
+    <div class="sv-row" style="flex-wrap:wrap;gap:10px 20px;padding-bottom:20px;">
+
+      <div style="display:flex;align-items:center;justify-content:space-between;width:100%;padding:8px 0;border-bottom:1px solid rgba(201,168,76,0.08);">
+        <div>
+          <div class="sv-label">Fajr</div>
+          <div class="sv-sub">Dawn prayer</div>
+        </div>
+        <input type="time" id="pt-fajr" class="sv-time-input" value="05:00" aria-label="Fajr time">
+      </div>
+
+      <div style="display:flex;align-items:center;justify-content:space-between;width:100%;padding:8px 0;border-bottom:1px solid rgba(201,168,76,0.08);">
+        <div>
+          <div class="sv-label">Sunrise</div>
+          <div class="sv-sub">End of Fajr window</div>
+        </div>
+        <input type="time" id="pt-sunrise" class="sv-time-input" value="06:30" aria-label="Sunrise time">
+      </div>
+
+      <div style="display:flex;align-items:center;justify-content:space-between;width:100%;padding:8px 0;border-bottom:1px solid rgba(201,168,76,0.08);">
+        <div>
+          <div class="sv-label">Dhuhr</div>
+          <div class="sv-sub">Midday prayer</div>
+        </div>
+        <input type="time" id="pt-dhuhr" class="sv-time-input" value="13:00" aria-label="Dhuhr time">
+      </div>
+
+      <div style="display:flex;align-items:center;justify-content:space-between;width:100%;padding:8px 0;border-bottom:1px solid rgba(201,168,76,0.08);">
+        <div>
+          <div class="sv-label">Asr</div>
+          <div class="sv-sub">Afternoon prayer</div>
+        </div>
+        <input type="time" id="pt-asr" class="sv-time-input" value="16:30" aria-label="Asr time">
+      </div>
+
+      <div style="display:flex;align-items:center;justify-content:space-between;width:100%;padding:8px 0;border-bottom:1px solid rgba(201,168,76,0.08);">
+        <div>
+          <div class="sv-label">Maghrib</div>
+          <div class="sv-sub">Sunset prayer</div>
+        </div>
+        <input type="time" id="pt-maghrib" class="sv-time-input" value="20:00" aria-label="Maghrib time">
+      </div>
+
+      <div style="display:flex;align-items:center;justify-content:space-between;width:100%;padding:8px 0;">
+        <div>
+          <div class="sv-label">Isha</div>
+          <div class="sv-sub">Night prayer</div>
+        </div>
+        <input type="time" id="pt-isha" class="sv-time-input" value="21:30" aria-label="Isha time">
+      </div>
+
+    </div>
+
+    <div style="display:flex;gap:10px;align-items:center;padding-bottom:20px;">
+      <button id="savePrayerTimesBtn" style="
+        font-family:var(--fn);font-size:13px;letter-spacing:0.1em;text-transform:uppercase;
+        color:var(--deep);background:var(--gold);border:none;border-radius:20px;
+        padding:10px 28px;cursor:pointer;-webkit-tap-highlight-color:transparent;
+        touch-action:manipulation;font-weight:500;
+        transition:opacity 0.2s;
+      ">Save Times</button>
+      <button id="fetchPrayerTimesBtn" style="
+        font-family:var(--fn);font-size:12px;letter-spacing:0.08em;text-transform:uppercase;
+        color:var(--gold);background:transparent;border:1px solid rgba(201,168,76,0.3);
+        border-radius:20px;padding:10px 20px;cursor:pointer;
+        -webkit-tap-highlight-color:transparent;touch-action:manipulation;
+        transition:opacity 0.2s;
+      ">Auto-detect</button>
+    </div>
+    <div id="prayerTimesSavedMsg" style="display:none;font-family:var(--fn);font-size:11px;color:var(--green);letter-spacing:0.1em;text-transform:uppercase;padding-bottom:16px;">
+      ✓ Times saved
+    </div>
+
+    <div style="font-family:var(--fn);font-size:11px;color:var(--text-m);line-height:1.6;padding-bottom:24px;">
+      Times are also auto-detected using your location when available. Manual times override auto-detection.
+    </div>
+
     <div class="sv-section-title">Reminders</div>
 <div class="sv-setting-row" style="flex-direction:column;align-items:flex-start;gap:8px;">
   <div style="font-family:var(--fn);font-size:14px;color:var(--text);line-height:1.6;">
@@ -5848,215 +6183,215 @@ body.light .home-progress-strip { opacity: 0.8; }
 </div>
 
 <div class="learn-deck" id="learn-deck-hub" style="display:none;">
-  <button class="learn-deck-back" data-action="close-learn-topic">← Back</button>
 
-  <!-- SECTION 1: WHAT IS DU'A -->
-  <div class="learn-card" id="learn-card-hub-0">
-    <div class="learn-card-section">WHAT IS DU'A · 1 OF 3</div>
-    <div class="learn-card-title">Du'a Is Worship Itself</div>
-    <div class="learn-card-body">The Prophet ﷺ said: <em>"Du'a is worship."</em> Then he recited: <em>"And your Lord said: Call upon Me, I will respond to you. Indeed, those who are too proud to worship Me will enter Hell humiliated."</em><br><br>Du'a is not a last resort. It is the highest act of worship — a direct line to Allah, available to every believer, at every moment, in every language.</div>
-    <div class="learn-card-src">Abu Dawud (1479) — Sahih · Qur'an 40:60</div>
+  <div class="hub-header">
+    <button class="hub-close" data-action="close-learn-topic" aria-label="Close">✕</button>
+    <div class="hub-header-title">The Art of Du'a</div>
+    <div style="width:38px;"></div>
   </div>
 
-  <div class="learn-card" id="learn-card-hub-1">
-    <div class="learn-card-section">WHAT IS DU'A · 2 OF 3</div>
-    <div class="learn-card-title">The Most Generous</div>
-    <div class="learn-card-body">The Prophet ﷺ said: <em>"There is nothing more noble in the sight of Allah than du'a."</em><br><br>Allah is Al-Karīm — the Most Generous. He is not burdened by your asking. He does not grow tired of your requests. He does not think less of you for coming back again and again.<br><br>The one who does not ask Allah angers Him. The one who asks Him pleases Him.</div>
-    <div class="learn-card-src">Ibn Majah (3829) — Sahih · Ahmad (9701)</div>
-  </div>
+  <div class="hub-scroll-body">
 
-  <div class="learn-card" id="learn-card-hub-2">
-    <div class="learn-card-section">WHAT IS DU'A · 3 OF 3</div>
-    <div class="learn-card-title">Du'a Changes Qadr</div>
-    <div class="learn-card-body">The Prophet ﷺ said: <em>"Nothing increases lifespan except righteousness, and nothing repels the decree except du'a."</em><br><br>Du'a is not passive acceptance — it is the means by which Allah has decreed that things change. Making du'a is itself part of the qadr. The person who makes du'a and the person who does not are in entirely different positions before Allah.</div>
-    <div class="learn-card-src">Ibn Majah (90) — Hasan · al-Tirmidhi (2139)</div>
-  </div>
+    <!-- SECTION 1: WHAT IS DU'A -->
+    <div class="hub-entry">
+      <div class="learn-card-section">WHAT IS DU'A · 1 OF 3</div>
+      <div class="learn-card-title">Du'a Is Worship Itself</div>
+      <div class="learn-card-body">The Prophet ﷺ said: <em>"Du'a is worship."</em> Then he recited: <em>"And your Lord said: Call upon Me, I will respond to you. Indeed, those who are too proud to worship Me will enter Hell humiliated."</em><br><br>Du'a is not a last resort. It is the highest act of worship — a direct line to Allah, available to every believer, at every moment, in every language.</div>
+      <div class="learn-card-src">Abu Dawud (1479) — Sahih · Qur'an 40:60</div>
+    </div>
 
-  <!-- SECTION 2: ETIQUETTE -->
-  <div class="learn-card" id="learn-card-hub-3">
-    <div class="learn-card-section">ETIQUETTE · 1 OF 4</div>
-    <div class="learn-card-title">How to Begin</div>
-    <div class="learn-card-body">Start with <strong>Bismillah</strong> and <strong>Alhamdulillah</strong>. Then send <strong>salawat on the Prophet ﷺ</strong>. The Prophet ﷺ heard a man making du'a without praising Allah first — he said: <em>"This man rushed."</em> He then said: <em>"When one of you prays, let him begin by glorifying his Lord and praising Him, then send salawat on the Prophet ﷺ, then ask for whatever he wishes."</em><br><br>Open every du'a session with: Alhamdulillah... Allahumma salli 'ala Muhammad... then ask.</div>
-    <div class="learn-card-src">Abu Dawud (1481) — Sahih · al-Tirmidhi (3477)</div>
-  </div>
+    <div class="hub-entry">
+      <div class="learn-card-section">WHAT IS DU'A · 2 OF 3</div>
+      <div class="learn-card-title">The Most Generous</div>
+      <div class="learn-card-body">The Prophet ﷺ said: <em>"There is nothing more noble in the sight of Allah than du'a."</em><br><br>Allah is Al-Karīm — the Most Generous. He is not burdened by your asking. He does not grow tired of your requests. He does not think less of you for coming back again and again.<br><br>The one who does not ask Allah angers Him. The one who asks Him pleases Him.</div>
+      <div class="learn-card-src">Ibn Majah (3829) — Sahih · Ahmad (9701)</div>
+    </div>
 
-  <div class="learn-card" id="learn-card-hub-4">
-    <div class="learn-card-section">ETIQUETTE · 2 OF 4</div>
-    <div class="learn-card-title">Face the Qiblah, Raise Your Hands</div>
-    <div class="learn-card-body">Face the qiblah when making du'a — the Prophet ﷺ turned toward it on important occasions such as Badr and Arafah.<br><br>Raise both hands to shoulder height, palms facing upward. The Prophet ﷺ said Allah is too shy to let a servant raise his hands to Him and return them empty.<br><br>After du'a, wipe your face with both palms. This is the Sunnah.</div>
-    <div class="learn-card-src">Abu Dawud (1485, 1488) — Sahih · al-Tirmidhi (3556)</div>
-  </div>
+    <div class="hub-entry">
+      <div class="learn-card-section">WHAT IS DU'A · 3 OF 3</div>
+      <div class="learn-card-title">Du'a Changes Qadr</div>
+      <div class="learn-card-body">The Prophet ﷺ said: <em>"Nothing increases lifespan except righteousness, and nothing repels the decree except du'a."</em><br><br>Du'a is not passive acceptance — it is the means by which Allah has decreed that things change. Making du'a is itself part of the qadr. The person who makes du'a and the person who does not are in entirely different positions before Allah.</div>
+      <div class="learn-card-src">Ibn Majah (90) — Hasan · al-Tirmidhi (2139)</div>
+    </div>
 
-  <div class="learn-card" id="learn-card-hub-5">
-    <div class="learn-card-section">ETIQUETTE · 3 OF 4</div>
-    <div class="learn-card-title">Certainty, Repetition and Insistence</div>
-    <div class="learn-card-body">The Prophet ﷺ said: <em>"When one of you makes du'a, let him be firm in asking and not say: O Allah, give me this if You will — for there is no one who can compel Allah."</em><br><br>Ask with certainty that Allah hears you and will respond. Repeat your du'a three times. The Prophet ﷺ used to repeat his du'a three times. Do not give up. Persistence in du'a is itself beloved to Allah.</div>
-    <div class="learn-card-src">Sahih al-Bukhari (6338) · Sahih Muslim (2679)</div>
-  </div>
+    <div class="hub-section-break"><span class="hub-section-break-ornament">۞</span></div>
 
-  <div class="learn-card" id="learn-card-hub-6">
-    <div class="learn-card-section">ETIQUETTE · 4 OF 4</div>
-    <div class="learn-card-title">Ask for Yourself First</div>
-    <div class="learn-card-body">The Prophet ﷺ said that when Jibril made du'a, he began with himself first before the Prophet ﷺ. Scholars say: begin your du'a with yourself, then include your parents, your spouse, your family, and the Muslim Ummah.<br><br>Be specific. Ask for real things — your marriage, your provision, your health, your akhirah. The Prophet ﷺ said: <em>"Ask Allah for everything — even the strap of your sandal."</em> No du'a is too small.</div>
-    <div class="learn-card-src">al-Tirmidhi (3385) · Sahih · Abu Dawud</div>
-  </div>
+    <!-- SECTION 2: ETIQUETTE -->
+    <div class="hub-entry">
+      <div class="learn-card-section">ETIQUETTE · 1 OF 4</div>
+      <div class="learn-card-title">How to Begin</div>
+      <div class="learn-card-body">Start with <strong>Bismillah</strong> and <strong>Alhamdulillah</strong>. Then send <strong>salawat on the Prophet ﷺ</strong>. The Prophet ﷺ heard a man making du'a without praising Allah first — he said: <em>"This man rushed."</em> He then said: <em>"When one of you prays, let him begin by glorifying his Lord and praising Him, then send salawat on the Prophet ﷺ, then ask for whatever he wishes."</em><br><br>Open every du'a session with: Alhamdulillah... Allahumma salli 'ala Muhammad... then ask.</div>
+      <div class="learn-card-src">Abu Dawud (1481) — Sahih · al-Tirmidhi (3477)</div>
+    </div>
 
-  <!-- SECTION 3: THINGS THAT WEAKEN DU'A -->
-  <div class="learn-card" id="learn-card-hub-7">
-    <div class="learn-card-section">WHAT WEAKENS DU'A · 1 OF 2</div>
-    <div class="learn-card-title">Haram Provision</div>
-    <div class="learn-card-body">The Prophet ﷺ mentioned a traveller: dishevelled, dusty, raising his hands to the sky saying "O Lord, O Lord" — yet his food is haram, his drink is haram, his clothing is haram — <em>"so how can his du'a be answered?"</em><br><br>This does not mean haram income makes du'a void — it means it is a veil between you and acceptance. Pursue halal provision earnestly. And if you have haram in your life, increase istighfar — it lifts the veil.</div>
-    <div class="learn-card-src">Sahih Muslim (1015)</div>
-  </div>
+    <div class="hub-entry">
+      <div class="learn-card-section">ETIQUETTE · 2 OF 4</div>
+      <div class="learn-card-title">Face the Qiblah, Raise Your Hands</div>
+      <div class="learn-card-body">Face the qiblah when making du'a — the Prophet ﷺ turned toward it on important occasions such as Badr and Arafah.<br><br>Raise both hands to shoulder height, palms facing upward. The Prophet ﷺ said Allah is too shy to let a servant raise his hands to Him and return them empty.<br><br>After du'a, wipe your face with both palms. This is the Sunnah.</div>
+      <div class="learn-card-src">Abu Dawud (1485, 1488) — Sahih · al-Tirmidhi (3556)</div>
+    </div>
 
-  <div class="learn-card" id="learn-card-hub-8">
-    <div class="learn-card-section">WHAT WEAKENS DU'A · 2 OF 2</div>
-    <div class="learn-card-title">Impatience and Abandonment</div>
-    <div class="learn-card-body">The Prophet ﷺ said: <em>"The du'a of a servant will continue to be answered as long as he does not ask for something sinful or the cutting of family ties, and as long as he is not hasty."</em> They asked: what is being hasty? He said: <em>"He says: I made du'a and I made du'a and I have not seen a response — so he becomes frustrated and abandons du'a."</em><br><br>This is the most common way du'a is lost. Keep going.</div>
-    <div class="learn-card-src">Sahih al-Bukhari (6340) · Sahih Muslim (2735)</div>
-  </div>
+    <div class="hub-entry">
+      <div class="learn-card-section">ETIQUETTE · 3 OF 4</div>
+      <div class="learn-card-title">Certainty, Repetition and Insistence</div>
+      <div class="learn-card-body">The Prophet ﷺ said: <em>"When one of you makes du'a, let him be firm in asking and not say: O Allah, give me this if You will — for there is no one who can compel Allah."</em><br><br>Ask with certainty that Allah hears you and will respond. Repeat your du'a three times. The Prophet ﷺ used to repeat his du'a three times. Do not give up. Persistence in du'a is itself beloved to Allah.</div>
+      <div class="learn-card-src">Sahih al-Bukhari (6338) · Sahih Muslim (2679)</div>
+    </div>
 
-  <!-- SECTION 4: BEST TIMES TIER 1 -->
-  <div class="learn-card" id="learn-card-hub-9">
-    <div class="learn-card-section">BEST TIMES · 1 OF 5</div>
-    <div class="learn-card-title">The Last Third of the Night</div>
-    <div class="learn-card-body">Allah descends to the lowest heaven in the final third of every night and calls out: <em>"Who is calling upon Me that I may answer? Who is asking of Me that I may give? Who is seeking My forgiveness that I may forgive?"</em><br><br>This is the single greatest window for du'a in every 24 hours. It is available every night — not just in Ramadan, not just on Laylatul Qadr. Wake before Fajr. Even 10 minutes. Ask.</div>
-    <div class="learn-card-src">Sahih al-Bukhari (1145) · Sahih Muslim (758)</div>
-  </div>
+    <div class="hub-entry">
+      <div class="learn-card-section">ETIQUETTE · 4 OF 4</div>
+      <div class="learn-card-title">Ask for Yourself First</div>
+      <div class="learn-card-body">The Prophet ﷺ said that when Jibril made du'a, he began with himself first before the Prophet ﷺ. Scholars say: begin your du'a with yourself, then include your parents, your spouse, your family, and the Muslim Ummah.<br><br>Be specific. Ask for real things — your marriage, your provision, your health, your akhirah. The Prophet ﷺ said: <em>"Ask Allah for everything — even the strap of your sandal."</em> No du'a is too small.</div>
+      <div class="learn-card-src">al-Tirmidhi (3385) · Sahih · Abu Dawud</div>
+    </div>
 
-  <div class="learn-card" id="learn-card-hub-10">
-    <div class="learn-card-section">BEST TIMES · 2 OF 5</div>
-    <div class="learn-card-title">In Sujood</div>
-    <div class="learn-card-body">The Prophet ﷺ said: <em>"The closest a servant is to his Lord is when he is in sujood — so make plenty of du'a."</em><br><br>After saying Subhana Rabbiyal A'la three times, you are in the closest position a human body can take before Allah. This is when you whisper. In Arabic, in English, in whatever words you have. Pour out everything. No position is better.</div>
-    <div class="learn-card-src">Sahih Muslim (482)</div>
-  </div>
+    <div class="hub-section-break"><span class="hub-section-break-ornament">۞</span></div>
 
-  <div class="learn-card" id="learn-card-hub-11">
-    <div class="learn-card-section">BEST TIMES · 3 OF 5</div>
-    <div class="learn-card-title">Between the Adhan and Iqamah</div>
-    <div class="learn-card-body">The Prophet ﷺ said: <em>"Du'a between the adhan and iqamah is not rejected."</em><br><br>This is a short window — sometimes just a few minutes. But it is guaranteed. Make it a habit: when you hear the adhan, respond to it word by word, then immediately make du'a before the iqamah comes. Five times a day, you have a guaranteed window.</div>
-    <div class="learn-card-src">Abu Dawud (521) · al-Tirmidhi (212) — Sahih</div>
-  </div>
+    <!-- SECTION 3: WHAT WEAKENS DU'A -->
+    <div class="hub-entry">
+      <div class="learn-card-section">WHAT WEAKENS DU'A · 1 OF 2</div>
+      <div class="learn-card-title">Haram Provision</div>
+      <div class="learn-card-body">The Prophet ﷺ mentioned a traveller: dishevelled, dusty, raising his hands to the sky saying "O Lord, O Lord" — yet his food is haram, his drink is haram, his clothing is haram — <em>"so how can his du'a be answered?"</em><br><br>This does not mean haram income makes du'a void — it means it is a veil between you and acceptance. Pursue halal provision earnestly. And if you have haram in your life, increase istighfar — it lifts the veil.</div>
+      <div class="learn-card-src">Sahih Muslim (1015)</div>
+    </div>
 
-  <div class="learn-card" id="learn-card-hub-12">
-    <div class="learn-card-section">BEST TIMES · 4 OF 5</div>
-    <div class="learn-card-title">After Every Obligatory Salah</div>
-    <div class="learn-card-body">The Prophet ﷺ was asked which du'a is most readily heard. He said: <em>"In the last part of the night, and after the obligatory prayers."</em><br><br>Do not rush away after salah. After your tasbih (33/33/34), after Ayatul Kursi — stay seated and make du'a. This is why the After Salah section in this app exists. The moment after salah is sacred.</div>
-    <div class="learn-card-src">al-Tirmidhi (3499) — Hasan</div>
-  </div>
+    <div class="hub-entry">
+      <div class="learn-card-section">WHAT WEAKENS DU'A · 2 OF 2</div>
+      <div class="learn-card-title">Impatience and Abandonment</div>
+      <div class="learn-card-body">The Prophet ﷺ said: <em>"The du'a of a servant will continue to be answered as long as he does not ask for something sinful or the cutting of family ties, and as long as he is not hasty."</em> They asked: what is being hasty? He said: <em>"He says: I made du'a and I made du'a and I have not seen a response — so he becomes frustrated and abandons du'a."</em><br><br>This is the most common way du'a is lost. Keep going.</div>
+      <div class="learn-card-src">Sahih al-Bukhari (6340) · Sahih Muslim (2735)</div>
+    </div>
 
-  <div class="learn-card" id="learn-card-hub-13">
-    <div class="learn-card-section">BEST TIMES · 5 OF 5</div>
-    <div class="learn-card-title">The Friday Hour</div>
-    <div class="learn-card-body">On every Friday there is a blessed hour in which no Muslim asks Allah for anything except that it is granted. The Prophet ﷺ indicated it is a brief window — likely near 'Asr until Maghrib, or just before the Imam rises for Khutbah.<br><br>Protect this hour every Friday. Make du'a continuously. The Sa'at al-Istijabah timer in this app was built for this.</div>
-    <div class="learn-card-src">Sahih al-Bukhari (935) · Sahih Muslim (852)</div>
-    <div class="learn-card-action" data-action="show-adhkar" style="margin-top:14px;padding:10px 18px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.35);border-radius:4px;font-family:var(--fn);font-size:13px;color:var(--gold-l);cursor:pointer;display:inline-block;-webkit-tap-highlight-color:transparent;">Open Friday Hour →</div>
-  </div>
+    <div class="hub-section-break"><span class="hub-section-break-ornament">۞</span></div>
 
-  <!-- SECTION 5: BEST TIMES TIER 2 -->
-  <div class="learn-card" id="learn-card-hub-14">
-    <div class="learn-card-section">MORE BLESSED TIMES · 1 OF 2</div>
-    <div class="learn-card-title">When It Rains</div>
-    <div class="learn-card-body">The Prophet ﷺ said: <em>"Two du'as are not rejected: du'a at the time of the call to prayer and du'a at the time of rain."</em><br><br>When rain falls — stop. Make du'a immediately. Say: Allāhumma ṣayyiban nāfiʿā (O Allah, make it a beneficial rain). Then ask for whatever you need. Rain is a moment of open mercy from Allah descending from the sky.</div>
-    <div class="learn-card-src">Abu Dawud (2540) — Sahih · al-Hakim</div>
-  </div>
+    <!-- SECTION 4: BEST TIMES -->
+    <div class="hub-entry">
+      <div class="learn-card-section">BEST TIMES · 1 OF 5</div>
+      <div class="learn-card-title">The Last Third of the Night</div>
+      <div class="learn-card-body">Allah descends to the lowest heaven in the final third of every night and calls out: <em>"Who is calling upon Me that I may answer? Who is asking of Me that I may give? Who is seeking My forgiveness that I may forgive?"</em><br><br>This is the single greatest window for du'a in every 24 hours. It is available every night — not just in Ramadan, not just on Laylatul Qadr. Wake before Fajr. Even 10 minutes. Ask.</div>
+      <div class="learn-card-src">Sahih al-Bukhari (1145) · Sahih Muslim (758)</div>
+    </div>
 
-  <div class="learn-card" id="learn-card-hub-15">
-    <div class="learn-card-section">MORE BLESSED TIMES · 2 OF 2</div>
-    <div class="learn-card-title">Day of Arafah & Laylatul Qadr</div>
-    <div class="learn-card-body">These are the two supreme windows of the Islamic year.<br><br><strong>Arafah (9 Dhul Hijjah):</strong> The best du'a ever made is the du'a of Arafah. Even those not on Hajj should fast and make du'a all day.<br><br><strong>Laylatul Qadr (last 10 nights of Ramadan):</strong> Better than 1,000 months. Du'a on this night is worth a lifetime of worship on any other night.<br><br>Prepare for both. Plan your duas in advance.</div>
-    <div class="learn-card-src">al-Tirmidhi (3585) — Hasan · Qur'an 97:3</div>
-  </div>
+    <div class="hub-entry">
+      <div class="learn-card-section">BEST TIMES · 2 OF 5</div>
+      <div class="learn-card-title">In Sujood</div>
+      <div class="learn-card-body">The Prophet ﷺ said: <em>"The closest a servant is to his Lord is when he is in sujood — so make plenty of du'a."</em><br><br>After saying Subhana Rabbiyal A'la three times, you are in the closest position a human body can take before Allah. This is when you whisper. In Arabic, in English, in whatever words you have. Pour out everything. No position is better.</div>
+      <div class="learn-card-src">Sahih Muslim (482)</div>
+    </div>
 
-  <!-- SECTION 6: HOW ALLAH ANSWERS -->
-  <div class="learn-card" id="learn-card-hub-16">
-    <div class="learn-card-section">HOW ALLAH ANSWERS · 1 OF 3</div>
-    <div class="learn-card-title">Three Ways Du'a Is Answered</div>
-    <div class="learn-card-body">The Prophet ﷺ said: <em>"There is no Muslim who makes du'a to Allah with a du'a that contains no sin and no cutting of family ties, except that Allah gives him one of three things: either his du'a is answered promptly, or it is stored up for him in the Hereafter, or an equivalent evil is diverted from him."</em><br><br>They said: then we will ask for more! He said: <em>"Allah gives even more."</em><br><br>No du'a is ever wasted. Every word reaches Allah.</div>
-    <div class="learn-card-src">Ahmad (11133) — Sahih · al-Hakim</div>
-  </div>
+    <div class="hub-entry">
+      <div class="learn-card-section">BEST TIMES · 3 OF 5</div>
+      <div class="learn-card-title">Between the Adhan and Iqamah</div>
+      <div class="learn-card-body">The Prophet ﷺ said: <em>"Du'a between the adhan and iqamah is not rejected."</em><br><br>This is a short window — sometimes just a few minutes. But it is guaranteed. Make it a habit: when you hear the adhan, respond to it word by word, then immediately make du'a before the iqamah comes. Five times a day, you have a guaranteed window.</div>
+      <div class="learn-card-src">Abu Dawud (521) · al-Tirmidhi (212) — Sahih</div>
+    </div>
 
-  <div class="learn-card" id="learn-card-hub-17">
-    <div class="learn-card-section">HOW ALLAH ANSWERS · 2 OF 3</div>
-    <div class="learn-card-title">Delayed Is Not Denied</div>
-    <div class="learn-card-body">Ibrahim (AS) made du'a for a son for decades before Ismail (AS) was born. Zakariyya (AS) made du'a for a child his entire life before Yahya (AS) was given to him when both he and his wife were very old.<br><br>Allah's timing is not your timing. When something you asked for is delayed, it is not a sign that Allah did not hear. It is a sign that He is preparing something — either the thing you asked for at the right time, or something better, or a reward so great it will make the wait seem nothing.</div>
-    <div class="learn-card-src">Qur'an 21:89–90 · Qur'an 37:100–101</div>
-  </div>
+    <div class="hub-entry">
+      <div class="learn-card-section">BEST TIMES · 4 OF 5</div>
+      <div class="learn-card-title">After Every Obligatory Salah</div>
+      <div class="learn-card-body">The Prophet ﷺ was asked which du'a is most readily heard. He said: <em>"In the last part of the night, and after the obligatory prayers."</em><br><br>Do not rush away after salah. After your tasbih (33/33/34), after Ayatul Kursi — stay seated and make du'a. This is why the After Salah section in this app exists. The moment after salah is sacred.</div>
+      <div class="learn-card-src">al-Tirmidhi (3499) — Hasan</div>
+    </div>
 
-  <div class="learn-card" id="learn-card-hub-18">
-    <div class="learn-card-section">HOW ALLAH ANSWERS · 3 OF 3</div>
-    <div class="learn-card-title">Barriers to Answer</div>
-    <div class="learn-card-body">Some things can delay or veil the response:<br><br>• Haram provision or earnings<br>• Sins not repented from (increase istighfar)<br>• Asking for something sinful<br>• Cutting family ties<br>• Impatience and abandoning du'a<br>• A heart that is heedless and distracted while asking<br><br>None of these make du'a permanently void. Repentance clears every barrier. The door is always open.</div>
-    <div class="learn-card-src">Sahih Muslim (1015) · al-Tirmidhi (3479)</div>
-  </div>
+    <div class="hub-entry">
+      <div class="learn-card-section">BEST TIMES · 5 OF 5</div>
+      <div class="learn-card-title">The Friday Hour</div>
+      <div class="learn-card-body">On every Friday there is a blessed hour in which no Muslim asks Allah for anything except that it is granted. The most supported opinion is that this window falls in the last hour before Maghrib.<br><br>Protect this hour every Friday. Make du'a continuously. The Sa'at al-Istijabah timer in this app was built for this.</div>
+      <div class="learn-card-src">Sahih al-Bukhari (935) · Sahih Muslim (852)</div>
+    </div>
 
-  <!-- SECTION 7: DU'A AND QADR -->
-  <div class="learn-card" id="learn-card-hub-19">
-    <div class="learn-card-section">DU'A AND QADR · 1 OF 2</div>
-    <div class="learn-card-title">Du'a Is Part of the Decree</div>
-    <div class="learn-card-body">Some ask: if everything is already decreed, why make du'a? The answer is that du'a itself is part of the decree. Allah decreed that certain things will happen — and He decreed that they will happen <em>through</em> du'a.<br><br>It is like asking: if my rizq is decreed, why work? Because working is the means by which the rizq comes. Du'a is the means by which what Allah wills for you comes to you. The one who does not ask cuts himself off from the means.</div>
-    <div class="learn-card-src">Ibn al-Qayyim, al-Da' wal-Dawa' · Ibn Majah (90)</div>
-  </div>
+    <div class="hub-section-break"><span class="hub-section-break-ornament">۞</span></div>
 
-  <div class="learn-card" id="learn-card-hub-20">
-    <div class="learn-card-section">DU'A AND QADR · 2 OF 2</div>
-    <div class="learn-card-title">The Shield and the Arrow</div>
-    <div class="learn-card-body">Ibn al-Qayyim said: <em>"Du'a and bala' (calamity) are engaged in a struggle. Du'a prevents bala' from descending, or lifts it after it has descended, or lightens it."</em><br><br>He compared du'a to a shield and calamity to an arrow. A strong shield stops the arrow. A weak shield may slow it. An arrow that has already struck can still be extracted by du'a. This is why the believer never stops making du'a — even when calamity has already arrived.</div>
-    <div class="learn-card-src">Ibn al-Qayyim, al-Da' wal-Dawa'</div>
-  </div>
+    <!-- SECTION 5: HOW ALLAH ANSWERS -->
+    <div class="hub-entry">
+      <div class="learn-card-section">HOW ALLAH ANSWERS · 1 OF 3</div>
+      <div class="learn-card-title">Three Ways Du'a Is Answered</div>
+      <div class="learn-card-body">The Prophet ﷺ said: <em>"There is no Muslim who makes du'a to Allah with a du'a that contains no sin and no cutting of family ties, except that Allah gives him one of three things: either his du'a is answered promptly, or it is stored up for him in the Hereafter, or an equivalent evil is diverted from him."</em><br><br>They said: then we will ask for more! He said: <em>"Allah gives even more."</em><br><br>No du'a is ever wasted. Every word reaches Allah.</div>
+      <div class="learn-card-src">Ahmad (11133) — Sahih · al-Hakim</div>
+    </div>
 
-  <!-- SECTION 8: SPECIAL TYPES -->
-  <div class="learn-card" id="learn-card-hub-21">
-    <div class="learn-card-section">SPECIAL TYPES · 1 OF 3</div>
-    <div class="learn-card-title">Du'a of the Oppressed</div>
-    <div class="learn-card-body">The Prophet ﷺ said: <em>"Fear the du'a of the oppressed — for there is no barrier between it and Allah."</em><br><br>The one who has been wronged, the one who has no worldly power to seek justice — their du'a goes directly to Allah with no veil. This is one of the most powerful forms of du'a in the Sunnah.<br><br>Never oppress anyone. And if you have been oppressed, know that your du'a carries extraordinary weight before Allah.</div>
-    <div class="learn-card-src">Sahih al-Bukhari (1496) · Sahih Muslim (19)</div>
-  </div>
+    <div class="hub-entry">
+      <div class="learn-card-section">HOW ALLAH ANSWERS · 2 OF 3</div>
+      <div class="learn-card-title">Delayed Is Not Denied</div>
+      <div class="learn-card-body">Ibrahim (AS) made du'a for a son for decades before Ismail (AS) was born. Zakariyya (AS) made du'a for a child his entire life before Yahya (AS) was given to him when both he and his wife were very old.<br><br>Allah's timing is not your timing. When something you asked for is delayed, it is not a sign that Allah did not hear. It is a sign that He is preparing something — either the thing you asked for at the right time, or something better, or a reward so great it will make the wait seem nothing.</div>
+      <div class="learn-card-src">Qur'an 21:89–90 · Qur'an 37:100–101</div>
+    </div>
 
-  <div class="learn-card" id="learn-card-hub-22">
-    <div class="learn-card-section">SPECIAL TYPES · 2 OF 3</div>
-    <div class="learn-card-title">Du'a for Your Brother in His Absence</div>
-    <div class="learn-card-body">The Prophet ﷺ said: <em>"The du'a of a Muslim for his brother in his absence is answered. At his head is an appointed angel — whenever he makes du'a for his brother with good, the angel says: Ameen, and may you have the same."</em><br><br>When you make du'a for someone who does not know you made it for them — an angel is saying the same du'a back for you. Make du'a for your parents, your spouse, your family, your friends, the Ummah.</div>
-    <div class="learn-card-src">Sahih Muslim (2733)</div>
-  </div>
+    <div class="hub-entry">
+      <div class="learn-card-section">HOW ALLAH ANSWERS · 3 OF 3</div>
+      <div class="learn-card-title">Barriers to Answer</div>
+      <div class="learn-card-body">Some things can delay or veil the response:<br><br>• Haram provision or earnings<br>• Sins not repented from — increase istighfar<br>• Asking for something sinful<br>• Cutting family ties<br>• Impatience and abandoning du'a<br>• A heart that is heedless and distracted while asking<br><br>None of these make du'a permanently void. Repentance clears every barrier. The door is always open.</div>
+      <div class="learn-card-src">Sahih Muslim (1015) · al-Tirmidhi (3479)</div>
+    </div>
 
-  <div class="learn-card" id="learn-card-hub-23">
-    <div class="learn-card-section">SPECIAL TYPES · 3 OF 3</div>
-    <div class="learn-card-title">The Du'a of a Parent for Their Child</div>
-    <div class="learn-card-body">The Prophet ﷺ said that three du'as are answered without doubt: the du'a of a father for his child, the du'a of the oppressed, and the du'a of the traveller.<br><br>Your parents' du'a for you is one of the most powerful forces in your life — seen and unseen. Honour your parents so their hearts make du'a for you in those private moments. And make du'a for them, as Ibrahim (AS) did: <em>Rabbighfir lī wa liwālidayya.</em></div>
-    <div class="learn-card-src">Abu Dawud (1536) — Sahih · Qur'an 14:41</div>
-  </div>
+    <div class="hub-section-break"><span class="hub-section-break-ornament">۞</span></div>
 
-  <!-- SECTION 9: FIVE CONDITIONS + CLOSING -->
-  <div class="learn-card" id="learn-card-hub-24">
-    <div class="learn-card-section">FIVE CONDITIONS · 1 OF 2</div>
-    <div class="learn-card-title">The Five Conditions of Accepted Du'a</div>
-    <div class="learn-card-body">Ibn al-Qayyim summarised the conditions of an accepted du'a:<br><br>1. <strong>Certainty</strong> — Certain that Allah hears and will respond<br>2. <strong>Sincerity</strong> — Asking only Allah, not showing off<br>3. <strong>Presence of heart</strong> — Focused, not distracted<br>4. <strong>Facing the qiblah with raised hands</strong> — Physical posture of humility<br>5. <strong>Persistence</strong> — Not abandoning du'a if delayed<br><br>Work on one condition at a time.</div>
-    <div class="learn-card-src">Ibn al-Qayyim, Zad al-Ma'ad</div>
-  </div>
+    <!-- SECTION 6: DU'A AND QADR -->
+    <div class="hub-entry">
+      <div class="learn-card-section">DU'A AND QADR · 1 OF 2</div>
+      <div class="learn-card-title">Du'a Is Part of the Decree</div>
+      <div class="learn-card-body">Some ask: if everything is already decreed, why make du'a? The answer is that du'a itself is part of the decree. Allah decreed that certain things will happen — and He decreed that they will happen <em>through</em> du'a.<br><br>It is like asking: if my rizq is decreed, why work? Because working is the means by which the rizq comes. Du'a is the means by which what Allah wills for you comes to you. The one who does not ask cuts himself off from the means.</div>
+      <div class="learn-card-src">Ibn al-Qayyim, al-Da' wal-Dawa' · Ibn Majah (90)</div>
+    </div>
 
-  <div class="learn-card" id="learn-card-hub-25">
-    <div class="learn-card-section">FIVE CONDITIONS · 2 OF 2</div>
-    <div class="learn-card-title">Never Stop Asking</div>
-    <div class="learn-card-body">Allah says: <em>"Call upon Me, I will respond to you."</em><br><br>This is not a maybe. This is not conditional on your level of iman or the number of your sins. It is a promise from Al-Karīm — the Most Generous — to every single believer who calls on Him.<br><br>Your du'a list is not just an app. It is your record of conversation with Allah. Every du'a you have ever made has been heard. Every one is either answered here or waiting for you on the Day you meet Him. Keep asking.</div>
-    <div class="learn-card-src">Qur'an 40:60 · Ibn Kathir, Tafsir</div>
-  </div>
+    <div class="hub-entry">
+      <div class="learn-card-section">DU'A AND QADR · 2 OF 2</div>
+      <div class="learn-card-title">The Shield and the Arrow</div>
+      <div class="learn-card-body">Ibn al-Qayyim said: <em>"Du'a and bala' (calamity) are engaged in a struggle. Du'a prevents bala' from descending, or lifts it after it has descended, or lightens it."</em><br><br>He compared du'a to a shield and calamity to an arrow. A strong shield stops the arrow. A weak shield may slow it. An arrow that has already struck can still be extracted by du'a. This is why the believer never stops making du'a — even when calamity has already arrived.</div>
+      <div class="learn-card-src">Ibn al-Qayyim, al-Da' wal-Dawa'</div>
+    </div>
 
-  <!-- NAV -->
-  <div class="learn-deck-nav">
-    <button class="learn-deck-prev" id="learn-prev-hub" data-action="learn-nav" data-dir="-1" disabled>← Prev</button>
-    <div class="guided-nav-indicator" id="learn-counter-hub">1 / 26</div>
-    <button class="learn-deck-next" id="learn-next-hub" data-action="learn-nav" data-dir="1">Next →</button>
-  </div>
+    <div class="hub-section-break"><span class="hub-section-break-ornament">۞</span></div>
 
-  <div class="learn-complete" id="learn-complete-hub" style="display:none;">
-    <div class="learn-complete-icon">🤲</div>
-    <div class="learn-complete-title">May Allah accept your du'a</div>
-    <div class="learn-complete-sub">You have finished The Art of Du'a. Now go and ask Him — with certainty that He hears.</div>
-    <button class="learn-complete-btn-primary" data-action="restart-hub">Review Again</button>
-    <button class="learn-complete-btn-secondary" data-action="close-learn-topic">Back to Learn</button>
-  </div>
-</div>
+    <!-- SECTION 7: SPECIAL TYPES -->
+    <div class="hub-entry">
+      <div class="learn-card-section">SPECIAL TYPES · 1 OF 3</div>
+      <div class="learn-card-title">Du'a of the Oppressed</div>
+      <div class="learn-card-body">The Prophet ﷺ said: <em>"Fear the du'a of the oppressed — for there is no barrier between it and Allah."</em><br><br>The one who has been wronged, the one who has no worldly power to seek justice — their du'a goes directly to Allah with no veil. This is one of the most powerful forms of du'a in the Sunnah.<br><br>Never oppress anyone. And if you have been oppressed, know that your du'a carries extraordinary weight before Allah.</div>
+      <div class="learn-card-src">Sahih al-Bukhari (1496) · Sahih Muslim (19)</div>
+    </div>
+
+    <div class="hub-entry">
+      <div class="learn-card-section">SPECIAL TYPES · 2 OF 3</div>
+      <div class="learn-card-title">Du'a for Your Brother in His Absence</div>
+      <div class="learn-card-body">The Prophet ﷺ said: <em>"The du'a of a Muslim for his brother in his absence is answered. At his head is an appointed angel — whenever he makes du'a for his brother with good, the angel says: Ameen, and may you have the same."</em><br><br>When you make du'a for someone who does not know you made it for them — an angel is saying the same du'a back for you. Make du'a for your parents, your spouse, your family, your friends, the Ummah.</div>
+      <div class="learn-card-src">Sahih Muslim (2733)</div>
+    </div>
+
+    <div class="hub-entry">
+      <div class="learn-card-section">SPECIAL TYPES · 3 OF 3</div>
+      <div class="learn-card-title">The Du'a of a Parent for Their Child</div>
+      <div class="learn-card-body">The Prophet ﷺ said that three du'as are answered without doubt: the du'a of a father for his child, the du'a of the oppressed, and the du'a of the traveller.<br><br>Your parents' du'a for you is one of the most powerful forces in your life — seen and unseen. Honour your parents so their hearts make du'a for you in those private moments. And make du'a for them, as Ibrahim (AS) did: <em>Rabbighfir lī wa liwālidayya.</em></div>
+      <div class="learn-card-src">Abu Dawud (1536) — Sahih · Qur'an 14:41</div>
+    </div>
+
+    <div class="hub-section-break"><span class="hub-section-break-ornament">۞</span></div>
+
+    <!-- SECTION 8: FIVE CONDITIONS + CLOSING -->
+    <div class="hub-entry">
+      <div class="learn-card-section">FIVE CONDITIONS · 1 OF 2</div>
+      <div class="learn-card-title">The Five Conditions of Accepted Du'a</div>
+      <div class="learn-card-body">Ibn al-Qayyim summarised the conditions of an accepted du'a:<br><br>1. <strong>Certainty</strong> — Certain that Allah hears and will respond<br>2. <strong>Sincerity</strong> — Asking only Allah, not showing off<br>3. <strong>Presence of heart</strong> — Focused, not distracted<br>4. <strong>Facing the qiblah with raised hands</strong> — Physical posture of humility<br>5. <strong>Persistence</strong> — Not abandoning du'a if delayed<br><br>Work on one condition at a time.</div>
+      <div class="learn-card-src">Ibn al-Qayyim, Zad al-Ma'ad</div>
+    </div>
+
+    <div class="hub-entry">
+      <div class="learn-card-section">FIVE CONDITIONS · 2 OF 2</div>
+      <div class="learn-card-title">Never Stop Asking</div>
+      <div class="learn-card-body">Allah says: <em>"Call upon Me, I will respond to you."</em><br><br>This is not a maybe. This is not conditional on your level of iman or the number of your sins. It is a promise from Al-Karīm — the Most Generous — to every single believer who calls on Him.<br><br>Your du'a list is not just an app. It is your record of conversation with Allah. Every du'a you have ever made has been heard. Every one is either answered here or waiting for you on the Day you meet Him. Keep asking.</div>
+      <div class="learn-card-src">Qur'an 40:60 · Ibn Kathir, Tafsir</div>
+    </div>
+
+    <!-- Completion footer -->
+    <div class="hub-section-break"><span class="hub-section-break-ornament">۞</span></div>
+    <div style="text-align:center;padding:24px 0 40px;">
+      <div style="font-family:var(--fs);font-size:22px;color:var(--gold-l);margin-bottom:8px;">May Allah accept your du'a</div>
+      <div style="font-family:var(--fn);font-size:13px;color:var(--text-d);line-height:1.7;margin-bottom:24px;max-width:280px;margin-left:auto;margin-right:auto;">You have read The Art of Du'a. Now go and ask Him — with certainty that He hears.</div>
+      <button data-action="close-learn-topic" style="font-family:var(--fn);font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);background:transparent;border:1px solid rgba(201,168,76,0.3);border-radius:20px;padding:10px 24px;cursor:pointer;-webkit-tap-highlight-color:transparent;">Back to Learn</button>
+    </div>
+
+  </div><!-- end hub-scroll-body -->
+</div><!-- end learn-deck-hub -->
 
 <!-- ONBOARDING OVERLAY -->
 <div class="onboarding-overlay" id="onboardingOverlay">
@@ -7246,6 +7581,7 @@ document.querySelectorAll('.expand-wrap').forEach(function(wrap){
 });
 
 function renderFavView(){
+  renderFavFoldersSection();
   var list = document.getElementById('favList');
   list.innerHTML = '';
   var ids = Object.keys(favState);
@@ -7304,6 +7640,140 @@ function renderFavView(){
 function escapeHtml(s){
   return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
+
+// ============================================================
+//  FAVOURITES FOLDER PERSISTENCE
+// ============================================================
+
+function getFolders() {
+  try { return JSON.parse(localStorage.getItem('naafi_fav_folders') || '[]'); } catch(e) { return []; }
+}
+function saveFolders(folders) {
+  try { localStorage.setItem('naafi_fav_folders', JSON.stringify(folders)); } catch(e) {}
+}
+function makeDuaId(title) {
+  return (title || '').toLowerCase().replace(/[^a-z0-9]+/g, '_').substring(0, 40);
+}
+function createFolder(name) {
+  var folders = getFolders();
+  var folder = { id: 'folder_' + Date.now(), name: name, duaIds: [] };
+  folders.push(folder);
+  saveFolders(folders);
+  return folder;
+}
+function addDuaToFolder(folderId, duaId) {
+  var folders = getFolders();
+  var folder = folders.find(function(f) { return f.id === folderId; });
+  if (folder && folder.duaIds.indexOf(duaId) === -1) {
+    folder.duaIds.push(duaId);
+    saveFolders(folders);
+  }
+}
+function removeDuaFromFolder(folderId, duaId) {
+  var folders = getFolders();
+  var folder = folders.find(function(f) { return f.id === folderId; });
+  if (folder) {
+    folder.duaIds = folder.duaIds.filter(function(id) { return id !== duaId; });
+    saveFolders(folders);
+  }
+}
+function deleteFolder(folderId) {
+  var folders = getFolders().filter(function(f) { return f.id !== folderId; });
+  saveFolders(folders);
+}
+
+var _favCurrentDuaId = '';
+
+function renderFolderList(duaId) {
+  var list = document.getElementById('favFolderList');
+  if (!list) return;
+  var folders = getFolders();
+  if (folders.length === 0) {
+    list.innerHTML = '<div style="font-family:var(--fn);font-size:13px;color:var(--text-m);text-align:center;padding:16px 0;">No folders yet — create one below</div>';
+    return;
+  }
+  list.innerHTML = folders.map(function(folder) {
+    var isIn = folder.duaIds.indexOf(duaId) !== -1;
+    return '<button data-folder-id="' + folder.id + '" style="' +
+      'display:flex;align-items:center;justify-content:space-between;' +
+      'width:100%;background:' + (isIn ? 'rgba(201,168,76,0.1)' : 'var(--card)') + ';' +
+      'border:1px solid ' + (isIn ? 'var(--gold)' : 'var(--bdr)') + ';' +
+      'border-radius:10px;padding:12px 16px;cursor:pointer;' +
+      'font-family:var(--fn);font-size:14px;color:var(--text);text-align:left;' +
+      '-webkit-tap-highlight-color:transparent;">' +
+      '<span>' + escapeHtml(folder.name) + '</span>' +
+      '<span style="font-size:12px;color:var(--text-m);">' + folder.duaIds.length + ' saved</span>' +
+    '</button>';
+  }).join('');
+  list.querySelectorAll('[data-folder-id]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var fid = btn.getAttribute('data-folder-id');
+      var folders2 = getFolders();
+      var folder2 = folders2.find(function(f) { return f.id === fid; });
+      if (!folder2) return;
+      if (folder2.duaIds.indexOf(duaId) !== -1) {
+        removeDuaFromFolder(fid, duaId);
+      } else {
+        addDuaToFolder(fid, duaId);
+      }
+      renderFolderList(duaId);
+    });
+  });
+}
+
+function openFavSheet(duaId) {
+  _favCurrentDuaId = duaId;
+  renderFolderList(duaId);
+  var sheet = document.getElementById('favSheet') || document.querySelector('[data-sheet="favourites"]');
+  if (sheet) sheet.style.display = 'flex';
+}
+
+function renderFavFoldersSection() {
+  var grid = document.getElementById('favFoldersGrid');
+  if (!grid) return;
+  var folders = getFolders();
+  var section = document.getElementById('favFoldersSection');
+  if (folders.length === 0) {
+    if (section) section.style.display = 'none';
+    return;
+  }
+  if (section) section.style.display = 'block';
+  grid.innerHTML = folders.map(function(folder) {
+    return '<div style="' +
+      'background:var(--card);border:1px solid var(--bdr);border-radius:12px;' +
+      'padding:14px 16px;display:flex;align-items:center;justify-content:space-between;">' +
+      '<div>' +
+        '<div style="font-family:var(--fs);font-size:16px;color:var(--text);margin-bottom:3px;">' + escapeHtml(folder.name) + '</div>' +
+        '<div style="font-family:var(--fn);font-size:11px;color:var(--text-m);">' + folder.duaIds.length + ' duas saved</div>' +
+      '</div>' +
+      '<button data-delete-folder="' + folder.id + '" style="background:none;border:none;color:var(--text-m);font-size:18px;cursor:pointer;padding:4px;-webkit-tap-highlight-color:transparent;">×</button>' +
+    '</div>';
+  }).join('');
+  grid.querySelectorAll('[data-delete-folder]').forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var fid = btn.getAttribute('data-delete-folder');
+      if (confirm('Delete this folder? Saved duas will not be removed.')) {
+        deleteFolder(fid);
+        renderFavFoldersSection();
+      }
+    });
+  });
+}
+
+// Wire the New Folder button
+document.addEventListener('DOMContentLoaded', function() {
+  var newBtn = document.getElementById('favNewFolderBtn');
+  if (newBtn) {
+    newBtn.addEventListener('click', function() {
+      var name = prompt('Folder name:');
+      if (name && name.trim()) {
+        createFolder(name.trim());
+        renderFolderList(_favCurrentDuaId);
+      }
+    });
+  }
+});
 
 
 
@@ -7841,41 +8311,93 @@ function escapeHtml(s){
   var today = new Date().toDateString();
   var stored = safeGet('progress_date','');
   var progress = {};
-  if(stored === today){
-    try{ progress = JSON.parse(safeGet('progress_data','{}'))||{}; }catch(e){}
+  if (stored === today) {
+    try { progress = JSON.parse(safeGet('progress_data','{}')) || {}; } catch(e) {}
   }
 
-  function renderProgress(){
-    ['morning','evening','salah','sleep'].forEach(function(key){
-      // Update home progress strip dots
-      var dot = document.getElementById('hpd-'+key);
-      if(dot){
-        if(progress[key]){ dot.classList.add('sc-done'); }
+  function renderProgress() {
+    ['morning','evening','salah','sleep'].forEach(function(key) {
+      var dot = document.getElementById('hpd-' + key);
+      if (dot) {
+        if (progress[key]) { dot.classList.add('sc-done'); }
         else { dot.classList.remove('sc-done'); }
       }
-      // Also update any session-card elements (Adhkar tab)
-      var card = document.getElementById('pt-'+key);
-      if(card){
-        if(progress[key]){ card.classList.add('sc-done'); }
+      var card = document.getElementById('pt-' + key);
+      if (card) {
+        if (progress[key]) { card.classList.add('sc-done'); }
         else { card.classList.remove('sc-done'); }
       }
     });
   }
 
-  window.toggleProgress = function(key){
+  window.toggleProgress = function(key) {
     var turningOn = !progress[key];
     progress[key] = !progress[key];
     safeSet('progress_date', today);
     safeSet('progress_data', JSON.stringify(progress));
     renderProgress();
-    if(typeof window.refreshContextualHome === 'function') window.refreshContextualHome();
+    if (typeof window.refreshContextualHome === 'function') window.refreshContextualHome();
     if (turningOn && typeof window.markStreakDay === 'function') window.markStreakDay();
   };
 
-  // Auto-reset at midnight
+  // --- Prayer-based reset logic ---
+  // Tracks which prayer windows have triggered a reset this calendar day
+  var resetKey = 'progress_reset_' + today;
+  var resets = {};
+  try { resets = JSON.parse(localStorage.getItem(resetKey) || '{}'); } catch(e) {}
+
+  function saveResets() {
+    try { localStorage.setItem(resetKey, JSON.stringify(resets)); } catch(e) {}
+  }
+
+  function checkPrayerResets() {
+    window._checkPrayerResets = checkPrayerResets;
+    var _pt = APP_STATE._prayerTimes || { fajr: 240, maghrib: 1080 };
+    var now = new Date();
+    var mins = now.getHours() * 60 + now.getMinutes();
+
+    // Fajr reset — clears morning + salah
+    if (mins >= _pt.fajr && !resets.fajr) {
+      resets.fajr = true;
+      saveResets();
+      var changed = false;
+      ['morning', 'salah'].forEach(function(k) {
+        if (progress[k]) { progress[k] = false; changed = true; }
+      });
+      if (changed) {
+        safeSet('progress_data', JSON.stringify(progress));
+        renderProgress();
+      }
+    }
+
+    // Maghrib reset — clears evening + salah + sleep
+    if (mins >= _pt.maghrib && !resets.maghrib) {
+      resets.maghrib = true;
+      saveResets();
+      var changed2 = false;
+      ['evening', 'salah', 'sleep'].forEach(function(k) {
+        if (progress[k]) { progress[k] = false; changed2 = true; }
+      });
+      if (changed2) {
+        safeSet('progress_data', JSON.stringify(progress));
+        renderProgress();
+      }
+    }
+  }
+
+  // Check on load
+  checkPrayerResets();
+
+  // Check every minute + on visibility change
+  setInterval(checkPrayerResets, 60000);
+  document.addEventListener('visibilitychange', function() {
+    if (!document.hidden) checkPrayerResets();
+  });
+
+  // Midnight reset (existing behaviour — resets everything)
   var now = new Date();
-  var midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate()+1, 0, 0, 5);
-  setTimeout(function(){
+  var midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 5);
+  setTimeout(function() {
     progress = {};
     safeSet('progress_date', new Date().toDateString());
     safeSet('progress_data', '{}');
@@ -9615,6 +10137,7 @@ function loadPrayerTimes() {
     if (cached && cached.date === dateKey && cached.times) {
       APP_STATE._prayerTimes = cached.times;
       renderContextualHome();
+      applyTimeContextToBody();
       return;
     }
   } catch(e) {}
@@ -9644,6 +10167,7 @@ function loadPrayerTimes() {
       APP_STATE._prayerTimes = times;
       try { localStorage.setItem(cacheKey, JSON.stringify({ date: dateKey, times: times })); } catch(e) {}
       renderContextualHome();
+      applyTimeContextToBody();
     }).catch(function(){
       // Silently fail — fallback hardcoded values used
     });
@@ -9660,8 +10184,172 @@ function loadPrayerTimes() {
   }
 }
 
+// ============================================================
+//  TIME CONTEXT — write data attributes to body for CSS
+// ============================================================
+function applyTimeContextToBody() {
+  var now = new Date();
+  var totalMins = now.getHours() * 60 + now.getMinutes();
+  var _pt = APP_STATE._prayerTimes;
+  var period = 'morning';
+  var activeSession = 'morning';
+
+  if (_pt) {
+    if (totalMins >= _pt.fajr    && totalMins < _pt.sunrise) { period = 'fajr';      activeSession = 'morning'; }
+    else if (totalMins >= _pt.sunrise && totalMins < _pt.dhuhr)   { period = 'morning';   activeSession = 'morning'; }
+    else if (totalMins >= _pt.dhuhr   && totalMins < _pt.asr)     { period = 'dhuhr';     activeSession = ''; }
+    else if (totalMins >= _pt.asr     && totalMins < _pt.maghrib - 60) { period = 'afternoon'; activeSession = ''; }
+    else if (totalMins >= _pt.maghrib - 60 && totalMins < _pt.maghrib) { period = 'asr';  activeSession = 'salah'; }
+    else if (totalMins >= _pt.maghrib && totalMins < _pt.maghrib + 90) { period = 'maghrib'; activeSession = 'salah'; }
+    else if (totalMins >= _pt.maghrib + 90 && totalMins < _pt.isha + 90) { period = 'isha'; activeSession = 'evening'; }
+    else { period = 'night'; activeSession = 'sleep'; }
+  }
+
+  document.body.setAttribute('data-time-ctx', period);
+  document.body.setAttribute('data-active-session', activeSession);
+}
+
+// Refresh every minute
+setInterval(function() {
+  applyTimeContextToBody();
+}, 60000);
+
+// Also refresh when user returns to the app
+document.addEventListener('visibilitychange', function() {
+  if (!document.hidden) applyTimeContextToBody();
+});
+
 // Call on load
 loadPrayerTimes();
+
+// ============================================================
+//  PRAYER TIME SETTINGS
+// ============================================================
+(function() {
+  var MANUAL_KEY = 'naafi_prayer_times_manual';
+  var fields = ['fajr','sunrise','dhuhr','asr','maghrib','isha'];
+
+  function minsToTime(m) {
+    var h = Math.floor(m / 60) % 24;
+    var min = m % 60;
+    return (h < 10 ? '0' : '') + h + ':' + (min < 10 ? '0' : '') + min;
+  }
+
+  function timeToMins(str) {
+    if (!str) return null;
+    var parts = str.split(':');
+    return parseInt(parts[0], 10) * 60 + parseInt(parts[1], 10);
+  }
+
+  function populateInputs() {
+    // Priority: manual saved > Aladhan cached > defaults
+    var manual = null;
+    try { manual = JSON.parse(localStorage.getItem(MANUAL_KEY) || 'null'); } catch(e) {}
+
+    var cached = null;
+    try {
+      var c = JSON.parse(localStorage.getItem('prayer_times_cache') || 'null');
+      if (c && c.times) cached = c.times;
+    } catch(e) {}
+
+    var defaults = { fajr: 300, sunrise: 390, dhuhr: 780, asr: 990, maghrib: 1200, isha: 1290 };
+    var source = manual || cached || defaults;
+
+    fields.forEach(function(key) {
+      var el = document.getElementById('pt-' + key);
+      if (el && source[key] != null) el.value = minsToTime(source[key]);
+    });
+  }
+
+  function saveManualTimes() {
+    var times = {};
+    var valid = true;
+    fields.forEach(function(key) {
+      var el = document.getElementById('pt-' + key);
+      if (!el) { valid = false; return; }
+      var m = timeToMins(el.value);
+      if (m === null) { valid = false; return; }
+      times[key] = m;
+    });
+    if (!valid) return;
+
+    try { localStorage.setItem(MANUAL_KEY, JSON.stringify(times)); } catch(e) {}
+
+    // Override the Aladhan cache with manual times so loadPrayerTimes uses them immediately
+    var today = new Date().toDateString();
+    try { localStorage.setItem('prayer_times_cache', JSON.stringify({ date: today, times: times })); } catch(e) {}
+
+    APP_STATE._prayerTimes = times;
+    renderContextualHome();
+    if (typeof applyTimeContextToBody === 'function') applyTimeContextToBody();
+    if (typeof checkPrayerResets === 'function') checkPrayerResets();
+
+    var msg = document.getElementById('prayerTimesSavedMsg');
+    if (msg) {
+      msg.style.display = 'block';
+      setTimeout(function() { msg.style.display = 'none'; }, 2500);
+    }
+  }
+
+  function wireButtons() {
+    var saveBtn = document.getElementById('savePrayerTimesBtn');
+    if (saveBtn) saveBtn.addEventListener('click', saveManualTimes);
+
+    var fetchBtn = document.getElementById('fetchPrayerTimesBtn');
+    if (fetchBtn) fetchBtn.addEventListener('click', function() {
+      fetchBtn.textContent = 'Detecting\u2026';
+      fetchBtn.disabled = true;
+
+      function done() { fetchBtn.textContent = 'Auto-detect'; fetchBtn.disabled = false; populateInputs(); }
+
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          function(pos) {
+            var lat = pos.coords.latitude, lng = pos.coords.longitude;
+            var today = new Date();
+            var dd = String(today.getDate()).padStart(2,'0');
+            var mm = String(today.getMonth()+1).padStart(2,'0');
+            var yyyy = today.getFullYear();
+            var url = 'https://api.aladhan.com/v1/timings/' + dd + '-' + mm + '-' + yyyy +
+                      '?latitude=' + lat + '&longitude=' + lng + '&method=2&school=1';
+            fetch(url).then(function(r){ return r.json(); }).then(function(data){
+              var t = data.data.timings;
+              function toMins(s){ var p=s.split(':'); return parseInt(p[0],10)*60+parseInt(p[1],10); }
+              var times = {
+                fajr: toMins(t.Fajr), sunrise: toMins(t.Sunrise),
+                dhuhr: toMins(t.Dhuhr), asr: toMins(t.Asr),
+                maghrib: toMins(t.Maghrib), isha: toMins(t.Isha)
+              };
+              APP_STATE._prayerTimes = times;
+              var dateKey = today.toDateString();
+              try { localStorage.setItem('prayer_times_cache', JSON.stringify({ date: dateKey, times: times })); } catch(e) {}
+              done();
+              renderContextualHome();
+              if (typeof applyTimeContextToBody === 'function') applyTimeContextToBody();
+            }).catch(done);
+          },
+          done,
+          { timeout: 6000 }
+        );
+      } else {
+        done();
+      }
+    });
+  }
+
+  // Expose checkPrayerResets so saveManualTimes can call it
+  function checkPrayerResets() {
+    if (typeof window._checkPrayerResets === 'function') window._checkPrayerResets();
+  }
+
+  // Wire up on DOMContentLoaded
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() { populateInputs(); wireButtons(); });
+  } else {
+    populateInputs();
+    wireButtons();
+  }
+})();
 
 // ============================================================
 //  INSTALL PROMPT
@@ -9929,6 +10617,36 @@ var DUAS_STATIC_DATA = {
       { title: 'For Forgiveness — Arafah and Laylatul Qadr', ar: 'اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي', tr: 'Allāhumma innaka ʿafuwwun tuḥibbul-ʿafwa faʿfu ʿannī', en: '"O Allah, You are the Pardoner, You love to pardon, so pardon me."', src: 'Source: al-Tirmidhi (3513), Ibn Majah (3850) — Sahih · Best for Laylatul Qadr and Arafah', badge: '' },
       { title: 'Takbir of Dhul Hijjah — Days 1–13', ar: 'اللَّهُ أَكْبَرُ اللَّهُ أَكْبَرُ لَا إِلَهَ إِلَّا اللَّهُ وَاللَّهُ أَكْبَرُ اللَّهُ أَكْبَرُ وَلِلَّهِ الْحَمْدُ', tr: 'Allāhu Akbar, Allāhu Akbar, lā ilāha illallāhu wallāhu Akbar, Allāhu Akbar wa lillāhil-ḥamd', en: '"Allah is the Greatest, Allah is the Greatest, there is no god but Allah and Allah is the Greatest, Allah is the Greatest and all praise belongs to Allah."', src: 'Source: Said aloud from Fajr of 9th Dhul Hijjah until Asr of 13th — Ibn Abi Shaybah', badge: '' },
       { title: 'Dua for Good in Both Worlds — Arafah', ar: 'رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ', tr: 'Rabbanā ātinā fid-dunyā ḥasanatan wa fil-ākhirati ḥasanatan wa qinā ʿadhāban-nār', en: '"Our Lord, give us good in this world and good in the Hereafter, and protect us from the punishment of the Fire."', src: 'Source: Qur\'an 2:201 — The Prophet ﷺ made this dua most frequently of all', badge: '' },
+    ]
+  },
+  'illness': {
+    title: 'Illness & Hardship',
+    icon: '🤲',
+    duas: [
+      { title: 'Dua of Ayyub (AS) — For Relief from Affliction', ar: 'أَنِّي مَسَّنِيَ الضُّرُّ وَأَنتَ أَرْحَمُ الرَّاحِمِينَ', tr: 'Annī massaniyaḍ-ḍurru wa Anta arḥamur-rāḥimīn', en: '"Indeed, adversity has touched me, and You are the Most Merciful of the merciful."', src: 'Source: Qur\'an 21:83 — Said by Ayyub (AS) after years of illness. Allah answered and removed his hardship entirely.', badge: '' },
+      { title: 'Ruqyah — For Healing Oneself or Another', ar: 'اللَّهُمَّ رَبَّ النَّاسِ أَذْهِبِ الْبَأْسَ اشْفِ أَنْتَ الشَّافِي لَا شِفَاءَ إِلَّا شِفَاؤُكَ شِفَاءً لَا يُغَادِرُ سَقَمًا', tr: 'Allāhumma Rabban-nāsi adh-hibil-baʾs, ishfi Antash-Shāfī, lā shifāʾa illā shifāʾuk, shifāʾan lā yughādiru saqamā', en: '"O Allah, Lord of mankind, remove the affliction. Heal — for You are the Healer. There is no healing except Your healing, a healing that leaves no illness behind."', src: 'Source: Sahih al-Bukhari (5675), Sahih Muslim (2191) — Place hand on the area of pain, recite 3× Bismillah then this dua ×7', badge: '' },
+      { title: 'Visiting the Sick — Dua Said Over the Ill Person', ar: 'أَسْأَلُ اللَّهَ الْعَظِيمَ رَبَّ الْعَرْشِ الْعَظِيمِ أَنْ يَشْفِيَكَ', tr: 'Asʾalullāhal-ʿAẓīma Rabbal-ʿarshil-ʿaẓīmi an yashfiyak', en: '"I ask Allah the Almighty, Lord of the Mighty Throne, to heal you."', src: 'Source: Abu Dawud (3106), al-Tirmidhi (2083) — Sahih. Said 7 times over the ill person. The Prophet ﷺ guaranteed: if death is not decreed, Allah will cure them.', badge: '' },
+      { title: 'For Removal of Pain — Place Hand on the Affected Area', ar: 'بِسْمِ اللَّهِ × ثَلَاثًا · أَعُوذُ بِاللَّهِ وَقُدْرَتِهِ مِنْ شَرِّ مَا أَجِدُ وَأُحَاذِرُ', tr: 'Bismillāh (×3) · Aʿūdhu billāhi wa qudratihi min sharri mā ajidu wa uḥādhir', en: '"In the name of Allah (×3). I seek refuge in Allah and His power from the evil of what I feel and fear."', src: 'Source: Sahih Muslim (2202) — Place your hand on the painful area and repeat 7 times.', badge: '' },
+      { title: 'Dua of Yunus (AS) — For Any Hardship', ar: 'لَّا إِلَٰهَ إِلَّا أَنتَ سُبْحَانَكَ إِنِّي كُنتُ مِنَ الظَّالِمِينَ', tr: 'Lā ilāha illā Anta subḥānaka innī kuntu minaẓ-ẓālimīn', en: '"There is no god but You. Glory be to You. Indeed I have been of the wrongdoers."', src: 'Source: Qur\'an 21:87 — No Muslim supplicates sincerely with this except Allah relieves his distress. Tested for 1400 years.', badge: '' },
+      { title: 'When in Severe Distress — Yā Ḥayyu Yā Qayyūm', ar: 'يَا حَيُّ يَا قَيُّومُ بِرَحْمَتِكَ أَسْتَغِيثُ أَصْلِحْ لِي شَأْنِي كُلَّهُ وَلَا تَكِلْنِي إِلَى نَفْسِي طَرْفَةَ عَيْنٍ', tr: 'Yā Ḥayyu Yā Qayyūm bi-raḥmatika astaghīth, aṣliḥ lī shaʾnī kullahu wa lā takilnī ilā nafsī ṭarfata ʿayn', en: '"O Ever-Living, O Sustainer, by Your mercy I seek help. Rectify all my affairs and do not entrust me to myself even for a blink of an eye."', src: 'Source: al-Nasāʾī, ʿAmal al-Yawm wal-Laylah (46) — Sahih', badge: '' }
+    ]
+  },
+  'travel': {
+    title: 'Travel',
+    icon: '✈️',
+    duas: [
+      { title: 'Dua When Departing — Said Upon Leaving Home', ar: 'بِسْمِ اللَّهِ تَوَكَّلْتُ عَلَى اللَّهِ وَلَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ', tr: 'Bismillāhi tawakkaltu ʿalallāhi wa lā ḥawla wa lā quwwata illā billāh', en: '"In the name of Allah, I place my trust in Allah. There is no power or might except with Allah."', src: 'Source: Abu Dawud (5095), al-Tirmidhi (3426) — Sahih. Whoever says this is told: you are guided, protected and kept safe. Shaytan leaves him.', badge: '' },
+      { title: 'Dua When Boarding Any Vehicle', ar: 'سُبْحَانَ الَّذِي سَخَّرَ لَنَا هَٰذَا وَمَا كُنَّا لَهُ مُقْرِنِينَ وَإِنَّا إِلَىٰ رَبِّنَا لَمُنقَلِبُونَ', tr: 'Subḥānal-ladhī sakhkhara lanā hādhā wa mā kunnā lahu muqrinīn, wa innā ilā Rabbinā la-munqalibūn', en: '"Glory be to the One who has subjected this to us, and we could not have done it ourselves. And indeed to our Lord we will return."', src: 'Source: Qur\'an 43:13–14 — The dua of the Prophet ﷺ whenever he mounted any vehicle.', badge: '' },
+      { title: 'Dua for a Safe Journey — Said at the Start', ar: 'اللَّهُمَّ إِنَّا نَسْأَلُكَ فِي سَفَرِنَا هَٰذَا الْبِرَّ وَالتَّقْوَى وَمِنَ الْعَمَلِ مَا تَرْضَى اللَّهُمَّ هَوِّنْ عَلَيْنَا سَفَرَنَا هَٰذَا وَاطْوِ عَنَّا بُعْدَهُ', tr: 'Allāhumma innā nasʾaluka fī safarinā hādhal-birra wat-taqwā wa minal-ʿamali mā tarḍā. Allāhumma hawwin ʿalaynā safaranā hādhā waṭwi ʿannā buʿdah', en: '"O Allah, we ask You in this journey for righteousness, piety, and deeds You are pleased with. O Allah, make this journey easy for us and shorten its distance."', src: 'Source: Sahih Muslim (1342) — The Prophet ﷺ said this whenever he set out on a journey.', badge: '' }
+    ]
+  },
+  'eating': {
+    title: 'Eating & Drinking',
+    icon: '🍽️',
+    duas: [
+      { title: 'Before Eating — The Sunnah', ar: 'بِسْمِ اللَّهِ', tr: 'Bismillāh', en: '"In the name of Allah."', src: 'Source: Sahih al-Bukhari (5376) — The Prophet ﷺ said: When one of you eats, let him mention Allah\'s name. If he forgets at the start, let him say: Bismillāhi awwalahu wa ākhirahu.', badge: '' },
+      { title: 'After Eating — Alhamdulillah', ar: 'الْحَمْدُ لِلَّهِ الَّذِي أَطْعَمَنِي هَٰذَا وَرَزَقَنِيهِ مِنْ غَيْرِ حَوْلٍ مِنِّي وَلَا قُوَّةٍ', tr: 'Al-ḥamdulillāhil-ladhī aṭʿamanī hādhā wa razaqanīhi min ghayri ḥawlin minnī wa lā quwwah', en: '"All praise is for Allah who fed me this and provided it for me without any power or strength from myself."', src: 'Source: Abu Dawud (4023), al-Tirmidhi (3458) — Hasan. Whoever says this after eating, his past sins are forgiven.', badge: '' },
+      { title: 'If You Forget Bismillah — Said During or After', ar: 'بِسْمِ اللَّهِ أَوَّلَهُ وَآخِرَهُ', tr: 'Bismillāhi awwalahu wa ākhirahu', en: '"In the name of Allah, at its beginning and its end."', src: 'Source: Abu Dawud (3767), al-Tirmidhi (1858) — Sahih. If Bismillah is forgotten before eating, say this when you remember.', badge: '' }
     ]
   },
 };
@@ -10243,14 +10961,20 @@ function toggleDuaReaderFav() {
   var dua = cat.duas[duaReaderCurrentIndex];
   if (!dua) return;
   var duaKey = 'dua:' + duaReaderCurrentCat + ':' + duaReaderCurrentIndex;
+  var isNowStarred;
   if (favState[duaKey]) {
     delete favState[duaKey];
+    isNowStarred = false;
   } else {
     favState[duaKey] = { id: duaKey, type: 'dua', catId: duaReaderCurrentCat,
       title: dua.title, label: dua.title, ar: dua.ar, tr: dua.tr, en: dua.en, src: dua.src };
+    isNowStarred = true;
   }
   saveFavs();
   renderDuaReaderCard();
+  if (isNowStarred) {
+    openFavSheet(makeDuaId(dua.title));
+  }
 }
 
 function openDuaReaderShare() {
@@ -10259,12 +10983,14 @@ function openDuaReaderShare() {
   var dua = cat.duas[duaReaderCurrentIndex];
   if (!dua) return;
   var synth = document.createElement('div');
-  synth.setAttribute('data-title', dua.title);
-  synth.setAttribute('data-ar',    dua.ar);
-  synth.setAttribute('data-tr',    dua.tr);
-  synth.setAttribute('data-en',    dua.en);
-  synth.setAttribute('data-src',   dua.src);
-  synth.innerHTML = '<div class="ar">' + dua.ar + '</div><div class="tr">' + dua.tr + '</div><div class="en">' + dua.en + '</div><div class="src">' + dua.src + '</div>';
+  synth.setAttribute('data-title',   dua.title      || '');
+  synth.setAttribute('data-ar',      dua.ar         || '');
+  synth.setAttribute('data-tr',      dua.tr         || '');
+  synth.setAttribute('data-en',      dua.en         || '');
+  synth.setAttribute('data-src',     dua.src        || '');
+  synth.setAttribute('data-section', cat.title      || '');
+  synth.setAttribute('data-note',    dua.note       || dua.badge || '');
+  synth.innerHTML = '<div class="ar">' + (dua.ar || '') + '</div><div class="tr">' + (dua.tr || '') + '</div><div class="en">' + (dua.en || '') + '</div><div class="src">' + (dua.src || '') + '</div>';
   openShareSheet(synth);
 }
 // ===== END DUA READER SYSTEM =====
@@ -10389,6 +11115,17 @@ function closeLearnTopic() {
 }
 
 function beginLearnDeck(topicId) {
+  // Hub deck is a scroll — just show it directly, no card-flip needed
+  if (topicId === 'hub') {
+    var hubEl = document.getElementById('learn-deck-hub');
+    if (hubEl) {
+      hubEl.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+    var introEl = document.getElementById('learn-intro-hub');
+    if (introEl) introEl.style.display = 'none';
+    return;
+  }
   renderLearnDeck(topicId);
   var intro = document.getElementById('learn-intro-' + topicId);
   if (intro) { intro.classList.remove('is-open'); intro.style.display = 'none'; }
@@ -10522,6 +11259,7 @@ Object.defineProperty(window, '_shareCardEl', {
   set: function(v) { APP_STATE.share.activeCard = v; },
   configurable: true
 });
+var _shareData = {};
 
 /* ── Toast helper (defined here; not present elsewhere in app) ── */
 function ndlToast(msg) {
@@ -10542,6 +11280,27 @@ function openShareSheet(btn) {
   var sheet = document.getElementById('shareSheet');
   sheet.style.display = 'block';
   requestAnimationFrame(function() { sheet.style.transform = 'translateY(0)'; });
+
+  // Populate preview card
+  _shareData = {
+    ar:  card.getAttribute('data-ar')  || '',
+    tr:  card.getAttribute('data-tr')  || '',
+    en:  card.getAttribute('data-en')  || '',
+    src: card.getAttribute('data-src') || ''
+  };
+  var previewCard = document.getElementById('sharePreviewCard');
+  var previewAr   = document.getElementById('sharePreviewAr');
+  var previewTr   = document.getElementById('sharePreviewTr');
+  var previewEn   = document.getElementById('sharePreviewEn');
+  var previewSrc  = document.getElementById('sharePreviewSrc');
+  if (previewCard) {
+    previewAr.textContent  = _shareData.ar || '';
+    previewTr.textContent  = _shareData.tr || '';
+    previewEn.textContent  = _shareData.en || '';
+    previewSrc.textContent = (_shareData.src || '').replace(/^Source:\s*/i, '');
+    previewTr.style.display = _shareData.tr ? '' : 'none';
+    previewCard.style.display = (_shareData.ar || _shareData.en) ? 'block' : 'none';
+  }
 }
 
 function openGuidedShare() {
@@ -10629,11 +11388,18 @@ function shareAsImage() {
       ctx.fillRect(0, 0, W, H);
 
       /* Subtle radial depth glow — matches app body atmospheric layer */
-      var depthGlow = ctx.createRadialGradient(cx, H * 0.3, 0, cx, H * 0.3, W * 0.9);
-      depthGlow.addColorStop(0,   'rgba(201,168,76,0.07)');
-      depthGlow.addColorStop(0.5, 'rgba(201,168,76,0.02)');
+      var depthGlow = ctx.createRadialGradient(cx, H * 0.28, 0, cx, H * 0.28, W * 1.0);
+      depthGlow.addColorStop(0,   'rgba(201,168,76,0.10)');
+      depthGlow.addColorStop(0.4, 'rgba(201,168,76,0.04)');
       depthGlow.addColorStop(1,   'rgba(0,0,0,0)');
       ctx.fillStyle = depthGlow;
+      ctx.fillRect(0, 0, W, H);
+
+      /* Secondary ambient glow — lower half, very subtle */
+      var depthGlow2 = ctx.createRadialGradient(cx * 0.4, H * 0.7, 0, cx * 0.4, H * 0.7, W * 0.6);
+      depthGlow2.addColorStop(0,   'rgba(201,168,76,0.04)');
+      depthGlow2.addColorStop(1,   'rgba(0,0,0,0)');
+      ctx.fillStyle = depthGlow2;
       ctx.fillRect(0, 0, W, H);
 
       /* Star field — matches app body::before */
@@ -10709,15 +11475,28 @@ function shareAsImage() {
         y += 32 + 64;
       }
 
-      /* ── Arabic — large gold, RTL centre ── */
+      /* ── Arabic — large gold, RTL centre, with glow layers ── */
       ctx.font = arFont + 'px "Scheherazade New","Traditional Arabic","Amiri",serif';
       ctx.fillStyle = '#E8CC84';
       ctx.textAlign = 'center';
       ctx.direction = 'rtl';
+      /* Layer 1: wide soft glow */
+      ctx.shadowColor = 'rgba(201,168,76,0.22)';
+      ctx.shadowBlur = 80;
       for (var a = 0; a < arLines.length; a++) {
         ctx.fillText(arLines[a].trim(), cx, y + arFont * 0.88);
         y += arLineH;
       }
+      /* Layer 2: tighter inner glow */
+      y -= arLines.length * arLineH;
+      ctx.shadowColor = 'rgba(201,168,76,0.35)';
+      ctx.shadowBlur = 30;
+      for (var a2 = 0; a2 < arLines.length; a2++) {
+        ctx.fillText(arLines[a2].trim(), cx, y + arFont * 0.88);
+        y += arLineH;
+      }
+      ctx.shadowBlur = 0;
+      ctx.shadowColor = 'transparent';
       ctx.direction = 'ltr';
       y += 48;
 
@@ -11516,16 +12295,12 @@ function renderContextualHome() {
   var el = document.getElementById('contextualHome');
   if (!el) return;
 
-  // Read today's progress
-  var todayKey = 'progress_' + new Date().toDateString();
+  // Read today's progress — use progress_data (written by toggleProgress)
   var progress = {};
-  try { progress = JSON.parse(safeGet(todayKey, '{}')); } catch(e) {}
-  try {
-    var legacyProgress = JSON.parse(safeGet('progress_data', '{}'));
-    if (legacyProgress && typeof legacyProgress === 'object') {
-      progress = Object.assign({}, legacyProgress, progress);
-    }
-  } catch(e) {}
+  var _storedDate = safeGet('progress_date', '');
+  if (_storedDate === new Date().toDateString()) {
+    try { progress = JSON.parse(safeGet('progress_data', '{}')) || {}; } catch(e) {}
+  }
 
   // Filter completed cards
   ctx.cards = ctx.cards.filter(function(card) {
@@ -11551,6 +12326,39 @@ function renderContextualHome() {
   var hero = ctx.cards[0];
   var secondary = ctx.cards.slice(1);
 
+  // --- Compute time remaining until end of current period ---
+  var _heroTimeLabel = '';
+  (function() {
+    var _pt = APP_STATE._prayerTimes;
+    if (!_pt) return;
+    var _now = new Date();
+    var _mins = _now.getHours() * 60 + _now.getMinutes();
+    var _period = document.body.getAttribute('data-time-ctx') || '';
+    var _endMin = null;
+
+    if      (_period === 'fajr')      _endMin = _pt.sunrise;
+    else if (_period === 'morning')   _endMin = _pt.dhuhr;
+    else if (_period === 'dhuhr')     _endMin = _pt.dhuhr + 60;
+    else if (_period === 'afternoon') _endMin = _pt.asr;
+    else if (_period === 'asr')       _endMin = _pt.maghrib - 60;
+    else if (_period === 'maghrib')   _endMin = _pt.maghrib + 90;
+    else if (_period === 'isha')      _endMin = _pt.isha + 90;
+    else if (_period === 'night')     _endMin = _pt.fajr + 1440; // tomorrow fajr
+
+    if (_endMin === null) return;
+    var _remaining = _endMin - _mins;
+    if (_remaining < 0) _remaining += 1440;
+    if (_remaining > 480) return; // don't show if more than 8h — not useful
+
+    var _h = Math.floor(_remaining / 60);
+    var _m = _remaining % 60;
+    if (_h > 0) {
+      _heroTimeLabel = _h + 'h ' + (_m > 0 ? _m + 'm' : '') + ' remaining';
+    } else if (_m > 0) {
+      _heroTimeLabel = _m + 'm remaining';
+    }
+  })();
+
   var secondaryHtml = secondary.map(function(card) {
     return '<button class="ctx-secondary" data-action="ctx-action" data-ctx="' + encodeURIComponent(card.action) + '" type="button">' +
       '<div class="ctx-sec-inner">' +
@@ -11571,7 +12379,7 @@ function renderContextualHome() {
     '</div>' +
     '<button class="ctx-hero" data-action="ctx-action" data-ctx="' + encodeURIComponent(hero.action) + '" type="button">' +
       '<div class="ctx-hero-inner">' +
-        '<div class="ctx-hero-eyebrow">' + hero.eyebrow + '</div>' +
+        '<div class="ctx-hero-eyebrow">' + hero.eyebrow + (_heroTimeLabel ? ' · <span class="ctx-hero-time">' + _heroTimeLabel + '</span>' : '') + '</div>' +
         '<div class="ctx-hero-title">' + hero.title + '</div>' +
         '<div class="ctx-hero-sub">' + hero.sub + '</div>' +
       '</div>' +
@@ -11601,8 +12409,13 @@ if (!safeGet('onboarding_done')) {
   openOnboarding();
 }
 
-// Refresh every 10 minutes
-setInterval(renderContextualHome, 600000);
+// Refresh every minute
+setInterval(renderContextualHome, 60000);
+document.addEventListener('visibilitychange', function() {
+  if (!document.hidden) renderContextualHome();
+});
+
+
 
 // Refresh when returning to Home tab
 (function() {
@@ -11894,6 +12707,48 @@ window.satRestartTimer = function() {
   </div>
   <div style="padding:14px 16px;display:flex;flex-direction:column;gap:10px;">
 
+    <div id="sharePreviewCard" style="
+      background: linear-gradient(160deg, #0F1420 0%, #0C1018 100%);
+      border: 1px solid rgba(201,168,76,0.25);
+      border-radius: 14px;
+      padding: 24px 20px 20px;
+      margin-bottom: 4px;
+      text-align: center;
+      display: none;
+    ">
+      <div id="sharePreviewAr" style="
+        font-family: 'Scheherazade New','Traditional Arabic',serif;
+        font-size: 22px;
+        color: #E8CC84;
+        direction: rtl;
+        line-height: 2;
+        margin-bottom: 14px;
+        text-shadow: 0 0 30px rgba(201,168,76,0.2);
+      "></div>
+      <div style="width: 40%; height: 1px; background: rgba(201,168,76,0.15); margin: 0 auto 14px;"></div>
+      <div id="sharePreviewTr" style="
+        font-family: 'Palatino Linotype','Georgia',serif;
+        font-style: italic;
+        font-size: 12px;
+        color: rgba(168,148,112,0.7);
+        margin-bottom: 10px;
+        line-height: 1.6;
+      "></div>
+      <div id="sharePreviewEn" style="
+        font-family: 'Palatino Linotype','Georgia',serif;
+        font-size: 13px;
+        color: rgba(240,230,210,0.85);
+        line-height: 1.7;
+        margin-bottom: 12px;
+      "></div>
+      <div id="sharePreviewSrc" style="
+        font-family: -apple-system, sans-serif;
+        font-size: 10px;
+        color: rgba(82,183,136,0.7);
+        letter-spacing: 0.05em;
+      "></div>
+    </div>
+
     <button data-action="share-text" style="display:flex;align-items:center;gap:14px;background:var(--gold-f);border:1px solid var(--bdr);border-radius:10px;padding:15px 16px;width:100%;cursor:pointer;text-align:left;-webkit-tap-highlight-color:transparent;touch-action:manipulation;">
       <span style="width:42px;height:42px;border-radius:9px;background:rgba(201,168,76,0.12);border:1px solid var(--bdr);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:19px;">📋</span>
       <span style="flex:1;">
@@ -11907,7 +12762,7 @@ window.satRestartTimer = function() {
       <span style="width:42px;height:42px;border-radius:9px;background:rgba(201,168,76,0.12);border:1px solid var(--bdr);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:19px;">🖼️</span>
       <span style="flex:1;">
         <span style="display:block;font-family:var(--fn);font-size:15px;font-weight:700;color:var(--text);">Share as Image</span>
-        <span style="display:block;font-family:var(--fn);font-size:12px;color:var(--text-d);margin-top:2px;">Beautiful card for WhatsApp &amp; Stories</span>
+        <span style="display:block;font-family:var(--fn);font-size:12px;color:var(--text-d);margin-top:2px;">Share the card shown above</span>
       </span>
       <span style="color:var(--gold);font-size:18px;opacity:0.5;">›</span>
     </button>
@@ -12035,5 +12890,47 @@ window.satRestartTimer = function() {
   }
 })();
 </script>
+
+<div id="favSheet" style="
+  display:none; position:fixed; inset:0; z-index:9999;
+  align-items:flex-end; justify-content:center;
+">
+  <div style="position:absolute;inset:0;background:rgba(0,0,0,0.55);"
+       onclick="document.getElementById('favSheet').style.display='none';"></div>
+  <div style="
+    position:relative; background:var(--card);
+    border-radius:20px 20px 0 0; padding:20px 16px 40px;
+    width:100%; max-width:520px; z-index:1;
+  ">
+    <div style="font-family:var(--fs);font-size:18px;color:var(--text);
+                margin-bottom:4px;">Save to Folder</div>
+    <div style="font-family:var(--fn);font-size:12px;color:var(--text-m);
+                margin-bottom:18px;letter-spacing:0.04em;">
+      Tap a folder to add or remove this dua
+    </div>
+    <div id="favFolderList" style="
+      max-height:240px; overflow-y:auto;
+      display:flex; flex-direction:column; gap:8px; margin-bottom:12px;
+    "></div>
+    <button id="favNewFolderBtn" style="
+      display:flex; align-items:center; gap:10px; width:100%;
+      background:transparent; border:1px dashed rgba(201,168,76,0.25);
+      border-radius:10px; padding:12px 16px; cursor:pointer;
+      font-family:var(--fn); font-size:13px; color:var(--gold);
+      letter-spacing:0.04em; -webkit-tap-highlight-color:transparent;
+      margin-bottom:12px;
+    ">
+      <span style="font-size:18px;line-height:1;">+</span> New Folder
+    </button>
+    <button onclick="document.getElementById('favSheet').style.display='none';"
+      style="width:100%;padding:14px;background:rgba(201,168,76,0.07);
+             border:1px solid var(--bdr);border-radius:12px;cursor:pointer;
+             font-family:var(--fn);font-size:14px;color:var(--text-d);
+             -webkit-tap-highlight-color:transparent;">
+      Done
+    </button>
+  </div>
+</div>
+
 </body>
 </html>
