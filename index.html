@@ -11565,7 +11565,14 @@ function shareAsImage() {
 
   var cleanTitle  = rawTitle.replace(/^Step\s+\d+\s*[—–-]+\s*/i, '').trim();
   var eyebrowLabel = (section && section.trim() ? section.trim() : cleanTitle).toUpperCase();
+
+  /* Extract count from label — e.g. "Sayyid al-Istighfar — 1×" → count=1, title="Sayyid al-Istighfar"
+     Also handles "Al-Ikhlas — 3× each", "Protection Dua 7×", etc. */
+  var _countMatch = cleanTitle.match(/[—–-]?\s*(\d+)\s*[×x]\s*(?:each|times?)?\s*$/i);
+  var _extractedCount = _countMatch ? parseInt(_countMatch[1], 10) : 1;
+  cleanTitle = cleanTitle.replace(/\s*[—–-]?\s*\d+\s*[×x]\s*(?:each|times?)?\s*$/i, '').trim();
   var title = cleanTitle;
+  var countLabel = _extractedCount > 1 ? '×' + _extractedCount : '';
 
   closeShareSheet();
   ndlToast('Creating image…');
@@ -11588,7 +11595,7 @@ function shareAsImage() {
          Pass 2: derive tr/en from Arabic, then check total contentH fits
                  within MAX_CONTENT_H. If not, step all fonts down 2px
                  and remeasure until it fits. No ellipsis truncation. */
-      var MAX_CONTENT_H = 1100; /* leaves ~125px padding each side at 1350 max */
+      var MAX_CONTENT_H = 1300; /* expanded to accommodate multi-line titles and long duas */
       var titleFont = 28;
 
       /* Pass 1 — Arabic size selection */
@@ -11647,7 +11654,7 @@ function shareAsImage() {
       var VPAD = Math.max(160, Math.round(contentH * 0.28));
       var H = contentH + VPAD * 2;
       /* Clamp: min 1080 (square), max 1350 (4:5 portrait) */
-      H = Math.max(1080, Math.min(H, 1350));
+      H = Math.max(1080, Math.min(H, 1600));
       /* Re-compute starting Y so content is truly centred */
       var y = Math.round((H - contentH) / 2);
 
@@ -11681,10 +11688,26 @@ function shareAsImage() {
         ctx.font = '400 ' + titleFont + 'px "Gill Sans","Optima","Trebuchet MS",sans-serif';
         ctx.fillStyle = '#8A7A65';
         ctx.textAlign = 'center';
-        var titleShort = cleanTitle.toUpperCase();
-        titleShort = titleShort.length > 52 ? titleShort.substring(0, 50) + '…' : titleShort;
-        ctx.fillText(titleShort, cx, y + titleFont);
-        y += titleFont + 56;
+        ctx.font = '400 ' + titleFont + 'px "Gill Sans","Optima","Trebuchet MS",sans-serif';
+        var titleWords = cleanTitle.toUpperCase().split(' ');
+        var titleDrawLines = [];
+        var titleCurrent = '';
+        for (var ti = 0; ti < titleWords.length; ti++) {
+          var titleTest = titleCurrent ? titleCurrent + ' ' + titleWords[ti] : titleWords[ti];
+          if (ctx.measureText(titleTest).width > innerW && titleCurrent) {
+            titleDrawLines.push(titleCurrent);
+            titleCurrent = titleWords[ti];
+          } else {
+            titleCurrent = titleTest;
+          }
+        }
+        if (titleCurrent) titleDrawLines.push(titleCurrent);
+        var titleDrawLineH = Math.round(titleFont * 1.4);
+        for (var tdi = 0; tdi < titleDrawLines.length; tdi++) {
+          ctx.fillText(titleDrawLines[tdi], cx, y + titleFont + (tdi * titleDrawLineH));
+        }
+        y += titleDrawLines.length * titleDrawLineH;
+        y += 56;
       }
 
       /* ── Arabic — deep charcoal, centred, no glow needed on light bg ── */
@@ -11736,9 +11759,19 @@ function shareAsImage() {
         ctx.font = srcFont + 'px "Palatino Linotype","Book Antiqua","Georgia",serif';
         ctx.fillStyle = 'rgba(139,107,42,0.55)';
         ctx.textAlign = 'center';
-        var srcShort = src.replace(/^Source:\s*/i, '');
-        srcShort = '(' + (srcShort.length > 64 ? srcShort.substring(0, 62) + '…' : srcShort) + ')';
-        ctx.fillText(srcShort, cx, y + srcFont);
+        var srcClean = '(' + src.replace(/^Source:\s*/i, '') + ')';
+        var srcLines = _duaWrapLines(ctx, srcClean, innerW);
+        for (var si2 = 0; si2 < srcLines.length; si2++) {
+          ctx.fillText(srcLines[si2], cx, y + srcFont + (si2 * Math.round(srcFont * 1.5)));
+        }
+      }
+
+      /* ── Count label — bottom right, only when > 1 ── */
+      if (countLabel) {
+        ctx.font = '400 32px "Palatino Linotype","Book Antiqua","Georgia",serif';
+        ctx.fillStyle = 'rgba(139,107,42,0.45)';
+        ctx.textAlign = 'right';
+        ctx.fillText(countLabel, W - PAD, H - 44);
       }
 
       /* ── Watermark ── */
