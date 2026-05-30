@@ -11569,165 +11569,201 @@ function shareAsImage() {
   setTimeout(function() {
     try {
       /* 9:16 canvas — Instagram / WhatsApp story */
-      var W = 1080, H = 1920, cx = W / 2;
+      var W = 1080;
+      var PAD = 96;
+      var innerW = W - PAD * 2;
+      var TOP = 180;
+      var BOT = 160;
+
+      /* ── Measure canvas: calculate font sizes and line counts first ── */
+      var measCanvas = document.createElement('canvas');
+      measCanvas.width = W; measCanvas.height = 100;
+      var mctx = measCanvas.getContext('2d');
+
+      /* Title */
+      var titleFont = 52;
+      var titleLines;
+      mctx.font = '400 ' + titleFont + 'px "Palatino Linotype","Book Antiqua","Georgia",serif';
+      titleLines = _duaWrapLines(mctx, cleanTitle, innerW);
+      var titleLineH = Math.round(titleFont * 1.5);
+
+      /* Count label — only shown if count > 1 */
+      var countLabel = '';
+      var rawCount = _shareCardEl ? parseInt(_shareCardEl.getAttribute('data-count') || '1', 10) : 1;
+      if (rawCount > 1) countLabel = '×' + rawCount;
+
+      /* Arabic */
+      var arFont = 72;
+      mctx.font = arFont + 'px "Scheherazade New","Traditional Arabic","Amiri",serif';
+      var arLines = _duaWrapLines(mctx, ar, innerW);
+      var arLineH = Math.round(arFont * 2.0);
+
+      /* Transliteration */
+      var trFont = 36;
+      mctx.font = 'italic ' + trFont + 'px "Palatino Linotype","Book Antiqua","Georgia",serif';
+      var trLines = _duaWrapLines(mctx, tr, innerW);
+      var trLineH = Math.round(trFont * 1.75);
+
+      /* Translation */
+      var enFont = 34;
+      mctx.font = enFont + 'px "Palatino Linotype","Book Antiqua","Georgia",serif';
+      var enLines = _duaWrapLines(mctx, en, innerW);
+      var enLineH = Math.round(enFont * 1.7);
+
+      /* Source */
+      var srcFont = 26;
+      var srcClean = src ? '(' + src.replace(/^Source:\s*/i, '') + ')' : '';
+
+      /* ── Total content height ── */
+      var titleH  = titleLines.length * titleLineH + 64;
+      var arH     = arLines.length   * arLineH    + 72;
+      var divH    = 48 + 48; /* divider + gaps */
+      var trH     = trLines.length   * trLineH    + 56;
+      var enH     = enLines.length   * enLineH    + 0;
+      var srcH    = srcClean ? (48 + srcFont + 16) : 0;
+      var countH  = countLabel ? (40 + 44) : 0;
+      var totalContent = titleH + arH + divH + trH + enH + srcH + countH;
+
+      /* ── Dynamic canvas height — min 1920 for stories ── */
+      var H = Math.max(1920, TOP + totalContent + BOT + 80);
+      var cx = W / 2;
+
+      /* ── Create actual canvas ── */
       var cv = document.createElement('canvas');
       cv.width = W; cv.height = H;
       var ctx = cv.getContext('2d');
 
       /* ── Background — deep navy ── */
-      ctx.fillStyle = '#0C1018';
+      ctx.fillStyle = '#080C12';
       ctx.fillRect(0, 0, W, H);
 
-      /* Radial depth glow */
-      var depthGlow = ctx.createRadialGradient(cx, H * 0.32, 0, cx, H * 0.32, W * 1.1);
-      depthGlow.addColorStop(0,   'rgba(201,168,76,0.09)');
-      depthGlow.addColorStop(0.5, 'rgba(201,168,76,0.03)');
-      depthGlow.addColorStop(1,   'rgba(0,0,0,0)');
-      ctx.fillStyle = depthGlow;
+      /* Subtle radial glow — top centre */
+      var glow = ctx.createRadialGradient(cx, H * 0.25, 0, cx, H * 0.25, W * 0.9);
+      glow.addColorStop(0,   'rgba(196,163,90,0.07)');
+      glow.addColorStop(0.5, 'rgba(196,163,90,0.02)');
+      glow.addColorStop(1,   'rgba(0,0,0,0)');
+      ctx.fillStyle = glow;
       ctx.fillRect(0, 0, W, H);
 
-      /* Star field */
-      var stars = [
-        [0.08,0.12,1,0.35],[0.22,0.58,1,0.08],[0.38,0.22,1,0.22],
-        [0.55,0.78,1,0.07],[0.70,0.08,1,0.28],[0.84,0.44,1,0.09],
-        [0.92,0.68,1,0.18],[0.15,0.88,1,0.07],[0.60,0.50,1.5,0.12],
-        [0.76,0.26,1,0.20],[0.30,0.40,1,0.12],[0.48,0.65,1,0.10],
-        [0.18,0.35,1,0.15],[0.65,0.15,1,0.20],[0.88,0.80,1,0.11]
-      ];
-      stars.forEach(function(s) {
-        var sx = s[0]*W, sy = s[1]*H, sr = s[2], sa = s[3];
-        ctx.beginPath(); ctx.arc(sx, sy, sr, 0, Math.PI*2);
-        ctx.fillStyle = 'rgba(201,168,76,' + sa + ')'; ctx.fill();
-      });
-
-      /* ── Layout constants ── */
-      var PAD    = 96;
-      var innerW = W - PAD * 2;
-      var TOP    = 180;
-
-      /* ── Font sizing — Arabic first, others derived ── */
-      var arSizes = [88, 74, 62, 52, 44];
-      var arFont = arSizes[0];
-      var arLines;
-      for (var si = 0; si < arSizes.length; si++) {
-        arFont = arSizes[si];
-        ctx.font = arFont + 'px "Scheherazade New","Traditional Arabic","Amiri",serif';
-        arLines = _duaWrapLines(ctx, ar, innerW);
-        if (arLines.length <= 5) break;
+      /* ── Faint Islamic 8-point star pattern — top-right and bottom-left corners ── */
+      function drawStar8(sctx, ox, oy, size, alpha) {
+        sctx.save();
+        sctx.globalAlpha = alpha;
+        sctx.strokeStyle = 'rgba(196,163,90,1)';
+        sctx.lineWidth = 1.2;
+        sctx.translate(ox, oy);
+        /* Outer octagon */
+        sctx.beginPath();
+        for (var si = 0; si < 8; si++) {
+          var ang = (si * Math.PI / 4) - Math.PI / 8;
+          var px = Math.cos(ang) * size, py = Math.sin(ang) * size;
+          si === 0 ? sctx.moveTo(px, py) : sctx.lineTo(px, py);
+        }
+        sctx.closePath(); sctx.stroke();
+        /* Inner rotated square */
+        sctx.beginPath();
+        for (var sj = 0; sj < 4; sj++) {
+          var ang2 = (sj * Math.PI / 2) + Math.PI / 4;
+          var px2 = Math.cos(ang2) * size * 0.6, py2 = Math.sin(ang2) * size * 0.6;
+          sj === 0 ? sctx.moveTo(px2, py2) : sctx.lineTo(px2, py2);
+        }
+        sctx.closePath(); sctx.stroke();
+        /* Star points */
+        for (var sk = 0; sk < 8; sk++) {
+          var a1 = (sk * Math.PI / 4) - Math.PI / 8;
+          var a2 = a1 + Math.PI / 8;
+          sctx.beginPath();
+          sctx.moveTo(Math.cos(a1) * size, Math.sin(a1) * size);
+          sctx.lineTo(Math.cos(a2) * size * 0.38, Math.sin(a2) * size * 0.38);
+          sctx.lineTo(Math.cos(a2 + Math.PI / 8) * size, Math.sin(a2 + Math.PI / 8) * size);
+          sctx.stroke();
+        }
+        sctx.restore();
       }
-      var arLineH = Math.round(arFont * 1.95);
+      /* Draw stars in corners — very faint */
+      drawStar8(ctx, W - 120, 120, 88, 0.055);
+      drawStar8(ctx, 120, H - 120, 88, 0.055);
+      drawStar8(ctx, W - 240, H - 80, 52, 0.030);
+      drawStar8(ctx, 200, 200, 52, 0.030);
 
-      var trFont = Math.max(32, Math.min(Math.round(arFont * 0.48), 42));
-      ctx.font = 'italic ' + trFont + 'px "Palatino Linotype","Book Antiqua","Georgia",serif';
-      var trLines = _duaWrapLines(ctx, tr, innerW);
-      var trLineH = Math.round(trFont * 1.7);
+      /* ── Layout: draw from TOP ── */
+      var y = TOP;
 
-      var enFont = Math.max(28, Math.min(Math.round(trFont * 0.88), 38));
-      ctx.font = enFont + 'px "Palatino Linotype","Book Antiqua","Georgia",serif';
-      var enAllLines = _duaWrapLines(ctx, en, innerW);
-      /* Cap English to 6 lines max to prevent overflow */
-      var enLines = enAllLines.slice(0, 6);
-      if (enAllLines.length > 6) enLines[5] = enLines[5].replace(/\.?\s*$/, '…');
-      var enLineH = Math.round(enFont * 1.65);
+      /* ── Naafi watermark — top left, very faint ── */
+      ctx.font = '300 24px "Palatino Linotype","Book Antiqua","Georgia",serif';
+      ctx.fillStyle = 'rgba(196,163,90,0.25)';
+      ctx.textAlign = 'left';
+      ctx.fillText('naafi', PAD, y - 56);
 
-      var srcFont = Math.max(22, Math.min(enFont - 6, 28));
-
-      /* ── Dua title — small serif label above Arabic ── */
-      var titleLabel = cleanTitle.toUpperCase();
-      var titleFont = 26;
-
-      /* ── Compute total content height ── */
-      var titleH = titleLabel ? (titleFont + 60) : 0;
-      var arH    = arLines.length * arLineH + 56;
-      var trH    = trLines.length ? (trLines.length * trLineH + 48) : 0;
-      var enH    = enLines.length * enLineH + 8;
-      var srcH   = src ? (36 + srcFont + 16) : 0;
-      var totalH = titleH + arH + trH + enH + srcH;
-
-      /* ── Vertically centre content ── */
-      var availH = H - TOP - 160;
-      var y = TOP + Math.max(0, Math.round((availH - totalH) / 2));
-
-      /* ── Dua title — tiny spaced caps ── */
-      if (titleLabel) {
-        ctx.font = '400 ' + titleFont + 'px "Gill Sans","Optima","Trebuchet MS",sans-serif';
-        ctx.fillStyle = 'rgba(201,168,76,0.45)';
-        ctx.textAlign = 'center';
-        var titleShort = titleLabel.length > 56 ? titleLabel.substring(0, 54) + '…' : titleLabel;
-        ctx.fillText(titleShort, cx, y + titleFont);
-        y += titleFont + 60;
+      /* ── Dua title — large serif, warm white, left-aligned ── */
+      ctx.font = '400 ' + titleFont + 'px "Palatino Linotype","Book Antiqua","Georgia",serif';
+      ctx.fillStyle = 'rgba(237,224,196,0.95)';
+      ctx.textAlign = 'left';
+      for (var t = 0; t < titleLines.length; t++) {
+        ctx.fillText(titleLines[t], PAD, y + titleFont);
+        y += titleLineH;
       }
+      y += 64;
 
-      /* ── Arabic — large gold, centred, double-render glow ── */
+      /* ── Arabic — large, right-aligned, gold, gentle glow ── */
       ctx.font = arFont + 'px "Scheherazade New","Traditional Arabic","Amiri",serif';
-      ctx.textAlign = 'center';
+      ctx.textAlign = 'right';
       ctx.direction = 'rtl';
-
-      ctx.shadowColor = 'rgba(201,168,76,0.18)';
-      ctx.shadowBlur = 70;
-      ctx.fillStyle = '#E8CC84';
+      ctx.shadowColor = 'rgba(196,163,90,0.20)';
+      ctx.shadowBlur = 40;
+      ctx.fillStyle = '#E2C97E';
       for (var a = 0; a < arLines.length; a++) {
-        ctx.fillText(arLines[a].trim(), cx, y + arFont * 0.88);
-        y += arLineH;
-      }
-      y -= arLines.length * arLineH;
-      ctx.shadowColor = 'rgba(201,168,76,0.30)';
-      ctx.shadowBlur = 28;
-      for (var a2 = 0; a2 < arLines.length; a2++) {
-        ctx.fillText(arLines[a2].trim(), cx, y + arFont * 0.88);
+        ctx.fillText(arLines[a].trim(), W - PAD, y + arFont * 0.88);
         y += arLineH;
       }
       ctx.shadowBlur = 0; ctx.shadowColor = 'transparent';
       ctx.direction = 'ltr';
-      y += 56;
+      y += 72;
 
-      /* ── Thin divider ── */
-      var divW = Math.round(innerW * 0.45);
-      ctx.strokeStyle = 'rgba(201,168,76,0.14)';
+      /* ── Hairline gold divider ── */
+      ctx.strokeStyle = 'rgba(196,163,90,0.15)';
       ctx.lineWidth = 1;
       ctx.beginPath();
-      ctx.moveTo(cx - divW/2, y);
-      ctx.lineTo(cx + divW/2, y);
+      ctx.moveTo(PAD, y);
+      ctx.lineTo(PAD + Math.round(innerW * 0.35), y);
       ctx.stroke();
       y += 48;
 
-      /* ── Transliteration — italic, centred, muted ── */
-      if (trLines.length) {
-        ctx.font = 'italic ' + trFont + 'px "Palatino Linotype","Book Antiqua","Georgia",serif';
-        ctx.fillStyle = 'rgba(220,200,158,0.50)';
-        ctx.textAlign = 'center';
-        for (var b = 0; b < trLines.length; b++) {
-          ctx.fillText(trLines[b].trim(), cx, y + trFont);
-          y += trLineH;
-        }
-        y += 48;
+      /* ── Transliteration — italic, left-aligned, muted gold ── */
+      ctx.font = 'italic ' + trFont + 'px "Palatino Linotype","Book Antiqua","Georgia",serif';
+      ctx.fillStyle = 'rgba(196,163,90,0.55)';
+      ctx.textAlign = 'left';
+      for (var b = 0; b < trLines.length; b++) {
+        ctx.fillText(trLines[b], PAD, y + trFont);
+        y += trLineH;
       }
+      y += 56;
 
-      /* ── Translation — warm white, centred ── */
+      /* ── Translation — warm white, left-aligned, readable ── */
       ctx.font = enFont + 'px "Palatino Linotype","Book Antiqua","Georgia",serif';
-      ctx.fillStyle = 'rgba(240,230,210,0.80)';
-      ctx.textAlign = 'center';
+      ctx.fillStyle = 'rgba(237,224,196,0.82)';
+      ctx.textAlign = 'left';
       for (var c = 0; c < enLines.length; c++) {
-        ctx.fillText(enLines[c].trim(), cx, y + enFont);
+        ctx.fillText(enLines[c], PAD, y + enFont);
         y += enLineH;
       }
 
-      /* ── Source — muted gold, centred, small ── */
-      if (src) {
-        y += 36;
+      /* ── Source — tiny, left-aligned, very faint ── */
+      if (srcClean) {
+        y += 48;
         ctx.font = srcFont + 'px "Palatino Linotype","Book Antiqua","Georgia",serif';
-        ctx.fillStyle = 'rgba(201,168,76,0.38)';
-        ctx.textAlign = 'center';
-        var srcShort = src.replace(/^Source:\s*/i, '');
-        srcShort = '(' + (srcShort.length > 60 ? srcShort.substring(0, 58) + '…' : srcShort) + ')';
-        ctx.fillText(srcShort, cx, y + srcFont);
+        ctx.fillStyle = 'rgba(196,163,90,0.30)';
+        ctx.textAlign = 'left';
+        ctx.fillText(srcClean, PAD, y + srcFont);
       }
 
-      /* ── Watermark ── */
-      ctx.font = '20px "Gill Sans","Optima","Trebuchet MS",sans-serif';
-      ctx.fillStyle = 'rgba(168,148,112,0.15)';
-      ctx.textAlign = 'center';
-      ctx.fillText('naafi', cx, H - 56);
+      /* ── Count label — right-aligned, faint gold, only if > 1 ── */
+      if (countLabel) {
+        ctx.font = '400 38px "Palatino Linotype","Book Antiqua","Georgia",serif';
+        ctx.fillStyle = 'rgba(196,163,90,0.40)';
+        ctx.textAlign = 'right';
+        ctx.fillText(countLabel, W - PAD, H - BOT + 20);
+      }
 
       /* ── Export ── */
       cv.toBlob(function(blob) {
