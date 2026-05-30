@@ -115,8 +115,8 @@ body.dark {
   --text:    #EDE0C4;
   --text-d:  #A0896A;
   --text-m:  #5C4F3A;
-  --bdr:     rgba(196,163,90,0.12);
-  --bdr-h:   rgba(196,163,90,0.38);
+  --bdr:     rgba(196,163,90,0.15);
+  --bdr-h:   rgba(196,163,90,0.40);
   --green:   #4A9E78;
   --gbg:     rgba(74,158,120,0.08);
   --gbd:     rgba(74,158,120,0.22);
@@ -179,7 +179,7 @@ body.dark .bottom-nav { background: rgba(8,12,18,0.92); border-top-color: rgba(1
   font-family:var(--fa);
   font-size:calc(var(--ar-size, 26px) * 1.15);
   color:var(--gold-l);text-align:right;direction:rtl;
-  line-height:2.1;margin-bottom:18px;
+  line-height:clamp(1.85, 2.1, 2.3);margin-bottom:18px;
   text-shadow: 0 1px 0 rgba(139,107,42,0.08);
   letter-spacing: 0.01em;
 }
@@ -2353,6 +2353,8 @@ body.dark .note { border-left-color: rgba(196,163,90,0.18); }
   display: none;
   flex-direction: column;
   overflow: hidden;
+  will-change: transform, opacity;
+  transform: translateZ(0);
 }
 .guided-header {
   flex-shrink: 0;
@@ -3390,7 +3392,7 @@ button, .bn-tab, .expand-trigger, .copy-btn, .fav-star,
   flex-shrink: 0;
 }
 .cat-tile-body {
-  padding: 10px 12px 12px;
+  padding: 12px 12px 14px;
   flex: 1;
 }
 .cat-tile-title {
@@ -3398,7 +3400,7 @@ button, .bn-tab, .expand-trigger, .copy-btn, .fav-star,
   font-size: 14px;
   color: var(--text);
   font-weight: 400;
-  margin-bottom: 3px;
+  margin-bottom: 6px;
   line-height: 1.3;
 }
 .cat-tile-sub {
@@ -4233,6 +4235,8 @@ button, .bn-tab, .expand-trigger, .copy-btn, .fav-star,
   background: var(--deep);
   display: flex; flex-direction: column; align-items: center;
   opacity: 0; pointer-events: none;
+  will-change: transform, opacity;
+  transform: translateZ(0);
   transition: opacity 400ms cubic-bezier(0.22,1,0.36,1);
 }
 .reflect-overlay.rm-open {
@@ -11569,201 +11573,179 @@ function shareAsImage() {
   setTimeout(function() {
     try {
       /* 9:16 canvas — Instagram / WhatsApp story */
-      var W = 1080;
-      var PAD = 96;
+      /* ── Step 1: measure content to compute canvas height ── */
+      var W = 1080, cx = W / 2;
+      var PAD    = 88;
       var innerW = W - PAD * 2;
-      var TOP = 180;
-      var BOT = 160;
 
-      /* ── Measure canvas: calculate font sizes and line counts first ── */
-      var measCanvas = document.createElement('canvas');
-      measCanvas.width = W; measCanvas.height = 100;
-      var mctx = measCanvas.getContext('2d');
+      /* Scratch canvas for measurement */
+      var mcv = document.createElement('canvas');
+      mcv.width = W; mcv.height = 100;
+      var mctx = mcv.getContext('2d');
 
-      /* Title */
-      var titleFont = 52;
-      var titleLines;
-      mctx.font = '400 ' + titleFont + 'px "Palatino Linotype","Book Antiqua","Georgia",serif';
-      titleLines = _duaWrapLines(mctx, cleanTitle, innerW);
-      var titleLineH = Math.round(titleFont * 1.5);
+      /* ── Smart content scaling: fit everything without truncation ──
+         Pass 1: find largest Arabic font where lines ≤ 5.
+         Pass 2: derive tr/en from Arabic, then check total contentH fits
+                 within MAX_CONTENT_H. If not, step all fonts down 2px
+                 and remeasure until it fits. No ellipsis truncation. */
+      var MAX_CONTENT_H = 1100; /* leaves ~125px padding each side at 1350 max */
+      var titleFont = 28;
 
-      /* Count label — only shown if count > 1 */
-      var countLabel = '';
-      var rawCount = _shareCardEl ? parseInt(_shareCardEl.getAttribute('data-count') || '1', 10) : 1;
-      if (rawCount > 1) countLabel = '×' + rawCount;
+      /* Pass 1 — Arabic size selection */
+      var arSizes = [90, 76, 62, 52, 44, 38, 34];
+      var arFont = arSizes[0];
+      var arLines;
+      for (var si = 0; si < arSizes.length; si++) {
+        arFont = arSizes[si];
+        mctx.font = arFont + 'px "Scheherazade New","Traditional Arabic","Amiri",serif';
+        arLines = _duaWrapLines(mctx, ar, innerW);
+        if (arLines.length <= 5) break;
+      }
 
-      /* Arabic */
-      var arFont = 72;
-      mctx.font = arFont + 'px "Scheherazade New","Traditional Arabic","Amiri",serif';
-      var arLines = _duaWrapLines(mctx, ar, innerW);
-      var arLineH = Math.round(arFont * 2.0);
+      /* Pass 2 — scale everything down until content fits */
+      var arLineH, trFont, trLines, trLineH, enFont, enLines, enLineH, srcFont, contentH;
+      var scaleFactor = 0; /* tracks how many 2px steps we've applied */
+      for (var attempt = 0; attempt < 12; attempt++) {
+        var aF = Math.max(32, arFont - scaleFactor);
+        mctx.font = aF + 'px "Scheherazade New","Traditional Arabic","Amiri",serif';
+        var aLines = _duaWrapLines(mctx, ar, innerW);
+        var aLH = Math.round(aF * (aLines.length <= 2 ? 2.05 : aLines.length <= 4 ? 1.95 : 1.82));
 
-      /* Transliteration */
-      var trFont = 36;
-      mctx.font = 'italic ' + trFont + 'px "Palatino Linotype","Book Antiqua","Georgia",serif';
-      var trLines = _duaWrapLines(mctx, tr, innerW);
-      var trLineH = Math.round(trFont * 1.75);
+        var tF = Math.max(26, Math.min(Math.round(aF * 0.52), 46) - Math.round(scaleFactor * 0.5));
+        mctx.font = 'italic ' + tF + 'px "Palatino Linotype","Book Antiqua","Georgia",serif';
+        var tLines = _duaWrapLines(mctx, tr, innerW);
+        var tLH = Math.round(tF * 1.7);
 
-      /* Translation */
-      var enFont = 34;
-      mctx.font = enFont + 'px "Palatino Linotype","Book Antiqua","Georgia",serif';
-      var enLines = _duaWrapLines(mctx, en, innerW);
-      var enLineH = Math.round(enFont * 1.7);
+        var eF = Math.max(24, Math.min(Math.round(tF * 0.88), 40) - Math.round(scaleFactor * 0.4));
+        mctx.font = eF + 'px "Palatino Linotype","Book Antiqua","Georgia",serif';
+        var eLines = _duaWrapLines(mctx, en, innerW);
+        var eLH = Math.round(eF * 1.65);
 
-      /* Source */
-      var srcFont = 26;
-      var srcClean = src ? '(' + src.replace(/^Source:\s*/i, '') + ')' : '';
+        var sF = Math.max(20, Math.min(eF - 4, 30));
+        var titleH = cleanTitle ? (titleFont + 56) : 0;
+        var arH_  = aLines.length * aLH + 48;
+        var divH_ = 80;
+        var trH_  = tLines.length ? (tLines.length * tLH + 48) : 0;
+        var enH_  = eLines.length * eLH + 8;
+        var srcH_ = src ? (40 + Math.round(sF * 1.4)) : 0;
+        var cH    = titleH + arH_ + divH_ + trH_ + enH_ + srcH_;
 
-      /* ── Total content height ── */
-      var titleH  = titleLines.length * titleLineH + 64;
-      var arH     = arLines.length   * arLineH    + 72;
-      var divH    = 48 + 48; /* divider + gaps */
-      var trH     = trLines.length   * trLineH    + 56;
-      var enH     = enLines.length   * enLineH    + 0;
-      var srcH    = srcClean ? (48 + srcFont + 16) : 0;
-      var countH  = countLabel ? (40 + 44) : 0;
-      var totalContent = titleH + arH + divH + trH + enH + srcH + countH;
+        if (cH <= MAX_CONTENT_H || aF <= 32) {
+          /* Fits — commit these values */
+          arFont  = aF; arLines = aLines; arLineH = aLH;
+          trFont  = tF; trLines = tLines; trLineH = tLH;
+          enFont  = eF; enLines = eLines; enLineH = eLH;
+          srcFont = sF; contentH = cH;
+          break;
+        }
+        scaleFactor += 2;
+      }
 
-      /* ── Dynamic canvas height — min 1920 for stories ── */
-      var H = Math.max(1920, TOP + totalContent + BOT + 80);
-      var cx = W / 2;
+      srcFont = srcFont || Math.max(20, Math.min(enFont - 4, 30));
 
-      /* ── Create actual canvas ── */
+      /* Canvas height = content + generous equal top/bottom padding */
+      var VPAD = Math.max(160, Math.round(contentH * 0.28));
+      var H = contentH + VPAD * 2;
+      /* Clamp: min 1080 (square), max 1350 (4:5 portrait) */
+      H = Math.max(1080, Math.min(H, 1350));
+      /* Re-compute starting Y so content is truly centred */
+      var y = Math.round((H - contentH) / 2);
+
+      /* ── Create real canvas at computed dimensions ── */
       var cv = document.createElement('canvas');
       cv.width = W; cv.height = H;
       var ctx = cv.getContext('2d');
 
-      /* ── Background — deep navy ── */
-      ctx.fillStyle = '#080C12';
+      /* ── Background — warm parchment ── */
+      ctx.fillStyle = '#F7F2E8';
       ctx.fillRect(0, 0, W, H);
 
-      /* Subtle radial glow — top centre */
-      var glow = ctx.createRadialGradient(cx, H * 0.25, 0, cx, H * 0.25, W * 0.9);
-      glow.addColorStop(0,   'rgba(196,163,90,0.07)');
-      glow.addColorStop(0.5, 'rgba(196,163,90,0.02)');
-      glow.addColorStop(1,   'rgba(0,0,0,0)');
-      ctx.fillStyle = glow;
+      /* Subtle warm vignette — deepens edges slightly */
+      var vignette = ctx.createRadialGradient(cx, H * 0.5, H * 0.1, cx, H * 0.5, H * 0.85);
+      vignette.addColorStop(0,   'rgba(0,0,0,0)');
+      vignette.addColorStop(1,   'rgba(139,107,42,0.07)');
+      ctx.fillStyle = vignette;
       ctx.fillRect(0, 0, W, H);
 
-      /* ── Faint Islamic 8-point star pattern — top-right and bottom-left corners ── */
-      function drawStar8(sctx, ox, oy, size, alpha) {
-        sctx.save();
-        sctx.globalAlpha = alpha;
-        sctx.strokeStyle = 'rgba(196,163,90,1)';
-        sctx.lineWidth = 1.2;
-        sctx.translate(ox, oy);
-        /* Outer octagon */
-        sctx.beginPath();
-        for (var si = 0; si < 8; si++) {
-          var ang = (si * Math.PI / 4) - Math.PI / 8;
-          var px = Math.cos(ang) * size, py = Math.sin(ang) * size;
-          si === 0 ? sctx.moveTo(px, py) : sctx.lineTo(px, py);
-        }
-        sctx.closePath(); sctx.stroke();
-        /* Inner rotated square */
-        sctx.beginPath();
-        for (var sj = 0; sj < 4; sj++) {
-          var ang2 = (sj * Math.PI / 2) + Math.PI / 4;
-          var px2 = Math.cos(ang2) * size * 0.6, py2 = Math.sin(ang2) * size * 0.6;
-          sj === 0 ? sctx.moveTo(px2, py2) : sctx.lineTo(px2, py2);
-        }
-        sctx.closePath(); sctx.stroke();
-        /* Star points */
-        for (var sk = 0; sk < 8; sk++) {
-          var a1 = (sk * Math.PI / 4) - Math.PI / 8;
-          var a2 = a1 + Math.PI / 8;
-          sctx.beginPath();
-          sctx.moveTo(Math.cos(a1) * size, Math.sin(a1) * size);
-          sctx.lineTo(Math.cos(a2) * size * 0.38, Math.sin(a2) * size * 0.38);
-          sctx.lineTo(Math.cos(a2 + Math.PI / 8) * size, Math.sin(a2 + Math.PI / 8) * size);
-          sctx.stroke();
-        }
-        sctx.restore();
+      /* Fine grain texture — tiny dots give parchment feel */
+      for (var gi = 0; gi < 320; gi++) {
+        var gx = Math.random() * W;
+        var gy = Math.random() * H;
+        var ga = Math.random() * 0.035 + 0.008;
+        ctx.beginPath(); ctx.arc(gx, gy, 0.7, 0, Math.PI*2);
+        ctx.fillStyle = 'rgba(139,107,42,' + ga + ')'; ctx.fill();
       }
-      /* Draw stars in corners — very faint */
-      drawStar8(ctx, W - 120, 120, 88, 0.055);
-      drawStar8(ctx, 120, H - 120, 88, 0.055);
-      drawStar8(ctx, W - 240, H - 80, 52, 0.030);
-      drawStar8(ctx, 200, 200, 52, 0.030);
 
-      /* ── Layout: draw from TOP ── */
-      var y = TOP;
-
-      /* ── Naafi watermark — top left, very faint ── */
-      ctx.font = '300 24px "Palatino Linotype","Book Antiqua","Georgia",serif';
-      ctx.fillStyle = 'rgba(196,163,90,0.25)';
-      ctx.textAlign = 'left';
-      ctx.fillText('naafi', PAD, y - 56);
-
-      /* ── Dua title — large serif, warm white, left-aligned ── */
-      ctx.font = '400 ' + titleFont + 'px "Palatino Linotype","Book Antiqua","Georgia",serif';
-      ctx.fillStyle = 'rgba(237,224,196,0.95)';
-      ctx.textAlign = 'left';
-      for (var t = 0; t < titleLines.length; t++) {
-        ctx.fillText(titleLines[t], PAD, y + titleFont);
-        y += titleLineH;
+      /* ── Dua title — small taupe-gold spaced caps ── */
+      if (cleanTitle) {
+        ctx.font = '400 ' + titleFont + 'px "Gill Sans","Optima","Trebuchet MS",sans-serif';
+        ctx.fillStyle = '#8A7A65';
+        ctx.textAlign = 'center';
+        var titleShort = cleanTitle.toUpperCase();
+        titleShort = titleShort.length > 52 ? titleShort.substring(0, 50) + '…' : titleShort;
+        ctx.fillText(titleShort, cx, y + titleFont);
+        y += titleFont + 56;
       }
-      y += 64;
 
-      /* ── Arabic — large, right-aligned, gold, gentle glow ── */
+      /* ── Arabic — deep charcoal, centred, no glow needed on light bg ── */
       ctx.font = arFont + 'px "Scheherazade New","Traditional Arabic","Amiri",serif';
-      ctx.textAlign = 'right';
+      ctx.textAlign = 'center';
       ctx.direction = 'rtl';
-      ctx.shadowColor = 'rgba(196,163,90,0.20)';
-      ctx.shadowBlur = 40;
-      ctx.fillStyle = '#E2C97E';
+      ctx.fillStyle = '#1C1814';
       for (var a = 0; a < arLines.length; a++) {
-        ctx.fillText(arLines[a].trim(), W - PAD, y + arFont * 0.88);
+        ctx.fillText(arLines[a].trim(), cx, y + arFont * 0.88);
         y += arLineH;
       }
-      ctx.shadowBlur = 0; ctx.shadowColor = 'transparent';
       ctx.direction = 'ltr';
-      y += 72;
-
-      /* ── Hairline gold divider ── */
-      ctx.strokeStyle = 'rgba(196,163,90,0.15)';
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      ctx.moveTo(PAD, y);
-      ctx.lineTo(PAD + Math.round(innerW * 0.35), y);
-      ctx.stroke();
       y += 48;
 
-      /* ── Transliteration — italic, left-aligned, muted gold ── */
-      ctx.font = 'italic ' + trFont + 'px "Palatino Linotype","Book Antiqua","Georgia",serif';
-      ctx.fillStyle = 'rgba(196,163,90,0.55)';
-      ctx.textAlign = 'left';
-      for (var b = 0; b < trLines.length; b++) {
-        ctx.fillText(trLines[b], PAD, y + trFont);
-        y += trLineH;
-      }
-      y += 56;
+      /* ── Thin divider — muted antique gold ── */
+      var divLineW = Math.round(innerW * 0.40);
+      ctx.strokeStyle = 'rgba(139,107,42,0.22)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(cx - divLineW/2, y);
+      ctx.lineTo(cx + divLineW/2, y);
+      ctx.stroke();
+      y += 32;
 
-      /* ── Translation — warm white, left-aligned, readable ── */
+      /* ── Transliteration — italic, soft charcoal, muted ── */
+      if (trLines.length) {
+        ctx.font = 'italic ' + trFont + 'px "Palatino Linotype","Book Antiqua","Georgia",serif';
+        ctx.fillStyle = 'rgba(60,53,46,0.55)';
+        ctx.textAlign = 'center';
+        for (var b = 0; b < trLines.length; b++) {
+          ctx.fillText(trLines[b].trim(), cx, y + trFont);
+          y += trLineH;
+        }
+        y += 40;
+      }
+
+      /* ── Translation — soft charcoal, centred ── */
       ctx.font = enFont + 'px "Palatino Linotype","Book Antiqua","Georgia",serif';
-      ctx.fillStyle = 'rgba(237,224,196,0.82)';
-      ctx.textAlign = 'left';
+      ctx.fillStyle = '#3C352E';
+      ctx.textAlign = 'center';
       for (var c = 0; c < enLines.length; c++) {
-        ctx.fillText(enLines[c], PAD, y + enFont);
+        ctx.fillText(enLines[c].trim(), cx, y + enFont);
         y += enLineH;
       }
 
-      /* ── Source — tiny, left-aligned, very faint ── */
-      if (srcClean) {
-        y += 48;
+      /* ── Source — muted antique gold, centred ── */
+      if (src) {
+        y += 40;
         ctx.font = srcFont + 'px "Palatino Linotype","Book Antiqua","Georgia",serif';
-        ctx.fillStyle = 'rgba(196,163,90,0.30)';
-        ctx.textAlign = 'left';
-        ctx.fillText(srcClean, PAD, y + srcFont);
+        ctx.fillStyle = 'rgba(139,107,42,0.55)';
+        ctx.textAlign = 'center';
+        var srcShort = src.replace(/^Source:\s*/i, '');
+        srcShort = '(' + (srcShort.length > 64 ? srcShort.substring(0, 62) + '…' : srcShort) + ')';
+        ctx.fillText(srcShort, cx, y + srcFont);
       }
 
-      /* ── Count label — right-aligned, faint gold, only if > 1 ── */
-      if (countLabel) {
-        ctx.font = '400 38px "Palatino Linotype","Book Antiqua","Georgia",serif';
-        ctx.fillStyle = 'rgba(196,163,90,0.40)';
-        ctx.textAlign = 'right';
-        ctx.fillText(countLabel, W - PAD, H - BOT + 20);
-      }
+      /* ── Watermark ── */
+      ctx.font = '20px "Gill Sans","Optima","Trebuchet MS",sans-serif';
+      ctx.fillStyle = 'rgba(139,107,42,0.20)';
+      ctx.textAlign = 'center';
+      ctx.fillText('naafi', cx, H - 44);
 
       /* ── Export ── */
       cv.toBlob(function(blob) {
@@ -12583,14 +12565,37 @@ function renderContextualHome() {
       '<div class="ctx-hero-arrow">›</div>' +
     '</button>' +
     (secondary.length ? '<div class="ctx-secondary-list">' + secondaryHtml + '</div>' : '') +
-    (new Date().getDay() === 5 ? '<button class="ctx-jumuah-row" data-action="open-jumuah" type="button">' +
-      '<span class="ctx-jumuah-inner">' +
-        '<span class="ctx-jumuah-eyebrow">SA\'AT AL-ISTIJĀBAH</span>' +
-        '<span class="ctx-jumuah-title">The Friday Hour</span>' +
-        '<span class="ctx-jumuah-sub">Last hour before Maghrib — duas are answered</span>' +
-      '</span>' +
-      '<span class="ctx-jumuah-arrow">›</span>' +
-    '</button>' : '');
+    (function() {
+      var _period  = document.body.getAttribute('data-time-ctx') || '';
+      var _isFriday = new Date().getDay() === 5;
+      var _premaghrib = (_period === 'asr'); /* the 60-min window before Maghrib */
+
+      if (_isFriday && _premaghrib) {
+        /* Friday + pre-Maghrib: surface the Sa'at al-Istijabah */
+        return '<button class="ctx-jumuah-row" data-action="open-jumuah" type="button">' +
+          '<span class="ctx-jumuah-inner">' +
+            '<span class="ctx-jumuah-eyebrow">SA\'AT AL-ISTIJĀBAH · NOW</span>' +
+            '<span class="ctx-jumuah-title">The Friday Hour</span>' +
+            '<span class="ctx-jumuah-sub">The blessed hour is open — make du\'a now</span>' +
+          '</span>' +
+          '<span class="ctx-jumuah-arrow">›</span>' +
+        '</button>';
+      }
+
+      if (!_isFriday && _premaghrib) {
+        /* Any other day pre-Maghrib: surface Evening Adhkar */
+        return '<button class="ctx-jumuah-row" data-action="start-session" data-session="evening" type="button">' +
+          '<span class="ctx-jumuah-inner">' +
+            '<span class="ctx-jumuah-eyebrow">BEFORE MAGHRIB</span>' +
+            '<span class="ctx-jumuah-title">Evening Adhkar</span>' +
+            '<span class="ctx-jumuah-sub">Begin your evening protection before the sun sets</span>' +
+          '</span>' +
+          '<span class="ctx-jumuah-arrow">›</span>' +
+        '</button>';
+      }
+
+      return '';
+    })();
 }
 
 // Run on load
