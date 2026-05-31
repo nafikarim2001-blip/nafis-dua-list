@@ -1613,29 +1613,75 @@ body.dark .note { border-left-color: rgba(196,163,90,0.18); }
 .dho-index-row {
   padding: 16px 16px;
 }
-.dho-index-right {
+.dho-index-trailing {
   flex-shrink: 0;
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 3px;
+  align-items: center;
+  gap: 8px;
 }
-.dho-index-count {
-  font-family: var(--fs);
-  font-size: 15px;
+/* Badge: three states */
+.dho-index-badge {
+  font-family: var(--fn);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  padding: 3px 8px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+.dho-badge-count {
   color: var(--gold);
+  background: var(--gold-f);
+  border: 1px solid var(--bdr);
 }
-.dho-index-count.dho-done-count { color: var(--green); }
-.dho-index-target {
-  font-size: 10px;
+.dho-badge-target {
+  font-weight: 400;
+  opacity: 0.7;
+}
+.dho-badge-recite {
   color: var(--text-m);
-  letter-spacing: 0.05em;
+  background: transparent;
+  border: 1px solid var(--bdr);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: 10px;
+}
+.dho-badge-done {
+  color: var(--green);
+  background: var(--gbg);
+  border: 1px solid var(--gbd);
 }
 .dho-index-arrow {
-  font-size: 20px;
+  font-size: 18px;
   color: var(--text-m);
-  margin-left: 6px;
+  opacity: 0.5;
   line-height: 1;
+}
+/* Section header between post-salah and extended dhikr */
+.dhikr-section-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 24px 16px 12px;
+  border-top: 1px solid var(--bdr);
+  margin-top: 8px;
+}
+.dhikr-section-header-icon {
+  font-size: 20px;
+  line-height: 1;
+}
+.dhikr-section-header-title {
+  font-family: var(--fs);
+  font-size: 16px;
+  color: var(--text);
+  font-weight: 400;
+}
+.dhikr-section-header-sub {
+  font-family: var(--fn);
+  font-size: 11px;
+  color: var(--text-m);
+  letter-spacing: 0.05em;
+  margin-top: 2px;
 }
 
 /* ============================================================
@@ -6374,7 +6420,7 @@ body.dark .hps-dot-check svg { color: rgba(196,163,90,0.2); }
   </div>
   <div class="dhikr-view-header">
     <h2>Daily Dhikr</h2>
-    <p>Tap to count · holds your place</p>
+    <p>Remember Allah · your count is saved</p>
   </div>
 
   <section class="sec" id="post-salah-tasbih">
@@ -6430,9 +6476,12 @@ body.dark .hps-dot-check svg { color: rgba(196,163,90,0.2); }
   </section>
 
   <section class="sec" id="dhikr-section">
-    <div class="sec-h">
-      <div class="si">📿</div>
-      <div><span class="st">Daily Dhikr</span><span class="ss">Tap to open · tap anywhere to count</span></div>
+    <div class="dhikr-section-header">
+      <span class="dhikr-section-header-icon">📿</span>
+      <div>
+        <div class="dhikr-section-header-title">Extended Dhikr</div>
+        <div class="dhikr-section-header-sub">Tap any row to open the counter</div>
+      </div>
     </div>
     <div id="dhikrIndexList"></div>
   </section>
@@ -7987,14 +8036,6 @@ var DHIKR_DATA = [
     label: 'Hawqala'
   },
   {
-    ar: 'اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي',
-    tr: 'Allāhumma innaka ʿafuwwun tuḥibbul-ʿafwa faʿfu ʿannī',
-    en: 'The Laylatul Qadr Dua — do not limit to odd nights only',
-    src: 'Make this your constant companion through all 10 nights, day and night',
-    target: Infinity,
-    label: 'Du\'a Laylatul Qadr'
-  },
-  {
     ar: 'سُبْحَانَ اللَّهِ وَالْحَمْدُ لِلَّهِ وَلَا إِلَٰهَ إِلَّا اللَّهُ وَاللَّهُ أَكْبَرُ',
     tr: 'Subḥānallāhi wal-ḥamdu lillāhi wa lā ilāha illallāhu wallāhu akbar',
     en: 'The Four Most Beloved Words to Allah',
@@ -8035,22 +8076,30 @@ function renderDhikrIndex(){
   DHIKR_DATA.forEach(function(d, idx){
     var count = dhiGetCount(idx);
     var target = d.target;
-    var isDone = (target !== Infinity && count >= target);
-    var countStr = isDone ? '✓' : (target === Infinity ? count + '' : count + ' / ' + target);
-    var countClass = isDone ? 'dho-index-count dho-done-count' : 'dho-index-count';
+    var isInfinite = (target === Infinity);
+    var isDone = (!isInfinite && count >= target);
     var rowClass = isDone ? 'dho-index-row dho-done' : 'dho-index-row';
-    var targetLabel = target === Infinity ? '∞' : target + '×';
+
+    // Right-side: one badge element (three states) + chevron
+    var badgeHtml;
+    if (isDone) {
+      badgeHtml = '<div class="dho-index-badge dho-badge-done">✓</div>';
+    } else if (isInfinite) {
+      badgeHtml = '<div class="dho-index-badge dho-badge-recite">recite</div>';
+    } else {
+      badgeHtml = '<div class="dho-index-badge dho-badge-count">' + count + '<span class="dho-badge-target"> / ' + target + '</span></div>';
+    }
+
     html += '<div class="' + rowClass + '" data-action="open-dhikr" data-idx="' + idx + '" role="button" tabindex="0">' +
       '<div class="dho-index-inner">' +
         '<div class="dho-index-arabic">' + d.ar + '</div>' +
         '<div class="dho-index-label">' + d.label + '</div>' +
         (d.src ? '<div class="dho-index-virtue">' + d.src + '</div>' : '') +
       '</div>' +
-      '<div class="dho-index-right">' +
-        '<div class="' + countClass + '">' + countStr + '</div>' +
-        '<div class="dho-index-target">' + targetLabel + '</div>' +
+      '<div class="dho-index-trailing">' +
+        badgeHtml +
+        '<div class="dho-index-arrow">›</div>' +
       '</div>' +
-      '<div class="dho-index-arrow">›</div>' +
     '</div>';
   });
   list.innerHTML = html;
