@@ -3800,16 +3800,19 @@ button, .bn-tab, .expand-trigger, .copy-btn, .fav-star,
 
 /* Tasbih inline counter */
 .tasbih-counter-row {
-  display: flex; align-items: center; gap: 10px; margin-top: 10px;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; margin-top: 14px; padding-top: 12px;
+  border-top: 1px solid var(--bdr);
 }
 .tasbih-count-display {
-  font-family: var(--fn); font-size: 16px; font-weight: 600;
-  color: var(--gold); min-width: 50px; letter-spacing: .05em;
+  font-family: var(--fn); font-size: 28px; font-weight: 700;
+  color: var(--gold); min-width: 60px; letter-spacing: .02em;
+  text-align: center; line-height: 1;
   transition: transform 100ms cubic-bezier(0.34,1.56,0.64,1),
               color 200ms;
 }
 .tasbih-count-display.popping {
-  transform: scale(1.2);
+  transform: scale(1.15);
 }
 .tasbih-count-display.done-color { color: var(--green); }
 .tasbih-plus-btn {
@@ -3818,7 +3821,6 @@ button, .bn-tab, .expand-trigger, .copy-btn, .fav-star,
   color: var(--gold-l); font-size: 22px; line-height: 1;
   display: flex; align-items: center; justify-content: center;
   cursor: pointer; touch-action: manipulation; user-select: none;
-  pointer-events: none;
   transition: background var(--t-instant) var(--ease-out), border-color var(--t-instant) var(--ease-out), transform 200ms cubic-bezier(0.34,1.56,0.64,1);
 }
 .tasbih-plus-btn:active { transform: scale(0.87); background: rgba(196,163,90,0.14); }
@@ -3830,11 +3832,47 @@ button, .bn-tab, .expand-trigger, .copy-btn, .fav-star,
   letter-spacing: .08em; text-transform: uppercase;
 }
 
+/* Session complete banner */
+.salah-complete-banner {
+  display: none;
+  text-align: center;
+  padding: 14px 16px;
+  margin-bottom: 14px;
+  border-radius: var(--radius);
+  border: 1px solid var(--green);
+  background: linear-gradient(135deg, rgba(74,158,120,0.08) 0%, transparent 100%);
+  animation: salah-banner-fade 3s ease forwards;
+}
+.salah-complete-banner.visible {
+  display: block;
+}
+.salah-complete-banner-title {
+  font-family: var(--fn);
+  font-size: 11px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 4px;
+}
+.salah-complete-banner-ar {
+  font-family: var(--fa);
+  font-size: 18px;
+  color: var(--gold-l);
+  direction: rtl;
+  line-height: 2;
+}
+@keyframes salah-banner-fade {
+  0%   { opacity: 0; transform: translateY(-6px); }
+  15%  { opacity: 1; transform: translateY(0); }
+  70%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+
 /* Reset button */
 .salah-reset-btn {
-  display: block; width: 100%; margin-top: 14px;
-  padding: 11px 0; background: transparent;
-  border: 1px solid var(--bdr); border-radius: var(--radius);
+  display: block; width: auto; margin: 14px auto 0;
+  padding: 8px 20px; background: transparent;
+  border: 1px solid var(--bdr); border-radius: 20px;
   color: var(--text-m); font-family: var(--fn); font-size: 11px;
   letter-spacing: .12em; text-transform: uppercase;
   cursor: pointer; touch-action: manipulation; user-select: none;
@@ -3842,11 +3880,12 @@ button, .bn-tab, .expand-trigger, .copy-btn, .fav-star,
               transform var(--t-fast) var(--ease-out);
 }
 .salah-reset-btn:hover { border-color: var(--gold-d); color: var(--text-d); }
-.salah-reset-btn:active { transform: scale(0.97); opacity: 0.8; }
+.salah-reset-btn:active { transform: scale(0.94); opacity: 0.8; }
 
-/* Browse All divider */
+/* Browse All divider — now a toggle button */
 .salah-browse-divider {
-  display: flex; align-items: center; gap: 10px; margin: 22px 0 16px;
+  display: flex; align-items: center; gap: 10px; margin: 22px 0 0;
+  cursor: pointer; user-select: none; -webkit-tap-highlight-color: transparent;
 }
 .salah-browse-divider::before,
 .salah-browse-divider::after {
@@ -3855,6 +3894,75 @@ button, .bn-tab, .expand-trigger, .copy-btn, .fav-star,
 .salah-browse-divider span {
   font-family: var(--fn); font-size: 9px; letter-spacing: .2em;
   text-transform: uppercase; color: var(--text-m); white-space: nowrap;
+}
+.salah-browse-divider .browse-chevron {
+  font-size: 10px; color: var(--text-m);
+  transition: transform 200ms ease;
+  display: inline-block; margin-left: 4px;
+}
+.salah-browse-divider.open .browse-chevron {
+  transform: rotate(180deg);
+}
+/* Browse All content wrapper — collapsed by default */
+#salahBrowseContent {
+  display: none;
+  margin-top: 16px;
+}
+#salahBrowseContent.open {
+  display: block;
+}
+
+/* Duas category detail view */
+.duas-cat-detail-header {
+  padding: 4px 16px 0;
+}
+.duas-cat-back-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: none; border: none; padding: 8px 0 12px;
+  font-family: var(--fn); font-size: 12px; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--gold);
+  cursor: pointer; touch-action: manipulation; user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.duas-cat-back-btn:active { opacity: 0.6; }
+.duas-cat-detail-hero {
+  display: flex; align-items: center; gap: 14px;
+  padding: 8px 16px 18px;
+  border-bottom: 1px solid var(--bdr);
+  margin-bottom: 8px;
+}
+.duas-cat-detail-icon {
+  font-size: 32px; line-height: 1;
+  width: 52px; height: 52px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--card); border: 1px solid var(--bdr);
+  border-radius: 14px; flex-shrink: 0;
+}
+.duas-cat-detail-titles { flex: 1; min-width: 0; }
+.duas-cat-detail-title {
+  font-family: var(--fs); font-size: 18px;
+  color: var(--text); font-weight: 400; margin-bottom: 4px;
+}
+.duas-cat-detail-sub {
+  font-family: var(--fn); font-size: 11px;
+  color: var(--text-m); letter-spacing: .04em; line-height: 1.4;
+}
+.duas-cat-detail-note {
+  margin: 0 16px 16px;
+  padding: 12px 14px;
+  border-radius: var(--radius);
+  border: 1px solid var(--bdr);
+  background: var(--card);
+  font-family: var(--fn); font-size: 12px;
+  color: var(--text-m); line-height: 1.6;
+}
+#duasCatDetailCards { padding: 0 0 8px; }
+#duasCatDetail {
+  animation: duasCatIn 220ms cubic-bezier(0.16,1,0.3,1) forwards;
+}
+@keyframes duasCatIn {
+  from { opacity: 0; transform: translateX(12px); }
+  to   { opacity: 1; transform: translateX(0); }
 }
 
 /* Fajr bonus card (shown only when Fajr selected) */
@@ -5667,19 +5775,19 @@ body.dark .hps-dot-check svg { color: rgba(196,163,90,0.2); }
 
   <!-- Situational quick-access chips -->
   <div class="home-quick-row">
-    <button class="home-quick-chip" data-action="open-dua-reader" data-cat="illness">
+    <button class="home-quick-chip" data-action="open-duas-cat-simple" data-cat="illness">
       <span class="home-quick-chip-icon">🤲</span> Hardship
     </button>
     <button class="home-quick-chip" data-action="open-duas-cat-simple" data-cat="sunnah">
       <span class="home-quick-chip-icon">🌿</span> Anxiety &amp; Grief
     </button>
-    <button class="home-quick-chip" data-action="open-dua-reader" data-cat="travel">
+    <button class="home-quick-chip" data-action="open-duas-cat-simple" data-cat="travel">
       <span class="home-quick-chip-icon">✈️</span> Travel
     </button>
     <button class="home-quick-chip" data-action="open-duas-cat-simple" data-cat="istikharah">
       <span class="home-quick-chip-icon">⭐</span> Istikhārah
     </button>
-    <button class="home-quick-chip" data-action="open-dua-reader" data-cat="eating">
+    <button class="home-quick-chip" data-action="open-duas-cat-simple" data-cat="eating">
       <span class="home-quick-chip-icon">🍽️</span> Eating
     </button>
   </div>
@@ -5984,13 +6092,19 @@ body.dark .hps-dot-check svg { color: rgba(196,163,90,0.2); }
       </div>
 
       <!-- Reset -->
+      <!-- Session complete banner — shown by JS on 7/7 -->
+      <div class="salah-complete-banner" id="salahCompleteBanner">
+        <div class="salah-complete-banner-title">Session Complete</div>
+        <div class="salah-complete-banner-ar">تَقَبَّلَ اللَّهُ مِنَّا وَمِنكُم</div>
+      </div>
       <button class="salah-reset-btn" data-action="reset-salah">↺ Reset Session</button>
     </div>
     <!-- end salah-tracker -->
 
     <!-- Browse All divider -->
-    <div class="salah-browse-divider"><span>Browse All · Reference</span></div>
+    <div class="salah-browse-divider" id="salahBrowseDivider" data-action="toggle-browse-all"><span>Browse All · Reference<span class="browse-chevron">▾</span></span></div>
 
+    <div id="salahBrowseContent">
     <ul class="step-list">
       <li class="step-item">
         <div class="step-num">1</div>
@@ -6060,6 +6174,7 @@ body.dark .hps-dot-check svg { color: rgba(196,163,90,0.2); }
       <em style="font-family:var(--fs);font-style:italic;font-size:12px;">Lā ilāha illallāhu waḥdahu lā sharīka lah, lahul-mulku wa lahul-ḥamdu yuḥyī wa yumītu wa huwa ʿalā kulli shayʾin qadīr</em><br>
       Say 10× after Fajr before rising. Equivalent to freeing 4 slaves, 10 good deeds written, 10 sins erased, 10 degrees raised. — <b>al-Tirmidhi (3474)</b>
     </div>
+    </div><!-- end salahBrowseContent -->
   </section>
 
 
@@ -6144,7 +6259,7 @@ body.dark .hps-dot-check svg { color: rgba(196,163,90,0.2); }
     <div class="cat-tile-chevron">›</div>
   </button>
 
-  <button class="cat-tile cat-tile-row" data-action="open-dua-reader" data-cat="illness">
+  <button class="cat-tile cat-tile-row" data-action="open-duas-cat-simple" data-cat="illness">
     <div class="cat-tile-icon">🤲</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Illness &amp; Hardship</div>
@@ -6153,7 +6268,7 @@ body.dark .hps-dot-check svg { color: rgba(196,163,90,0.2); }
     <div class="cat-tile-chevron">›</div>
   </button>
 
-  <button class="cat-tile cat-tile-row" data-action="open-dua-reader" data-cat="travel">
+  <button class="cat-tile cat-tile-row" data-action="open-duas-cat-simple" data-cat="travel">
     <div class="cat-tile-icon">✈️</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Travel</div>
@@ -6162,7 +6277,7 @@ body.dark .hps-dot-check svg { color: rgba(196,163,90,0.2); }
     <div class="cat-tile-chevron">›</div>
   </button>
 
-  <button class="cat-tile cat-tile-row" data-action="open-dua-reader" data-cat="eating">
+  <button class="cat-tile cat-tile-row" data-action="open-duas-cat-simple" data-cat="eating">
     <div class="cat-tile-icon">🍽️</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Eating &amp; Drinking</div>
@@ -6229,6 +6344,25 @@ body.dark .hps-dot-check svg { color: rgba(196,163,90,0.2); }
 <div id="duasSectionsContainer"></div>
 
   </div><!-- close duasContent -->
+
+  <!-- Per-category detail view — shown by openDuasCategory() -->
+  <div id="duasCatDetail" style="display:none;">
+    <div class="duas-cat-detail-header">
+      <button class="duas-cat-back-btn" data-action="close-duas-cat">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        Back to Duas
+      </button>
+    </div>
+    <div class="duas-cat-detail-hero">
+      <div class="duas-cat-detail-icon" id="duasCatDetailIcon"></div>
+      <div class="duas-cat-detail-titles">
+        <div class="duas-cat-detail-title" id="duasCatDetailTitle"></div>
+        <div class="duas-cat-detail-sub" id="duasCatDetailSub"></div>
+      </div>
+    </div>
+    <div class="duas-cat-detail-note" id="duasCatDetailNote" style="display:none;"></div>
+    <div id="duasCatDetailCards"></div>
+  </div><!-- end duasCatDetail -->
 
 </div><!-- end duas-view -->
 
@@ -11235,6 +11369,18 @@ var DUAS_SECTION_META = {
   'dhulhijjah-duas': {
     subtitle: 'The 10 best days of the year',
     note: 'The Prophet \u{FD3F} said: \u201cThere are no days in which righteous deeds are more beloved to Allah than these ten days.\u201d \u2014 Sahih al-Bukhari (969)'
+  },
+  'illness': {
+    subtitle: 'Sick, in pain, overwhelmed',
+    note: 'These are the supplications of the Prophets and the authenticated duas of the Sunnah for times of illness, pain, and hardship. Say them for yourself or over someone else.'
+  },
+  'travel': {
+    subtitle: 'Before and during any journey',
+    note: 'The Prophet \u{FD3F} never set out on a journey without these duas. Say them when leaving home, boarding any vehicle, and at the start of every journey.'
+  },
+  'eating': {
+    subtitle: 'Before eating, after eating, forgetting bismillah',
+    note: 'Every meal is an act of worship when begun and ended with the name of Allah. If you forget Bismillah at the start, say the correction dua when you remember.'
   }
 };
 
@@ -11527,40 +11673,72 @@ function openDuaReaderShare() {
 // ===== END DUA READER SYSTEM =====
 
 function openDuasCategory(sectionId, targetView, scrollToId) {
-  var view = targetView || 'duas';
-  showView(view);
-  // Save index scroll position so we can restore it on close
+  // Adhkar-tab shortcuts delegate to the Adhkar tab as before
+  if (targetView && targetView !== 'duas') {
+    showView(targetView);
+    return;
+  }
+
+  // Ensure we're on the duas view
+  showView('duas');
+
+  // Save index scroll so we can restore on back
   var duasView = document.getElementById('duas-view');
   if (duasView) sessionStorage.setItem('duas_index_scroll', duasView.scrollTop);
-  var index = document.getElementById('duasIndex');
-  var content = document.getElementById('duasContent');
-  if (index) index.style.display = 'none';
-  if (content) content.style.display = '';
+
+  // Hide index + legacy monolith, show detail container
+  var index   = document.getElementById('duasIndex');
+  var legacy  = document.getElementById('duasContent');
+  var detail  = document.getElementById('duasCatDetail');
   var backBtn = document.getElementById('duasCatBack');
-  if (backBtn) backBtn.style.display = '';
-  // Scroll to specific anchor if provided, otherwise scroll to section
-  setTimeout(function() {
-    var targetId = scrollToId || sectionId;
-    var el = document.getElementById(targetId);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      // Auto-expand accordion if it's an expand-wrap
-      if (el.classList.contains('expand-wrap')) {
-        var trigger = el.querySelector('.expand-trigger');
-        if (trigger && trigger.getAttribute('aria-expanded') === 'false') {
-          toggleExpand(trigger);
-        }
-      }
-    }
-  }, 80);
+  if (index)   index.style.display  = 'none';
+  if (legacy)  legacy.style.display = 'none';
+  if (backBtn) backBtn.style.display = 'none';
+  if (!detail) return;
+
+  // Populate hero from data
+  var sec  = DUAS_STATIC_DATA[sectionId];
+  var meta = DUAS_SECTION_META[sectionId];
+  if (!sec || !meta) return;
+
+  var iconEl  = document.getElementById('duasCatDetailIcon');
+  var titleEl = document.getElementById('duasCatDetailTitle');
+  var subEl   = document.getElementById('duasCatDetailSub');
+  var noteEl  = document.getElementById('duasCatDetailNote');
+  var cardsEl = document.getElementById('duasCatDetailCards');
+
+  if (iconEl)  iconEl.textContent  = sec.icon  || '';
+  if (titleEl) titleEl.textContent = sec.title || '';
+  if (subEl)   subEl.textContent   = meta.subtitle || '';
+  if (noteEl) {
+    if (meta.note) { noteEl.innerHTML = meta.note; noteEl.style.display = ''; }
+    else           { noteEl.style.display = 'none'; }
+  }
+
+  // Render only this category's cards
+  if (cardsEl) {
+    var html = '';
+    sec.duas.forEach(function(d) { html += renderDuaCard(d); });
+    cardsEl.innerHTML = html;
+    cardsEl.querySelectorAll('.dua').forEach(function(card) {
+      if (typeof makeStar === 'function') card.insertBefore(makeStar(card), card.firstChild);
+      if (typeof window._makeCopyBtn === 'function') card.appendChild(window._makeCopyBtn(card));
+    });
+  }
+
+  // Show detail, scroll to top
+  detail.style.display = '';
+  if (duasView) duasView.scrollTo(0, 0);
 }
 
 function closeDuasCategory() {
   var index   = document.getElementById('duasIndex');
-  var content = document.getElementById('duasContent');
+  var detail  = document.getElementById('duasCatDetail');
+  var legacy  = document.getElementById('duasContent');
   var backBtn = document.getElementById('duasCatBack');
-  if (index)   index.style.display = 'block';
-  if (content) content.style.display = 'none';
+  if (detail)  detail.style.display  = 'none';
+  if (legacy)  legacy.style.display  = 'none';
+  if (index)   index.style.display   = 'block';
   if (backBtn) backBtn.style.display = 'none';
   // Restore saved index scroll position
   var duasView = document.getElementById('duas-view');
@@ -12829,7 +13007,11 @@ function shareAsImage() {
 
     // Duas category tiles
     'open-duas-cat-adhkar': function(el) { openDuasCategory(el.getAttribute('data-cat'), 'adhkar'); },
-    'open-duas-cat-simple': function(el) { openDuasCategory(el.getAttribute('data-cat')); },
+    'open-duas-cat-simple': function(el) {
+      var cat = el.getAttribute('data-cat');
+      showView('duas');
+      openDuasCategory(cat);
+    },
 
     // Dua reader - read again
     'dua-reader-restart': function() {
@@ -12838,6 +13020,14 @@ function shareAsImage() {
 
     // After salah tracker
     'reset-salah': function() { resetSalahSession(); },
+    'toggle-browse-all': function() {
+      var divider = document.getElementById('salahBrowseDivider');
+      var content = document.getElementById('salahBrowseContent');
+      if(!divider || !content) return;
+      var isOpen = content.classList.contains('open');
+      content.classList.toggle('open', !isOpen);
+      divider.classList.toggle('open', !isOpen);
+    },
     'resume-session': function() { resumeSession(); },
 
     // Inc tasbih (whole-card tap for sc-2/3/4)
@@ -13019,6 +13209,16 @@ document.addEventListener('keydown', function(e){
     if(label) label.textContent = count + ' of ' + TOTAL_CARDS + ' completed';
     if(fill)  fill.style.width  = pct + '%';
     if(bar)   bar.classList.toggle('complete', count === TOTAL_CARDS);
+    if(count === TOTAL_CARDS) {
+      var banner = document.getElementById('salahCompleteBanner');
+      if(banner) {
+        banner.classList.remove('visible');
+        void banner.offsetWidth; // reflow to restart animation
+        banner.classList.add('visible');
+        setTimeout(function(){ banner.classList.remove('visible'); }, 3000);
+        if(navigator.vibrate) navigator.vibrate([40, 60, 80]);
+      }
+    }
   }
 
   /* ---- Tick a standard card ---- */
@@ -13074,6 +13274,8 @@ document.addEventListener('keydown', function(e){
   window.resetSalahSession = function() {
     _salahDone   = [false,false,false,false,false,false,false];
     _tasbihCount = { 2: 0, 3: 0, 4: 0 };
+    var banner = document.getElementById('salahCompleteBanner');
+    if(banner) banner.classList.remove('visible');
     for(var i = 0; i < TOTAL_CARDS; i++) {
       var card = document.getElementById('sc-' + i);
       if(card) {
