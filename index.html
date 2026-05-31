@@ -1281,7 +1281,7 @@ body.dark .note { border-left-color: rgba(196,163,90,0.18); }
 }
 .bn-tab .bn-icon { display: flex; align-items: center; justify-content: center; width: 22px; height: 22px; }
 .bn-tab .bn-icon svg { width: 22px; height: 22px; }
-.bn-tab .bn-label { font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; white-space: nowrap; font-family: var(--fn); opacity: 0.85; }
+.bn-tab .bn-label { font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; white-space: nowrap; font-family: var(--fn); opacity: 1; }
 .bn-tab.active { color: var(--gold-l); }
 .bn-tab.active::after {
   content: '';
@@ -1295,7 +1295,7 @@ body.dark .note { border-left-color: rgba(196,163,90,0.18); }
   border-radius: 50%;
   opacity: 0.6;
 }
-.bn-tab { color: rgba(139,107,42,0.4); }
+.bn-tab { color: rgba(139,107,42,0.65); }
 .bn-tab.active { color: #8B6914; }
 
 /* Body needs bottom padding so content clears the tab bar */
@@ -3358,49 +3358,63 @@ button, .bn-tab, .expand-trigger, .copy-btn, .fav-star,
 
 /* ── CATEGORY TILE GRID ── */
 .cat-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  padding: 12px 16px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 8px 16px 24px;
 }
 .cat-tile {
   background: transparent;
-  border: 1px solid rgba(139,107,42,0.10);
-  border-radius: 14px;
-  overflow: hidden;
+  border: none;
+  border-bottom: 1px solid var(--bdr);
+  border-radius: 0;
+  overflow: visible;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   display: flex;
-  flex-direction: column;
-  transition: transform var(--t-fast) var(--ease-out),
-              border-color var(--t-fast) var(--ease-out),
-              background var(--t-fast) var(--ease-out);
+  flex-direction: row;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 0;
+  transition: background var(--t-fast) var(--ease-out),
+              opacity var(--t-fast) var(--ease-out);
   touch-action: manipulation;
   text-align: left;
+  width: 100%;
+}
+.cat-tile:first-of-type {
+  border-top: 1px solid var(--bdr);
 }
 .cat-tile:active {
-  transform: scale(0.96);
-  background: rgba(196,163,90,0.05);
-  border-color: rgba(196,163,90,0.22);
+  opacity: 0.6;
+  background: transparent;
 }
-.cat-tile-band {
-  height: 72px;
+.cat-tile-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: var(--card);
+  border: 1px solid var(--bdr);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 32px;
+  font-size: 20px;
   flex-shrink: 0;
 }
+.cat-tile-band {
+  display: none;
+}
 .cat-tile-body {
-  padding: 12px 12px 14px;
   flex: 1;
+  padding: 0;
+  min-width: 0;
 }
 .cat-tile-title {
   font-family: var(--fs);
   font-size: 14px;
   color: var(--text);
   font-weight: 400;
-  margin-bottom: 6px;
+  margin-bottom: 3px;
   line-height: 1.3;
 }
 .cat-tile-sub {
@@ -3410,49 +3424,211 @@ button, .bn-tab, .expand-trigger, .copy-btn, .fav-star,
   letter-spacing: 0.03em;
   line-height: 1.4;
 }
+.cat-tile-chevron {
+  font-size: 20px;
+  color: var(--text-m);
+  flex-shrink: 0;
+  margin-right: 2px;
+  line-height: 1;
+  opacity: 0.5;
+}
 .cat-grid-header {
-  grid-column: 1 / -1;
   font-family: var(--fn);
   font-size: 10px;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--text-d);
-  padding: 28px 0 0;
+  color: var(--gold);
+  padding: 24px 0 10px;
+  border-bottom: 1px solid var(--bdr);
+  margin-bottom: 0;
+}
+.cat-tile.cat-tile-row {
+  /* single-column row — all tiles use this */
 }
 .cat-tile.cat-tile-wide {
-  grid-column: 1 / -1;
+  /* reset old wide overrides — all tiles are now full-width rows */
+  grid-column: unset;
   flex-direction: row;
   align-items: center;
 }
 .cat-tile.cat-tile-wide .cat-tile-band {
-  width: 80px;
-  height: 72px;
-  flex-shrink: 0;
-  border-radius: 0;
+  display: none;
 }
 .cat-tile.cat-tile-wide .cat-tile-body {
-  padding: 12px 16px;
+  padding: 0;
 }
-.band-teal   { background: linear-gradient(135deg, #1a3a3a 0%, #0f2828 100%); }
-.band-navy   { background: linear-gradient(135deg, #1a2240 0%, #0f1628 100%); }
-.band-plum   { background: linear-gradient(135deg, #2a1a3a 0%, #1a0f28 100%); }
-.band-earth  { background: linear-gradient(135deg, #2e2010 0%, #1e1408 100%); }
-.band-forest { background: linear-gradient(135deg, #142814 0%, #0a1a0a 100%); }
-.band-gold   { background: linear-gradient(135deg, #2e2200 0%, #1e1600 100%); }
-.band-rose   { background: linear-gradient(135deg, #2e1020 0%, #1e0814 100%); }
-.band-slate  { background: linear-gradient(135deg, #182030 0%, #0e1420 100%); }
-.cat-tile { background: transparent; border-color: rgba(122,92,18,0.10); }
+.band-teal, .band-navy, .band-plum, .band-earth,
+.band-forest, .band-gold, .band-rose, .band-slate { display: none; }
+.cat-tile { background: transparent; border-color: var(--bdr); }
+
+/* ---- ADHKAR ELEVATED TILES — now obsolete, kept for safety ---- */
+.cat-tile.cat-tile-adhkar {
+  border-color: var(--bdr);
+}
+.cat-tile.cat-tile-adhkar .cat-tile-band {
+  display: none;
+}
+.cat-tile.cat-tile-adhkar .cat-tile-title {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+/* ---- SPECIAL OCCASIONS DEMOTED ---- */
+.cat-grid-header.cat-grid-header-minor {
+  opacity: 0.55;
+  font-size: 9px;
+  padding-top: 20px;
+}
+.cat-tile.cat-tile-minor {
+  opacity: 0.65;
+}
+
+/* ---- 99 NAMES OVERLAY ---- */
+.asma-overlay {
+  position: fixed; inset: 0; z-index: 200;
+  background: var(--bg, #F7F2E8);
+  display: flex; flex-direction: column;
+  overflow: hidden;
+}
+.asma-overlay.is-open {
+  animation: overlayEnter 260ms cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+.asma-overlay.is-closing {
+  animation: overlayExit 220ms cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+.asma-overlay-header {
+  display: flex; align-items: center; gap: 12px;
+  padding: calc(16px + env(safe-area-inset-top, 0px)) 20px 14px;
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--bdr);
+}
+.asma-overlay-close {
+  background: transparent; border: 1px solid rgba(139,107,42,0.12);
+  border-radius: var(--radius); color: var(--text-d);
+  font-size: 18px; width: 38px; height: 38px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; -webkit-tap-highlight-color: transparent; flex-shrink: 0;
+}
+.asma-overlay-title {
+  font-family: var(--fs); font-size: 17px; color: var(--text); flex: 1;
+}
+.asma-overlay-count {
+  font-family: var(--fn); font-size: 11px; color: var(--text-m);
+  letter-spacing: .12em; text-transform: uppercase;
+}
+.asma-overlay-search {
+  padding: 12px 16px 8px; flex-shrink: 0;
+}
+.asma-overlay-search input {
+  width: 100%; box-sizing: border-box;
+  background: var(--card); border: 1px solid var(--bdr);
+  border-radius: 10px; padding: 9px 14px;
+  font-family: var(--fn); font-size: 13px; color: var(--text);
+  outline: none;
+  -webkit-appearance: none;
+}
+.asma-overlay-search input::placeholder { color: var(--text-m); }
+.asma-overlay-body {
+  flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch;
+  padding: 8px 12px calc(32px + env(safe-area-inset-bottom, 0px));
+}
+.asma-empty {
+  text-align: center; padding: 48px 24px;
+  font-family: var(--fn); font-size: 13px; color: var(--text-m);
+}
+
+/* ---- ADHKAR SECTION HEADERS ---- */
+.session-section-header {
+  font-family: var(--fn);
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.7;
+  padding: 20px 0 8px;
+}
+.session-section-header-minor {
+  opacity: 0.45;
+  padding-top: 28px;
+}
+
+/* ---- ADHKAR COMPLETE BANNER ---- */
+.adhkar-complete-banner {
+  background: rgba(196,163,90,0.07);
+  border: 1px solid rgba(196,163,90,0.18);
+  border-radius: 12px;
+  padding: 14px 18px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+.adhkar-complete-ar {
+  font-family: var(--fa);
+  font-size: 16px;
+  color: var(--gold-l);
+  direction: rtl;
+  margin-bottom: 6px;
+  line-height: 2;
+}
+.adhkar-complete-text {
+  font-family: var(--fn);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-m);
+  opacity: 0.8;
+}
+
+/* ---- ACTIVE SESSION HERO CARD ---- */
+.session-card.sc-active-hero {
+  background: var(--gold-f);
+  border-color: rgba(196,163,90,0.22);
+  border-radius: 14px;
+  margin-bottom: 4px;
+  padding: 18px 16px;
+  box-shadow: 0 2px 16px rgba(196,163,90,0.07);
+}
+.session-card.sc-active-hero .session-card-title {
+  font-size: clamp(18px, 4.5vw, 22px);
+}
+.session-card.sc-active-hero .session-card-sub::before {
+  content: 'Now · ';
+  color: var(--gold);
+  font-weight: 600;
+}
+.session-card.sc-active-hero .session-card-arrow {
+  color: var(--gold);
+  animation: arrowPulse 2.4s ease-in-out infinite;
+}
+
+/* ---- SALAH TRACKER INTRO ---- */
+.salah-tracker-intro {
+  padding: 16px 0 8px;
+  border-top: 1px solid rgba(196,163,90,0.10);
+  margin-top: 4px;
+}
+.salah-tracker-intro-label {
+  font-family: var(--fn);
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.7;
+  margin-bottom: 3px;
+}
+.salah-tracker-intro-sub {
+  font-family: var(--fn);
+  font-size: 12px;
+  color: var(--text-m);
+}
+
+/* ---- JUMUAH SESSION CARD UNIFIED ---- */
+.session-card-jumuah .session-card-title { color: var(--gold-l); }
+
 .dho-index-row { border-bottom-color: rgba(122,92,18,0.12); }
 .dho-index-row:first-child { border-top-color: rgba(122,92,18,0.12); }
 .gs-card { border-color: rgba(122,92,18,0.1); }
-.band-teal   { background: linear-gradient(135deg, #d4eded 0%, #b8e0e0 100%); }
-.band-navy   { background: linear-gradient(135deg, #d4d8ed 0%, #b8bee0 100%); }
-.band-plum   { background: linear-gradient(135deg, #e0d4ed 0%, #d0b8e0 100%); }
-.band-earth  { background: linear-gradient(135deg, #ede4d4 0%, #e0d4b8 100%); }
-.band-forest { background: linear-gradient(135deg, #d4edd4 0%, #b8e0b8 100%); }
-.band-gold   { background: linear-gradient(135deg, #ede8d4 0%, #e0d8a0 100%); }
-.band-rose   { background: linear-gradient(135deg, #edd4dc 0%, #e0b8c4 100%); }
-.band-slate  { background: linear-gradient(135deg, #d8dce8 0%, #c0c8dc 100%); }
+.band-teal, .band-navy, .band-plum, .band-earth,
+.band-forest, .band-gold, .band-rose, .band-slate { display: none; }
 .duas-index-search {
   position: relative;
   margin-bottom: 4px;
@@ -4855,20 +5031,115 @@ body.overlay-open .spa-view.view-active {
 /* Wordmark */
 .home-wordmark {
   text-align: left;
-  padding: calc(72px + env(safe-area-inset-top, 0px)) 0 36px;
+  padding: calc(68px + env(safe-area-inset-top, 0px)) 0 28px;
+  animation: homeWordmarkEnter 600ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes homeWordmarkEnter {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 .home-wordmark-title {
-  font-family: var(--fn);
-  font-size: 11px;
-  color: var(--gold-d);
+  font-family: var(--fs);
+  font-size: clamp(28px, 7vw, 36px);
+  color: var(--gold-l);
   font-weight: 400;
-  letter-spacing: 0.28em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  opacity: 0.5;
-  text-shadow: none;
+  opacity: 1;
+  text-shadow: 0 1px 20px rgba(196,163,90,0.15);
 }
 .home-wordmark-sub {
-  display: none;
+  display: block;
+  font-family: var(--fn);
+  font-size: 10.5px;
+  color: var(--text-m);
+  letter-spacing: 0.08em;
+  font-variant: small-caps;
+  text-transform: lowercase;
+  opacity: 0.6;
+  margin-top: 5px;
+}
+
+/* ---- IN-APP REMINDER BANNER ---- */
+#reminderBanner {
+  position: fixed;
+  top: calc(env(safe-area-inset-top, 0px) + 8px);
+  left: 12px; right: 12px;
+  z-index: 9000;
+  background: var(--card);
+  border: 1px solid rgba(196,163,90,0.35);
+  border-radius: 14px;
+  padding: 13px 16px 13px 14px;
+  display: flex; align-items: center; gap: 12px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+  transform: translateY(-110%);
+  transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+#reminderBanner.banner-show {
+  transform: translateY(0);
+}
+.reminder-banner-icon { font-size: 22px; flex-shrink: 0; }
+.reminder-banner-text { flex: 1; }
+.reminder-banner-title {
+  font-family: var(--fn); font-size: 13px; font-weight: 600;
+  color: var(--text); margin-bottom: 1px;
+}
+.reminder-banner-sub {
+  font-family: var(--fn); font-size: 11px; color: var(--text-m);
+}
+.reminder-banner-open {
+  flex-shrink: 0;
+  background: var(--gold); color: var(--deep);
+  border: none; border-radius: 20px;
+  font-family: var(--fn); font-size: 11px; font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 7px 14px; cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.reminder-banner-dismiss {
+  flex-shrink: 0;
+  background: transparent; border: none;
+  color: var(--text-m); font-size: 18px; line-height: 1;
+  cursor: pointer; padding: 4px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ---- HOME QUICK ACCESS ROW ---- */
+.home-quick-row {
+  display: flex;
+  gap: 8px;
+  padding: 0 16px 4px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  animation: ctxSecEnter 500ms 320ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.home-quick-row::-webkit-scrollbar { display: none; }
+.home-quick-chip {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 7px 13px;
+  border-radius: 20px;
+  border: 1px solid var(--bdr-h);
+  background: transparent;
+  font-family: var(--fn);
+  font-size: 12px;
+  color: var(--text-d);
+  cursor: pointer;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+  transition: background var(--t-fast), color var(--t-fast);
+}
+.home-quick-chip:active {
+  background: var(--gold-f);
+  color: var(--gold);
+}
+.home-quick-chip-icon {
+  font-size: 14px;
+  line-height: 1;
 }
 
 /* Meta row — hijri + streak, minimal */
@@ -4900,7 +5171,7 @@ body.overlay-open .spa-view.view-active {
 
 /* Contextual home — atmospheric spacing */
 .contextual-home {
-  margin-bottom: 0;
+  margin-bottom: 16px;
   padding-top: 0;
 }
 
@@ -4909,14 +5180,19 @@ body.overlay-open .spa-view.view-active {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
   padding: 0;
+  animation: ctxGreetEnter 400ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes ctxGreetEnter {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 .ctx-icon {
   font-size: 16px;
   line-height: 1;
   flex-shrink: 0;
-  opacity: 0.6;
+  opacity: 0.75;
   filter: none;
 }
 .ctx-greeting {
@@ -4928,7 +5204,7 @@ body.overlay-open .spa-view.view-active {
   font-weight: 400;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  opacity: 0.7;
+  opacity: 0.75;
 }
 .ctx-greetsub {
   display: none;
@@ -4939,23 +5215,29 @@ body.overlay-open .spa-view.view-active {
   display: flex;
   align-items: center;
   width: 100%;
-  background: transparent;
-  border: none;
-  border-top: 1px solid rgba(139,107,42,0.12);
-  border-bottom: 1px solid rgba(139,107,42,0.12);
-  border-radius: 0;
-  padding: 40px 0;
+  background: var(--gold-f);
+  border: 1px solid rgba(196,163,90,0.14);
+  border-radius: 16px;
+  padding: 28px 20px 28px 24px;
   cursor: pointer;
   text-align: left;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
   margin-bottom: 0;
-  transition: opacity var(--t-fast) var(--ease-out);
-  box-shadow: none;
+  transition: background var(--t-fast) var(--ease-out),
+              border-color var(--t-fast) var(--ease-out),
+              transform var(--t-fast) var(--ease-out);
+  box-shadow: 0 2px 16px rgba(196,163,90,0.06);
+  animation: ctxHeroEnter 500ms 120ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes ctxHeroEnter {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 .ctx-hero:active {
-  opacity: 0.75;
-  border-color: var(--bdr-h);
+  background: rgba(196,163,90,0.12);
+  border-color: rgba(196,163,90,0.28);
+  transform: scale(0.985);
 }
 .ctx-hero-inner { flex: 1; min-width: 0; }
 .ctx-hero-eyebrow {
@@ -4965,11 +5247,11 @@ body.overlay-open .spa-view.view-active {
   text-transform: uppercase;
   color: var(--gold);
   margin-bottom: 10px;
-  opacity: 0.65;
+  opacity: 0.8;
 }
 .ctx-hero-title {
   font-family: var(--fs);
-  font-size: clamp(32px, 8.5vw, 46px);
+  font-size: clamp(34px, 9vw, 50px);
   color: var(--text);
   line-height: 1.05;
   margin-bottom: 10px;
@@ -4989,13 +5271,19 @@ body.overlay-open .spa-view.view-active {
   font-size: 13px;
   color: var(--text-d);
   line-height: 1.6;
-  opacity: 0.8;
+  opacity: 0.85;
 }
 .ctx-hero-arrow {
   font-size: 26px;
-  color: rgba(196,163,90,0.35);
+  color: var(--gold);
+  opacity: 0.5;
   flex-shrink: 0;
   margin-left: 12px;
+  animation: arrowPulse 2.4s ease-in-out infinite;
+}
+@keyframes arrowPulse {
+  0%, 100% { transform: translateX(0); opacity: 0.5; }
+  50%       { transform: translateX(4px); opacity: 0.85; }
 }
 
 /* Secondary actions */
@@ -5003,11 +5291,16 @@ body.overlay-open .spa-view.view-active {
   display: flex;
   flex-direction: column;
   gap: 0;
-  margin-top: 8px;
-  margin-bottom: 48px;
+  margin-top: 12px;
+  margin-bottom: 20px;
   padding-left: 20px;
-  border-left: 1px solid rgba(139,107,42,0.08);
+  border-left: 1px solid rgba(139,107,42,0.10);
   margin-left: 1px;
+  animation: ctxSecEnter 500ms 200ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes ctxSecEnter {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 .ctx-secondary {
   display: flex;
@@ -5219,10 +5512,9 @@ body.dark .home-wordmark-title {
   text-shadow: 0 0 30px rgba(196,163,90,0.3);
 }
 body.dark .ctx-hero {
-  background: transparent;
-  border-top-color: rgba(196,163,90,0.14);
-  border-bottom-color: rgba(196,163,90,0.14);
-  box-shadow: none;
+  background: rgba(196,163,90,0.05);
+  border-color: rgba(196,163,90,0.14);
+  box-shadow: 0 2px 16px rgba(0,0,0,0.15);
 }
 body.dark .hps-dot-check svg { color: rgba(196,163,90,0.2); }
 
@@ -5352,9 +5644,10 @@ body.dark .hps-dot-check svg { color: rgba(196,163,90,0.2); }
     <button class="icon-btn" data-action="open-settings" aria-label="Settings">⚙️</button>
   </div>
 
-  <!-- Wordmark — minimal watermark at top -->
+  <!-- Wordmark — prominent header -->
   <div class="home-wordmark">
     <div class="home-wordmark-title">Naafi</div>
+    <div class="home-wordmark-sub">Dua &nbsp;·&nbsp; Adhkar &nbsp;·&nbsp; Dhikr</div>
   </div>
 
   <!-- Resume card — shown by JS only when session in progress -->
@@ -5371,6 +5664,25 @@ body.dark .hps-dot-check svg { color: rgba(196,163,90,0.2); }
 
   <!-- CONTEXTUAL HOME — hero + secondary — rendered by JS -->
   <div id="contextualHome" class="contextual-home"></div>
+
+  <!-- Situational quick-access chips -->
+  <div class="home-quick-row">
+    <button class="home-quick-chip" data-action="open-dua-reader" data-cat="illness">
+      <span class="home-quick-chip-icon">🤲</span> Hardship
+    </button>
+    <button class="home-quick-chip" data-action="open-duas-cat-simple" data-cat="sunnah">
+      <span class="home-quick-chip-icon">🌿</span> Anxiety &amp; Grief
+    </button>
+    <button class="home-quick-chip" data-action="open-dua-reader" data-cat="travel">
+      <span class="home-quick-chip-icon">✈️</span> Travel
+    </button>
+    <button class="home-quick-chip" data-action="open-duas-cat-simple" data-cat="istikharah">
+      <span class="home-quick-chip-icon">⭐</span> Istikhārah
+    </button>
+    <button class="home-quick-chip" data-action="open-dua-reader" data-cat="eating">
+      <span class="home-quick-chip-icon">🍽️</span> Eating
+    </button>
+  </div>
 
   <!-- Hijri + streak — quiet meta row, below hero -->
   <div class="home-meta-row">
@@ -5446,7 +5758,16 @@ body.dark .hps-dot-check svg { color: rgba(196,163,90,0.2); }
     <div class="home-section-title" style="margin-bottom:6px;">Guided Sessions</div>
     <p style="font-size:12px;color:var(--text-m);margin-bottom:16px;">Step-by-step guidance through each adhkar. Tap a session to begin.</p>
   </div>
-  <div class="session-cards">
+
+  <!-- All-complete banner — shown by JS when all 4 daily done -->
+  <div class="adhkar-complete-banner" id="adhkarCompleteBanner" style="display:none;">
+    <div class="adhkar-complete-ar">اللَّهُمَّ أَعِنِّي عَلَى ذِكْرِكَ</div>
+    <div class="adhkar-complete-text">All daily adhkar complete</div>
+  </div>
+
+  <!-- DAILY STATIONS -->
+  <div class="session-section-header">Daily Stations</div>
+  <div class="session-cards" id="dailySessionCards">
     <div class="session-card" data-action="start-session" data-session="morning">
       <div class="session-card-icon">🌅</div>
       <div class="session-card-body">
@@ -5479,6 +5800,11 @@ body.dark .hps-dot-check svg { color: rgba(196,163,90,0.2); }
       </div>
       <div class="session-card-arrow">›</div>
     </div>
+  </div>
+
+  <!-- SACRED TIMES -->
+  <div class="session-section-header session-section-header-minor">Sacred Times</div>
+  <div class="session-cards">
     <div class="session-card session-card-qadr" data-action="start-session" data-session="qadr">
       <div class="session-card-icon">🌙</div>
       <div class="session-card-body">
@@ -5495,13 +5821,14 @@ body.dark .hps-dot-check svg { color: rgba(196,163,90,0.2); }
       </div>
       <div class="session-card-arrow">›</div>
     </div>
-    <div class="gs-card" id="gs-jumuah" data-action="open-jumuah">
-      <div class="gs-icon">🕌</div>
-      <div class="gs-info">
-        <div class="gs-title">The Friday Hour</div>
-        <div class="gs-meta">SA'AT AL-ISTIJĀBAH · 11 SECTIONS · BEFORE MAGHRIB</div>
+    <!-- Friday Hour — shown by JS on Fridays only -->
+    <div class="session-card session-card-jumuah" id="gs-jumuah" data-action="open-jumuah" style="display:none;">
+      <div class="session-card-icon">🕌</div>
+      <div class="session-card-body">
+        <div class="session-card-title">The Friday Hour</div>
+        <div class="session-card-sub">Saʿat al-Istijābah · 11 sections · Before Maghrib</div>
       </div>
-      <div class="gs-arrow">›</div>
+      <div class="session-card-arrow">›</div>
     </div>
   </div>
 
@@ -5515,6 +5842,11 @@ body.dark .hps-dot-check svg { color: rgba(196,163,90,0.2); }
 
     <div class="note">
       The Prophet ﷺ said: <em>"Dua after the obligatory prayer is more likely to be answered."</em> Begin immediately after giving salam, before moving from your position.
+    </div>
+
+    <div class="salah-tracker-intro">
+      <div class="salah-tracker-intro-label">Interactive Tracker</div>
+      <div class="salah-tracker-intro-sub">Select your salah, then tap each step as you complete it</div>
     </div>
 
     <!-- ===== INTERACTIVE SALAH TRACKER ===== -->
@@ -5657,7 +5989,7 @@ body.dark .hps-dot-check svg { color: rgba(196,163,90,0.2); }
     <!-- end salah-tracker -->
 
     <!-- Browse All divider -->
-    <div class="salah-browse-divider"><span>Browse All</span></div>
+    <div class="salah-browse-divider"><span>Browse All · Reference</span></div>
 
     <ul class="step-list">
       <li class="step-item">
@@ -5763,142 +6095,120 @@ body.dark .hps-dot-check svg { color: rgba(196,163,90,0.2); }
     <div class="duas-index" id="duasIndexList">
 <div class="cat-grid">
 
-  <div class="cat-grid-header">Daily Adhkar</div>
-
-  <button class="cat-tile" data-action="open-duas-cat-adhkar" data-cat="salah">
-    <div class="cat-tile-band band-teal">🕌</div>
-    <div class="cat-tile-body">
-      <div class="cat-tile-title">After Every Salah</div>
-      <div class="cat-tile-sub">Post-prayer adhkar · 7 steps</div>
-    </div>
-  </button>
-
-  <button class="cat-tile" data-action="open-duas-cat-adhkar" data-cat="morning">
-    <div class="cat-tile-band band-gold">🌅</div>
-    <div class="cat-tile-body">
-      <div class="cat-tile-title">Morning Adhkar</div>
-      <div class="cat-tile-sub">After Fajr · 15 steps</div>
-    </div>
-  </button>
-
-  <button class="cat-tile" data-action="open-duas-cat-adhkar" data-cat="evening">
-    <div class="cat-tile-band band-navy">🌆</div>
-    <div class="cat-tile-body">
-      <div class="cat-tile-title">Evening Adhkar</div>
-      <div class="cat-tile-sub">After ʿAsr · 12 steps</div>
-    </div>
-  </button>
-
-  <button class="cat-tile" data-action="open-duas-cat-adhkar" data-cat="sleep">
-    <div class="cat-tile-band band-plum">🌙</div>
-    <div class="cat-tile-body">
-      <div class="cat-tile-title">Before Sleep</div>
-      <div class="cat-tile-sub">Every night · 9 steps</div>
-    </div>
-  </button>
-
   <div class="cat-grid-header">Qur'an &amp; Sunnah</div>
 
-  <button class="cat-tile" data-action="open-duas-cat-simple" data-cat="quran">
-    <div class="cat-tile-band band-forest">📖</div>
+  <button class="cat-tile cat-tile-row" data-action="open-duas-cat-simple" data-cat="quran">
+    <div class="cat-tile-icon">📖</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Duas from the Qur'an</div>
-      <div class="cat-tile-sub">The direct words of Allah · 21</div>
+      <div class="cat-tile-sub">Supplications from the Qur'an · 21</div>
     </div>
+    <div class="cat-tile-chevron">›</div>
   </button>
 
-  <button class="cat-tile" data-action="open-duas-cat-simple" data-cat="prophets">
-    <div class="cat-tile-band band-earth">🌿</div>
+  <button class="cat-tile cat-tile-row" data-action="open-duas-cat-simple" data-cat="prophets">
+    <div class="cat-tile-icon">🌿</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Duas of the Prophets</div>
-      <div class="cat-tile-sub">As recorded in the Qur'an · 20</div>
+      <div class="cat-tile-sub">Ibrahim, Musa, Yunus, Ayyub and more · 20</div>
     </div>
+    <div class="cat-tile-chevron">›</div>
   </button>
 
-  <button class="cat-tile cat-tile-wide" data-action="open-duas-cat-simple" data-cat="sunnah">
-    <div class="cat-tile-band band-rose">☪️</div>
+  <button class="cat-tile cat-tile-row" data-action="open-duas-cat-simple" data-cat="sunnah">
+    <div class="cat-tile-icon">☪️</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Prophetic Duas</div>
-      <div class="cat-tile-sub">Authenticated supplications of the Prophet ﷺ · 14</div>
+      <div class="cat-tile-sub">Anxiety, debt, guidance, knowledge, character · 14</div>
     </div>
+    <div class="cat-tile-chevron">›</div>
   </button>
 
   <div class="cat-grid-header">Situational</div>
 
-  <button class="cat-tile" data-action="open-duas-cat-simple" data-cat="daily">
-    <div class="cat-tile-band band-teal">🏡</div>
+  <button class="cat-tile cat-tile-row" data-action="open-duas-cat-simple" data-cat="daily">
+    <div class="cat-tile-icon">🏡</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Daily Life</div>
-      <div class="cat-tile-sub">Duas for every moment · 23</div>
+      <div class="cat-tile-sub">Leaving home, entering, waking, sleeping · 23</div>
     </div>
+    <div class="cat-tile-chevron">›</div>
   </button>
 
-  <button class="cat-tile" data-action="open-duas-cat-simple" data-cat="marriage">
-    <div class="cat-tile-band band-rose">💍</div>
+  <button class="cat-tile cat-tile-row" data-action="open-duas-cat-simple" data-cat="marriage">
+    <div class="cat-tile-icon">💍</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Marriage</div>
-      <div class="cat-tile-sub">Nikah, new spouse, family · 3</div>
+      <div class="cat-tile-sub">At nikah, with a new spouse, for family</div>
     </div>
+    <div class="cat-tile-chevron">›</div>
   </button>
 
-  <button class="cat-tile" data-action="open-dua-reader" data-cat="illness">
-    <div class="cat-tile-band band-slate">🤲</div>
+  <button class="cat-tile cat-tile-row" data-action="open-dua-reader" data-cat="illness">
+    <div class="cat-tile-icon">🤲</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Illness &amp; Hardship</div>
-      <div class="cat-tile-sub">When you are tested · 6</div>
+      <div class="cat-tile-sub">Sick, in pain, overwhelmed · 6</div>
     </div>
+    <div class="cat-tile-chevron">›</div>
   </button>
 
-  <button class="cat-tile" data-action="open-dua-reader" data-cat="travel">
-    <div class="cat-tile-band band-earth">✈️</div>
+  <button class="cat-tile cat-tile-row" data-action="open-dua-reader" data-cat="travel">
+    <div class="cat-tile-icon">✈️</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Travel</div>
-      <div class="cat-tile-sub">Journey supplications · 3</div>
+      <div class="cat-tile-sub">Before and during any journey · 3</div>
     </div>
+    <div class="cat-tile-chevron">›</div>
   </button>
 
-  <button class="cat-tile cat-tile-wide" data-action="open-dua-reader" data-cat="eating">
-    <div class="cat-tile-band band-forest">🍽️</div>
+  <button class="cat-tile cat-tile-row" data-action="open-dua-reader" data-cat="eating">
+    <div class="cat-tile-icon">🍽️</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Eating &amp; Drinking</div>
-      <div class="cat-tile-sub">Before, during and after meals · 3</div>
+      <div class="cat-tile-sub">Before eating, after eating, forgetting bismillah · 3</div>
     </div>
+    <div class="cat-tile-chevron">›</div>
   </button>
 
   <div class="cat-grid-header">Reference</div>
 
-  <button class="cat-tile" data-action="open-duas-cat-simple" data-cat="salawat">
-    <div class="cat-tile-band band-gold">✨</div>
+  <button class="cat-tile cat-tile-row" data-action="open-duas-cat-simple" data-cat="salawat">
+    <div class="cat-tile-icon">✨</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Salawat</div>
-      <div class="cat-tile-sub">Blessings on the Prophet ﷺ · 2</div>
+      <div class="cat-tile-sub">Send salawat — after adhan, in salah, always · 2</div>
     </div>
+    <div class="cat-tile-chevron">›</div>
   </button>
 
-  <button class="cat-tile" data-action="open-duas-cat-simple" data-cat="istighfar">
-    <div class="cat-tile-band band-plum">🤍</div>
+  <button class="cat-tile cat-tile-row" data-action="open-duas-cat-simple" data-cat="istighfar">
+    <div class="cat-tile-icon">🤍</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Istighfar</div>
-      <div class="cat-tile-sub">Seeking forgiveness · 4</div>
+      <div class="cat-tile-sub">After sin, to repent, daily istighfar · 4</div>
     </div>
+    <div class="cat-tile-chevron">›</div>
   </button>
 
-  <button class="cat-tile cat-tile-wide" data-action="open-duas-cat-simple" data-cat="istikharah">
-    <div class="cat-tile-band band-navy">⭐</div>
+  <button class="cat-tile cat-tile-row" data-action="open-duas-cat-simple" data-cat="istikharah">
+    <div class="cat-tile-icon">⭐</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Salah al-Istikharah</div>
-      <div class="cat-tile-sub">Guidance prayer — dua and method · 1</div>
+      <div class="cat-tile-sub">When making a decision — full method included</div>
     </div>
+    <div class="cat-tile-chevron">›</div>
   </button>
 
-  <div class="cat-grid-header">Special Occasions</div>
+  <div class="cat-grid-header cat-grid-header-minor">Special Occasions</div>
 
-  <button class="cat-tile cat-tile-wide" data-action="open-duas-cat-simple" data-cat="dhulhijjah-duas">
-    <div class="cat-tile-band band-gold">🕋</div>
+  <button class="cat-tile cat-tile-row cat-tile-minor" data-action="open-duas-cat-simple" data-cat="dhulhijjah-duas">
+    <div class="cat-tile-icon">🕋</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Dhul Hijjah &amp; Arafah</div>
-      <div class="cat-tile-sub">The ten best days · Arafah · Eid al-Adha · 5</div>
+      <div class="cat-tile-sub">Dhul Hijjah, Day of Arafah, Eid al-Adha · 5</div>
     </div>
+    <div class="cat-tile-chevron">›</div>
   </button>
 
 </div>
@@ -6009,7 +6319,7 @@ body.dark .hps-dot-check svg { color: rgba(196,163,90,0.2); }
   <button class="view-subnav-btn" data-action="open-learn-topic" data-topic="jumua">🕌 Jumu'ah</button>
   <button class="view-subnav-btn" data-action="open-learn-topic" data-topic="ruqyah">🛡️ Ruqyah</button>
   <button class="view-subnav-btn" data-action="open-learn-topic" data-topic="surahs">📖 Surahs</button>
-  <button class="view-subnav-btn" data-action="open-learn-topic" data-topic="asma">✨ 99 Names</button>
+
 </div>
 
 <div id="learnIndex">
@@ -6030,6 +6340,14 @@ body.dark .hps-dot-check svg { color: rgba(196,163,90,0.2); }
     <div class="cat-tile-body">
       <div class="cat-tile-title">The Art of Du'a</div>
       <div class="cat-tile-sub">A complete guide · 26 cards</div>
+    </div>
+  </button>
+
+  <button class="cat-tile cat-tile-wide" data-action="open-asma">
+    <div class="cat-tile-band band-forest">✨</div>
+    <div class="cat-tile-body">
+      <div class="cat-tile-title">Asmāʾ al-Ḥusnā</div>
+      <div class="cat-tile-sub">The 99 Beautiful Names of Allah · browse &amp; search</div>
     </div>
   </button>
 
@@ -6125,14 +6443,6 @@ body.dark .hps-dot-check svg { color: rgba(196,163,90,0.2); }
     </div>
   </button>
 
-  <button class="cat-tile" data-action="open-learn-topic" data-topic="asma">
-    <div class="cat-tile-band band-gold">✨</div>
-    <div class="cat-tile-body">
-      <div class="cat-tile-title">99 Names of Allah</div>
-      <div class="cat-tile-sub">Asmā al-Ḥusnā</div>
-    </div>
-  </button>
-
   <button class="cat-tile cat-tile-wide" data-action="open-learn-topic" data-topic="personal">
     <div class="cat-tile-band band-plum">🤍</div>
     <div class="cat-tile-body">
@@ -6150,6 +6460,24 @@ body.dark .hps-dot-check svg { color: rgba(196,163,90,0.2); }
 
 </div><!-- end learn-view -->
 
+
+<!-- =================== 99 NAMES OVERLAY =================== -->
+<div class="asma-overlay" id="asmaOverlay" style="display:none;">
+  <div class="asma-overlay-header">
+    <button class="asma-overlay-close" id="asmaClose" aria-label="Close">✕</button>
+    <div class="asma-overlay-title">Asmāʾ al-Ḥusnā</div>
+    <div class="asma-overlay-count">99 Names</div>
+  </div>
+  <div class="asma-overlay-search">
+    <input type="search" id="asmaSearch" placeholder="Search by name or meaning…"
+      autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+      oninput="filterAsma(this.value)">
+  </div>
+  <div class="asma-overlay-body">
+    <div class="asma-grid" id="asmaGrid"></div>
+    <div class="asma-empty" id="asmaEmpty" style="display:none;">No names match your search.</div>
+  </div>
+</div>
 
 <!-- =================== SETTINGS VIEW =================== -->
 <div class="spa-view" id="settings-view" data-view="settings">
@@ -6281,19 +6609,93 @@ body.dark .hps-dot-check svg { color: rgba(196,163,90,0.2); }
     </div>
 
     <div class="sv-section-title">Reminders</div>
-<div class="sv-setting-row" style="flex-direction:column;align-items:flex-start;gap:8px;">
-  <div style="font-family:var(--fn);font-size:14px;color:var(--text);line-height:1.6;">
-    Set reminders on your device to keep your adhkar consistent:
-  </div>
-  <div style="font-family:var(--fn);font-size:13px;color:var(--text-d);line-height:1.8;">
-    🌅 <strong>Morning adhkar</strong> — after Fajr<br>
-    🌆 <strong>Evening adhkar</strong> — after Asr<br>
-    🌙 <strong>Before sleep</strong> — 30 mins before bed
-  </div>
-  <div style="font-family:var(--fn);font-size:12px;color:var(--text-m);margin-top:4px;">
-    Open your phone's Clock or Reminders app to set these up.
-  </div>
-</div>
+
+    <div style="font-family:var(--fn);font-size:13px;color:var(--text-d);line-height:1.6;padding:4px 0 16px;">
+      Get nudged at the right time. Naafi will show an in-app banner and, if you allow it, a device notification.
+    </div>
+
+    <!-- Permission row -->
+    <div class="sv-row" id="notifPermRow">
+      <div>
+        <div class="sv-label">Device Notifications</div>
+        <div class="sv-sub" id="notifPermSub">Allow Naafi to send push reminders</div>
+      </div>
+      <button id="notifPermBtn" style="
+        font-family:var(--fn);font-size:11px;letter-spacing:0.08em;text-transform:uppercase;
+        color:var(--gold);background:transparent;border:1px solid rgba(196,163,90,0.3);
+        border-radius:20px;padding:8px 16px;cursor:pointer;
+        -webkit-tap-highlight-color:transparent;white-space:nowrap;
+      ">Enable</button>
+    </div>
+
+    <!-- Morning Adhkar -->
+    <div class="sv-row">
+      <div>
+        <div class="sv-label">🌅 Morning Adhkar</div>
+        <div class="sv-sub">After Fajr — opens Morning session</div>
+      </div>
+      <label class="sv-toggle">
+        <input type="checkbox" id="rem-morning" onchange="saveReminders()">
+        <span class="sv-toggle-slider"></span>
+      </label>
+    </div>
+    <div id="rem-morning-time-row" class="sv-row" style="display:none;padding-top:8px;padding-bottom:8px;">
+      <div class="sv-sub" style="color:var(--text-d);">Reminder time</div>
+      <input type="time" class="sv-time-input" id="rem-morning-time" value="06:15" onchange="saveReminders()">
+    </div>
+
+    <!-- Evening Adhkar -->
+    <div class="sv-row">
+      <div>
+        <div class="sv-label">🌆 Evening Adhkar</div>
+        <div class="sv-sub">After Asr — opens Evening session</div>
+      </div>
+      <label class="sv-toggle">
+        <input type="checkbox" id="rem-evening" onchange="saveReminders()">
+        <span class="sv-toggle-slider"></span>
+      </label>
+    </div>
+    <div id="rem-evening-time-row" class="sv-row" style="display:none;padding-top:8px;padding-bottom:8px;">
+      <div class="sv-sub" style="color:var(--text-d);">Reminder time</div>
+      <input type="time" class="sv-time-input" id="rem-evening-time" value="17:00" onchange="saveReminders()">
+    </div>
+
+    <!-- Before Sleep -->
+    <div class="sv-row">
+      <div>
+        <div class="sv-label">🌙 Before Sleep</div>
+        <div class="sv-sub">Opens Before Sleep session</div>
+      </div>
+      <label class="sv-toggle">
+        <input type="checkbox" id="rem-sleep" onchange="saveReminders()">
+        <span class="sv-toggle-slider"></span>
+      </label>
+    </div>
+    <div id="rem-sleep-time-row" class="sv-row" style="display:none;padding-top:8px;padding-bottom:8px;">
+      <div class="sv-sub" style="color:var(--text-d);">Reminder time</div>
+      <input type="time" class="sv-time-input" id="rem-sleep-time" value="22:00" onchange="saveReminders()">
+    </div>
+
+    <!-- Custom Dua -->
+    <div class="sv-row">
+      <div>
+        <div class="sv-label">🤲 Custom Reminder</div>
+        <div class="sv-sub">A daily nudge to make du'a</div>
+      </div>
+      <label class="sv-toggle">
+        <input type="checkbox" id="rem-custom" onchange="saveReminders()">
+        <span class="sv-toggle-slider"></span>
+      </label>
+    </div>
+    <div id="rem-custom-time-row" class="sv-row" style="display:none;padding-top:8px;padding-bottom:8px;">
+      <div class="sv-sub" style="color:var(--text-d);">Reminder time</div>
+      <input type="time" class="sv-time-input" id="rem-custom-time" value="12:00" onchange="saveReminders()">
+    </div>
+
+    <div style="font-family:var(--fn);font-size:11px;color:var(--text-m);line-height:1.6;padding:12px 0 20px;">
+      In-app banners appear whenever Naafi is open. Device notifications require permission above.
+    </div>
+
 
     <div class="sv-section-title">About</div>
 
@@ -6925,6 +7327,11 @@ function showView(name) {
   // Reset duas index when navigating to duas view
   if (name === 'duas') {
     closeDuasCategory();
+  }
+
+  // Refresh adhkar tab state on every visit
+  if (name === 'adhkar') {
+    setTimeout(function() { if (typeof updateAdhkarTab === 'function') updateAdhkarTab(); }, 50);
   }
 
   // Reset learn tab — restore index, close any open topic overlays
@@ -8377,126 +8784,8 @@ document.addEventListener('DOMContentLoaded', function() {
   setNextMidnight();
 })();
 
-// ============================================================
-//  99 NAMES OF ALLAH — ASMA AL-HUSNA
-// ============================================================
-(function(){
-  var ASMA = [
-    {ar:'اللَّهُ',       tr:'Allāh',           en:'The One God'},
-    {ar:'الرَّحْمَٰنُ',  tr:'Ar-Raḥmān',        en:'The Most Merciful'},
-    {ar:'الرَّحِيمُ',    tr:'Ar-Raḥīm',          en:'The Especially Merciful'},
-    {ar:'الْمَلِكُ',     tr:'Al-Malik',           en:'The Sovereign'},
-    {ar:'الْقُدُّوسُ',   tr:'Al-Quddūs',          en:'The Most Holy'},
-    {ar:'السَّلَامُ',    tr:'As-Salām',           en:'The Source of Peace'},
-    {ar:'الْمُؤْمِنُ',   tr:'Al-Muʾmin',          en:'The Granter of Security'},
-    {ar:'الْمُهَيْمِنُ', tr:'Al-Muhaymin',         en:'The Guardian'},
-    {ar:'الْعَزِيزُ',    tr:'Al-ʿAzīz',           en:'The Exalted in Might'},
-    {ar:'الْجَبَّارُ',   tr:'Al-Jabbār',           en:'The Compeller'},
-    {ar:'الْمُتَكَبِّرُ',tr:'Al-Mutakabbir',        en:'The Supreme'},
-    {ar:'الْخَالِقُ',    tr:'Al-Khāliq',           en:'The Creator'},
-    {ar:'الْبَارِئُ',    tr:'Al-Bāriʾ',            en:'The Originator'},
-    {ar:'الْمُصَوِّرُ',  tr:'Al-Muṣawwir',          en:'The Fashioner'},
-    {ar:'الْغَفَّارُ',   tr:'Al-Ghaffār',           en:'The Perpetual Forgiver'},
-    {ar:'الْقَهَّارُ',   tr:'Al-Qahhār',            en:'The Subduer'},
-    {ar:'الْوَهَّابُ',   tr:'Al-Wahhāb',            en:'The Bestower'},
-    {ar:'الرَّزَّاقُ',   tr:'Ar-Razzāq',            en:'The Provider'},
-    {ar:'الْفَتَّاحُ',   tr:'Al-Fattāḥ',            en:'The Opener'},
-    {ar:'الْعَلِيمُ',    tr:'Al-ʿAlīm',             en:'The All-Knowing'},
-    {ar:'الْقَابِضُ',    tr:'Al-Qābiḍ',             en:'The Withholder'},
-    {ar:'الْبَاسِطُ',    tr:'Al-Bāsiṭ',             en:'The Extender'},
-    {ar:'الْخَافِضُ',    tr:'Al-Khāfiḍ',            en:'The Reducer'},
-    {ar:'الرَّافِعُ',    tr:'Ar-Rāfiʿ',             en:'The Exalter'},
-    {ar:'الْمُعِزُّ',    tr:'Al-Muʿizz',            en:'The Honourer'},
-    {ar:'الْمُذِلُّ',    tr:'Al-Mudhill',            en:'The Humiliator'},
-    {ar:'السَّمِيعُ',    tr:'As-Samīʿ',             en:'The All-Hearing'},
-    {ar:'الْبَصِيرُ',    tr:'Al-Baṣīr',             en:'The All-Seeing'},
-    {ar:'الْحَكَمُ',     tr:'Al-Ḥakam',              en:'The Judge'},
-    {ar:'الْعَدْلُ',     tr:'Al-ʿAdl',               en:'The Just'},
-    {ar:'اللَّطِيفُ',    tr:'Al-Laṭīf',              en:'The Subtle'},
-    {ar:'الْخَبِيرُ',    tr:'Al-Khabīr',             en:'The Acquainted'},
-    {ar:'الْحَلِيمُ',    tr:'Al-Ḥalīm',              en:'The Forbearing'},
-    {ar:'الْعَظِيمُ',    tr:'Al-ʿAẓīm',              en:'The Magnificent'},
-    {ar:'الْغَفُورُ',    tr:'Al-Ghafūr',             en:'The Forgiving'},
-    {ar:'الشَّكُورُ',    tr:'Ash-Shakūr',            en:'The Appreciative'},
-    {ar:'الْعَلِيُّ',    tr:'Al-ʿAlī',               en:'The Most High'},
-    {ar:'الْكَبِيرُ',    tr:'Al-Kabīr',              en:'The Greatest'},
-    {ar:'الْحَفِيظُ',    tr:'Al-Ḥafīẓ',              en:'The Preserver'},
-    {ar:'الْمُقِيتُ',    tr:'Al-Muqīt',              en:'The Sustainer'},
-    {ar:'الْحَسِيبُ',    tr:'Al-Ḥasīb',              en:'The Reckoner'},
-    {ar:'الْجَلِيلُ',    tr:'Al-Jalīl',              en:'The Majestic'},
-    {ar:'الْكَرِيمُ',    tr:'Al-Karīm',              en:'The Generous'},
-    {ar:'الرَّقِيبُ',    tr:'Ar-Raqīb',              en:'The Watchful'},
-    {ar:'الْمُجِيبُ',    tr:'Al-Mujīb',              en:'The Responsive'},
-    {ar:'الْوَاسِعُ',    tr:'Al-Wāsiʿ',              en:'The All-Encompassing'},
-    {ar:'الْحَكِيمُ',    tr:'Al-Ḥakīm',              en:'The Wise'},
-    {ar:'الْوَدُودُ',    tr:'Al-Wadūd',              en:'The Loving'},
-    {ar:'الْمَجِيدُ',    tr:'Al-Majīd',              en:'The Glorious'},
-    {ar:'الْبَاعِثُ',    tr:'Al-Bāʿith',             en:'The Resurrector'},
-    {ar:'الشَّهِيدُ',    tr:'Ash-Shahīd',            en:'The Witness'},
-    {ar:'الْحَقُّ',      tr:'Al-Ḥaqq',               en:'The Truth'},
-    {ar:'الْوَكِيلُ',    tr:'Al-Wakīl',              en:'The Trustee'},
-    {ar:'الْقَوِيُّ',    tr:'Al-Qawī',               en:'The Strong'},
-    {ar:'الْمَتِينُ',    tr:'Al-Matīn',              en:'The Firm'},
-    {ar:'الْوَلِيُّ',    tr:'Al-Walī',               en:'The Protecting Friend'},
-    {ar:'الْحَمِيدُ',    tr:'Al-Ḥamīd',              en:'The Praiseworthy'},
-    {ar:'الْمُحْصِي',    tr:'Al-Muḥṣī',              en:'The All-Enumerating'},
-    {ar:'الْمُبْدِئُ',   tr:'Al-Mubdiʾ',             en:'The Originator'},
-    {ar:'الْمُعِيدُ',    tr:'Al-Muʿīd',              en:'The Restorer'},
-    {ar:'الْمُحْيِي',    tr:'Al-Muḥyī',              en:'The Giver of Life'},
-    {ar:'الْمُمِيتُ',    tr:'Al-Mumīt',              en:'The Taker of Life'},
-    {ar:'الْحَيُّ',      tr:'Al-Ḥayy',               en:'The Ever-Living'},
-    {ar:'الْقَيُّومُ',   tr:'Al-Qayyūm',             en:'The Self-Sustaining'},
-    {ar:'الْوَاجِدُ',    tr:'Al-Wājid',              en:'The Perceiver'},
-    {ar:'الْمَاجِدُ',    tr:'Al-Mājid',              en:'The Noble'},
-    {ar:'الْوَاحِدُ',    tr:'Al-Wāḥid',              en:'The One'},
-    {ar:'الْأَحَدُ',     tr:'Al-Aḥad',               en:'The Unique'},
-    {ar:'الصَّمَدُ',     tr:'Aṣ-Ṣamad',              en:'The Eternal Refuge'},
-    {ar:'الْقَادِرُ',    tr:'Al-Qādir',              en:'The Capable'},
-    {ar:'الْمُقْتَدِرُ', tr:'Al-Muqtadir',           en:'The All-Powerful'},
-    {ar:'الْمُقَدِّمُ',  tr:'Al-Muqaddim',           en:'The Expediter'},
-    {ar:'الْمُؤَخِّرُ',  tr:'Al-Muʾakhkhir',         en:'The Delayer'},
-    {ar:'الْأَوَّلُ',    tr:'Al-Awwal',              en:'The First'},
-    {ar:'الْآخِرُ',      tr:'Al-Ākhir',              en:'The Last'},
-    {ar:'الظَّاهِرُ',    tr:'Aẓ-Ẓāhir',              en:'The Manifest'},
-    {ar:'الْبَاطِنُ',    tr:'Al-Bāṭin',              en:'The Hidden'},
-    {ar:'الْوَالِي',     tr:'Al-Wālī',               en:'The Patron'},
-    {ar:'الْمُتَعَالِي', tr:'Al-Mutaʿālī',           en:'The Self Exalted'},
-    {ar:'الْبَرُّ',      tr:'Al-Barr',               en:'The Source of Goodness'},
-    {ar:'التَّوَّابُ',   tr:'At-Tawwāb',             en:'The Accepter of Repentance'},
-    {ar:'الْمُنْتَقِمُ', tr:'Al-Muntaqim',           en:'The Avenger'},
-    {ar:'الْعَفُوُّ',    tr:'Al-ʿAfuww',             en:'The Pardoner'},
-    {ar:'الرَّؤُوفُ',    tr:'Ar-Raʾūf',              en:'The Compassionate'},
-    {ar:'مَالِكُ الْمُلْكِ',tr:'Mālikul-Mulk',       en:'Owner of All Sovereignty'},
-    {ar:'ذُو الْجَلَالِ',tr:'Dhul-Jalāli wal-Ikrām', en:'Lord of Majesty & Honour'},
-    {ar:'الْمُقْسِطُ',   tr:'Al-Muqsiṭ',             en:'The Equitable'},
-    {ar:'الْجَامِعُ',    tr:'Al-Jāmiʿ',              en:'The Gatherer'},
-    {ar:'الْغَنِيُّ',    tr:'Al-Ghanī',              en:'The Self-Sufficient'},
-    {ar:'الْمُغْنِي',    tr:'Al-Mughnī',             en:'The Enricher'},
-    {ar:'الْمَانِعُ',    tr:'Al-Māniʿ',              en:'The Preventer'},
-    {ar:'الضَّارُّ',     tr:'Aḍ-Ḍārr',               en:'The Distressor'},
-    {ar:'النَّافِعُ',    tr:'An-Nāfiʿ',              en:'The Propitious'},
-    {ar:'النُّورُ',      tr:'An-Nūr',                en:'The Light'},
-    {ar:'الْهَادِي',     tr:'Al-Hādī',               en:'The Guide'},
-    {ar:'الْبَدِيعُ',    tr:'Al-Badīʿ',              en:'The Incomparable Originator'},
-    {ar:'الْبَاقِي',     tr:'Al-Bāqī',               en:'The Everlasting'},
-    {ar:'الْوَارِثُ',    tr:'Al-Wārith',             en:'The Inheritor'},
-    {ar:'الرَّشِيدُ',    tr:'Ar-Rashīd',             en:'The Guide to the Right Path'},
-    {ar:'الصَّبُورُ',    tr:'Aṣ-Ṣabūr',              en:'The Patient'}
-  ];
 
-  var grid = document.getElementById('asmaGrid');
-  if(!grid) return;
-  ASMA.forEach(function(n, i){
-    var card = document.createElement('div');
-    card.className = 'asma-card';
-    card.innerHTML =
-      '<div class="asma-num">' + (i+1) + '</div>' +
-      '<span class="asma-ar">' + n.ar + '</span>' +
-      '<div class="asma-tr">' + n.tr + '</div>' +
-      '<div class="asma-en">' + n.en + '</div>';
-    grid.appendChild(card);
-  });
-})();
+
 
 
 // ============================================================
@@ -8533,6 +8822,7 @@ document.addEventListener('DOMContentLoaded', function() {
     renderProgress();
     if (typeof window.refreshContextualHome === 'function') window.refreshContextualHome();
     if (turningOn && typeof window.markStreakDay === 'function') window.markStreakDay();
+    if (typeof updateAdhkarTab === 'function') setTimeout(updateAdhkarTab, 50);
   };
 
   // --- Prayer-based reset logic ---
@@ -10407,15 +10697,61 @@ function applyTimeContextToBody() {
 // Refresh every minute
 setInterval(function() {
   applyTimeContextToBody();
+  updateAdhkarTab();
 }, 60000);
 
 // Also refresh when user returns to the app
 document.addEventListener('visibilitychange', function() {
-  if (!document.hidden) applyTimeContextToBody();
+  if (!document.hidden) { applyTimeContextToBody(); updateAdhkarTab(); }
 });
 
 // Call on load
 loadPrayerTimes();
+
+// ============================================================
+//  ADHKAR TAB — reorder active card, Friday show, completion banner
+// ============================================================
+function updateAdhkarTab() {
+  var isFriday = new Date().getDay() === 5;
+
+  // Show/hide Friday Hour card
+  var jumuah = document.getElementById('gs-jumuah');
+  if (jumuah) jumuah.style.display = isFriday ? '' : 'none';
+
+  // Reorder daily session cards — active session first
+  var activeSession = document.body.getAttribute('data-active-session') || '';
+  var container = document.getElementById('dailySessionCards');
+  if (container && activeSession) {
+    var activeCard = container.querySelector('.session-card[data-session="' + activeSession + '"]');
+    if (activeCard && container.firstElementChild !== activeCard) {
+      container.insertBefore(activeCard, container.firstElementChild);
+    }
+    // Apply hero class to active card, remove from others
+    container.querySelectorAll('.session-card').forEach(function(c) {
+      if (c.getAttribute('data-session') === activeSession && !c.classList.contains('sc-done')) {
+        c.classList.add('sc-active-hero');
+      } else {
+        c.classList.remove('sc-active-hero');
+      }
+    });
+  }
+
+  // Check completion — all 4 daily sessions done today
+  var progress = {};
+  try {
+    var stored = localStorage.getItem('progress_date');
+    if (stored === new Date().toDateString()) {
+      progress = JSON.parse(localStorage.getItem('progress_data') || '{}') || {};
+    }
+  } catch(e) {}
+  var allDone = progress.morning && progress.evening && progress.salah && progress.sleep;
+  var banner = document.getElementById('adhkarCompleteBanner');
+  if (banner) banner.style.display = allDone ? 'block' : 'none';
+}
+
+// Wire to tab switch and DOM ready
+document.addEventListener('DOMContentLoaded', function() { updateAdhkarTab(); });
+if (document.readyState !== 'loading') updateAdhkarTab();
 
 // ============================================================
 //  PRAYER TIME SETTINGS
@@ -11249,15 +11585,584 @@ function filterDuasIndex(query) {
     headers.forEach(function(h){ h.style.display = ''; });
     return;
   }
-  tiles.forEach(function(t){
+
+  // Intent alias map — maps search terms to data-cat values
+  var ALIASES = {
+    // Illness & hardship
+    'anxious': ['illness','daily','sunnah'],
+    'anxiety': ['illness','daily','sunnah'],
+    'worried': ['illness','daily','sunnah'],
+    'stress': ['illness','daily','sunnah'],
+    'stressed': ['illness','daily','sunnah'],
+    'depressed': ['illness','daily','sunnah'],
+    'sad': ['illness','daily','sunnah'],
+    'grief': ['illness','daily','sunnah'],
+    'sick': ['illness'],
+    'ill': ['illness'],
+    'pain': ['illness'],
+    'test': ['illness','daily'],
+    'tested': ['illness'],
+    'hardship': ['illness'],
+    'difficult': ['illness','daily'],
+    'difficulty': ['illness','daily'],
+    'trouble': ['illness','daily'],
+    'help': ['illness','daily','sunnah'],
+    'distressed': ['illness'],
+    'distress': ['illness'],
+    // Debt & money
+    'debt': ['sunnah','daily'],
+    'money': ['sunnah','daily'],
+    'rizq': ['sunnah','daily'],
+    'provision': ['sunnah','daily'],
+    'poor': ['sunnah'],
+    'wealth': ['sunnah','daily'],
+    'job': ['sunnah','daily'],
+    'work': ['daily','sunnah'],
+    // Exam & speech
+    'exam': ['sunnah','quran','prophets'],
+    'interview': ['sunnah','quran','prophets'],
+    'presentation': ['sunnah','quran','prophets'],
+    'speech': ['sunnah','quran','prophets'],
+    'speak': ['sunnah','quran'],
+    'nervous': ['sunnah','quran','illness'],
+    // Travel
+    'travel': ['travel'],
+    'journey': ['travel'],
+    'flight': ['travel'],
+    'driving': ['travel'],
+    'car': ['travel'],
+    'trip': ['travel'],
+    // Eating & drinking
+    'eat': ['eating'],
+    'eating': ['eating'],
+    'food': ['eating'],
+    'meal': ['eating'],
+    'drink': ['eating'],
+    'bismillah': ['eating','daily'],
+    // Sleep
+    'sleep': ['sleep'],
+    'sleeping': ['sleep'],
+    'bed': ['sleep'],
+    'night': ['sleep','evening'],
+    'nightmare': ['sleep'],
+    // Morning/Evening
+    'morning': ['morning','salah'],
+    'fajr': ['morning','salah'],
+    'evening': ['evening'],
+    'asr': ['evening'],
+    'maghrib': ['evening'],
+    // Salah & prayer
+    'salah': ['salah'],
+    'prayer': ['salah','morning','evening'],
+    'after salah': ['salah'],
+    'tasbih': ['salah'],
+    // Forgiveness
+    'forgive': ['istighfar','sunnah','quran'],
+    'forgiveness': ['istighfar','sunnah','quran'],
+    'sin': ['istighfar','sunnah'],
+    'repent': ['istighfar'],
+    'tawbah': ['istighfar'],
+    'istighfar': ['istighfar'],
+    'astaghfirullah': ['istighfar'],
+    // Family & children
+    'parents': ['quran','prophets','daily'],
+    'children': ['quran','prophets'],
+    'family': ['quran','prophets','marriage'],
+    'baby': ['quran','prophets'],
+    'pregnant': ['quran','prophets'],
+    // Marriage
+    'marriage': ['marriage'],
+    'wedding': ['marriage'],
+    'nikah': ['marriage'],
+    'spouse': ['marriage','quran'],
+    'wife': ['marriage'],
+    'husband': ['marriage'],
+    // Guidance & decision
+    'guidance': ['sunnah','quran','istikharah'],
+    'decision': ['istikharah'],
+    'istikhara': ['istikharah'],
+    'istikharah': ['istikharah'],
+    'confused': ['istikharah','sunnah'],
+    'choice': ['istikharah'],
+    // Knowledge
+    'knowledge': ['sunnah','quran'],
+    'study': ['sunnah','quran'],
+    'learn': ['sunnah'],
+    'ilm': ['sunnah'],
+    // Protection
+    'protect': ['sunnah','quran','morning','evening'],
+    'protection': ['sunnah','quran','morning','evening'],
+    'evil': ['morning','evening','sunnah'],
+    'shaytan': ['morning','evening','sunnah'],
+    'jinns': ['morning','evening'],
+    'ruqyah': ['morning','evening'],
+    'evil eye': ['morning','evening'],
+    'nazar': ['morning','evening'],
+    'hasad': ['morning','evening'],
+    // Special occasions
+    'eid': ['dhulhijjah-duas'],
+    'hajj': ['dhulhijjah-duas'],
+    'arafah': ['dhulhijjah-duas'],
+    'dhul hijjah': ['dhulhijjah-duas'],
+    'dhulhijjah': ['dhulhijjah-duas'],
+    'qurban': ['dhulhijjah-duas'],
+    // Quranic & Prophets
+    'quran': ['quran'],
+    'prophet': ['prophets','sunnah'],
+    'musa': ['prophets'],
+    'ibrahim': ['prophets'],
+    'yunus': ['prophets'],
+    'ayyub': ['prophets'],
+    // Salawat
+    'salawat': ['salawat'],
+    'durood': ['salawat'],
+    'prophet peace': ['salawat'],
+    // Dhikr
+    'dhikr': ['salah'],
+    'subhanallah': ['salah'],
+    'alhamdulillah': ['salah'],
+    'allahu akbar': ['salah'],
+  };
+
+  // Collect matching data-cat values from alias map
+  var matchedCats = null;
+  Object.keys(ALIASES).forEach(function(keyword) {
+    if (q.indexOf(keyword) > -1 || keyword.indexOf(q) > -1) {
+      if (!matchedCats) matchedCats = [];
+      ALIASES[keyword].forEach(function(cat) {
+        if (matchedCats.indexOf(cat) === -1) matchedCats.push(cat);
+      });
+    }
+  });
+
+  tiles.forEach(function(t) {
     var text = t.textContent.toLowerCase();
-    t.style.display = text.indexOf(q) > -1 ? '' : 'none';
+    var cat = t.getAttribute('data-cat') || '';
+    var textMatch = text.indexOf(q) > -1;
+    var aliasMatch = matchedCats && matchedCats.indexOf(cat) > -1;
+    t.style.display = (textMatch || aliasMatch) ? '' : 'none';
   });
   headers.forEach(function(h){ h.style.display = 'none'; });
 }
 
 // ============================================================
 //  LEARN TOPIC SYSTEM
+// ============================================================
+// ============================================================
+//  99 NAMES OF ALLAH — data, open/close, filter
+// ============================================================
+var ASMA_DATA = [
+  {n:1,  ar:'الرَّحْمَٰنُ',       tr:'Ar-Raḥmān',        en:'The Most Gracious'},
+  {n:2,  ar:'الرَّحِيمُ',        tr:'Ar-Raḥīm',         en:'The Most Merciful'},
+  {n:3,  ar:'الْمَلِكُ',         tr:'Al-Malik',         en:'The King'},
+  {n:4,  ar:'الْقُدُّوسُ',        tr:'Al-Quddūs',        en:'The Most Holy'},
+  {n:5,  ar:'السَّلَامُ',         tr:'As-Salām',         en:'The Source of Peace'},
+  {n:6,  ar:'الْمُؤْمِنُ',        tr:'Al-Muʾmin',        en:'The Granter of Security'},
+  {n:7,  ar:'الْمُهَيْمِنُ',       tr:'Al-Muhaymin',      en:'The Overseer'},
+  {n:8,  ar:'الْعَزِيزُ',         tr:'Al-ʿAzīz',         en:'The Almighty'},
+  {n:9,  ar:'الْجَبَّارُ',         tr:'Al-Jabbār',        en:'The Compeller'},
+  {n:10, ar:'الْمُتَكَبِّرُ',       tr:'Al-Mutakabbir',    en:'The Supreme'},
+  {n:11, ar:'الْخَالِقُ',         tr:'Al-Khāliq',        en:'The Creator'},
+  {n:12, ar:'الْبَارِئُ',          tr:'Al-Bāriʾ',         en:'The Originator'},
+  {n:13, ar:'الْمُصَوِّرُ',        tr:'Al-Muṣawwir',      en:'The Fashioner'},
+  {n:14, ar:'الْغَفَّارُ',         tr:'Al-Ghaffār',       en:'The Perpetual Forgiver'},
+  {n:15, ar:'الْقَهَّارُ',         tr:'Al-Qahhār',        en:'The All-Prevailing'},
+  {n:16, ar:'الْوَهَّابُ',         tr:'Al-Wahhāb',        en:'The Bestower'},
+  {n:17, ar:'الرَّزَّاقُ',         tr:'Ar-Razzāq',        en:'The Provider'},
+  {n:18, ar:'الْفَتَّاحُ',         tr:'Al-Fattāḥ',        en:'The Opener'},
+  {n:19, ar:'الْعَلِيمُ',          tr:'Al-ʿAlīm',         en:'The All-Knowing'},
+  {n:20, ar:'الْقَابِضُ',          tr:'Al-Qābiḍ',         en:'The Withholder'},
+  {n:21, ar:'الْبَاسِطُ',          tr:'Al-Bāsiṭ',         en:'The Expander'},
+  {n:22, ar:'الْخَافِضُ',          tr:'Al-Khāfiḍ',        en:'The Reducer'},
+  {n:23, ar:'الرَّافِعُ',          tr:'Ar-Rāfiʿ',         en:'The Exalter'},
+  {n:24, ar:'الْمُعِزُّ',           tr:'Al-Muʿizz',        en:'The Honourer'},
+  {n:25, ar:'الْمُذِلُّ',           tr:'Al-Mudhill',       en:'The Dishonourer'},
+  {n:26, ar:'السَّمِيعُ',          tr:'As-Samīʿ',         en:'The All-Hearing'},
+  {n:27, ar:'الْبَصِيرُ',          tr:'Al-Baṣīr',         en:'The All-Seeing'},
+  {n:28, ar:'الْحَكَمُ',           tr:'Al-Ḥakam',         en:'The Judge'},
+  {n:29, ar:'الْعَدْلُ',           tr:'Al-ʿAdl',          en:'The Just'},
+  {n:30, ar:'اللَّطِيفُ',          tr:'Al-Laṭīf',         en:'The Subtle One'},
+  {n:31, ar:'الْخَبِيرُ',          tr:'Al-Khabīr',        en:'The All-Aware'},
+  {n:32, ar:'الْحَلِيمُ',          tr:'Al-Ḥalīm',         en:'The Forbearing'},
+  {n:33, ar:'الْعَظِيمُ',          tr:'Al-ʿAẓīm',         en:'The Magnificent'},
+  {n:34, ar:'الْغَفُورُ',          tr:'Al-Ghafūr',        en:'The Forgiving'},
+  {n:35, ar:'الشَّكُورُ',          tr:'Ash-Shakūr',       en:'The Appreciative'},
+  {n:36, ar:'الْعَلِيُّ',           tr:'Al-ʿAlī',          en:'The Most High'},
+  {n:37, ar:'الْكَبِيرُ',          tr:'Al-Kabīr',         en:'The Greatest'},
+  {n:38, ar:'الْحَفِيظُ',          tr:'Al-Ḥafīẓ',         en:'The Preserver'},
+  {n:39, ar:'الْمُقِيتُ',          tr:'Al-Muqīt',         en:'The Sustainer'},
+  {n:40, ar:'الْحَسِيبُ',          tr:'Al-Ḥasīb',         en:'The Reckoner'},
+  {n:41, ar:'الْجَلِيلُ',          tr:'Al-Jalīl',         en:'The Majestic'},
+  {n:42, ar:'الْكَرِيمُ',          tr:'Al-Karīm',         en:'The Most Generous'},
+  {n:43, ar:'الرَّقِيبُ',          tr:'Ar-Raqīb',         en:'The Watchful'},
+  {n:44, ar:'الْمُجِيبُ',          tr:'Al-Mujīb',         en:'The Responsive'},
+  {n:45, ar:'الْوَاسِعُ',          tr:'Al-Wāsiʿ',         en:'The All-Encompassing'},
+  {n:46, ar:'الْحَكِيمُ',          tr:'Al-Ḥakīm',         en:'The All-Wise'},
+  {n:47, ar:'الْوَدُودُ',          tr:'Al-Wadūd',         en:'The Loving'},
+  {n:48, ar:'الْمَجِيدُ',          tr:'Al-Majīd',         en:'The Glorious'},
+  {n:49, ar:'الْبَاعِثُ',          tr:'Al-Bāʿith',        en:'The Resurrector'},
+  {n:50, ar:'الشَّهِيدُ',          tr:'Ash-Shahīd',       en:'The Witness'},
+  {n:51, ar:'الْحَقُّ',            tr:'Al-Ḥaqq',          en:'The Truth'},
+  {n:52, ar:'الْوَكِيلُ',          tr:'Al-Wakīl',         en:'The Trustee'},
+  {n:53, ar:'الْقَوِيُّ',           tr:'Al-Qawī',          en:'The All-Strong'},
+  {n:54, ar:'الْمَتِينُ',          tr:'Al-Matīn',         en:'The Firm'},
+  {n:55, ar:'الْوَلِيُّ',           tr:'Al-Walī',          en:'The Protecting Friend'},
+  {n:56, ar:'الْحَمِيدُ',          tr:'Al-Ḥamīd',         en:'The Praiseworthy'},
+  {n:57, ar:'الْمُحْصِي',          tr:'Al-Muḥṣī',         en:'The All-Enumerating'},
+  {n:58, ar:'الْمُبْدِئُ',          tr:'Al-Mubdiʾ',        en:'The Originator'},
+  {n:59, ar:'الْمُعِيدُ',          tr:'Al-Muʿīd',         en:'The Restorer'},
+  {n:60, ar:'الْمُحْيِي',          tr:'Al-Muḥyī',         en:'The Giver of Life'},
+  {n:61, ar:'الْمُمِيتُ',          tr:'Al-Mumīt',         en:'The Taker of Life'},
+  {n:62, ar:'الْحَيُّ',            tr:'Al-Ḥayy',          en:'The Ever-Living'},
+  {n:63, ar:'الْقَيُّومُ',          tr:'Al-Qayyūm',        en:'The Self-Subsisting'},
+  {n:64, ar:'الْوَاجِدُ',          tr:'Al-Wājid',         en:'The Finder'},
+  {n:65, ar:'الْمَاجِدُ',          tr:'Al-Mājid',         en:'The Noble'},
+  {n:66, ar:'الْوَاحِدُ',          tr:'Al-Wāḥid',         en:'The One'},
+  {n:67, ar:'الْأَحَدُ',           tr:'Al-Aḥad',          en:'The Unique'},
+  {n:68, ar:'الصَّمَدُ',           tr:'Aṣ-Ṣamad',         en:'The Eternal Refuge'},
+  {n:69, ar:'الْقَادِرُ',          tr:'Al-Qādir',         en:'The Capable'},
+  {n:70, ar:'الْمُقْتَدِرُ',        tr:'Al-Muqtadir',      en:'The All-Determiner'},
+  {n:71, ar:'الْمُقَدِّمُ',         tr:'Al-Muqaddim',      en:'The Expediter'},
+  {n:72, ar:'الْمُؤَخِّرُ',         tr:'Al-Muʾakhkhir',    en:'The Delayer'},
+  {n:73, ar:'الْأَوَّلُ',           tr:'Al-Awwal',         en:'The First'},
+  {n:74, ar:'الْآخِرُ',            tr:'Al-Ākhir',         en:'The Last'},
+  {n:75, ar:'الظَّاهِرُ',          tr:'Aẓ-Ẓāhir',         en:'The Manifest'},
+  {n:76, ar:'الْبَاطِنُ',          tr:'Al-Bāṭin',         en:'The Hidden'},
+  {n:77, ar:'الْوَالِي',           tr:'Al-Wālī',          en:'The Governor'},
+  {n:78, ar:'الْمُتَعَالِي',        tr:'Al-Mutaʿālī',      en:'The Self Exalted'},
+  {n:79, ar:'الْبَرُّ',             tr:'Al-Barr',          en:'The Source of Goodness'},
+  {n:80, ar:'التَّوَّابُ',          tr:'At-Tawwāb',        en:'The Ever-Returning'},
+  {n:81, ar:'الْمُنْتَقِمُ',        tr:'Al-Muntaqim',      en:'The Avenger'},
+  {n:82, ar:'الْعَفُوُّ',           tr:'Al-ʿAfuww',        en:'The Pardoner'},
+  {n:83, ar:'الرَّؤُوفُ',          tr:'Ar-Raʾūf',         en:'The Most Kind'},
+  {n:84, ar:'مَالِكُ الْمُلْكِ',    tr:'Mālik ul-Mulk',    en:'Master of the Kingdom'},
+  {n:85, ar:'ذُو الْجَلَالِ وَالْإِكْرَامِ', tr:'Dhul-Jalāli wal-Ikrām', en:'Lord of Majesty and Honour'},
+  {n:86, ar:'الْمُقْسِطُ',          tr:'Al-Muqsiṭ',        en:'The Equitable'},
+  {n:87, ar:'الْجَامِعُ',          tr:'Al-Jāmiʿ',         en:'The Gatherer'},
+  {n:88, ar:'الْغَنِيُّ',           tr:'Al-Ghanī',         en:'The Self-Sufficient'},
+  {n:89, ar:'الْمُغْنِي',          tr:'Al-Mughnī',        en:'The Enricher'},
+  {n:90, ar:'الْمَانِعُ',          tr:'Al-Māniʿ',         en:'The Withholder'},
+  {n:91, ar:'الضَّارُّ',           tr:'Aḍ-Ḍārr',          en:'The Distresser'},
+  {n:92, ar:'النَّافِعُ',          tr:'An-Nāfiʿ',         en:'The Propitious'},
+  {n:93, ar:'النُّورُ',            tr:'An-Nūr',           en:'The Light'},
+  {n:94, ar:'الْهَادِي',           tr:'Al-Hādī',          en:'The Guide'},
+  {n:95, ar:'الْبَدِيعُ',          tr:'Al-Badīʿ',         en:'The Incomparable Originator'},
+  {n:96, ar:'الْبَاقِي',           tr:'Al-Bāqī',          en:'The Ever-Enduring'},
+  {n:97, ar:'الْوَارِثُ',          tr:'Al-Wārith',        en:'The Inheritor'},
+  {n:98, ar:'الرَّشِيدُ',          tr:'Ar-Rashīd',        en:'The Guide to the Right Path'},
+  {n:99, ar:'الصَّبُورُ',          tr:'Aṣ-Ṣabūr',         en:'The Most Patient'}
+];
+
+var asmaRendered = false;
+
+function renderAsmaGrid(data) {
+  var grid = document.getElementById('asmaGrid');
+  if (!grid) return;
+  grid.innerHTML = '';
+  if (!data || data.length === 0) {
+    document.getElementById('asmaEmpty').style.display = 'block';
+    grid.style.display = 'none';
+    return;
+  }
+  document.getElementById('asmaEmpty').style.display = 'none';
+  grid.style.display = 'grid';
+  var html = '';
+  data.forEach(function(d) {
+    html += '<div class="asma-card">';
+    html += '<div class="asma-num">' + String(d.n).padStart(2, '0') + '</div>';
+    html += '<div class="asma-ar">' + d.ar + '</div>';
+    html += '<div class="asma-tr">' + d.tr + '</div>';
+    html += '<div class="asma-en">' + d.en + '</div>';
+    html += '</div>';
+  });
+  grid.innerHTML = html;
+}
+
+function filterAsma(query) {
+  var q = (query || '').toLowerCase().trim();
+  if (!q) { renderAsmaGrid(ASMA_DATA); return; }
+  var filtered = ASMA_DATA.filter(function(d) {
+    return d.tr.toLowerCase().indexOf(q) > -1 ||
+           d.en.toLowerCase().indexOf(q) > -1 ||
+           d.ar.indexOf(query.trim()) > -1;
+  });
+  renderAsmaGrid(filtered);
+}
+
+function openAsma() {
+  var el = document.getElementById('asmaOverlay');
+  if (!el) return;
+  if (!asmaRendered) { renderAsmaGrid(ASMA_DATA); asmaRendered = true; }
+  el.style.display = 'flex';
+  requestAnimationFrame(function() { requestAnimationFrame(function() { el.classList.add('is-open'); }); });
+  document.body.classList.add('overlay-open');
+  var search = document.getElementById('asmaSearch');
+  if (search) search.value = '';
+}
+
+function closeAsma() {
+  var el = document.getElementById('asmaOverlay');
+  if (!el) return;
+  el.classList.remove('is-open');
+  el.classList.add('is-closing');
+  setTimeout(function() {
+    el.style.display = 'none';
+    el.classList.remove('is-closing');
+  }, 240);
+  document.body.classList.remove('overlay-open');
+}
+
+// Close button wired directly (in case event delegation hasn't loaded yet)
+document.addEventListener('DOMContentLoaded', function() {
+  var closeBtn = document.getElementById('asmaClose');
+  if (closeBtn) closeBtn.addEventListener('click', closeAsma);
+});
+
+// ============================================================
+//  REMINDERS — in-app banners + Web Push
+// ============================================================
+
+var REMINDERS_KEY = 'naafi_reminders_v1';
+
+var REMINDER_CONFIG = {
+  morning: {
+    icon: '🌅',
+    title: 'Morning Adhkar',
+    sub: 'Time for your morning remembrance',
+    action: function() { startGuidedSession('morning'); }
+  },
+  evening: {
+    icon: '🌆',
+    title: 'Evening Adhkar',
+    sub: 'Time for your evening remembrance',
+    action: function() { startGuidedSession('evening'); }
+  },
+  sleep: {
+    icon: '🌙',
+    title: 'Before Sleep',
+    sub: 'Wind down with your sleep adhkar',
+    action: function() { startGuidedSession('sleep'); }
+  },
+  custom: {
+    icon: '🤲',
+    title: 'Time to Make Du\'a',
+    sub: 'Take a moment to remember Allah',
+    action: function() { showView('duas'); }
+  }
+};
+
+function loadReminders() {
+  try { return JSON.parse(localStorage.getItem(REMINDERS_KEY) || '{}'); } catch(e) { return {}; }
+}
+
+function saveReminders() {
+  var data = {
+    morning: { on: document.getElementById('rem-morning') ? document.getElementById('rem-morning').checked : false, time: document.getElementById('rem-morning-time') ? document.getElementById('rem-morning-time').value : '06:15' },
+    evening: { on: document.getElementById('rem-evening') ? document.getElementById('rem-evening').checked : false, time: document.getElementById('rem-evening-time') ? document.getElementById('rem-evening-time').value : '17:00' },
+    sleep:   { on: document.getElementById('rem-sleep')   ? document.getElementById('rem-sleep').checked   : false, time: document.getElementById('rem-sleep-time')   ? document.getElementById('rem-sleep-time').value   : '22:00' },
+    custom:  { on: document.getElementById('rem-custom')  ? document.getElementById('rem-custom').checked  : false, time: document.getElementById('rem-custom-time')  ? document.getElementById('rem-custom-time').value  : '12:00' }
+  };
+  try { localStorage.setItem(REMINDERS_KEY, JSON.stringify(data)); } catch(e) {}
+  // Show/hide time rows
+  ['morning','evening','sleep','custom'].forEach(function(k) {
+    var row = document.getElementById('rem-' + k + '-time-row');
+    if (row) row.style.display = data[k].on ? 'flex' : 'none';
+  });
+  // Schedule push notifications if permission granted
+  if (Notification && Notification.permission === 'granted') {
+    scheduleAllPushReminders(data);
+  }
+}
+
+function initReminderUI() {
+  var data = loadReminders();
+  ['morning','evening','sleep','custom'].forEach(function(k) {
+    var chk = document.getElementById('rem-' + k);
+    var timeInput = document.getElementById('rem-' + k + '-time');
+    var row = document.getElementById('rem-' + k + '-time-row');
+    if (chk && data[k]) {
+      chk.checked = !!data[k].on;
+      if (timeInput && data[k].time) timeInput.value = data[k].time;
+      if (row) row.style.display = data[k].on ? 'flex' : 'none';
+    }
+  });
+  // Notification permission button
+  updateNotifPermUI();
+}
+
+function updateNotifPermUI() {
+  var btn = document.getElementById('notifPermBtn');
+  var sub = document.getElementById('notifPermSub');
+  var row = document.getElementById('notifPermRow');
+  if (!btn) return;
+  if (!('Notification' in window)) {
+    if (row) row.style.display = 'none'; return;
+  }
+  if (Notification.permission === 'granted') {
+    btn.textContent = 'Enabled ✓';
+    btn.style.color = 'var(--gold)';
+    btn.disabled = true;
+    if (sub) sub.textContent = 'Push notifications are active';
+  } else if (Notification.permission === 'denied') {
+    btn.textContent = 'Blocked';
+    btn.style.opacity = '0.5';
+    btn.disabled = true;
+    if (sub) sub.textContent = 'Notifications blocked — check browser settings';
+  } else {
+    btn.textContent = 'Enable';
+    btn.disabled = false;
+    btn.onclick = function() {
+      Notification.requestPermission().then(function(perm) {
+        updateNotifPermUI();
+        if (perm === 'granted') {
+          scheduleAllPushReminders(loadReminders());
+          ndlToast('Notifications enabled');
+        }
+      });
+    };
+  }
+}
+
+// ── In-app banner ─────────────────────────────────────────
+var _bannerTimeout = null;
+var _lastBannerKey = '';
+var _bannerAction = null;
+
+function showReminderBanner(key) {
+  var cfg = REMINDER_CONFIG[key];
+  if (!cfg) return;
+  // Don't re-show same reminder within 60 mins
+  var nowKey = key + '_' + new Date().toDateString() + '_' + new Date().getHours();
+  if (_lastBannerKey === nowKey) return;
+  _lastBannerKey = nowKey;
+  _bannerAction = cfg.action;
+
+  var banner = document.getElementById('reminderBanner');
+  var icon   = document.getElementById('reminderBannerIcon');
+  var title  = document.getElementById('reminderBannerTitle');
+  var sub    = document.getElementById('reminderBannerSub');
+  if (!banner) return;
+
+  if (icon)  icon.textContent  = cfg.icon;
+  if (title) title.textContent = cfg.title;
+  if (sub)   sub.textContent   = cfg.sub;
+
+  banner.classList.add('banner-show');
+  clearTimeout(_bannerTimeout);
+  _bannerTimeout = setTimeout(function() { dismissReminderBanner(); }, 8000);
+}
+
+function dismissReminderBanner() {
+  var banner = document.getElementById('reminderBanner');
+  if (banner) banner.classList.remove('banner-show');
+  clearTimeout(_bannerTimeout);
+}
+
+// ── Polling loop — checks every 60s if in-app ─────────────
+function checkInAppReminders() {
+  var data = loadReminders();
+  var now = new Date();
+  var hh = String(now.getHours()).padStart(2, '0');
+  var mm = String(now.getMinutes()).padStart(2, '0');
+  var current = hh + ':' + mm;
+  ['morning','evening','sleep','custom'].forEach(function(k) {
+    if (data[k] && data[k].on && data[k].time === current) {
+      showReminderBanner(k);
+    }
+  });
+}
+
+// ── Web Push via inline service worker (Blob SW) ──────────
+var _swReg = null;
+
+function registerReminderSW() {
+  if (!('serviceWorker' in navigator) || !('Notification' in window)) return;
+  // Minimal SW that handles push events
+  var swCode = [
+    'self.addEventListener("push", function(e) {',
+    '  var d = e.data ? e.data.json() : {};',
+    '  e.waitUntil(self.registration.showNotification(d.title || "Naafi", {',
+    '    body: d.body || "Time for your adhkar",',
+    '    icon: d.icon || "/icon-192.png",',
+    '    badge: "/icon-192.png",',
+    '    tag: d.tag || "naafi-reminder",',
+    '    data: { url: d.url || "/" }',
+    '  }));',
+    '});',
+    'self.addEventListener("notificationclick", function(e) {',
+    '  e.notification.close();',
+    '  e.waitUntil(clients.openWindow(e.notification.data.url || "/"));',
+    '});'
+  ].join('\n');
+  var blob = new Blob([swCode], { type: 'application/javascript' });
+  var swURL = URL.createObjectURL(blob);
+  navigator.serviceWorker.register(swURL, { scope: '/' }).then(function(reg) {
+    _swReg = reg;
+  }).catch(function() {
+    // SW registration can fail in some browsers with Blob URLs — in-app only fallback
+  });
+}
+
+function scheduleAllPushReminders(data) {
+  // Web Push scheduling requires a push server — we use the Notification API
+  // directly for timed notifications via setTimeout (works while tab is open).
+  // For true background push a server is needed; this gives the best we can
+  // do from a static single-file PWA.
+  if (!('Notification' in window) || Notification.permission !== 'granted') return;
+  // Clear any existing scheduled push timeouts
+  if (window._pushTimeouts) window._pushTimeouts.forEach(clearTimeout);
+  window._pushTimeouts = [];
+
+  var now = new Date();
+  ['morning','evening','sleep','custom'].forEach(function(k) {
+    if (!data[k] || !data[k].on || !data[k].time) return;
+    var parts = data[k].time.split(':');
+    var target = new Date(now.getFullYear(), now.getMonth(), now.getDate(),
+                          parseInt(parts[0],10), parseInt(parts[1],10), 0, 0);
+    if (target <= now) target.setDate(target.getDate() + 1); // next day if already passed
+    var delay = target.getTime() - now.getTime();
+    var cfg = REMINDER_CONFIG[k];
+    var tid = setTimeout(function() {
+      if (Notification.permission === 'granted') {
+        new Notification(cfg.title, {
+          body: cfg.sub,
+          icon: '/icon-192.png',
+          tag: 'naafi-' + k
+        });
+      }
+      // Reschedule for next day
+      scheduleAllPushReminders(loadReminders());
+    }, delay);
+    window._pushTimeouts.push(tid);
+  });
+}
+
+// ── Wire banner buttons ────────────────────────────────────
+document.addEventListener('DOMContentLoaded', function() {
+  var openBtn    = document.getElementById('reminderBannerOpen');
+  var dismissBtn = document.getElementById('reminderBannerDismiss');
+  if (openBtn) openBtn.addEventListener('click', function() {
+    dismissReminderBanner();
+    if (_bannerAction) _bannerAction();
+  });
+  if (dismissBtn) dismissBtn.addEventListener('click', dismissReminderBanner);
+
+  // Init reminder UI in settings
+  initReminderUI();
+
+  // Start polling loop
+  checkInAppReminders();
+  setInterval(checkInAppReminders, 60000);
+
+  // Register SW for push support
+  registerReminderSW();
+
+  // Schedule push reminders if already permitted
+  if (Notification && Notification.permission === 'granted') {
+    scheduleAllPushReminders(loadReminders());
+  }
+});
+
 // ============================================================
 // Learn tab globals → APP_STATE.learn
 Object.defineProperty(window, 'learnCurrentTopic', {
@@ -11324,17 +12229,7 @@ function beginLearnDeck(topicId) {
   renderLearnDeck(topicId);
   var intro = document.getElementById('learn-intro-' + topicId);
   if (intro) { intro.classList.remove('is-open'); intro.style.display = 'none'; }
-  // Special case: asma uses grid not card deck
-  if (topicId === 'asma') {
-    var deck = document.getElementById('learn-deck-asma');
-    if (deck) {
-      deck.classList.remove('is-open');
-      deck.style.display = 'flex';
-      requestAnimationFrame(function(){ requestAnimationFrame(function(){ deck.classList.add('is-open'); }); });
-    }
-    populateAsmaDeck();
-    return;
-  }
+
   var deck = document.getElementById('learn-deck-' + topicId);
   if (deck) {
     deck.classList.remove('is-open');
@@ -11380,7 +12275,7 @@ function renderLearnCard(topicId, index) {
 }
 
 function learnNav(dir) {
-  if (!learnCurrentTopic || learnCurrentTopic === 'asma') return;
+  if (!learnCurrentTopic) return;
   var prevCard = learnCurrentCard;
   renderLearnCard(learnCurrentTopic, learnCurrentCard + dir);
   var direction = (learnCurrentCard > prevCard) ? 'next' : 'prev';
@@ -11402,21 +12297,7 @@ function restartLearnDeck(topicId) {
   renderLearnCard(topicId, 0);
 }
 
-function populateAsmaDeck() {
-  var grid = document.getElementById('asmaDeckGrid');
-  if (!grid || grid.children.length > 0) return;
-  var src = document.getElementById('asmaGrid');
-  if (src) grid.innerHTML = src.innerHTML;
-}
 
-function filterAsmaDeck(query) {
-  var q = (query || '').toLowerCase().trim();
-  var cards = document.querySelectorAll('#asmaDeckGrid .asma-card');
-  cards.forEach(function(card) {
-    var text = card.textContent.toLowerCase();
-    card.style.display = (!q || text.indexOf(q) > -1) ? '' : 'none';
-  });
-}
 
 // Legacy stub — kept so any lingering refs don't throw
 function openLearnCategory(sectionId) {
@@ -11685,11 +12566,11 @@ function shareAsImage() {
 
       /* ── Dua title — small taupe-gold spaced caps ── */
       if (cleanTitle) {
-        ctx.font = '400 ' + titleFont + 'px "Gill Sans","Optima","Trebuchet MS",sans-serif';
-        ctx.fillStyle = '#8A7A65';
+        ctx.font = '400 ' + titleFont + 'px "Palatino Linotype","Book Antiqua","Georgia",serif';
+        ctx.fillStyle = '#5C4A2A';
         ctx.textAlign = 'center';
-        ctx.font = '400 ' + titleFont + 'px "Gill Sans","Optima","Trebuchet MS",sans-serif';
-        var titleWords = cleanTitle.toUpperCase().split(' ');
+        ctx.font = '400 ' + titleFont + 'px "Palatino Linotype","Book Antiqua","Georgia",serif';
+        var titleWords = cleanTitle.split(' ');
         var titleDrawLines = [];
         var titleCurrent = '';
         for (var ti = 0; ti < titleWords.length; ti++) {
@@ -11735,7 +12616,7 @@ function shareAsImage() {
       /* ── Transliteration — italic, soft charcoal, muted ── */
       if (trLines.length) {
         ctx.font = 'italic ' + trFont + 'px "Palatino Linotype","Book Antiqua","Georgia",serif';
-        ctx.fillStyle = 'rgba(60,53,46,0.55)';
+        ctx.fillStyle = 'rgba(60,53,46,0.75)';
         ctx.textAlign = 'center';
         for (var b = 0; b < trLines.length; b++) {
           ctx.fillText(trLines[b].trim(), cx, y + trFont);
@@ -11746,7 +12627,7 @@ function shareAsImage() {
 
       /* ── Translation — soft charcoal, centred ── */
       ctx.font = enFont + 'px "Palatino Linotype","Book Antiqua","Georgia",serif';
-      ctx.fillStyle = '#3C352E';
+      ctx.fillStyle = '#2A2318';
       ctx.textAlign = 'center';
       for (var c = 0; c < enLines.length; c++) {
         ctx.fillText(enLines[c].trim(), cx, y + enFont);
@@ -11859,6 +12740,10 @@ function shareAsImage() {
       closeLearnTopic();
       openJumuahIntro();
     },
+
+    // 99 Names
+    'open-asma':  function() { openAsma(); },
+    'close-asma': function() { closeAsma(); },
 
     // Dua Reader
     'open-dua-reader':   function(el) { openDuaReader(el.getAttribute('data-cat')); },
@@ -12502,6 +13387,8 @@ function getContextualHome() {
   return ctx;
 }
 
+var _lastCtxFingerprint = '';
+
 function renderContextualHome() {
   var ctx = getContextualHome();
   var el = document.getElementById('contextualHome');
@@ -12580,6 +13467,10 @@ function renderContextualHome() {
       '<span class="ctx-sec-arrow">›</span>' +
     '</button>';
   }).join('');
+
+  var _fingerprint = hero.title + '|' + ctx.greeting + '|' + secondary.map(function(c){return c.title;}).join(',');
+  if (_fingerprint === _lastCtxFingerprint) return; // nothing changed — don't re-animate
+  _lastCtxFingerprint = _fingerprint;
 
   el.innerHTML =
     '<div class="ctx-greeting-row">' +
@@ -12932,6 +13823,17 @@ window.satRestartTimer = function() {
 <!-- SHARE SHEET v2 -->
 <div id="ndl-toast"></div>
 
+<!-- In-app reminder banner -->
+<div id="reminderBanner" role="alert" aria-live="polite">
+  <div class="reminder-banner-icon" id="reminderBannerIcon">🌅</div>
+  <div class="reminder-banner-text">
+    <div class="reminder-banner-title" id="reminderBannerTitle">Morning Adhkar</div>
+    <div class="reminder-banner-sub" id="reminderBannerSub">Time for your morning remembrance</div>
+  </div>
+  <button class="reminder-banner-open" id="reminderBannerOpen">Open</button>
+  <button class="reminder-banner-dismiss" id="reminderBannerDismiss" aria-label="Dismiss">✕</button>
+</div>
+
 <div id="shareSheetOverlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9000;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);" data-action="close-share"></div>
 
 <div id="shareSheet" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:9001;background:var(--card);border-top:1px solid var(--bdr);border-radius:20px 20px 0 0;padding:0 0 calc(env(safe-area-inset-bottom, 0px) + 80px);max-width:520px;margin:0 auto;box-shadow:0 -8px 40px rgba(0,0,0,0.5);max-height:85vh;overflow-y:auto;">
@@ -12943,8 +13845,8 @@ window.satRestartTimer = function() {
   <div style="padding:14px 16px;display:flex;flex-direction:column;gap:10px;">
 
     <div id="sharePreviewCard" style="
-      background: linear-gradient(160deg, #0F1420 0%, #0C1018 100%);
-      border: 1px solid rgba(196,163,90,0.25);
+      background: #F7F2E8;
+      border: 1px solid rgba(139,107,42,0.15);
       border-radius: 14px;
       padding: 24px 20px 20px;
       margin-bottom: 4px;
@@ -12954,25 +13856,25 @@ window.satRestartTimer = function() {
       <div id="sharePreviewAr" style="
         font-family: 'Scheherazade New','Traditional Arabic',serif;
         font-size: 22px;
-        color: #E8CC84;
+        color: #1C1814;
         direction: rtl;
         line-height: 2;
         margin-bottom: 14px;
-        text-shadow: 0 0 30px rgba(196,163,90,0.2);
+        text-shadow: none;
       "></div>
       <div style="width: 40%; height: 1px; background: rgba(196,163,90,0.15); margin: 0 auto 14px;"></div>
       <div id="sharePreviewTr" style="
         font-family: 'Palatino Linotype','Georgia',serif;
         font-style: italic;
         font-size: 12px;
-        color: rgba(168,148,112,0.7);
+        color: rgba(60,53,46,0.55);
         margin-bottom: 10px;
         line-height: 1.6;
       "></div>
       <div id="sharePreviewEn" style="
         font-family: 'Palatino Linotype','Georgia',serif;
         font-size: 13px;
-        color: rgba(240,230,210,0.85);
+        color: #3C352E;
         line-height: 1.7;
         margin-bottom: 12px;
       "></div>
