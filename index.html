@@ -92,6 +92,7 @@
   --radius: 14px;
   --tap-min: 48px;
   --ar-scale: 1;
+  --ar-size: 26px; /* base Arabic font size; used in .ar and .guided-ar calc() */
 
   /* Motion */
   --t-instant:  80ms;
@@ -1345,8 +1346,8 @@ body.dark .note { border-left-color: rgba(196,163,90,0.18); }
   background:var(--card);
   border:1px solid var(--bdr);
   border-radius:var(--radius);
-  padding:9px 36px 9px 36px;
-  font-family:var(--fn);font-size:13px;
+  padding:7px 36px 7px 36px; /* slightly reduced to compensate for 16px vs 13px */
+  font-family:var(--fn);font-size:16px; /* ≥16px: prevents iOS Safari viewport auto-zoom */
   color:var(--text);
   outline:none;
   transition:border-color .2s,box-shadow .2s;
@@ -1505,6 +1506,10 @@ body.dark .note { border-left-color: rgba(196,163,90,0.18); }
   display: flex !important;
   align-items: stretch;
   padding-bottom: calc(8px + env(safe-area-inset-bottom, 0px));
+  /* iOS Safari: promote to own compositor layer — prevents fixed-nav flicker/disappear */
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  will-change: transform;
 }
 
 .bn-tab {
@@ -1684,8 +1689,8 @@ body.dark .search-overlay-header { background: rgba(8,12,18,0.99); }
   background: var(--card);
   border: 1px solid var(--bdr);
   border-radius: 4px;
-  padding: 10px 36px 10px 36px;
-  font-family: var(--fn); font-size: 13px;
+  padding: 8px 36px 8px 36px; /* slightly reduced to compensate for larger font */
+  font-family: var(--fn); font-size: 16px; /* ≥16px: prevents iOS Safari viewport auto-zoom */
   color: var(--text); outline: none;
   -webkit-appearance: none;
 }
@@ -2706,7 +2711,6 @@ body.dark .gs-watermark svg{opacity:0.015;}
   height: 100%;
   background: linear-gradient(90deg, var(--gold-d), var(--gold-l));
   border-radius: 2px;
-  transition: width var(--t-mid) var(--ease-out);
 }
 /* ── OVERSCROLL MARGINALIA ───────────────────────────────── */
 .gs-marginalia {
@@ -2732,6 +2736,8 @@ body.dark .gs-marginalia.gs-marginalia-peek { opacity: 0.18; }
   padding: 28px 20px calc(120px + env(safe-area-inset-bottom, 0px));
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
+  transform: translateZ(0);
+  contain: layout style;
 }
 .guided-phase-badge {
   display: inline-block;
@@ -2763,6 +2769,8 @@ body.dark .gs-marginalia.gs-marginalia-peek { opacity: 0.18; }
   line-height: 2.35;
   margin-bottom: 28px;
   text-shadow: none;
+  overflow: visible;
+  white-space: normal;
 }
 .guided-tr {
   font-family: var(--fn);
@@ -3027,8 +3035,8 @@ body.dark .gs-marginalia.gs-marginalia-peek { opacity: 0.18; }
   border-radius: 8px;
   color: var(--text);
   font-family: var(--fn);
-  font-size: 15px;
-  padding: 6px 10px;
+  font-size: 16px; /* ≥16px: prevents iOS Safari viewport auto-zoom */
+  padding: 5px 8px; /* slightly reduced to compensate for 16px vs 15px */
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   min-width: 100px;
@@ -3405,9 +3413,7 @@ button, .bn-tab, .expand-trigger, .copy-btn, .fav-star,
   transition: border-color .2s cubic-bezier(0.25,0.46,0.45,0.94),
               opacity .2s cubic-bezier(0.25,0.46,0.45,0.94) !important;
 }
-.guided-progress-fill {
-  transition: width .3s cubic-bezier(0.25,0.46,0.45,0.94) !important;
-}
+
 .sv-toggle-slider { transition: background .2s cubic-bezier(0.25,0.46,0.45,0.94), border-color .2s !important; }
 .sv-toggle-slider::before { transition: transform .2s cubic-bezier(0.25,0.46,0.45,0.94), background .2s !important; }
 .et-arrow { transition: transform .28s cubic-bezier(0.25,0.46,0.45,0.94) !important; }
@@ -3444,16 +3450,11 @@ button, .bn-tab, .expand-trigger, .copy-btn, .fav-star,
   justify-content: space-between;
   padding: 12px 20px;
   padding-bottom: max(16px, env(safe-area-inset-bottom, 16px));
-  background: rgba(12, 16, 24, 0.97);
-  border-top: 1px solid rgba(196,163,90,0.25);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-}
-.guided-nav {
   background: var(--deep);
-  border-top-color: rgba(139,107,42,0.10);
+  border-top: 1px solid rgba(139,107,42,0.10);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
+  transform: translateZ(0);
 }
 .guided-nav-prev,
 .guided-nav-next {
@@ -3500,26 +3501,6 @@ button, .bn-tab, .expand-trigger, .copy-btn, .fav-star,
   color: var(--text-d);
   text-align: center;
   flex: 1;
-}
-
-/* ---- FIX 2: Guided body padding so content clears the nav bar ---- */
-.guided-body {
-  padding-bottom: calc(120px + env(safe-area-inset-bottom, 0px)) !important;
-}
-
-/* ---- FIX 2b: Remove any clipping on guided Arabic text ---- */
-.guided-ar {
-  overflow: visible !important;
-  text-overflow: unset !important;
-  -webkit-line-clamp: unset !important;
-  display: block !important;
-  max-height: none !important;
-  white-space: normal !important;
-}
-
-/* ---- FIX 4: Progress bar smooth transition ---- */
-.guided-progress-fill {
-  transition: width var(--t-slow) !important;
 }
 
 /* ---- FIX 5: Browse mode toggle pills ---- */
@@ -3992,9 +3973,9 @@ button, .bn-tab, .expand-trigger, .copy-btn, .fav-star,
   background: var(--card);
   border: 1px solid var(--bdr);
   border-radius: 10px;
-  padding: 10px 14px 10px 38px;
+  padding: 8px 14px 8px 38px; /* slightly reduced to compensate for 16px vs 13px */
   font-family: var(--fn);
-  font-size: 13px;
+  font-size: 16px; /* ≥16px: prevents iOS Safari viewport auto-zoom */
   color: var(--text);
   outline: none;
   -webkit-appearance: none;
@@ -4066,6 +4047,9 @@ button, .bn-tab, .expand-trigger, .copy-btn, .fav-star,
   background: var(--card); border: 1px solid var(--bdr);
   border-radius: var(--radius); padding: 16px;
   margin-bottom: 10px;
+  cursor: pointer; /* required: iOS Safari won't fire click on divs without this */
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
   transition: border-color var(--t-slow),
               background var(--t-slow);
   will-change: transform, opacity;
@@ -5864,6 +5848,9 @@ body.overlay-open .spa-view.view-active {
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer; /* required: tells iOS Safari this div is interactive */
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 .hps-dot-check svg {
   width: 22px;
@@ -13572,8 +13559,8 @@ document.addEventListener('click', function(e){
 // ---- WRAP GUIDED BODY CONTENT for step transitions ----
 (function(){
   var _origStart = window.startGuidedSession;
-  window.startGuidedSession = function(sessionKey){
-    _origStart(sessionKey);
+  window.startGuidedSession = function(sessionKey, startStep){
+    _origStart(sessionKey, startStep);
     setTimeout(function(){
       var body = document.getElementById('guidedBody');
       if(body && !body.querySelector('.guided-step-content')){
@@ -14519,7 +14506,7 @@ window.satRestartTimer = function() {
 
 <div id="shareSheetOverlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9000;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);" data-action="close-share"></div>
 
-<div id="shareSheet" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:9001;background:var(--card);border-top:1px solid var(--bdr);border-radius:20px 20px 0 0;padding:0 0 calc(env(safe-area-inset-bottom, 0px) + 80px);max-width:520px;margin:0 auto;box-shadow:0 -8px 40px rgba(0,0,0,0.5);max-height:85vh;overflow-y:auto;">
+<div id="shareSheet" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:9001;background:var(--card);border-top:1px solid var(--bdr);border-radius:20px 20px 0 0;padding:0 0 calc(env(safe-area-inset-bottom, 0px) + 80px);max-width:520px;margin:0 auto;box-shadow:0 -8px 40px rgba(0,0,0,0.5);max-height:85dvh;overflow-y:auto;">
   <div style="width:36px;height:4px;background:var(--bdr);border-radius:2px;margin:14px auto 0;"></div>
   <div style="padding:18px 20px 8px;border-bottom:1px solid var(--bdr);">
     <div id="shareSheetTitle" style="font-family:var(--fn);font-size:16px;font-weight:700;color:var(--gold-l);margin-bottom:3px;letter-spacing:0.01em;"></div>
