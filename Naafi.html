@@ -91,10 +91,15 @@
 
   --radius: 14px;
   --radius-pill: 40px;   /* pill buttons: Begin, salah pills */
-  --radius-ctrl: 4px;    /* utility controls: icon-btn, small actions */
+  --radius-sm-pill: 20px; /* small pill badges, chips, mini-buttons */
+  --radius-ctrl: 6px;    /* utility controls: icon-btn, tag pills, small actions */
   --tap-min: 48px;
   --ar-scale: 1;
   --ar-size: 26px; /* base Arabic font size; used in .ar and .guided-ar calc() */
+  /* ── Arabic 3-tier type scale ── */
+  --ar-display: calc(clamp(36px, 9vw, 52px) * var(--ar-scale, 1));
+  --ar-body:    calc(clamp(24px, 6vw, 30px) * var(--ar-scale, 1));
+  --ar-small:   calc(clamp(17px, 4.2vw, 21px) * var(--ar-scale, 1));
 
   /* Motion */
   --t-instant:  80ms;
@@ -183,25 +188,25 @@ body.dark .bottom-nav { background: rgba(8,12,18,0.92); border-top-color: rgba(1
 /* ---- FONT SIZE CONTROLS ---- */
 .ar{
   font-family:var(--fa);
-  font-size:calc(var(--ar-size, 26px) * 1.15);
+  font-size: var(--ar-body);
   color:var(--gold-l);text-align:right;direction:rtl;
   line-height:clamp(2.0, 2.3, 2.5);margin-bottom:18px;
   text-shadow: 0 1px 0 rgba(139,107,42,0.08);
   letter-spacing: 0.01em;
 }
-.ar.sm{font-size:calc(clamp(21px,5.2vw,28px) * var(--ar-scale));}
-.ar.xs{font-size:calc(clamp(18px,4.2vw,23px) * var(--ar-scale));}
-.da{font-family:var(--fa);font-size:calc(18px * var(--ar-scale));color:var(--gold-l);text-align:right;direction:rtl;line-height:1.9;margin-bottom:7px;text-shadow:0 1px 0 rgba(139,107,42,0.08);}
-.step-ar{font-family:var(--fa);font-size:calc(clamp(16px,4vw,20px) * var(--ar-scale));color:var(--gold-l);text-align:right;direction:rtl;line-height:2;margin-bottom:5px;text-shadow:0 1px 0 rgba(139,107,42,0.08);}
+.ar.sm{font-size: var(--ar-body);}
+.ar.xs{font-size: var(--ar-small);}
+.da{font-family:var(--fa);font-size:var(--ar-small);color:var(--gold-l);text-align:right;direction:rtl;line-height:1.9;margin-bottom:7px;text-shadow:0 1px 0 rgba(139,107,42,0.08);}
+.step-ar{font-family:var(--fa);font-size:var(--ar-small);color:var(--gold-l);text-align:right;direction:rtl;line-height:2;margin-bottom:5px;text-shadow:0 1px 0 rgba(139,107,42,0.08);}
 .bismillah{
   font-family:var(--fa);
-  font-size:calc(clamp(26px,7vw,42px) * var(--ar-scale));
+  font-size: var(--ar-display);
   color:var(--gold-l);direction:rtl;line-height:2;
   margin-bottom:22px;
   text-shadow: 0 1px 0 rgba(139,107,42,0.08);
 }
-.et-ar{font-family:var(--fa);font-size:calc(20px * var(--ar-scale));color:var(--gold-l);direction:rtl;text-align:right;line-height:1.9;}
-.far{font-family:var(--fa);font-size:calc(clamp(18px,5vw,26px) * var(--ar-scale));color:var(--gold-l);direction:rtl;margin-bottom:10px;line-height:2;}
+.et-ar{font-family:var(--fa);font-size:var(--ar-body);color:var(--gold-l);direction:rtl;text-align:right;line-height:1.9;}
+.far{font-family:var(--fa);font-size:var(--ar-body);color:var(--gold-l);direction:rtl;margin-bottom:10px;line-height:2;}
 
 /* Font size control buttons in header */
 .font-controls{
@@ -324,13 +329,17 @@ body.dark .bottom-nav { background: rgba(8,12,18,0.92); border-top-color: rgba(1
   background:none;border:none;cursor:pointer;
   font-size:16px;line-height:1;padding:5px;
   color:var(--text-m);
-  transition: color .2s cubic-bezier(0.25,0.46,0.45,0.94),
-              transform 200ms cubic-bezier(0.34,1.56,0.64,1);
+  display:flex;align-items:center;justify-content:center;
+  width:28px;height:28px;
+  transition: color var(--t-fast) var(--ease-out),
+              transform 200ms var(--ease-spring);
   -webkit-tap-highlight-color:transparent;
   z-index:2;
 }
+.fav-star svg { width:16px; height:16px; stroke:currentColor; fill:none; stroke-width:1.8; transition: fill var(--t-fast) var(--ease-out), stroke var(--t-fast) var(--ease-out); }
 .fav-star:hover{color:var(--gold-l);}
 .fav-star.starred{color:var(--gold);}
+.fav-star.starred svg { fill: var(--gold); stroke: var(--gold); }
 .fav-star:active{transform:scale(1.3);}
 /* On dua cards, shift content right to make room for star */
 .dua{padding-left:40px;}
@@ -339,6 +348,7 @@ body.dark .bottom-nav { background: rgba(8,12,18,0.92); border-top-color: rgba(1
   position:static;
   font-size:15px;padding:0 8px;
   flex-shrink:0;
+  width:auto;height:auto;
 }
 
 /* Favourites view */
@@ -363,86 +373,6 @@ body.dark .bottom-nav { background: rgba(8,12,18,0.92); border-top-color: rgba(1
 
 
 /* ---- INSTALL PROMPT CARD ---- */
-.install-card {
-  position: relative;
-  background: transparent;
-  border: none;
-  border-top: 1px solid rgba(139,107,42,0.09);
-  border-bottom: 1px solid rgba(139,107,42,0.09);
-  border-radius: 0;
-  padding: 18px 0;
-  text-align: left;
-  margin: 8px 0 20px;
-}
-.install-card-close {
-  position: absolute;
-  top: 10px;
-  right: 12px;
-  background: none;
-  border: none;
-  color: var(--text-m);
-  font-size: 14px;
-  cursor: pointer;
-  padding: 4px;
-  -webkit-tap-highlight-color: transparent;
-  touch-action: manipulation;
-}
-.install-card-icon { display: none; }
-.install-card-title {
-  font-family: var(--fs);
-  font-size: 16px;
-  color: var(--text);
-  font-weight: 400;
-  text-align: left;
-  margin-bottom: 6px;
-}
-.install-card-body {
-  font-size: 12px;
-  color: var(--text-d);
-  line-height: 1.65;
-  text-align: left;
-  margin-bottom: 10px;
-}
-.install-steps {
-  background: none;
-  padding: 0;
-  font-size: 12px;
-  color: var(--text-d);
-  line-height: 1.8;
-  margin-bottom: 12px;
-  text-align: left;
-}
-.install-steps strong { color: var(--gold); }
-.install-card-btn {
-  background: rgba(139,107,42,0.10);
-  border: 1px solid rgba(139,107,42,0.28);
-  border-radius: 40px;
-  color: var(--gold);
-  font-family: var(--fn);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  padding: 9px 24px;
-  width: auto;
-  display: inline-block;
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-  touch-action: manipulation;
-}
-.install-card-dismiss {
-  background: none;
-  border: none;
-  color: var(--text-m);
-  font-size: 11px;
-  cursor: pointer;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  -webkit-tap-highlight-color: transparent;
-  touch-action: manipulation;
-  padding: 4px;
-}
-
 /* ---- SETTINGS INSTALL SECTION ---- */
 .sv-install-section {
   background: transparent;
@@ -609,7 +539,7 @@ body.dark #learn-deck-hub .learn-card-data:first-child .learn-card-body::first-l
   line-height: 1;
   opacity: 0.6;
 }
-body.dark .colophon { opacity: 0.22; }
+body.dark .colophon { opacity: 0.35; }
 /* ── COLOPHON CEREMONIAL ENTRANCE ───────────────────────── */
 @keyframes colophon-ink {
   from { opacity: 0; transform: translateY(4px); }
@@ -690,6 +620,25 @@ body.dark .colophon { opacity: 0.22; }
   margin-bottom: 48px;
   text-shadow: 0 0 40px rgba(196,163,90,0.2);
 }
+
+.scm-bridge {
+  font-family: var(--fn);
+  font-size: 12px;
+  color: var(--text-m);
+  letter-spacing: 0.05em;
+  text-align: center;
+  margin-top: 18px;
+  padding: 10px 20px;
+  border-top: 1px solid var(--bdr);
+  opacity: 0.8;
+}
+.scm-bridge-glyph {
+  font-family: var(--fa);
+  margin-right: 5px;
+  color: var(--gold);
+  opacity: 0.7;
+}
+
 .scm-dismiss-btn {
   font-family: var(--fn);
   font-size: 11px;
@@ -1415,7 +1364,7 @@ body.dark .note { border-left-color: rgba(196,163,90,0.18); }
   position:fixed;bottom:24px;right:20px;z-index:300;
   width:44px;height:44px;
   background:var(--gold-d);border:1px solid var(--gold);
-  border-radius:50%;cursor:pointer;
+  border-radius: var(--radius-ctrl);cursor:pointer;
   display:flex;align-items:center;justify-content:center;
   font-size:20px;color:var(--gold-l);
   opacity:0;pointer-events:none;
@@ -1641,7 +1590,7 @@ body.dark .note { border-left-color: rgba(196,163,90,0.18); }
   user-select: none;
   background: rgba(196,163,90,0.07);
   border: 1px solid rgba(196,163,90,0.15);
-  border-radius: 20px;
+  border-radius: var(--radius-sm-pill);
   color: var(--text-d);
   font-family: var(--fn);
   font-size: 10px;
@@ -1681,6 +1630,31 @@ body.dark .note { border-left-color: rgba(196,163,90,0.18); }
 }
 
 /* Home tab — transparent header so atmospheric background shows through */
+/* ---- HOME GREETING ---- */
+.home-greeting {
+  padding: 0 20px 0;
+  margin-bottom: 18px;
+  animation: view-enter var(--t-mid) var(--ease-velvet) both;
+}
+.home-greeting-salaam {
+  font-family: var(--fa);
+  font-size: calc(22px * var(--ar-scale));
+  color: var(--gold);
+  direction: rtl;
+  text-align: right;
+  line-height: 1.6;
+  margin-bottom: 2px;
+  opacity: 0.85;
+}
+.home-greeting-text {
+  font-family: var(--fs);
+  font-size: 13px;
+  color: var(--text-m);
+  line-height: 1.6;
+  letter-spacing: 0.01em;
+  opacity: 0.75;
+}
+
 .home-header-float {
   background: transparent !important;
   -webkit-backdrop-filter: none;
@@ -1929,7 +1903,7 @@ body.dark .search-overlay-header { background: rgba(8,12,18,0.99); }
   font-weight: 600;
   letter-spacing: 0.03em;
   padding: 3px 8px;
-  border-radius: 20px;
+  border-radius: var(--radius-sm-pill);
   white-space: nowrap;
 }
 .dho-badge-count {
@@ -2223,6 +2197,25 @@ body.dark .search-overlay-header { background: rgba(8,12,18,0.99); }
   filter: saturate(0.4);
 }
 .session-card.sc-done .sc-begin { opacity: 0; pointer-events: none; }
+/* "Begin Again" — show a repeat glyph & hint when done */
+.session-card.sc-done .session-card-arrow::after {
+  content: '↻';
+  font-size: 18px;
+  opacity: 0.7;
+}
+.session-card.sc-done .session-card-arrow {
+  font-size: 0; /* hide the › */
+}
+.sc-repeat-hint {
+  font-family: var(--fn);
+  font-size: 10px;
+  color: var(--text-m);
+  letter-spacing: 0.05em;
+  margin-top: 2px;
+  display: none;
+  opacity: 0.7;
+}
+.session-card.sc-done .sc-repeat-hint { display: block; }
 .session-card-qadr {
   border-bottom-color: rgba(196,163,90,0.35);
   border-top-color: rgba(196,163,90,0.35);
@@ -2364,6 +2357,61 @@ body.dark .search-overlay-header { background: rgba(8,12,18,0.99); }
 .guided-extra-dua { margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(196,163,90,0.08); }
 
 /* ---- JUMUAH SESSION BUTTON (Learn view) ---- */
+
+/* ── Friday Hour elevated banner ── */
+.jumuah-elevated-banner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  margin: 0 0 8px;
+  background: linear-gradient(135deg, rgba(196,163,90,0.10) 0%, rgba(139,107,42,0.05) 100%);
+  border: 1px solid rgba(196,163,90,0.32);
+  border-radius: var(--radius);
+  animation: overlayEnter var(--t-slow) var(--ease-velvet) both;
+}
+.jeb-glyph {
+  font-family: var(--fa);
+  font-size: 28px;
+  color: var(--gold);
+  line-height: 1;
+  flex-shrink: 0;
+}
+.jeb-body { flex: 1; }
+.jeb-title {
+  font-family: var(--fs);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+.jeb-sub {
+  font-family: var(--fn);
+  font-size: 11px;
+  color: var(--text-m);
+  letter-spacing: 0.02em;
+}
+.jeb-btn {
+  font-family: var(--fn);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  background: rgba(139,107,42,0.10);
+  border: 1px solid rgba(139,107,42,0.28);
+  color: var(--gold);
+  cursor: pointer;
+  flex-shrink: 0;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform var(--t-instant) var(--ease-out);
+}
+.jeb-btn:active { transform: scale(0.96); background: rgba(139,107,42,0.18); }
+body.dark .jumuah-elevated-banner {
+  background: linear-gradient(135deg, rgba(196,163,90,0.07) 0%, rgba(196,163,90,0.02) 100%);
+  border-color: rgba(196,163,90,0.28);
+}
+body.dark .jeb-btn { border-color: rgba(196,163,90,0.38); color: var(--gold-l); }
+
 .jumuah-session-btn {
   display: block;
   width: 100%;
@@ -2551,7 +2599,7 @@ body.dark .search-overlay-header { background: rgba(8,12,18,0.99); }
   background: var(--gold);
   color: #0A0C12;
   font-weight: 600;
-  border-radius: 12px;
+  border-radius: var(--radius);
   padding: 14px 32px;
   font-size: 15px;
   min-width: 180px;
@@ -2620,7 +2668,7 @@ body.dark .search-overlay-header { background: rgba(8,12,18,0.99); }
   width: 100%;
   background: var(--card);
   border: none;
-  border-radius: 16px;
+  border-radius: var(--radius);
   padding: 28px 20px 24px;
   margin-bottom: 16px;
   text-align: right;
@@ -2683,7 +2731,7 @@ body.dark .search-overlay-header { background: rgba(8,12,18,0.99); }
 .jstep-pause-note {
   width: 100%;
   background: var(--card);
-  border-radius: 12px;
+  border-radius: var(--radius);
   padding: 20px 18px;
   font-family: var(--fs);
   font-style: italic;
@@ -3085,7 +3133,7 @@ body.dark .gs-marginalia.gs-marginalia-peek { opacity: 0.18; }
 .sv-time-input {
   background: rgba(196,163,90,0.06);
   border: 1px solid rgba(196,163,90,0.15);
-  border-radius: 8px;
+  border-radius: var(--radius-ctrl);
   color: var(--text);
   font-family: var(--fn);
   font-size: 16px; /* ≥16px: prevents iOS Safari viewport auto-zoom */
@@ -3131,7 +3179,7 @@ body:not(.light) .sv-time-input {
 /* ---- SEASON CARDS (Phase 17b) ---- */
 .season-card {
   margin: 0 0 20px;
-  border-radius: 12px;
+  border-radius: var(--radius);
   border: 1px solid var(--gold);
   background: linear-gradient(135deg, var(--card) 0%, rgba(196,163,90,0.08) 100%);
   padding: 20px 18px;
@@ -3192,7 +3240,7 @@ body:not(.light) .sv-time-input {
   letter-spacing: 0.1em;
   text-transform: uppercase;
   padding: 3px 10px;
-  border-radius: 20px;
+  border-radius: var(--radius-sm-pill);
   background: rgba(196,163,90,0.12);
   border: 1px solid rgba(196,163,90,0.20);
   color: var(--gold);
@@ -3202,7 +3250,7 @@ body:not(.light) .sv-time-input {
   display: inline-block;
   margin-top: 14px;
   padding: 10px 20px;
-  border-radius: 8px;
+  border-radius: var(--radius-ctrl);
   background: rgba(196,163,90,0.12);
   border: 1px solid var(--gold);
   color: var(--gold-l);
@@ -3224,10 +3272,9 @@ button, a, [onclick], [role="button"],
 .intention-chip, .dc-tap, .dc-reset, .view-subnav-btn, .icon-btn,
 .fc-btn, .theme-toggle, .sv-theme-btn, .tasbih-tap, .tasbih-reset-btn,
 .guided-btn, .guided-close, .session-card, .pt-go, .pt-item,
-.install-card-btn, .install-card-close, .install-card-dismiss,
 .sv-install-btn, .search-close-btn, .search-clear,
 .btt, .expand-all-toggle, .asma-card, .season-action-btn,
-.install-card, .skip-link, .nav-sub, .nav-tab, .nav-btn, .nav-fav {
+.skip-link, .nav-sub, .nav-tab, .nav-btn, .nav-fav {
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
 }
@@ -3511,16 +3558,17 @@ button, .bn-tab, .expand-trigger, .copy-btn, .fav-star,
 }
 .guided-nav-prev,
 .guided-nav-next {
-  font-family: var(--fn);
-  font-size: 14px;
-  font-weight: 600;
-  padding: 12px 24px;
+  font-family: var(--fa);
+  font-size: 22px;
+  font-weight: 400;
+  padding: 10px 28px;
   border-radius: 24px;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
   transition: opacity var(--t-fast) var(--ease-out), transform var(--t-fast) var(--ease-spring);
-  letter-spacing: 0.02em;
+  letter-spacing: 0;
+  line-height: 1;
 }
 .guided-nav-prev:active, .guided-nav-next:active {
   transform: scale(0.96);
@@ -3564,7 +3612,7 @@ button, .bn-tab, .expand-trigger, .copy-btn, .fav-star,
 }
 .adhkar-mode-btn {
   padding: 7px 16px;
-  border-radius: 20px;
+  border-radius: var(--radius-sm-pill);
   border: 1px solid rgba(196,163,90,0.20);
   background: rgba(196,163,90,0.07);
   color: var(--text-d);
@@ -3619,39 +3667,39 @@ button, .bn-tab, .expand-trigger, .copy-btn, .fav-star,
   align-items: center;
   gap: 14px;
   width: 100%;
-  background: var(--card);
-  border: 1px solid var(--bdr);
-  border-radius: 12px;
-  padding: 16px 16px;
-  margin-bottom: 8px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--bdr);
+  border-radius: 0;
+  padding: 14px 0;
+  margin-bottom: 0;
   cursor: pointer;
   text-align: left;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
-  transition: opacity var(--t-instant) var(--ease-out),
-              transform 200ms cubic-bezier(0.34,1.56,0.64,1),
-              background var(--t-instant) var(--ease-out),
-              border-color var(--t-instant) var(--ease-out);
-  will-change: transform, opacity;
+  transition: opacity var(--t-fast) var(--ease-out),
+              background var(--t-fast) var(--ease-out);
+  will-change: opacity;
+}
+.duas-cat-row:first-of-type {
+  border-top: 1px solid var(--bdr);
 }
 .duas-cat-row:hover {
-  border-color: rgba(196,163,90,0.4);
-  background: rgba(196,163,90,0.04);
+  background: transparent;
 }
 .duas-cat-row:active {
-  opacity: 0.75;
-  transform: scale(0.98);
+  opacity: 0.6;
 }
 .duas-cat-icon {
-  font-size: 24px;
-  width: 46px;
-  height: 46px;
+  font-size: 20px;
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(196,163,90,0.08);
-  border: 1px solid rgba(196,163,90,0.15);
-  border-radius: 12px;
+  background: var(--card);
+  border: 1px solid var(--bdr);
+  border-radius: 10px;
   flex-shrink: 0;
 }
 .duas-cat-info {
@@ -3660,13 +3708,15 @@ button, .bn-tab, .expand-trigger, .copy-btn, .fav-star,
 }
 .duas-cat-title {
   font-family: var(--fs);
-  font-size: 17px;
+  font-size: 14px;
   color: var(--text);
   margin-bottom: 3px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   letter-spacing: 0.01em;
+  font-weight: 400;
+  line-height: 1.3;
 }
 .duas-cat-sub {
   font-family: var(--fn);
@@ -3684,17 +3734,18 @@ button, .bn-tab, .expand-trigger, .copy-btn, .fav-star,
   color: var(--gold);
   background: rgba(196,163,90,0.1);
   border: 1px solid rgba(196,163,90,0.25);
-  border-radius: 8px;
+  border-radius: var(--radius-ctrl);
   padding: 3px 9px;
   flex-shrink: 0;
   letter-spacing: 0.03em;
 }
 .duas-cat-arrow {
-  font-size: 22px;
+  font-size: 20px;
   color: var(--text-m);
   flex-shrink: 0;
   margin-left: 2px;
   line-height: 1;
+  opacity: 0.5;
 }
 /* Arabic snippet preview on category rows — borrowed from Hisnul Muslim insight */
 .duas-cat-ar-snip {
@@ -3755,9 +3806,6 @@ button, .bn-tab, .expand-trigger, .copy-btn, .fav-star,
   font-size: 20px;
   flex-shrink: 0;
 }
-.cat-tile-band {
-  display: none;
-}
 .cat-tile-body {
   flex: 1;
   padding: 0;
@@ -3786,6 +3834,30 @@ button, .bn-tab, .expand-trigger, .copy-btn, .fav-star,
   line-height: 1;
   opacity: 0.5;
 }
+/* ── Learn topic completion badge ── */
+.lc-done-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--gbg);
+  border: 1px solid var(--gbd);
+  flex-shrink: 0;
+  margin-right: 6px;
+  position: relative;
+}
+.lc-done-badge::after {
+  content: '';
+  display: block;
+  width: 5px;
+  height: 9px;
+  border-right: 1.5px solid var(--green);
+  border-bottom: 1.5px solid var(--green);
+  transform: rotate(42deg) translate(-1px, -1px);
+}
+
 .cat-grid-header {
   font-family: var(--fn);
   font-size: 10px;
@@ -3809,27 +3881,10 @@ button, .bn-tab, .expand-trigger, .copy-btn, .fav-star,
   flex-direction: row;
   align-items: center;
 }
-.cat-tile.cat-tile-wide .cat-tile-band {
-  display: none;
-}
 .cat-tile.cat-tile-wide .cat-tile-body {
   padding: 0;
 }
-.band-teal, .band-navy, .band-plum, .band-earth,
-.band-forest, .band-gold, .band-rose, .band-slate { display: none; }
 .cat-tile { background: transparent; border-color: var(--bdr); }
-
-/* ---- ADHKAR ELEVATED TILES — now obsolete, kept for safety ---- */
-.cat-tile.cat-tile-adhkar {
-  border-color: var(--bdr);
-}
-.cat-tile.cat-tile-adhkar .cat-tile-band {
-  display: none;
-}
-.cat-tile.cat-tile-adhkar .cat-tile-title {
-  font-size: 14px;
-  font-weight: 400;
-}
 
 /* ---- SPECIAL OCCASIONS DEMOTED ---- */
 .cat-grid-header.cat-grid-header-minor {
@@ -3869,6 +3924,24 @@ button, .bn-tab, .expand-trigger, .copy-btn, .fav-star,
 .cat-tile.cat-tile-primary .cat-tile-icon {
   background: var(--gold-f);
   border-color: rgba(196,163,90,0.22);
+}
+
+/* ---- GLYPH ICON VARIANT — used in Duas category tiles ---- */
+/* Replaces repeated inline styles; change once here to update all */
+.cat-tile-icon-glyph {
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--gold-d);
+  background: var(--gold-f);
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--fa);
+  font-size: 18px;
+  color: var(--gold);
+  opacity: 0.65;
+  flex-shrink: 0;
 }
 
 /* ---- 99 NAMES OVERLAY ---- */
@@ -3944,7 +4017,7 @@ button, .bn-tab, .expand-trigger, .copy-btn, .fav-star,
 .adhkar-complete-banner {
   background: rgba(196,163,90,0.07);
   border: 1px solid rgba(196,163,90,0.18);
-  border-radius: 12px;
+  border-radius: var(--radius);
   padding: 14px 18px;
   margin-bottom: 20px;
   text-align: center;
@@ -4015,8 +4088,6 @@ button, .bn-tab, .expand-trigger, .copy-btn, .fav-star,
 .dho-index-row { border-bottom-color: rgba(122,92,18,0.12); }
 .dho-index-row:first-child { border-top-color: rgba(122,92,18,0.12); }
 .gs-card { border-color: rgba(122,92,18,0.1); }
-.band-teal, .band-navy, .band-plum, .band-earth,
-.band-forest, .band-gold, .band-rose, .band-slate { display: none; }
 .duas-index-search {
   position: relative;
   margin-bottom: 4px;
@@ -4060,7 +4131,7 @@ button, .bn-tab, .expand-trigger, .copy-btn, .fav-star,
   background: var(--card); border: 1px solid var(--bdr);
   color: var(--text-d); font-family: var(--fn); font-size: 11px;
   letter-spacing: .08em; text-transform: uppercase;
-  border-radius: 20px; padding: 7px 4px;
+  border-radius: var(--radius-sm-pill); padding: 7px 4px;
   cursor: pointer; touch-action: manipulation; user-select: none;
   transition: background var(--t-fast) var(--ease-out),
               border-color var(--t-fast) var(--ease-out),
@@ -4258,7 +4329,7 @@ button, .bn-tab, .expand-trigger, .copy-btn, .fav-star,
 .salah-reset-btn {
   display: block; width: auto; margin: 14px auto 0;
   padding: 8px 20px; background: transparent;
-  border: 1px solid var(--bdr); border-radius: 20px;
+  border: 1px solid var(--bdr); border-radius: var(--radius-sm-pill);
   color: var(--text-m); font-family: var(--fn); font-size: 11px;
   letter-spacing: .12em; text-transform: uppercase;
   cursor: pointer; touch-action: manipulation; user-select: none;
@@ -4400,7 +4471,7 @@ button, .bn-tab, .expand-trigger, .copy-btn, .fav-star,
   padding: 10px 22px;
   background: none;
   border: 1px solid var(--bdr);
-  border-radius: 20px;
+  border-radius: var(--radius-sm-pill);
   color: var(--text-m);
   font-family: var(--fn);
   font-size: 13px;
@@ -4429,7 +4500,7 @@ button, .bn-tab, .expand-trigger, .copy-btn, .fav-star,
   font-size: 13px;
   letter-spacing: 0.05em;
   padding: 10px 22px;
-  border-radius: 20px;
+  border-radius: var(--radius-sm-pill);
   border: 1px solid var(--bdr);
   z-index: 99999;
   pointer-events: none;
@@ -4866,15 +4937,16 @@ button, .bn-tab, .expand-trigger, .copy-btn, .fav-star,
 }
 .dua-reader-nav-prev,
 .dua-reader-nav-next {
-  font-family: var(--fn);
-  font-size: 14px;
-  font-weight: 600;
-  padding: 11px 22px;
+  font-family: var(--fa);
+  font-size: 22px;
+  font-weight: 400;
+  padding: 9px 26px;
   border-radius: 24px;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
   transition: opacity var(--t-fast) var(--ease-out), transform var(--t-fast) var(--ease-spring);
+  line-height: 1;
 }
 .dua-reader-nav-prev:active, .dua-reader-nav-next:active { transform: scale(0.96); }
 .dua-reader-nav-prev {
@@ -5128,7 +5200,7 @@ button, .bn-tab, .expand-trigger, .copy-btn, .fav-star,
 }
 .streak-badge.streak-zero { opacity: 0.35; }
 .streak-badge {
-  background: rgba(122,92,18,.06); border-color: rgba(122,92,18,.2);
+  background: var(--gold-f); border-color: var(--bdr);
 }
 
 /* ── STREAK FLASH — fires once on session completion when streak > 0 ── */
@@ -5152,6 +5224,24 @@ button, .bn-tab, .expand-trigger, .copy-btn, .fav-star,
   border-radius: var(--radius);
   animation: scm-fadein 220ms var(--ease-velvet) both;
 }
+
+.sh-icons {
+  display: flex;
+  gap: 2px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 2px 0 1px;
+  min-height: 12px;
+}
+.sh-sicon {
+  font-family: var(--fn);
+  font-size: 8px;
+  color: var(--gold);
+  opacity: 0.75;
+  line-height: 1;
+}
+.sh-cell.sh-run .sh-sicon { color: var(--gold-l); opacity: 0.9; }
+
 #streakHistoryPanel .sh-title {
   font-family: var(--fn);
   font-size: 9px;
@@ -5197,28 +5287,161 @@ button, .bn-tab, .expand-trigger, .copy-btn, .fav-star,
   opacity: 0.8;
 }
 /* ── END STREAK HISTORY PANEL ── */
-/* ---- HOME META ROW (hijri + streak inline) ---- */
+
+/* ── RETURNING USER LINE ── */
+.home-returning-line {
+  font-family: var(--fn);
+  font-size: 11px;
+  color: var(--text-m);
+  letter-spacing: 0.07em;
+  line-height: 1.6;
+  padding: 0 16px 12px;
+  opacity: 0.75;
+  animation: scm-fadein 400ms var(--ease-out) both;
+}
+/* ── END RETURNING USER LINE ── */
+/* ── HOME DUAS ENTRY ROW ── */
+.home-duas-entry-row {
+  padding: 0 16px 28px;
+}
+.home-duas-entry-btn {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-top: 1px solid var(--bdr);
+  border-bottom: 1px solid var(--bdr);
+  padding: 18px 0;
+  cursor: pointer;
+  text-align: left;
+  -webkit-tap-highlight-color: transparent;
+  transition: opacity var(--t-instant) var(--ease-out);
+}
+.home-duas-entry-btn:active { opacity: 0.6; }
+.home-duas-entry-inner { flex: 1; }
+.home-duas-entry-eyebrow {
+  font-family: var(--fn);
+  font-size: 9px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 4px;
+  opacity: 0.8;
+}
+.home-duas-entry-title {
+  font-family: var(--fs);
+  font-size: 17px;
+  color: var(--text);
+  font-weight: 400;
+  margin-bottom: 3px;
+}
+.home-duas-entry-sub {
+  font-family: var(--fn);
+  font-size: 11px;
+  color: var(--text-m);
+  line-height: 1.6;
+  letter-spacing: 0.02em;
+}
+.home-duas-entry-arrow {
+  font-size: 20px;
+  color: var(--gold);
+  opacity: 0.6;
+  flex-shrink: 0;
+}
+/* ── END HOME DUAS ENTRY ROW ── */
+
+/* ── LEARN ART OF DU'A EDITORIAL HERO ── */
+.learn-art-featured {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  width: 100%;
+  background: linear-gradient(145deg, var(--gold-f) 0%, transparent 60%);
+  border: 1px solid var(--bdr-h);
+  border-left: 3px solid var(--gold);
+  border-radius: var(--radius);
+  padding: 22px 20px 20px;
+  cursor: pointer;
+  text-align: left;
+  -webkit-tap-highlight-color: transparent;
+  transition: background var(--t-fast) var(--ease-out), border-color var(--t-fast) var(--ease-out);
+  position: relative;
+  overflow: hidden;
+}
+.learn-art-featured:active {
+  background: linear-gradient(145deg, rgba(196,163,90,0.14) 0%, transparent 60%);
+}
+.learn-art-featured-inner { flex: 1; min-width: 0; }
+.learn-art-eyebrow {
+  font-family: var(--fn);
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 6px;
+  opacity: 0.8;
+}
+.learn-art-title {
+  font-family: var(--fs);
+  font-size: clamp(20px, 5.5vw, 26px);
+  color: var(--gold-l);
+  font-weight: 400;
+  line-height: 1.15;
+  margin-bottom: 10px;
+}
+.learn-art-body {
+  font-family: var(--fn);
+  font-size: 12.5px;
+  color: var(--text-d);
+  line-height: 1.7;
+  margin-bottom: 14px;
+  max-width: 36ch;
+}
+.learn-art-cta {
+  font-family: var(--fn);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.learn-art-ornament {
+  font-family: var(--fa);
+  font-size: clamp(2.8rem, 9vw, 4.5rem);
+  color: var(--gold);
+  opacity: 0.14;
+  line-height: 1;
+  flex-shrink: 0;
+  user-select: none;
+  -webkit-user-select: none;
+  align-self: center;
+}
+/* ── END LEARN ART OF DU'A EDITORIAL HERO ── */
 /* ---- HUB FEATURED ROW (Art of Du'a) ---- */
 .hub-featured-row {
   display: flex;
   align-items: center;
   gap: 14px;
-  background: linear-gradient(135deg, rgba(196,163,90,0.13) 0%, rgba(196,163,90,0.04) 100%);
-  border: 1px solid rgba(196,163,90,0.45);
-  border-radius: 6px;
+  background: linear-gradient(135deg, var(--gold-glow) 0%, var(--gold-f) 100%);
+  border: 1px solid var(--bdr-h);
+  border-radius: var(--radius);
   padding: 16px 18px;
   margin-bottom: 18px;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   transition: background 0.2s, border-color 0.2s;
 }
-.hub-featured-row:hover { background: linear-gradient(135deg,rgba(196,163,90,0.16) 0%,rgba(196,163,90,.08) 100%); border-color: rgba(196,163,90,.7); }
+.hub-featured-row:hover { background: linear-gradient(135deg, rgba(196,163,90,0.16) 0%, var(--gold-f) 100%); border-color: var(--bdr-h); }
 .hub-featured-icon { font-size: 32px; flex-shrink: 0; }
 .hub-featured-text { flex: 1; }
 .hub-featured-title { font-family: var(--fs); font-size: 18px; color: var(--gold-l); margin-bottom: 3px; }
 .hub-featured-sub { font-family: var(--fn); font-size: 12px; color: var(--text-d); letter-spacing: 0.04em; }
 .hub-featured-arrow { font-size: 18px; color: var(--gold); opacity: 0.7; }
-.hub-featured-row { background: linear-gradient(135deg,rgba(196,163,90,.15) 0%,rgba(196,163,90,0.04) 100%); }
+.hub-featured-row { background: linear-gradient(135deg, var(--gold-glow) 0%, var(--gold-f) 100%); }
 
 /* ---- PREMIUM MOTION LAYER ---- */
 
@@ -5283,7 +5506,6 @@ button, .bn-tab, .expand-trigger, .copy-btn, .fav-star,
 .gs-card:active,
 .hub-featured-row:active,
 .intention-chip:active,
-.duas-cat-row:active,
 .dhikr-item:active,
 #duaReaderNext:active,
 #duaReaderPrev:active {
@@ -5466,7 +5688,7 @@ body.overlay-open .spa-view.view-active {
   gap: 14px;
   background: rgba(196,163,90,0.05);
   border: 1px solid rgba(196,163,90,0.15);
-  border-radius: 12px;
+  border-radius: var(--radius);
   padding: 16px 18px;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
@@ -5544,7 +5766,7 @@ body.overlay-open .spa-view.view-active {
   gap: 14px;
   background: rgba(196,163,90,0.08);
   border: 1px solid rgba(196,163,90,0.35);
-  border-radius: 12px;
+  border-radius: var(--radius);
   padding: 14px 16px;
   margin: 0 16px 16px;
   cursor: pointer;
@@ -5690,7 +5912,7 @@ body.overlay-open .spa-view.view-active {
 .reminder-banner-open {
   flex-shrink: 0;
   background: var(--gold); color: var(--deep);
-  border: none; border-radius: 20px;
+  border: none; border-radius: var(--radius-sm-pill);
   font-family: var(--fn); font-size: 11px; font-weight: 600;
   letter-spacing: 0.06em; text-transform: uppercase;
   padding: 7px 14px; cursor: pointer;
@@ -5722,7 +5944,7 @@ body.overlay-open .spa-view.view-active {
   align-items: center;
   gap: 5px;
   padding: 6px 12px;
-  border-radius: 20px;
+  border-radius: var(--radius-sm-pill);
   border: 1px solid var(--bdr-h);
   background: transparent;
   font-family: var(--fn);
@@ -5817,7 +6039,7 @@ body.overlay-open .spa-view.view-active {
   width: 100%;
   background: var(--gold-f);
   border: 1px solid rgba(196,163,90,0.14);
-  border-radius: 16px;
+  border-radius: var(--radius);
   padding: 28px 20px 28px 24px;
   cursor: pointer;
   text-align: left;
@@ -6057,8 +6279,8 @@ body.overlay-open .spa-view.view-active {
 }
 .duas-myduas-item:active { opacity: 0.55; }
 .duas-myduas-item-star {
-  font-size: 14px;
-  color: var(--gold);
+  display: flex;
+  align-items: center;
   flex-shrink: 0;
   opacity: 0.8;
 }
@@ -6722,6 +6944,12 @@ body:not(.dark) .bismillah {
     <div class="home-wordmark-sub">Dua &nbsp;·&nbsp; Adhkar &nbsp;·&nbsp; Dhikr</div>
   </div>
 
+  <!-- Time-of-day greeting — rendered by JS -->
+  <div class="home-greeting" id="homeGreeting" style="display:none;">
+    <div class="home-greeting-salaam" id="homeGreetingAr"></div>
+    <div class="home-greeting-text" id="homeGreetingText"></div>
+  </div>
+
   <!-- Resume card — shown by JS only when session in progress -->
   <div class="resume-card" id="resumeCard" data-action="resume-session">
     <div class="resume-card-icon" id="resumeIcon">☀</div>
@@ -6770,6 +6998,11 @@ body:not(.dark) .bismillah {
     </div>
   </div>
 
+  <!-- Returning-user acknowledgement — shown only when streak > 0 -->
+  <div class="home-returning-line" id="homeReturningLine" style="display:none;">
+    <span id="homeReturningText"></span>
+  </div>
+
   <!-- Streak history panel — shown on badge tap -->
   <div id="streakHistoryPanel">
     <div class="sh-title">Last 14 days</div>
@@ -6811,6 +7044,18 @@ body:not(.dark) .bismillah {
     </div>
   </div>
 
+  <!-- Duas Library entry point — signals breadth/depth -->
+  <div class="home-duas-entry-row">
+    <button class="home-duas-entry-btn" data-action="show-duas" type="button">
+      <div class="home-duas-entry-inner">
+        <div class="home-duas-entry-eyebrow">188 Authentic Supplications</div>
+        <div class="home-duas-entry-title">Duas Library</div>
+        <div class="home-duas-entry-sub">Morning · Evening · Travel · Hardship · Protection · After Salah and more</div>
+      </div>
+      <div class="home-duas-entry-arrow">›</div>
+    </button>
+  </div>
+
   <!-- Hidden DotD hooks — JS populates these but they don't display -->
   <!-- Hidden DotD hooks — JS populates these but they don't display -->
   <div id="duaOfDay" style="display:none;" aria-hidden="true">
@@ -6847,12 +7092,14 @@ body:not(.dark) .bismillah {
 
   <!-- DAILY STATIONS -->
   <div class="session-section-header">Daily Stations</div>
+  <div style="font-family:var(--fn);font-size:11px;color:var(--text-m);letter-spacing:0.06em;margin:-4px 0 12px;opacity:0.75;">Guided sessions · step-by-step Arabic, transliteration &amp; meaning</div>
   <div class="session-cards" id="dailySessionCards">
     <div class="session-card" data-action="start-session" data-session="morning">
       <div class="session-card-glyph" aria-hidden="true">۞</div>
       <div class="session-card-body">
         <div class="session-card-title">Morning Adhkar</div>
         <div class="session-card-sub">15 steps · After Fajr</div>
+        <div class="sc-repeat-hint">Completed · Tap to repeat</div>
       </div>
       <div class="session-card-arrow">›</div>
     </div>
@@ -6861,6 +7108,7 @@ body:not(.dark) .bismillah {
       <div class="session-card-body">
         <div class="session-card-title">Evening Adhkar</div>
         <div class="session-card-sub">12 steps · After ʿAsr</div>
+        <div class="sc-repeat-hint">Completed · Tap to repeat</div>
       </div>
       <div class="session-card-arrow">›</div>
     </div>
@@ -6869,6 +7117,7 @@ body:not(.dark) .bismillah {
       <div class="session-card-body">
         <div class="session-card-title">Before Sleep</div>
         <div class="session-card-sub">9 steps · Every night</div>
+        <div class="sc-repeat-hint">Completed · Tap to repeat</div>
       </div>
       <div class="session-card-arrow">›</div>
     </div>
@@ -7249,7 +7498,7 @@ body:not(.dark) .bismillah {
     color:var(--gold); font-family:var(--fn); font-size:13px; letter-spacing:0.08em;
     text-transform:uppercase; cursor:pointer; padding:4px 16px 12px;
     -webkit-tap-highlight-color:transparent; touch-action:manipulation;">
-    ← Back to Duas
+    &#x202E;› Duas
   </button>
 
 <div id="duasIndex">
@@ -7276,7 +7525,7 @@ body:not(.dark) .bismillah {
   <div class="cat-grid-header cat-grid-header-primary">Qur'an &amp; Sunnah</div>
 
   <button class="cat-tile cat-tile-row cat-tile-primary" data-action="open-duas-cat-simple" data-cat="quran">
-    <div class="cat-tile-icon" style="width:36px;height:36px;border:1px solid var(--gold-d);background:var(--gold-f);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-family:var(--fa);font-size:18px;color:var(--gold);opacity:0.65;flex-shrink:0;">﴾</div>
+    <div class="cat-tile-icon cat-tile-icon-glyph">﴾</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Duas from the Qur'an</div>
       <div class="cat-tile-sub">Supplications from the Qur'an · 21</div>
@@ -7285,7 +7534,7 @@ body:not(.dark) .bismillah {
   </button>
 
   <button class="cat-tile cat-tile-row cat-tile-primary" data-action="open-duas-cat-simple" data-cat="prophets">
-    <div class="cat-tile-icon" style="width:36px;height:36px;border:1px solid var(--gold-d);background:var(--gold-f);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-family:var(--fa);font-size:18px;color:var(--gold);opacity:0.65;flex-shrink:0;">✦</div>
+    <div class="cat-tile-icon cat-tile-icon-glyph">✦</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Duas of the Prophets</div>
       <div class="cat-tile-sub">Ibrahim, Musa, Yunus, Ayyub and more · 20</div>
@@ -7294,7 +7543,7 @@ body:not(.dark) .bismillah {
   </button>
 
   <button class="cat-tile cat-tile-row cat-tile-primary" data-action="open-duas-cat-simple" data-cat="sunnah">
-    <div class="cat-tile-icon" style="width:36px;height:36px;border:1px solid var(--gold-d);background:var(--gold-f);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-family:var(--fa);font-size:18px;color:var(--gold);opacity:0.65;flex-shrink:0;">۞</div>
+    <div class="cat-tile-icon cat-tile-icon-glyph">۞</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Prophetic Duas</div>
       <div class="cat-tile-sub">Anxiety, debt, guidance, knowledge, character · 14</div>
@@ -7305,7 +7554,7 @@ body:not(.dark) .bismillah {
   <div class="cat-grid-header">Situational</div>
 
   <button class="cat-tile cat-tile-row" data-action="open-duas-cat-simple" data-cat="daily">
-    <div class="cat-tile-icon" style="width:36px;height:36px;border:1px solid var(--gold-d);background:var(--gold-f);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-family:var(--fa);font-size:18px;color:var(--gold);opacity:0.65;flex-shrink:0;">☽</div>
+    <div class="cat-tile-icon cat-tile-icon-glyph">☽</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Daily Life</div>
       <div class="cat-tile-sub">Leaving home, entering, waking, sleeping · 23</div>
@@ -7314,7 +7563,7 @@ body:not(.dark) .bismillah {
   </button>
 
   <button class="cat-tile cat-tile-row" data-action="open-duas-cat-simple" data-cat="marriage">
-    <div class="cat-tile-icon" style="width:36px;height:36px;border:1px solid var(--gold-d);background:var(--gold-f);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-family:var(--fa);font-size:18px;color:var(--gold);opacity:0.65;flex-shrink:0;">◇</div>
+    <div class="cat-tile-icon cat-tile-icon-glyph">◇</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Marriage</div>
       <div class="cat-tile-sub">At nikah, with a new spouse, for family</div>
@@ -7323,7 +7572,7 @@ body:not(.dark) .bismillah {
   </button>
 
   <button class="cat-tile cat-tile-row" data-action="open-duas-cat-simple" data-cat="illness">
-    <div class="cat-tile-icon" style="width:36px;height:36px;border:1px solid var(--gold-d);background:var(--gold-f);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-family:var(--fa);font-size:18px;color:var(--gold);opacity:0.65;flex-shrink:0;">﴿</div>
+    <div class="cat-tile-icon cat-tile-icon-glyph">﴿</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Illness &amp; Hardship</div>
       <div class="cat-tile-sub">Sick, in pain, overwhelmed · 6</div>
@@ -7332,7 +7581,7 @@ body:not(.dark) .bismillah {
   </button>
 
   <button class="cat-tile cat-tile-row" data-action="open-duas-cat-simple" data-cat="travel">
-    <div class="cat-tile-icon" style="width:36px;height:36px;border:1px solid var(--gold-d);background:var(--gold-f);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-family:var(--fa);font-size:18px;color:var(--gold);opacity:0.65;flex-shrink:0;">◈</div>
+    <div class="cat-tile-icon cat-tile-icon-glyph">◈</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Travel</div>
       <div class="cat-tile-sub">Before and during any journey · 3</div>
@@ -7341,7 +7590,7 @@ body:not(.dark) .bismillah {
   </button>
 
   <button class="cat-tile cat-tile-row" data-action="open-duas-cat-simple" data-cat="eating">
-    <div class="cat-tile-icon" style="width:36px;height:36px;border:1px solid var(--gold-d);background:var(--gold-f);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-family:var(--fa);font-size:18px;color:var(--gold);opacity:0.65;flex-shrink:0;">◉</div>
+    <div class="cat-tile-icon cat-tile-icon-glyph">◉</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Eating &amp; Drinking</div>
       <div class="cat-tile-sub">Before eating, after eating, forgetting bismillah · 3</div>
@@ -7352,7 +7601,7 @@ body:not(.dark) .bismillah {
   <div class="cat-grid-header">Reference</div>
 
   <button class="cat-tile cat-tile-row" data-action="open-duas-cat-simple" data-cat="salawat">
-    <div class="cat-tile-icon" style="width:36px;height:36px;border:1px solid var(--gold-d);background:var(--gold-f);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-family:var(--fa);font-size:18px;color:var(--gold);opacity:0.65;flex-shrink:0;">✦</div>
+    <div class="cat-tile-icon cat-tile-icon-glyph">✦</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Salawat</div>
       <div class="cat-tile-sub">Send salawat — after adhan, in salah, always · 2</div>
@@ -7361,7 +7610,7 @@ body:not(.dark) .bismillah {
   </button>
 
   <button class="cat-tile cat-tile-row" data-action="open-duas-cat-simple" data-cat="istighfar">
-    <div class="cat-tile-icon" style="width:36px;height:36px;border:1px solid var(--gold-d);background:var(--gold-f);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-family:var(--fa);font-size:18px;color:var(--gold);opacity:0.65;flex-shrink:0;">◎</div>
+    <div class="cat-tile-icon cat-tile-icon-glyph">◎</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Istighfar</div>
       <div class="cat-tile-sub">After sin, to repent, daily istighfar · 4</div>
@@ -7370,7 +7619,7 @@ body:not(.dark) .bismillah {
   </button>
 
   <button class="cat-tile cat-tile-row" data-action="open-duas-cat-simple" data-cat="istikharah">
-    <div class="cat-tile-icon" style="width:36px;height:36px;border:1px solid var(--gold-d);background:var(--gold-f);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-family:var(--fa);font-size:18px;color:var(--gold);opacity:0.65;flex-shrink:0;">◈</div>
+    <div class="cat-tile-icon cat-tile-icon-glyph">◈</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Salah al-Istikharah</div>
       <div class="cat-tile-sub">When making a decision — full method included</div>
@@ -7381,7 +7630,7 @@ body:not(.dark) .bismillah {
   <div class="cat-grid-header cat-grid-header-minor">Special Occasions</div>
 
   <button class="cat-tile cat-tile-row cat-tile-minor" data-action="open-duas-cat-simple" data-cat="dhulhijjah-duas">
-    <div class="cat-tile-icon" style="width:36px;height:36px;border:1px solid var(--gold-d);background:var(--gold-f);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-family:var(--fa);font-size:18px;color:var(--gold);opacity:0.65;flex-shrink:0;">۞</div>
+    <div class="cat-tile-icon cat-tile-icon-glyph">۞</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Dhul Hijjah &amp; Arafah</div>
       <div class="cat-tile-sub">Dhul Hijjah, Day of Arafah, Eid al-Adha · 5</div>
@@ -7454,6 +7703,19 @@ body:not(.dark) .bismillah {
   <div style="font-family:var(--fs);font-size:clamp(20px,5vw,26px);color:var(--text);font-weight:400;line-height:1.2;margin-bottom:8px;">Deepen your practice</div>
   <div style="font-size:12px;color:var(--text-d);line-height:1.7;max-width:420px;">Guides on sacred times, the 99 Names, and the art of du'a — grounded in Qur'an and Sunnah.</div>
 </div>
+
+  <!-- FEATURED EDITORIAL — Art of Du'a -->
+  <div style="padding: 8px 16px 20px;">
+    <button class="learn-art-featured" data-action="open-learn-topic" data-topic="hub" type="button">
+      <div class="learn-art-featured-inner">
+        <div class="learn-art-eyebrow">Complete Guide · 26 Cards</div>
+        <div class="learn-art-title">The Art of Du'a</div>
+        <div class="learn-art-body">Why du'a is an act of worship. The etiquette. The best times. How Allah answers. The theology of asking — from the Qur'an and Sunnah.</div>
+        <div class="learn-art-cta">Begin reading <span style="font-size:14px;">›</span></div>
+      </div>
+      <div class="learn-art-ornament" aria-hidden="true">﴾</div>
+    </button>
+  </div>
 <div class="duas-index-search" style="padding: 16px 16px 0;">
     <span class="duas-index-search-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
     <input id="learnIndexSearch" class="duas-index-search-input" type="search"
@@ -7465,17 +7727,8 @@ body:not(.dark) .bismillah {
   <div id="learnIndexList">
 <div class="cat-grid">
 
-  <button class="cat-tile cat-tile-wide" data-action="open-learn-topic" data-topic="hub" style="border-left:2px solid rgba(196,163,90,0.4);padding-left:14px;">
-    <div class="cat-tile-icon" style="width:36px;height:36px;border:1px solid var(--gold-d);background:var(--gold-f);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-family:var(--fa);font-size:18px;color:var(--gold);opacity:0.65;flex-shrink:0;">﴾</div>
-    <div class="cat-tile-body">
-      <div style="font-size:8px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);opacity:0.7;margin-bottom:4px;">Complete Guide</div>
-      <div class="cat-tile-title">The Art of Du'a</div>
-      <div class="cat-tile-sub">A complete guide · 26 cards</div>
-    </div>
-  </button>
-
   <button class="cat-tile cat-tile-wide" data-action="open-asma">
-    <div class="cat-tile-icon" style="width:36px;height:36px;border:1px solid var(--gold-d);background:var(--gold-f);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-family:var(--fa);font-size:18px;color:var(--gold);opacity:0.65;flex-shrink:0;">✦</div>
+    <div class="cat-tile-icon cat-tile-icon-glyph">✦</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Asmāʾ al-Ḥusnā</div>
       <div class="cat-tile-sub">The 99 Beautiful Names of Allah · browse &amp; search</div>
@@ -7485,7 +7738,7 @@ body:not(.dark) .bismillah {
   <div class="cat-grid-header">Sacred Times</div>
 
   <button class="cat-tile" data-action="open-learn-topic" data-topic="times">
-    <div class="cat-tile-icon" style="width:36px;height:36px;border:1px solid var(--gold-d);background:var(--gold-f);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-family:var(--fa);font-size:18px;color:var(--gold);opacity:0.65;flex-shrink:0;">☽</div>
+    <div class="cat-tile-icon cat-tile-icon-glyph">☽</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Prayer Times</div>
       <div class="cat-tile-sub">When duas are answered</div>
@@ -7493,7 +7746,7 @@ body:not(.dark) .bismillah {
   </button>
 
   <button class="cat-tile" data-action="open-learn-topic" data-topic="qadr">
-    <div class="cat-tile-icon" style="width:36px;height:36px;border:1px solid var(--gold-d);background:var(--gold-f);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-family:var(--fa);font-size:18px;color:var(--gold);opacity:0.65;flex-shrink:0;">✦</div>
+    <div class="cat-tile-icon cat-tile-icon-glyph">✦</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Laylatul Qadr</div>
       <div class="cat-tile-sub">Better than 1000 months</div>
@@ -7501,7 +7754,7 @@ body:not(.dark) .bismillah {
   </button>
 
   <button class="cat-tile" data-action="open-learn-topic" data-topic="jumua">
-    <div class="cat-tile-icon" style="width:36px;height:36px;border:1px solid var(--gold-d);background:var(--gold-f);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-family:var(--fa);font-size:18px;color:var(--gold);opacity:0.65;flex-shrink:0;">۞</div>
+    <div class="cat-tile-icon cat-tile-icon-glyph">۞</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Jumu'ah</div>
       <div class="cat-tile-sub">Friday · Surah Kahf · The hour</div>
@@ -7509,7 +7762,7 @@ body:not(.dark) .bismillah {
   </button>
 
   <button class="cat-tile" data-action="open-learn-topic" data-topic="dhulhijjah">
-    <div class="cat-tile-icon" style="width:36px;height:36px;border:1px solid var(--gold-d);background:var(--gold-f);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-family:var(--fa);font-size:18px;color:var(--gold);opacity:0.65;flex-shrink:0;">۞</div>
+    <div class="cat-tile-icon cat-tile-icon-glyph">۞</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Dhul Hijjah &amp; Eid</div>
       <div class="cat-tile-sub">Ten blessed days</div>
@@ -7517,7 +7770,7 @@ body:not(.dark) .bismillah {
   </button>
 
   <button class="cat-tile" data-action="open-learn-topic" data-topic="arafah">
-    <div class="cat-tile-icon" style="width:36px;height:36px;border:1px solid var(--gold-d);background:var(--gold-f);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-family:var(--fa);font-size:18px;color:var(--gold);opacity:0.65;flex-shrink:0;">◌</div>
+    <div class="cat-tile-icon cat-tile-icon-glyph">◌</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Yawm Arafah</div>
       <div class="cat-tile-sub">Day of Arafah · guide &amp; duas</div>
@@ -7525,7 +7778,7 @@ body:not(.dark) .bismillah {
   </button>
 
   <button class="cat-tile" data-action="open-learn-topic" data-topic="ashura">
-    <div class="cat-tile-icon" style="width:36px;height:36px;border:1px solid var(--gold-d);background:var(--gold-f);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-family:var(--fa);font-size:18px;color:var(--gold);opacity:0.65;flex-shrink:0;">◈</div>
+    <div class="cat-tile-icon cat-tile-icon-glyph">◈</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Ashura</div>
       <div class="cat-tile-sub">9th &amp; 10th Muharram</div>
@@ -7533,7 +7786,7 @@ body:not(.dark) .bismillah {
   </button>
 
   <button class="cat-tile" data-action="open-learn-topic" data-topic="shaban">
-    <div class="cat-tile-icon" style="width:36px;height:36px;border:1px solid var(--gold-d);background:var(--gold-f);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-family:var(--fa);font-size:18px;color:var(--gold);opacity:0.65;flex-shrink:0;">✦</div>
+    <div class="cat-tile-icon cat-tile-icon-glyph">✦</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Sha'ban</div>
       <div class="cat-tile-sub">The neglected month</div>
@@ -7541,7 +7794,7 @@ body:not(.dark) .bismillah {
   </button>
 
   <button class="cat-tile" data-action="open-learn-topic" data-topic="eid">
-    <div class="cat-tile-icon" style="width:36px;height:36px;border:1px solid var(--gold-d);background:var(--gold-f);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-family:var(--fa);font-size:18px;color:var(--gold);opacity:0.65;flex-shrink:0;">◎</div>
+    <div class="cat-tile-icon cat-tile-icon-glyph">◎</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Eid</div>
       <div class="cat-tile-sub">Sunnah of the celebration</div>
@@ -7551,7 +7804,7 @@ body:not(.dark) .bismillah {
   <div class="cat-grid-header">Guides &amp; References</div>
 
   <button class="cat-tile" data-action="open-learn-topic" data-topic="ruqyah">
-    <div class="cat-tile-icon" style="width:36px;height:36px;border:1px solid var(--gold-d);background:var(--gold-f);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-family:var(--fa);font-size:18px;color:var(--gold);opacity:0.65;flex-shrink:0;">﴿</div>
+    <div class="cat-tile-icon cat-tile-icon-glyph">﴿</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Ruqyah</div>
       <div class="cat-tile-sub">Healing &amp; protection</div>
@@ -7559,7 +7812,7 @@ body:not(.dark) .bismillah {
   </button>
 
   <button class="cat-tile" data-action="open-learn-topic" data-topic="qunut">
-    <div class="cat-tile-icon" style="width:36px;height:36px;border:1px solid var(--gold-d);background:var(--gold-f);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-family:var(--fa);font-size:18px;color:var(--gold);opacity:0.65;flex-shrink:0;">﴾</div>
+    <div class="cat-tile-icon cat-tile-icon-glyph">﴾</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Qunut al-Nazilah</div>
       <div class="cat-tile-sub">Dua in times of calamity</div>
@@ -7567,7 +7820,7 @@ body:not(.dark) .bismillah {
   </button>
 
   <button class="cat-tile" data-action="open-learn-topic" data-topic="surahs">
-    <div class="cat-tile-icon" style="width:36px;height:36px;border:1px solid var(--gold-d);background:var(--gold-f);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-family:var(--fa);font-size:18px;color:var(--gold);opacity:0.65;flex-shrink:0;">✦</div>
+    <div class="cat-tile-icon cat-tile-icon-glyph">✦</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Key Surahs</div>
       <div class="cat-tile-sub">Al-Mulk, Al-Kahf and more</div>
@@ -7579,7 +7832,7 @@ body:not(.dark) .bismillah {
 
   <div class="cat-grid-header">Personal</div>
 <button class="cat-tile cat-tile-wide" data-action="open-learn-topic" data-topic="personal">
-    <div class="cat-tile-icon" style="width:36px;height:36px;border:1px solid var(--gold-d);background:var(--gold-f);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-family:var(--fa);font-size:18px;color:var(--gold);opacity:0.65;flex-shrink:0;">◎</div>
+    <div class="cat-tile-icon cat-tile-icon-glyph">◎</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Personal Duas</div>
       <div class="cat-tile-sub">Your own supplications — saved privately</div>
@@ -7871,7 +8124,7 @@ body:not(.dark) .bismillah {
     <div class="dua-reader-badge" id="duaReaderBadge" style="display:none;"></div>
     <div class="dua-reader-actions">
       <button class="dua-reader-action-btn" id="duaReaderFavBtn" data-action="toggle-dua-fav">
-        <span id="duaReaderFavIcon">☆</span> Favourite
+        <span id="duaReaderFavIcon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span> Favourite
       </button>
       <button class="dua-reader-action-btn" data-action="open-dua-reader-share">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
@@ -7894,9 +8147,9 @@ body:not(.dark) .bismillah {
     </div>
   </div>
   <div class="dua-reader-nav" id="duaReaderNav">
-    <button class="dua-reader-nav-prev" id="duaReaderPrev" data-action="dua-reader-nav" data-dir="-1" disabled>← Back</button>
+    <button class="dua-reader-nav-prev" id="duaReaderPrev" data-action="dua-reader-nav" data-dir="-1" disabled>&#x202E;›</button>
     <div class="dua-reader-nav-dots" id="duaReaderDots">1 / 1</div>
-    <button class="dua-reader-nav-next" id="duaReaderNext" data-action="dua-reader-nav" data-dir="1">Next →</button>
+    <button class="dua-reader-nav-next" id="duaReaderNext" data-action="dua-reader-nav" data-dir="1">›</button>
   </div>
 </div>
 <!-- ===== END DUA READER OVERLAY ===== -->
@@ -8060,7 +8313,7 @@ body:not(.dark) .bismillah {
     <div class="hub-entry">
       <div class="learn-card-section">BEST TIMES · 5 OF 5</div>
       <div class="learn-card-title">The Friday Hour</div>
-      <div class="learn-card-body">On every Friday there is a blessed hour in which no Muslim asks Allah for anything except that it is granted. The most supported opinion is that this window falls in the last hour before Maghrib.<br><br>Protect this hour every Friday. Make du'a continuously. The Sa'at al-Istijabah timer in this app was built for this.</div>
+      <div class="learn-card-body">On every Friday there is a blessed hour in which no Muslim asks Allah for anything except that it is granted. The most supported opinion is that this window falls in the last hour before Maghrib.<br><br>Protect this hour every Friday. Make du'a continuously. <button onclick="showView('adhkar');setTimeout(function(){beginJumuahSession();},160);" style="background:none;border:none;padding:0;font:inherit;font-size:inherit;color:var(--gold);text-decoration:underline;text-decoration-style:dotted;text-underline-offset:3px;cursor:pointer;-webkit-tap-highlight-color:transparent;">The Sa'at al-Istijabah timer was built for this.</button></div>
       <div class="learn-card-src">Sahih al-Bukhari (935) · Sahih Muslim (852)</div>
     </div>
 
@@ -8295,9 +8548,9 @@ body:not(.dark) .bismillah {
     </button>
   </div>
   <div class="guided-nav" id="guidedNav">
-    <button class="guided-nav-prev" id="guidedPrev" data-action="guided-nav" data-dir="-1" aria-label="Previous step">← Back</button>
+    <button class="guided-nav-prev" id="guidedPrev" data-action="guided-nav" data-dir="-1" aria-label="Previous step">&#x202E;›</button>
     <div class="guided-nav-indicator" id="guidedCounter">Step 1 of 1</div>
-    <button class="guided-nav-next" id="guidedNext" data-action="guided-nav" data-dir="1" aria-label="Next step">Continue →</button>
+    <button class="guided-nav-next" id="guidedNext" data-action="guided-nav" data-dir="1" aria-label="Next step">›</button>
   </div>
 </div>
 
@@ -9418,10 +9671,14 @@ function makeStar(targetEl, wrappedLabel){
   targetEl.dataset.favId = id;
   btn.dataset.favId = id;
 
+  var _starSvgEmpty  = '<svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>';
+  var _starSvgFilled = '<svg viewBox="0 0 24 24" aria-hidden="true" style="fill:var(--gold);stroke:var(--gold)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>';
+
   function update(){
-    btn.textContent = favState[id] ? '★' : '☆';
+    btn.innerHTML = favState[id] ? _starSvgFilled : _starSvgEmpty;
     btn.classList.toggle('starred', !!favState[id]);
     btn.setAttribute('aria-pressed', favState[id] ? 'true' : 'false');
+    btn.setAttribute('aria-label', favState[id] ? 'Remove from favourites' : 'Favourite this dua');
   }
   update();
 
@@ -9481,7 +9738,7 @@ function renderFavView(){
   list.innerHTML = '';
   var ids = Object.keys(favState);
   if(ids.length === 0){
-    list.innerHTML = '<div class="fav-empty">No favourites yet.<br>Tap the ☆ on any dua or surah to star it.</div>';
+    list.innerHTML = '<div class="fav-empty">Your saved duas will gather here.<br>Tap the star on any dua to keep it close.</div>';
     return;
   }
   ids.forEach(function(id){
@@ -9496,7 +9753,9 @@ function renderFavView(){
     if(d.en) html += d.en;
     if(d.src) html += d.src;
     // Unstar button
-    html += '<button class="fav-star starred" style="position:absolute;top:10px;left:10px;" aria-label="Remove from favourites" data-remove-id="' + id + '">★</button>';
+    html += '<button class="fav-star starred" style="position:absolute;top:10px;left:10px;" aria-label="Remove from favourites" data-remove-id="' + id + '"><svg viewBox="0 0 24 24" aria-hidden="true" style="fill:var(--gold);stroke:var(--gold)"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></button>';
+    // Folder organise button
+    html += '<button class="fav-organise-btn" data-organise-id="' + id + '" aria-label="Save to folder" style="display:inline-flex;align-items:center;gap:5px;margin-top:8px;padding:5px 12px;border:1px solid var(--bdr);border-radius:var(--radius-ctrl);background:none;font-family:var(--fn);font-size:11px;color:var(--text-m);letter-spacing:0.06em;cursor:pointer;-webkit-tap-highlight-color:transparent;">⊕ Folder</button>';
     card.innerHTML = html;
     // Wire up remove
     var removeBtn = card.querySelector('[data-remove-id]');
@@ -9510,12 +9769,20 @@ function renderFavView(){
           var origStar = orig.querySelector ? orig.querySelector('.fav-star') : null;
           // If orig is the card itself find its star
           origStar = origStar || document.querySelector('.fav-star[data-fav-id="' + id + '"]');
-          if(origStar){ origStar.textContent = '☆'; origStar.classList.remove('starred'); }
+          if(origStar){ origStar.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>'; origStar.classList.remove('starred'); }
         }
         renderFavView();
       });
     }
     list.appendChild(card);
+    // Wire organise button
+    var organiseBtn = card.querySelector('[data-organise-id]');
+    if (organiseBtn) {
+      organiseBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        openFavSheet(organiseBtn.getAttribute('data-organise-id'));
+      });
+    }
     // Add share button to fav card
     var favShareBtn = document.createElement('button');
     favShareBtn.className = 'dua-share-btn';
@@ -9542,7 +9809,7 @@ function renderDuasTabFavs() {
   var ids = Object.keys(favState);
   if (countEl) countEl.textContent = ids.length ? ids.length + ' saved' : '';
   if (ids.length === 0) {
-    list.innerHTML = '<div class="duas-myduas-empty">Tap ☆ on any dua to save it here.</div>';
+    list.innerHTML = '<div class="duas-myduas-empty">Tap the star on any dua to save it here.</div>';
     if (divider) divider.style.opacity = '0.4';
     return;
   }
@@ -9556,7 +9823,7 @@ function renderDuasTabFavs() {
     // Extract plain Arabic text for preview (strip HTML tags)
     var arText = (d.ar || '').replace(/<[^>]*>/g, '').trim().substring(0, 40);
     item.innerHTML =
-      '<span class="duas-myduas-item-star">★</span>' +
+      '<span class="duas-myduas-item-star"><svg width="12" height="12" viewBox="0 0 24 24" fill="var(--gold)" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>' +
       '<span class="duas-myduas-item-label">' + escapeHtml(d.label || 'Saved Dua') + '</span>' +
       (arText ? '<span class="duas-myduas-item-ar">' + arText + '</span>' : '');
     // Tap to open dua reader with this dua
@@ -9621,7 +9888,7 @@ function renderFolderList(duaId) {
   if (!list) return;
   var folders = getFolders();
   if (folders.length === 0) {
-    list.innerHTML = '<div class="fav-folder-empty">No folders yet — create one below</div>';
+    list.innerHTML = '<div class="fav-folder-empty">No collections yet — name one below and begin gathering</div>';
     return;
   }
   list.innerHTML = folders.map(function(folder) {
@@ -9695,7 +9962,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var newBtn = document.getElementById('favNewFolderBtn');
   if (newBtn) {
     newBtn.addEventListener('click', function() {
-      var name = prompt('Folder name:');
+      var name = prompt('Name this collection — e.g. "For difficult days" or "After Fajr"');
       if (name && name.trim()) {
         createFolder(name.trim());
         renderFolderList(_favCurrentDuaId);
@@ -10151,7 +10418,7 @@ document.addEventListener('DOMContentLoaded', function() {
     safeSet('progress_data', JSON.stringify(progress));
     renderProgress();
     if (typeof window.refreshContextualHome === 'function') window.refreshContextualHome();
-    if (turningOn && typeof window.markStreakDay === 'function') window.markStreakDay();
+    if (turningOn && typeof window.markStreakDay === 'function') window.markStreakDay('salah');
     if (typeof updateAdhkarTab === 'function') setTimeout(updateAdhkarTab, 50);
   };
 
@@ -11006,9 +11273,9 @@ function renderLearnDeck(topicId) {
   deckHTML += '</div>'; // learn-deck-body
 
   deckHTML += '<div class="guided-nav" style="border-top:1px solid var(--bdr);">';
-  deckHTML += '<button class="guided-nav-prev learn-nav-prev" data-action="learn-nav" data-dir="-1" disabled>← Back</button>';
+  deckHTML += '<button class="guided-nav-prev learn-nav-prev" data-action="learn-nav" data-dir="-1" disabled>&#x202E;›</button>';
   deckHTML += '<div class="guided-nav-indicator" id="learn-counter-' + topicId + '">1 / ' + total + '</div>';
-  deckHTML += '<button class="guided-nav-next learn-nav-next" data-action="learn-nav" data-dir="1">Continue →</button>';
+  deckHTML += '<button class="guided-nav-next learn-nav-next" data-action="learn-nav" data-dir="1">›</button>';
   deckHTML += '</div>';
 
   deckEl.innerHTML = deckHTML;
@@ -11139,19 +11406,72 @@ function obSelect(choice) {
   if (_obLocked) return;
   _obLocked = true;
   safeSet('onboarding_done', '1');
+  safeSet('ob_intent', choice); // persist intent for first-session experience
   closeOnboarding(function() {
     _obLocked = false;
     if (choice === 'morning') {
+      // Start morning session immediately — this is what they came for
       startGuidedSession('morning');
     } else if (choice === 'sleep') {
+      // Start sleep session immediately
       startGuidedSession('sleep');
     } else if (choice === 'dhikr') {
+      // Take them to Practice tab and highlight the dhikr section
       showView('adhkar');
+      setTimeout(function() {
+        scrollToSection('post-salah-tasbih');
+        // Show a welcome banner specific to dhikr intent
+        _showIntentBanner(
+          'اذْكُرُوا اللَّهَ ذِكْرًا كَثِيرًا',
+          'Remember Allah with abundant remembrance. Tap any dhikr below to begin counting.'
+        );
+      }, 180);
     } else if (choice === 'duas') {
+      // Take them to Duas tab with search focused — they want to find something specific
       showView('duas');
+      setTimeout(function() {
+        var searchInput = document.getElementById('duasIndexSearch');
+        if (searchInput) {
+          searchInput.focus();
+          // Show a welcome banner specific to duas intent
+          _showIntentBanner(
+            'ادْعُونِي أَسْتَجِبْ لَكُمْ',
+            'Call upon Me; I will respond to you. — Qur\'an 40:60 · Search for any occasion below.'
+          );
+        }
+      }, 220);
     }
     // 'skip' just closes — lands on Home
   });
+}
+
+function _showIntentBanner(ar, text) {
+  var existing = document.getElementById('_intentBanner');
+  if (existing) existing.remove();
+  var banner = document.createElement('div');
+  banner.id = '_intentBanner';
+  banner.style.cssText = [
+    'position:fixed;bottom:calc(var(--nav-h,64px) + 12px);left:16px;right:16px;z-index:9000;',
+    'background:var(--card);border:1px solid var(--bdr-h);border-radius:var(--radius);',
+    'padding:14px 16px;box-shadow:0 8px 32px rgba(0,0,0,0.14);',
+    'opacity:0;transform:translateY(8px);transition:opacity 400ms var(--ease-velvet),transform 400ms var(--ease-velvet);'
+  ].join('');
+  banner.innerHTML =
+    '<div style="font-family:var(--fa);font-size:15px;color:var(--gold-l);direction:rtl;text-align:right;line-height:1.9;margin-bottom:6px;">' + ar + '</div>' +
+    '<div style="font-family:var(--fn);font-size:12px;color:var(--text-d);line-height:1.6;">' + text + '</div>' +
+    '<button onclick="document.getElementById(\'_intentBanner\').remove()" style="position:absolute;top:10px;right:10px;background:none;border:none;cursor:pointer;font-size:14px;color:var(--text-m);padding:4px;-webkit-tap-highlight-color:transparent;">×</button>';
+  document.body.appendChild(banner);
+  requestAnimationFrame(function(){ requestAnimationFrame(function(){
+    banner.style.opacity = '1';
+    banner.style.transform = 'translateY(0)';
+  }); });
+  setTimeout(function() {
+    if (banner.parentNode) {
+      banner.style.opacity = '0';
+      banner.style.transform = 'translateY(6px)';
+      setTimeout(function() { if (banner.parentNode) banner.remove(); }, 420);
+    }
+  }, 6000);
 }
 
 // guidedState → APP_STATE.session (object reference)
@@ -11298,6 +11618,7 @@ window.showSessionCompletionMoment = function(sessionKey) {
   void scm.offsetWidth;
   document.getElementById('scmNext').style.display = 'none';
   populateScmNext(sessionKey);
+  populateScmBridge(sessionKey);
   scm.classList.add('scm-visible');
   document.body.style.overflow = 'hidden';
 
@@ -11327,6 +11648,24 @@ var SCM_NEXT_MAP = {
   salah:    { icon: '◌', title: 'Qunut al-Nazilah', topic: 'qunut' },
   'default':  { icon: '◌', title: 'The Art of Du’a', topic: 'hub' }
 };
+
+
+// ── Tomorrow's opening bridge ──
+var SCM_BRIDGE_MAP = {
+  morning:  { next: 'Evening Adhkar',    when: 'opens after Maghrib' },
+  evening:  { next: 'Night remembrance', when: 'opens after Isha' },
+  sleep:    { next: 'Morning Adhkar',    when: 'opens at Fajr' },
+  salah:    { next: 'Evening Adhkar',    when: 'opens after Maghrib' },
+  jumuah:   { next: 'Morning Adhkar',    when: 'opens at Fajr tomorrow' }
+};
+function populateScmBridge(sessionKey) {
+  var bridge = document.getElementById('scmBridge');
+  if (!bridge) return;
+  var map = SCM_BRIDGE_MAP[sessionKey];
+  if (!map) { bridge.style.display = 'none'; return; }
+  bridge.innerHTML = '<span class="scm-bridge-glyph">◈</span>' + map.next + ' — ' + map.when;
+  bridge.style.display = '';
+}
 
 function populateScmNext(sessionKey) {
   var map = SCM_NEXT_MAP[sessionKey] || SCM_NEXT_MAP['default'];
@@ -11720,11 +12059,11 @@ function renderGuidedStep(){
   if (_gn) {
     var isDone = (idx === total - 1);
     var isJumuah = (guidedState.session === 'jumuah');
-    _gn.textContent = isDone ? (isJumuah ? 'Complete ✓' : 'Done ✓') : (isJumuah ? 'Next Section ›' : 'Continue →');
+    _gn.textContent = isDone ? (isJumuah ? '✓' : '✓') : '›';
     _gn.classList.toggle('done', isDone);
     _gn.onclick = isDone ? function(){
       clearSessionProgress();
-      if (typeof window.markStreakDay === 'function') window.markStreakDay();
+      if (typeof window.markStreakDay === 'function') window.markStreakDay(guidedState.session);
       showSessionCompletionMoment(guidedState.session);
     } : function(){ guidedNav(1); };
   }
@@ -11882,7 +12221,7 @@ function renderGuidedStep(){
       }
     });
 
-    if(total===0) resultsArea.innerHTML='<div style="text-align:center;padding:40px 20px;color:var(--text-m);font-size:14px;">No results for \"'+query+'\"</div>';
+    if(total===0) resultsArea.innerHTML='<div style="text-align:center;padding:40px 20px;color:var(--text-m);font-size:13px;line-height:2;">No results for &ldquo;'+query+'&rdquo;<br><span style="font-size:11px;letter-spacing:0.08em;opacity:0.65;">Try &ldquo;morning&rdquo;, &ldquo;travel&rdquo;, &ldquo;protection&rdquo; or &ldquo;istighfar&rdquo;</span></div>';
     countEl.textContent = total+' result'+(total!==1?'s':'');
     countEl.classList.add('visible');
   };
@@ -12284,6 +12623,33 @@ function updateAdhkarTab() {
         c.classList.remove('sc-active-hero');
       }
     });
+  }
+
+  // Friday elevation: if it's Friday and we're in the pre-Maghrib window,
+  // float the Jumuah card to the very top of the page (above dailySessionCards)
+  var jumuahEl = document.getElementById('gs-jumuah');
+  var jumuahBanner = document.getElementById('jumuah-elevated-banner');
+  if (isFriday && period === 'asr' && jumuahEl) {
+    // Add a prominent banner above session cards pointing to Jumu'ah Hour
+    if (!jumuahBanner) {
+      var banner = document.createElement('div');
+      banner.id = 'jumuah-elevated-banner';
+      banner.className = 'jumuah-elevated-banner';
+      banner.innerHTML =
+        '<div class="jeb-glyph">۝</div>' +
+        '<div class="jeb-body">' +
+          '<div class="jeb-title">The Friday Hour is now</div>' +
+          '<div class="jeb-sub">Saʿat al-Istijābah — make your duas before Maghrib</div>' +
+        '</div>' +
+        '<button class="jeb-btn" onclick="openJumuahIntro()">Begin</button>';
+      var sessionCardsEl = document.getElementById('dailySessionCards');
+      if (sessionCardsEl && sessionCardsEl.parentNode) {
+        sessionCardsEl.parentNode.insertBefore(banner, sessionCardsEl);
+      }
+    }
+  } else {
+    // Remove banner outside of Friday Asr window
+    if (jumuahBanner) jumuahBanner.remove();
   }
 
   // Check completion — all 4 daily sessions done today
@@ -12941,7 +13307,7 @@ function renderDuaReaderIntro() {
   var prev = document.getElementById('duaReaderPrev');
   var next = document.getElementById('duaReaderNext');
   prev.disabled = true;
-  next.textContent = 'Begin →';
+  next.textContent = '›';
   next.classList.remove('btn-complete');
   document.getElementById('duaReaderDots').textContent = 'Ready';
   var body = document.getElementById('duaReaderBody');
@@ -12991,15 +13357,17 @@ function renderDuaReaderCard() {
   prev.disabled = idx === 0;
   document.getElementById('duaReaderDots').textContent = (idx + 1) + ' / ' + total;
   if (idx === total - 1) {
-    next.textContent = 'Done ✓';
+    next.textContent = '✓';
     next.classList.add('btn-complete');
   } else {
-    next.textContent = 'Next →';
+    next.textContent = '›';
     next.classList.remove('btn-complete');
   }
   var duaKey = 'dua:' + duaReaderCurrentCat + ':' + idx;
   var isFav = !!favState[duaKey];
-  document.getElementById('duaReaderFavIcon').textContent = isFav ? '★' : '☆';
+  document.getElementById('duaReaderFavIcon').innerHTML = isFav
+    ? '<svg width="13" height="13" viewBox="0 0 24 24" fill="var(--gold)" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>'
+    : '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>';
   var favBtn = document.getElementById('duaReaderFavBtn');
   if (isFav) favBtn.classList.add('starred'); else favBtn.classList.remove('starred');
   var body = document.getElementById('duaReaderBody');
@@ -13058,9 +13426,7 @@ function toggleDuaReaderFav() {
   }
   saveFavs();
   renderDuaReaderCard();
-  if (isNowStarred) {
-    openFavSheet(makeDuaId(dua.title));
-  }
+  // Saved silently — folders accessible via My Duas in the Duas tab
 }
 
 function openDuaReaderShare() {
@@ -13765,6 +14131,48 @@ Object.defineProperty(window, 'learnCurrentCard', {
   configurable: true
 });
 
+// ── LEARN COMPLETION TRACKING ──────────────────────────────────
+var LEARN_COMPLETE_KEY = 'naafi_learn_complete';
+
+function getLearnCompletions() {
+  try { return JSON.parse(localStorage.getItem(LEARN_COMPLETE_KEY) || '{}'); } catch(e) { return {}; }
+}
+
+function markLearnTopicComplete(topicId) {
+  var completions = getLearnCompletions();
+  if (!completions[topicId]) {
+    completions[topicId] = { date: new Date().toISOString().slice(0,10) };
+    try { localStorage.setItem(LEARN_COMPLETE_KEY, JSON.stringify(completions)); } catch(e) {}
+    applyLearnCompletionTiles();
+  }
+}
+
+function applyLearnCompletionTiles() {
+  var completions = getLearnCompletions();
+  document.querySelectorAll('[data-action="open-learn-topic"][data-topic]').forEach(function(btn) {
+    var topic = btn.getAttribute('data-topic');
+    var existing = btn.querySelector('.lc-done-badge');
+    if (completions[topic]) {
+      if (!existing) {
+        var badge = document.createElement('span');
+        badge.className = 'lc-done-badge';
+        badge.setAttribute('aria-label', 'Completed');
+        // Insert before the chevron or at end of button
+        var chevron = btn.querySelector('.cat-tile-chevron');
+        if (chevron) btn.insertBefore(badge, chevron);
+        else btn.appendChild(badge);
+      }
+    } else {
+      if (existing) existing.remove();
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  applyLearnCompletionTiles();
+});
+// ── END LEARN COMPLETION TRACKING ──────────────────────────────
+
 function openLearnTopic(topicId) {
   renderLearnDeck(topicId);
   document.getElementById('learnIndex').style.display = 'none';
@@ -13862,6 +14270,8 @@ function renderLearnCard(topicId, index) {
         void col.offsetWidth;
         col.classList.add('animating');
       }
+      // ── Mark topic as completed in localStorage ──
+      markLearnTopicComplete(topicId);
     }
   }
   // Nav buttons
@@ -15397,16 +15807,23 @@ window.satRestartTimer = function() {
     return days;
   }
 
-  window.markStreakDay = function() {
+  window.markStreakDay = function(sessionKey) {
     var today = new Date().toDateString();
     var data = getStreakData();
     var current = data.current || 0;
     var longest = data.longest || 0;
     var lastDate = data.lastDate || '';
-    var history = data.history || {}; // { "Mon Jan 01 2024": true, ... }
+    var history = data.history || {}; // { "Mon Jan 01 2024": ['morning','evening'], ... }
 
-    // Record today in history
-    history[today] = true;
+    // Record today in history — accumulate session keys as array
+    var existing = history[today];
+    if (sessionKey && typeof sessionKey === 'string') {
+      var arr = Array.isArray(existing) ? existing : (existing ? ['legacy'] : []);
+      if (arr.indexOf(sessionKey) === -1) arr.push(sessionKey);
+      history[today] = arr;
+    } else if (!existing) {
+      history[today] = true;
+    }
 
     // Already counted today
     if (lastDate === today) {
@@ -15416,10 +15833,18 @@ window.satRestartTimer = function() {
       return;
     }
 
+    var wasStreak = current > 1;
+    var missedDays = lastDate && lastDate !== getYesterday();
+
     // Consecutive day
     if (lastDate === getYesterday()) {
       current = current + 1;
     } else {
+      // Missed one or more days — show a return moment before resetting
+      if (wasStreak && missedDays && !safeGet('_return_shown_' + today)) {
+        safeSet('_return_shown_' + today, '1');
+        _showStreakReturnMoment(current);
+      }
       current = 1;
     }
 
@@ -15447,6 +15872,29 @@ window.satRestartTimer = function() {
     }
   };
 
+  function _showStreakReturnMoment(prevStreak) {
+    var el = document.getElementById('_streakReturnMoment');
+    if (el) el.remove();
+    var overlay = document.createElement('div');
+    overlay.id = '_streakReturnMoment';
+    overlay.style.cssText = 'position:fixed;inset:0;z-index:9997;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px 32px;background:var(--deep);text-align:center;';
+    overlay.innerHTML =
+      '<div style="font-family:var(--fa);font-size:clamp(22px,6vw,34px);color:var(--gold-l);direction:rtl;line-height:1.8;margin-bottom:20px;text-shadow:0 0 40px rgba(196,163,90,0.12);">عُدْ إِلَى اللَّهِ</div>' +
+      '<div style="font-family:var(--fs);font-size:clamp(18px,5vw,24px);color:var(--gold-l);font-weight:400;margin-bottom:16px;letter-spacing:0.02em;">Return is always possible.</div>' +
+      '<div style="font-family:var(--fn);font-size:13px;color:var(--text-m);letter-spacing:0.07em;line-height:1.7;max-width:280px;margin-bottom:40px;">' +
+        'Every day that begins with dhikr is its own complete act. <br>Your ' + prevStreak + '-day streak is held with what it meant.<br>Begin again, from here.' +
+      '</div>' +
+      '<div style="display:flex;align-items:center;gap:14px;margin-bottom:36px;opacity:0.4;">' +
+        '<span style="font-family:var(--fa);font-size:0.9rem;color:var(--gold);">✦</span>' +
+        '<span style="font-family:var(--fa);font-size:1.6rem;color:var(--gold);line-height:1;">۞</span>' +
+        '<span style="font-family:var(--fa);font-size:0.9rem;color:var(--gold);">✦</span>' +
+      '</div>' +
+      '<button id="_srDismiss" style="font-family:var(--fn);font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-m);background:none;border:1px solid var(--bdr);border-radius:40px;padding:10px 28px;cursor:pointer;-webkit-tap-highlight-color:transparent;">Begin today</button>';
+    document.body.appendChild(overlay);
+    var btn = document.getElementById('_srDismiss');
+    if (btn) btn.addEventListener('click', function() { overlay.style.opacity='0'; overlay.style.transition='opacity 300ms'; setTimeout(function(){ overlay.remove(); }, 320); });
+  }
+
   function renderStreakBadge(count) {
     var badge  = document.getElementById('streakBadge');
     var numEl  = document.getElementById('streakNum');
@@ -15461,6 +15909,31 @@ window.satRestartTimer = function() {
     if (c >= 100) badge.classList.add('streak-milestone-100');
     else if (c >= 30) badge.classList.add('streak-milestone-30');
     else if (c >= 7) badge.classList.add('streak-milestone-7');
+
+    // Returning-user acknowledgement
+    var rl = document.getElementById('homeReturningLine');
+    var rt = document.getElementById('homeReturningText');
+    if (rl && rt && c > 1) {
+      var data = getStreakData();
+      var totalDays = Object.keys(data.history || {}).length;
+      var longest = data.longest || c;
+      var msg = '';
+      if (c >= 100) {
+        msg = c + ' consecutive days of remembrance. May Allah accept every one.';
+      } else if (c >= 30) {
+        msg = 'A month of consistency. ' + c + '-day streak.';
+      } else if (c >= 7) {
+        msg = 'Seven days and counting — ' + c + '-day streak. Keep going.';
+      } else if (totalDays > 10) {
+        msg = 'You\'ve completed sessions on ' + totalDays + ' days. ' + c + '-day streak.';
+      } else {
+        msg = c + '-day streak. The best deeds are those done consistently.';
+      }
+      rt.textContent = msg;
+      rl.style.display = 'block';
+    } else if (rl) {
+      rl.style.display = 'none';
+    }
   }
 
 
@@ -15508,6 +15981,9 @@ window.satRestartTimer = function() {
     var runIdx = doneArr.length - 1;
     while (runIdx >= 0 && doneArr[runIdx]) { runFlags[runIdx] = true; runIdx--; }
 
+    // Session icon map: key → glyph
+    var SESSION_ICONS = { morning: '☀', evening: '☽', salah: '◈', sleep: '✦', jumuah: '۝', legacy: '◌' };
+
     var html = '';
     days.forEach(function(day, i) {
       var done = doneArr[i];
@@ -15517,8 +15993,20 @@ window.satRestartTimer = function() {
       var classes = 'sh-cell';
       if (done) classes += ' sh-done';
       if (inRun) classes += ' sh-run';
+
+      // Build session icon row if we have per-session data
+      var sessionData = history[day];
+      var iconsHtml = '';
+      if (Array.isArray(sessionData) && sessionData.length > 0) {
+        var iconParts = sessionData.map(function(k) {
+          return '<span class="sh-sicon" title="' + k + '">' + (SESSION_ICONS[k] || '◌') + '</span>';
+        }).join('');
+        iconsHtml = '<div class="sh-icons">' + iconParts + '</div>';
+      }
+
       html += '<div class="' + classes + '" title="' + day + '">' +
               '<div class="sh-dot"></div>' +
+              (iconsHtml || '') +
               '<div class="sh-label">' + label + '</div>' +
               '</div>';
     });
@@ -15941,6 +16429,40 @@ window.satRestartTimer = function() {
     setTimeout(initOverscroll, 120);
   };
   document.addEventListener("DOMContentLoaded", initOverscroll);
+
+// ============================================================
+//  HOME GREETING — time-of-day context
+// ============================================================
+(function(){
+  function initHomeGreeting() {
+    var el = document.getElementById('homeGreeting');
+    var arEl = document.getElementById('homeGreetingAr');
+    var textEl = document.getElementById('homeGreetingText');
+    if (!el || !arEl || !textEl) return;
+    var h = new Date().getHours();
+    var ar, text;
+    if (h >= 4 && h < 12) {
+      ar = 'الصَّلَاةُ خَيْرٌ مِنَ النَّوْمِ';
+      text = 'The morning of dhikr. Begin with the name of Allah.';
+    } else if (h >= 12 && h < 16) {
+      ar = 'اللَّهُمَّ أَعِنِّي عَلَى ذِكْرِكَ';
+      text = 'O Allah, aid me in Your remembrance, gratitude, and worship.';
+    } else if (h >= 16 && h < 19) {
+      ar = 'أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ';
+      text = 'The evening is here. Protect yourself with the evening adhkar.';
+    } else if (h >= 19 && h < 22) {
+      ar = 'بِاسْمِكَ اللَّهُمَّ أَحْيَا وَأَمُوتُ';
+      text = 'In Your name, O Allah, I live and I die.';
+    } else {
+      ar = 'اللَّهُمَّ بِاسْمِكَ أَحْيَا وَبِاسْمِكَ أَمُوتُ';
+      text = 'Complete the day with remembrance. Rest is also worship.';
+    }
+    arEl.textContent = ar;
+    textEl.textContent = text;
+    el.style.display = '';
+  }
+  document.addEventListener('DOMContentLoaded', initHomeGreeting);
+})();
 })();
 // ===== END EASTERN ARABIC NUMERALS + OVERSCROLL MARGINALIA =====
 </script>
@@ -15963,17 +16485,18 @@ window.satRestartTimer = function() {
       <span class="scm-next-arrow">›</span>
     </button>
   </div>
+  <div class="scm-bridge" id="scmBridge" style="display:none;"></div>
   <button class="scm-dismiss-btn" onclick="dismissSessionCompletion()">Return</button>
 </div>
 
 <div id="favSheet" class="fav-sheet" role="dialog" aria-modal="true" aria-label="Save to Folder">
   <div class="fav-sheet-backdrop" onclick="closeFavSheet()"></div>
   <div class="fav-sheet-surface">
-    <div class="fav-sheet-title">Save to Folder</div>
-    <div class="fav-sheet-sub">Tap a folder to add or remove this dua</div>
+    <div class="fav-sheet-title">Keep this dua close</div>
+    <div class="fav-sheet-sub">Your saved duas are your record of conversation with Allah. Choose a collection.</div>
     <div id="favFolderList" class="fav-sheet-list"></div>
     <button id="favNewFolderBtn" class="fav-sheet-new-btn">
-      <span class="fav-sheet-new-icon">+</span> New Folder
+      <span class="fav-sheet-new-icon">+</span> New Collection
     </button>
     <button class="fav-sheet-done-btn" onclick="closeFavSheet()">Done</button>
   </div>
