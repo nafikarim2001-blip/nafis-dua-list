@@ -90,6 +90,8 @@
         'Segoe UI','Helvetica Neue','Arial',sans-serif;
 
   --radius: 14px;
+  --radius-pill: 40px;   /* pill buttons: Begin, salah pills */
+  --radius-ctrl: 4px;    /* utility controls: icon-btn, small actions */
   --tap-min: 48px;
   --ar-scale: 1;
   --ar-size: 26px; /* base Arabic font size; used in .ar and .guided-ar calc() */
@@ -363,12 +365,14 @@ body.dark .bottom-nav { background: rgba(8,12,18,0.92); border-top-color: rgba(1
 /* ---- INSTALL PROMPT CARD ---- */
 .install-card {
   position: relative;
-  margin: 0 0 20px;
-  border-radius: 12px;
-  border: 1px solid rgba(196,163,90,0.4);
-  background: var(--card);
-  padding: 20px 18px 16px;
-  text-align: center;
+  background: transparent;
+  border: none;
+  border-top: 1px solid rgba(139,107,42,0.09);
+  border-bottom: 1px solid rgba(139,107,42,0.09);
+  border-radius: 0;
+  padding: 18px 0;
+  text-align: left;
+  margin: 8px 0 20px;
 }
 .install-card-close {
   position: absolute;
@@ -383,44 +387,46 @@ body.dark .bottom-nav { background: rgba(8,12,18,0.92); border-top-color: rgba(1
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
 }
-.install-card-icon { font-size: 28px; margin-bottom: 8px; }
+.install-card-icon { display: none; }
 .install-card-title {
   font-family: var(--fs);
-  font-size: 17px;
-  color: var(--gold-l);
+  font-size: 16px;
+  color: var(--text);
+  font-weight: 400;
+  text-align: left;
   margin-bottom: 6px;
 }
 .install-card-body {
   font-size: 12px;
   color: var(--text-d);
   line-height: 1.65;
-  margin-bottom: 14px;
+  text-align: left;
+  margin-bottom: 10px;
 }
 .install-steps {
+  background: none;
+  padding: 0;
   font-size: 12px;
-  color: var(--text);
+  color: var(--text-d);
   line-height: 1.8;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
   text-align: left;
-  background: rgba(196,163,90,0.06);
-  border-radius: 8px;
-  padding: 10px 14px;
 }
 .install-steps strong { color: var(--gold); }
 .install-card-btn {
-  display: block;
-  width: 100%;
-  padding: 12px;
-  border-radius: 8px;
-  background: rgba(196,163,90,0.15);
-  border: 1px solid var(--gold);
-  color: var(--gold-l);
+  background: rgba(139,107,42,0.10);
+  border: 1px solid rgba(139,107,42,0.28);
+  border-radius: 40px;
+  color: var(--gold);
   font-family: var(--fn);
-  font-size: 13px;
-  letter-spacing: 0.1em;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
+  padding: 9px 24px;
+  width: auto;
+  display: inline-block;
   cursor: pointer;
-  margin-bottom: 10px;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
 }
@@ -439,43 +445,45 @@ body.dark .bottom-nav { background: rgba(8,12,18,0.92); border-top-color: rgba(1
 
 /* ---- SETTINGS INSTALL SECTION ---- */
 .sv-install-section {
-  background: var(--card);
-  border-radius: 12px;
-  border: 1px solid rgba(196,163,90,0.20);
-  padding: 18px;
-  text-align: center;
+  background: transparent;
+  border: none;
+  border-top: 1px solid rgba(139,107,42,0.09);
+  border-bottom: 1px solid rgba(139,107,42,0.09);
+  padding: 18px 0;
+  text-align: left;
   margin-bottom: 16px;
 }
-.sv-install-icon { font-size: 32px; margin-bottom: 10px; }
+.sv-install-icon { display: none; }
 .sv-install-desc {
   font-size: 12px;
   color: var(--text-d);
   line-height: 1.65;
-  margin-bottom: 14px;
+  text-align: left;
+  margin-bottom: 10px;
 }
 .sv-install-steps {
   font-size: 12px;
-  color: var(--text);
+  color: var(--text-d);
   line-height: 1.8;
   text-align: left;
-  background: rgba(196,163,90,0.06);
-  border-radius: 8px;
-  padding: 10px 14px;
-  margin-bottom: 14px;
+  background: none;
+  padding: 0;
+  margin-bottom: 12px;
 }
 .sv-install-steps strong { color: var(--gold); }
 .sv-install-btn {
-  display: block;
-  width: 100%;
-  padding: 12px;
-  border-radius: 8px;
-  background: rgba(196,163,90,0.15);
-  border: 1px solid var(--gold);
-  color: var(--gold-l);
+  background: rgba(139,107,42,0.10);
+  border: 1px solid rgba(139,107,42,0.28);
+  border-radius: 40px;
+  color: var(--gold);
   font-family: var(--fn);
-  font-size: 13px;
-  letter-spacing: 0.1em;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
+  padding: 9px 24px;
+  width: auto;
+  display: inline-block;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
@@ -625,90 +633,125 @@ body.dark .colophon { opacity: 0.22; }
    Closes the spiritual loop the session opened.
 ──────────────────────────────────────────────────────────── */
 #sessionCompletionMoment {
-  display: none;
   position: fixed;
   inset: 0;
-  z-index: 10500;
+  z-index: 9999;
+  display: none;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
+  padding: 48px 32px;
   background: var(--deep);
   text-align: center;
-  padding: 40px 32px;
 }
-#sessionCompletionMoment.scm-open {
+#sessionCompletionMoment.scm-visible {
   display: flex;
 }
-@keyframes scm-fadein {
-  from { opacity: 0; transform: translateY(12px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-@keyframes scm-fadeout {
-  from { opacity: 1; }
-  to   { opacity: 0; }
-}
-#sessionCompletionMoment.scm-exit {
-  animation: scm-fadeout 500ms var(--ease-manuscript) forwards;
-}
 .scm-title {
-  font-family: var(--fn);
-  font-size: 10px;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--gold);
-  opacity: 0;
-  animation: scm-fadein 600ms var(--ease-velvet) 200ms forwards;
+  font-family: var(--fs);
+  font-size: clamp(22px, 6vw, 32px);
+  color: var(--gold-l);
+  font-weight: 400;
   margin-bottom: 32px;
+  letter-spacing: 0.02em;
 }
 .scm-colophon {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 36px;
+  gap: 14px;
+  margin-bottom: 32px;
+  opacity: 0.5;
 }
 .scm-colophon-glyph {
-  font-family: 'Scheherazade New', 'Traditional Arabic', serif;
-  font-size: 1.4rem;
+  font-family: var(--fa);
+  font-size: 2rem;
   color: var(--gold);
   line-height: 1;
-  opacity: 0;
-  animation: colophon-ink 700ms cubic-bezier(0.22,1,0.36,1) 680ms forwards;
 }
 .scm-colophon-star {
-  font-family: 'Scheherazade New', 'Traditional Arabic', serif;
-  font-size: 1.0rem;
+  font-family: var(--fa);
+  font-size: 0.9rem;
   color: var(--gold);
-  line-height: 1;
-}
-.scm-colophon-star:first-child {
-  opacity: 0;
-  animation: colophon-ink 600ms cubic-bezier(0.22,1,0.36,1) 120ms forwards;
-}
-.scm-colophon-star:last-child {
-  opacity: 0;
-  animation: colophon-ink 600ms cubic-bezier(0.22,1,0.36,1) 1240ms forwards;
 }
 .scm-note {
-  font-family: var(--fs);
-  font-size: 15px;
-  color: var(--text-d);
-  line-height: 1.7;
-  max-width: 300px;
-  opacity: 0;
-  animation: scm-fadein 700ms var(--ease-velvet) 1000ms forwards;
-  font-style: italic;
+  font-family: var(--fn);
+  font-size: 13px;
+  color: var(--text-m);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 40px;
 }
 .scm-session-label {
+  font-family: var(--fa);
+  font-size: clamp(18px, 5vw, 28px);
+  color: var(--gold-l);
+  direction: rtl;
+  line-height: 2;
+  margin-bottom: 48px;
+  text-shadow: 0 0 40px rgba(196,163,90,0.2);
+}
+.scm-dismiss-btn {
   font-family: var(--fn);
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--text-m);
-  opacity: 0;
-  animation: scm-fadein 600ms var(--ease-velvet) 1600ms forwards;
-  margin-top: 28px;
+  background: none;
+  border: 1px solid var(--bdr);
+  border-radius: var(--radius-pill);
+  padding: 10px 28px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: border-color var(--t-fast) var(--ease-out),
+              color var(--t-fast) var(--ease-out);
 }
+.scm-dismiss-btn:active {
+  border-color: var(--bdr-h);
+  color: var(--gold);
+}
+
+.scm-next {
+  width: 100%;
+  max-width: 320px;
+  margin-bottom: 24px;
+}
+.scm-next-label {
+  font-family: var(--fn);
+  font-size: 10px;
+  color: var(--text-m);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  text-align: center;
+}
+.scm-next-card {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  background: var(--card);
+  border: 1px solid var(--bdr-h);
+  border-radius: var(--radius);
+  cursor: pointer;
+  text-align: left;
+  -webkit-tap-highlight-color: transparent;
+  transition: border-color var(--t-fast) var(--ease-out);
+}
+.scm-next-card:active { border-color: var(--gold); }
+.scm-next-icon { font-size: 18px; flex-shrink: 0; }
+.scm-next-title {
+  font-family: var(--fs);
+  font-size: 15px;
+  color: var(--text);
+  flex: 1;
+}
+.scm-next-arrow {
+  color: var(--text-m);
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
 body.dark #sessionCompletionMoment {
   background: #080C12;
 }
@@ -939,16 +982,7 @@ body{
   touch-action: manipulation;
 }
 
-body::before{
-  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
-  background:
-    radial-gradient(ellipse 120% 45% at 50% -5%,
-      rgba(139,107,42,0.07) 0%, transparent 55%),
-    radial-gradient(ellipse 55% 40% at 15% 100%,
-      rgba(139,107,42,0.04) 0%, transparent 65%),
-    radial-gradient(ellipse 50% 35% at 85% 95%,
-      rgba(139,107,42,0.03) 0%, transparent 65%);
-}
+/* body::before light mode: see Sprint 3 upgrade — body:not(.dark)::before */
 
 @keyframes star-drift {
   0%   { opacity: 0.7; transform: translateY(0px); }
@@ -1417,67 +1451,7 @@ body.dark .note { border-left-color: rgba(196,163,90,0.18); }
 
 @keyframes fadeIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
 
-/* ---- SEARCH BAR ---- */
-.search-wrap{
-  position:sticky;top:44px;z-index:190;
-  background:rgba(12,16,24,0.97);
-  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
-  border-bottom:1px solid var(--bdr);
-  padding:8px 16px;
-}
-.search-inner{
-  max-width:760px;margin:0 auto;
-  position:relative;display:flex;align-items:center;
-}
-.search-icon{
-  position:absolute;left:12px;
-  font-size:14px;color:var(--text-m);
-  pointer-events:none;
-}
-#duaSearch{
-  width:100%;
-  background:var(--card);
-  border:1px solid var(--bdr);
-  border-radius:var(--radius);
-  padding:7px 36px 7px 36px; /* slightly reduced to compensate for 16px vs 13px */
-  font-family:var(--fn);font-size:16px; /* ≥16px: prevents iOS Safari viewport auto-zoom */
-  color:var(--text);
-  outline:none;
-  transition:border-color .2s,box-shadow .2s;
-  -webkit-appearance:none;
-}
-#duaSearch:focus{
-  border-color:var(--gold-d);
-  box-shadow:0 0 0 2px rgba(196,163,90,0.10);
-}
-#duaSearch::placeholder{color:var(--text-m);}
-.search-clear{
-  position:absolute;right:10px;
-  background:none;border:none;cursor:pointer;
-  color:var(--text-m);font-size:16px;line-height:1;
-  padding:4px;display:none;
-  -webkit-tap-highlight-color:transparent;
-}
-.search-clear.visible{display:flex;align-items:center;}
-.search-count{
-  font-size:10px;letter-spacing:.12em;text-transform:uppercase;
-  color:var(--gold);padding:2px 0 0;margin-left:10px;
-  white-space:nowrap;flex-shrink:0;display:none;
-}
-.search-count.visible{display:block;}
-
-/* Search hidden cards */
-.dua.search-hidden,.expand-wrap.search-hidden{display:none;}
-
-/* Search highlight */
-.search-hl{background:rgba(196,163,90,0.16);border-radius:2px;padding:0 1px;}
-
-/* No results message */
-.search-empty{
-  display:none;text-align:center;padding:40px 20px;
-  color:var(--text-m);font-size:14px;
-}
-.search-empty.visible{display:block;}
+/* ---- SEARCH: implementation lives in the SPA search overlay (below) ---- */
 
 /* ---- COPY BUTTON ---- */
 .copy-btn{
@@ -1548,7 +1522,6 @@ body.dark .note { border-left-color: rgba(196,163,90,0.18); }
 
 /* Kill the old sticky top nav completely */
 .nav, nav.nav { display: none !important; visibility: hidden !important; height: 0 !important; overflow: hidden !important; }
-.search-wrap { display: none !important; }
 
 /* ALL views hidden by default — JS shows the active one */
 .spa-view {
@@ -4735,7 +4708,7 @@ button, .bn-tab, .expand-trigger, .copy-btn, .fav-star,
 .dua-reader {
   position: fixed; inset: 0; z-index: 10002;
   background: var(--deep);
-  display: flex; flex-direction: column;
+  display: none; flex-direction: column;
   transition: opacity 380ms cubic-bezier(0.22,1,0.36,1), transform 380ms cubic-bezier(0.22,1,0.36,1);
   opacity: 0;
   transform: translateY(20px);
@@ -5306,7 +5279,25 @@ button, .bn-tab, .expand-trigger, .copy-btn, .fav-star,
   transition: width var(--t-slow);
 }
 
-/* ── EXIT ANIMATIONS ─────────────────────────────────────────────────── */
+/* ── OVERLAY CONTROLLER SHARED CLASSES ──────────────────────────────── */
+/* overlay-managed-open / overlay-managed-closing mirror is-open / is-closing
+   so OverlayController can drive both overlays without touching their visual rules. */
+.guided-overlay.overlay-managed-open {
+  animation: overlayEnter 460ms var(--ease-velvet) both;
+}
+.guided-overlay.overlay-managed-closing {
+  animation: overlayExit 300ms var(--ease-manuscript) forwards;
+  pointer-events: none;
+}
+.dua-reader.overlay-managed-open {
+  opacity: 1;
+  transform: translateY(0);
+}
+.dua-reader.overlay-managed-closing {
+  animation: readerExit 260ms var(--ease-manuscript) forwards;
+  pointer-events: none;
+}
+
 @keyframes overlayExit {
   0%   { opacity: 1; transform: translateY(0)    scale(1);     }
   30%  { opacity: 0; }
@@ -5340,7 +5331,7 @@ body.overlay-open .bottom-nav {
   pointer-events: none;
 }
 
-#home-view, #adhkar-view, #duas-view, #dhikr-view, #learn-view, #settings-view {
+#home-view, #adhkar-view, #duas-view,  #learn-view, #settings-view {
   transition: transform var(--t-slow),
               opacity var(--t-slow);
 }
@@ -5695,12 +5686,12 @@ body.overlay-open .spa-view.view-active {
   display: flex;
   align-items: center;
   gap: 5px;
-  padding: 7px 13px;
+  padding: 6px 12px;
   border-radius: 20px;
   border: 1px solid var(--bdr-h);
   background: transparent;
   font-family: var(--fn);
-  font-size: 12px;
+  font-size: 11px;
   color: var(--text-d);
   cursor: pointer;
   white-space: nowrap;
@@ -6213,6 +6204,368 @@ body.dark .hps-dot-check svg { color: rgba(196,163,90,0.2); }
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* ============================================================
+   SPRINT 1 — FAV SHEET SYSTEM COMPONENT
+   Replaces all inline styles on #favSheet
+   ============================================================ */
+.fav-sheet {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  align-items: flex-end;
+  justify-content: center;
+}
+.fav-sheet.fav-sheet-open {
+  display: flex;
+}
+.fav-sheet-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.48);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+body.dark .fav-sheet-backdrop {
+  background: rgba(0, 0, 0, 0.68);
+}
+.fav-sheet-surface {
+  position: relative;
+  background: var(--card);
+  border: 1px solid var(--bdr);
+  border-radius: var(--radius) var(--radius) 0 0;
+  padding: 20px 16px calc(24px + env(safe-area-inset-bottom, 0px));
+  width: 100%;
+  max-width: 520px;
+  z-index: 1;
+  animation: sheetRise 280ms var(--ease-velvet) both;
+}
+@keyframes sheetRise {
+  from { transform: translateY(24px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+.fav-sheet-title {
+  font-family: var(--fs);
+  font-size: 18px;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.fav-sheet-sub {
+  font-family: var(--fn);
+  font-size: 12px;
+  color: var(--text-m);
+  margin-bottom: 18px;
+  letter-spacing: 0.04em;
+}
+.fav-sheet-list {
+  max-height: 240px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.fav-sheet-new-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  background: transparent;
+  border: 1px dashed var(--bdr-h);
+  border-radius: var(--radius-ctrl);
+  padding: 12px 16px;
+  cursor: pointer;
+  font-family: var(--fn);
+  font-size: 13px;
+  color: var(--gold);
+  letter-spacing: 0.04em;
+  -webkit-tap-highlight-color: transparent;
+  margin-bottom: 12px;
+  transition: background var(--t-fast) var(--ease-out),
+              border-color var(--t-fast) var(--ease-out);
+}
+.fav-sheet-new-btn:active {
+  background: var(--gold-f);
+  border-color: var(--gold);
+}
+.fav-sheet-new-icon {
+  font-size: 18px;
+  line-height: 1;
+}
+.fav-sheet-done-btn {
+  width: 100%;
+  padding: 14px;
+  background: var(--gold-f);
+  border: 1px solid var(--bdr);
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-family: var(--fn);
+  font-size: 14px;
+  color: var(--text-d);
+  -webkit-tap-highlight-color: transparent;
+  transition: background var(--t-fast) var(--ease-out);
+}
+.fav-sheet-done-btn:active {
+  background: rgba(139,107,42,0.14);
+}
+
+/* ============================================================
+   SPRINT 2 — SESSION CARD VARIANTS
+   ============================================================ */
+
+/* Locked card — shown on non-qualifying days (e.g. Friday Hour on Mon–Thu) */
+.session-card.session-card--locked {
+  opacity: 0.42;
+  pointer-events: none;
+  filter: saturate(0.6);
+}
+.session-card.session-card--locked .session-card-arrow {
+  display: none;
+}
+.session-card-lock-icon {
+  display: none;
+  font-size: 13px;
+  color: var(--text-m);
+  flex-shrink: 0;
+}
+.session-card.session-card--locked .session-card-lock-icon {
+  display: block;
+}
+/* "Already done?" ghost link on home session cards */
+.sc-already-done {
+  display: block;
+  font-family: var(--fn);
+  font-size: 10px;
+  color: var(--text-m);
+  letter-spacing: 0.06em;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  background: none;
+  border: none;
+  padding: 4px 0 0;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  opacity: 0.7;
+  transition: opacity var(--t-fast) var(--ease-out);
+  text-align: center;
+  width: 100%;
+}
+.sc-already-done:active { opacity: 0.35; }
+.session-card.sc-done .sc-already-done { display: none; }
+/* Wrap begin + already-done in a column */
+.sc-begin-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+/* ============================================================
+   SPRINT 2 — FRIDAY HOUR UNLOCK LABEL
+   ============================================================ */
+.session-card-unlock-label {
+  display: none;
+  font-family: var(--fn);
+  font-size: 10px;
+  color: var(--text-m);
+  letter-spacing: 0.06em;
+  margin-top: 2px;
+  opacity: 0.7;
+}
+.session-card.session-card--locked .session-card-unlock-label {
+  display: block;
+}
+
+/* ============================================================
+   SPRINT 3 — LIGHT MODE ATMOSPHERE PARITY
+   ============================================================ */
+@keyframes parchment-breathe {
+  0%   { opacity: 1;   background-position: 50% -5%; }
+  100% { opacity: 0.85; background-position: 50% 0%; }
+}
+body:not(.dark)::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  will-change: opacity;
+  background:
+    radial-gradient(ellipse 120% 45% at 50% -5%,
+      rgba(139,107,42,0.09) 0%, transparent 55%),
+    radial-gradient(ellipse 55% 40% at 15% 100%,
+      rgba(139,107,42,0.05) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 35% at 85% 95%,
+      rgba(139,107,42,0.04) 0%, transparent 65%);
+  animation: parchment-breathe 20s ease-in-out infinite alternate;
+}
+/* Upgrade light mode Arabic text warmth */
+body:not(.dark) .ar {
+  text-shadow:
+    0 1px 0 rgba(139,107,42,0.12),
+    0 2px 16px rgba(139,107,42,0.06),
+    0 0 32px rgba(139,107,42,0.04);
+}
+body:not(.dark) .bismillah {
+  text-shadow:
+    0 1px 0 rgba(139,107,42,0.14),
+    0 2px 20px rgba(139,107,42,0.08),
+    0 0 48px rgba(139,107,42,0.05);
+}
+
+/* ============================================================
+   SPRINT 3 — SPLASH GPU COMPOSITING FIX
+   ============================================================ */
+#naafi-splash {
+  will-change: opacity, transform;
+  transform: translateZ(0);
+}
+
+/* ============================================================
+   SPRINT 4 — STREAK HISTORY MOMENTUM
+   ============================================================ */
+/* Consecutive run dots glow more prominently */
+.sh-cell.sh-run .sh-dot {
+  background: var(--gold-l);
+  border-color: var(--gold);
+  box-shadow: 0 0 8px var(--gold-glow), 0 0 16px var(--gold-glow);
+}
+.sh-cell.sh-run .sh-label {
+  color: var(--gold-l);
+  opacity: 0.9;
+}
+/* Staggered entrance for dots */
+.sh-cell { opacity: 0; animation: shDotIn 220ms var(--ease-spring) both; }
+.sh-cell:nth-child(1)  { animation-delay: 20ms; }
+.sh-cell:nth-child(2)  { animation-delay: 40ms; }
+.sh-cell:nth-child(3)  { animation-delay: 60ms; }
+.sh-cell:nth-child(4)  { animation-delay: 80ms; }
+.sh-cell:nth-child(5)  { animation-delay: 100ms; }
+.sh-cell:nth-child(6)  { animation-delay: 120ms; }
+.sh-cell:nth-child(7)  { animation-delay: 140ms; }
+.sh-cell:nth-child(8)  { animation-delay: 160ms; }
+.sh-cell:nth-child(9)  { animation-delay: 175ms; }
+.sh-cell:nth-child(10) { animation-delay: 190ms; }
+.sh-cell:nth-child(11) { animation-delay: 205ms; }
+.sh-cell:nth-child(12) { animation-delay: 218ms; }
+.sh-cell:nth-child(13) { animation-delay: 228ms; }
+.sh-cell:nth-child(14) { animation-delay: 236ms; }
+@keyframes shDotIn {
+  from { opacity: 0; transform: scale(0.5); }
+  to   { opacity: 1; transform: scale(1); }
+}
+/* Best streak label */
+.sh-best-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid var(--bdr);
+}
+.sh-best-label {
+  font-family: var(--fn);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-m);
+  opacity: 0.65;
+}
+.sh-best-value {
+  font-family: var(--fn);
+  font-size: 11px;
+  color: var(--gold);
+  letter-spacing: 0.04em;
+}
+
+/* ============================================================
+   SPRINT 4 — BOTTOM NAV SUBLABELS
+   ============================================================ */
+.bn-sublabel {
+  display: block;
+  font-size: 8px;
+  color: var(--text-m);
+  letter-spacing: 0.06em;
+  opacity: 0.6;
+  margin-top: 1px;
+  text-transform: uppercase;
+  line-height: 1;
+}
+.bn-tab.active .bn-sublabel {
+  color: var(--gold);
+  opacity: 0.75;
+}
+
+
+/* ===== PROMPT 1: Manuscript cat-tile overrides ===== */
+.cat-grid-header {
+  font-size: 9px !important;
+  letter-spacing: 0.24em !important;
+  text-transform: uppercase !important;
+  color: var(--gold) !important;
+  margin: 24px 0 10px !important;
+  font-family: var(--fn) !important;
+  font-weight: 500 !important;
+  opacity: 1 !important;
+}
+.cat-tile.cat-tile-row {
+  background: transparent !important;
+  border: none !important;
+  border-bottom: 1px solid rgba(139,107,42,0.09) !important;
+  border-radius: 0 !important;
+  padding: 16px 0 !important;
+}
+.cat-tile.cat-tile-row:first-of-type { border-top: none !important; }
+.cat-tile.cat-tile-row:last-of-type { border-bottom: none !important; }
+.cat-tile.cat-tile-wide {
+  background: transparent !important;
+  border: none !important;
+  border-bottom: 1px solid rgba(139,107,42,0.09) !important;
+  border-radius: 0 !important;
+  padding: 16px 0 !important;
+}
+.cat-tile-chevron { color: var(--text-m) !important; font-size: 18px !important; }
+
+
+/* ===== PROMPT 3: Home hierarchy ===== */
+.resume-card {
+  background: transparent !important;
+  border: none !important;
+  border-left: 2px solid rgba(196,163,90,0.35) !important;
+  padding: 14px 14px 14px 16px !important;
+  border-radius: 0 !important;
+  margin-bottom: 16px !important;
+  box-shadow: none !important;
+}
+.hps-label {
+  font-size: 9px !important;
+  letter-spacing: 0.2em !important;
+  text-transform: uppercase !important;
+  opacity: 0.55 !important;
+}
+.home-progress-strip {
+  margin-top: 12px !important;
+  margin-bottom: 16px !important;
+}
+.home-quick-row {
+  border-top: 1px solid rgba(139,107,42,0.08) !important;
+  padding-top: 16px !important;
+  margin-top: 8px !important;
+}
+.home-quick-chip {
+  font-size: 11px !important;
+}
+
+/* ===== PROMPT 4: Streak milestones ===== */
+.streak-milestone-7 { border: 1px solid rgba(196,163,90,0.45) !important; box-shadow: 0 0 0 3px rgba(196,163,90,0.07); }
+.streak-milestone-30 { border: 1px solid var(--gold) !important; box-shadow: 0 0 10px rgba(196,163,90,0.16); }
+.streak-milestone-30 .streak-fire { animation: streak-pulse 2.2s ease-in-out infinite; display: inline-block; }
+.streak-milestone-100 { border: 1px solid var(--gold-l) !important; box-shadow: 0 0 16px rgba(196,163,90,0.22); }
+.streak-milestone-100 .streak-fire { animation: streak-pulse 1.6s ease-in-out infinite; display: inline-block; }
+@keyframes streak-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.2); }
+}
 </style>
 </head>
 <body>
@@ -6249,12 +6602,12 @@ body.dark .hps-dot-check svg { color: rgba(196,163,90,0.2); }
 
   <!-- Floating header — search + settings -->
   <div class="spa-header-bar home-header-float">
-    <button class="icon-btn" data-action="open-search" aria-label="Search">🔍</button>
-    <button class="icon-btn" data-action="open-settings" aria-label="Settings">⚙️</button>
+    <button class="icon-btn" data-action="open-search" aria-label="Search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
+    <button class="icon-btn" data-action="open-settings" aria-label="Settings"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>
   </div>
 
   <!-- Wordmark — prominent header -->
-  <div class="home-wordmark">
+  <div class="home-wordmark" style="margin-bottom:4px;">
     <div class="home-wordmark-title">Naafi</div>
     <div class="home-wordmark-sub">Dua &nbsp;·&nbsp; Adhkar &nbsp;·&nbsp; Dhikr</div>
   </div>
@@ -6274,43 +6627,8 @@ body.dark .hps-dot-check svg { color: rgba(196,163,90,0.2); }
   <!-- CONTEXTUAL HOME — hero + secondary — rendered by JS -->
   <div id="contextualHome" class="contextual-home"></div>
 
-  <!-- Situational quick-access chips -->
-  <div class="home-quick-row">
-    <button class="home-quick-chip" data-action="open-duas-cat-simple" data-cat="illness">
-      <span class="home-quick-chip-icon">🤲</span> Hardship
-    </button>
-    <button class="home-quick-chip" data-action="open-duas-cat-simple" data-cat="sunnah">
-      <span class="home-quick-chip-icon">🌿</span> Anxiety &amp; Grief
-    </button>
-    <button class="home-quick-chip" data-action="open-duas-cat-simple" data-cat="travel">
-      <span class="home-quick-chip-icon">✈️</span> Travel
-    </button>
-    <button class="home-quick-chip" data-action="open-duas-cat-simple" data-cat="istikharah">
-      <span class="home-quick-chip-icon">⭐</span> Istikhārah
-    </button>
-    <button class="home-quick-chip" data-action="open-duas-cat-simple" data-cat="eating">
-      <span class="home-quick-chip-icon">🍽️</span> Eating
-    </button>
-  </div>
-
-  <!-- Hijri + streak — quiet meta row, below hero -->
-  <div class="home-meta-row">
-    <div class="hijri-date loading" id="hijriDisplay"></div>
-    <div class="streak-badge streak-zero" id="streakBadge" title="Tap to see your 14-day history">
-      <span class="streak-fire">🔥</span>
-      <span class="streak-num" id="streakNum">0</span>
-      <span class="streak-label" id="streakLabel">day streak</span>
-    </div>
-  </div>
-
-  <!-- Streak history panel — shown on badge tap -->
-  <div id="streakHistoryPanel">
-    <div class="sh-title">Last 14 days</div>
-    <div id="streakHistoryGrid"></div>
-  </div>
-
   <!-- DAILY PROGRESS STRIP -->
-  <div class="home-progress-strip" id="homeProgressStrip">
+  <div class="home-progress-strip" id="homeProgressStrip" style="margin-bottom:20px;">
     <div class="hps-label">Today</div>
     <div class="hps-dots">
       <button class="hps-dot" id="hpd-morning" data-action="start-session" data-session="morning" title="Morning Adhkar">
@@ -6332,6 +6650,42 @@ body.dark .hps-dot-check svg { color: rgba(196,163,90,0.2); }
     </div>
   </div>
 
+  <!-- Hijri + streak — quiet meta row, below hero -->
+  <div class="home-meta-row">
+    <div class="hijri-date loading" id="hijriDisplay"></div>
+    <div class="streak-badge streak-zero" id="streakBadge" title="Tap to see your 14-day history">
+      <span class="streak-fire">🔥</span>
+      <span class="streak-num" id="streakNum">0</span>
+      <span class="streak-label" id="streakLabel">day streak</span>
+    </div>
+  </div>
+
+  <!-- Streak history panel — shown on badge tap -->
+  <div id="streakHistoryPanel">
+    <div class="sh-title">Last 14 days</div>
+    <div id="streakHistoryGrid"></div>
+  </div>
+
+  <!-- Situational quick-access chips -->
+  <div class="home-quick-row">
+    <button class="home-quick-chip" data-action="open-duas-cat-simple" data-cat="illness">
+      <span class="home-quick-chip-icon" style="font-family:var(--fa);font-size:15px;color:var(--gold);opacity:0.7;">﴿</span> Hardship
+    </button>
+    <button class="home-quick-chip" data-action="open-duas-cat-simple" data-cat="sunnah">
+      <span class="home-quick-chip-icon" style="font-family:var(--fa);font-size:15px;color:var(--gold);opacity:0.7;">◌</span> Anxiety &amp; Grief
+    </button>
+    <button class="home-quick-chip" data-action="open-duas-cat-simple" data-cat="travel">
+      <span class="home-quick-chip-icon" style="font-family:var(--fa);font-size:14px;color:var(--gold);opacity:0.7;">◈</span> Travel
+    </button>
+    <button class="home-quick-chip" data-action="open-duas-cat-simple" data-cat="istikharah">
+      <span class="home-quick-chip-icon" style="font-family:var(--fa);font-size:15px;color:var(--gold);opacity:0.7;">✦</span> Istikhārah
+    </button>
+    <button class="home-quick-chip" data-action="open-duas-cat-simple" data-cat="eating">
+      <span class="home-quick-chip-icon" style="font-family:var(--fa);font-size:15px;color:var(--gold);opacity:0.7;">◉</span> Eating
+    </button>
+  </div>
+
+  <!-- My Duas — visible when favourites exist -->
   <!-- My Duas — visible when favourites exist -->
   <div class="home-favs-section" id="myDuasOverlay">
     <div id="favView">
@@ -6347,6 +6701,7 @@ body.dark .hps-dot-check svg { color: rgba(196,163,90,0.2); }
     </div>
   </div>
 
+  <!-- Hidden DotD hooks — JS populates these but they don't display -->
   <!-- Hidden DotD hooks — JS populates these but they don't display -->
   <div id="duaOfDay" style="display:none;" aria-hidden="true">
     <div id="dotdSection"></div>
@@ -6364,8 +6719,8 @@ body.dark .hps-dot-check svg { color: rgba(196,163,90,0.2); }
 <!-- =================== ADHKAR VIEW =================== -->
 <div class="spa-view" id="adhkar-view" data-view="adhkar">
   <div class="spa-header-bar">
-    <button class="icon-btn" data-action="open-search">🔍</button>
-    <button class="icon-btn" data-action="open-settings">⚙️</button>
+    <button class="icon-btn" data-action="open-search" aria-label="Search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
+    <button class="icon-btn" data-action="open-settings" aria-label="Settings"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>
   </div>
 
   <!-- Session Cards -->
@@ -6436,14 +6791,16 @@ body.dark .hps-dot-check svg { color: rgba(196,163,90,0.2); }
       </div>
       <div class="session-card-arrow">›</div>
     </div>
-    <!-- Friday Hour — shown by JS on Fridays only -->
-    <div class="session-card session-card-jumuah" id="gs-jumuah" data-action="open-jumuah" style="display:none;">
+    <!-- Friday Hour — locked on non-Fridays; JS adds/removes .session-card--locked -->
+    <div class="session-card session-card-jumuah session-card--locked" id="gs-jumuah" data-action="open-jumuah">
       <div class="session-card-glyph" aria-hidden="true">۝</div>
       <div class="session-card-body">
         <div class="session-card-title">The Friday Hour</div>
         <div class="session-card-sub">Saʿat al-Istijābah · 11 sections · Before Maghrib</div>
+        <div class="session-card-unlock-label" id="gs-jumuah-unlock"></div>
       </div>
       <div class="session-card-arrow">›</div>
+      <span class="session-card-lock-icon" aria-hidden="true">🔒</span>
     </div>
   </div>
 
@@ -6687,208 +7044,7 @@ body.dark .hps-dot-check svg { color: rgba(196,163,90,0.2); }
 
   <div class="divider-mo"><div class="divider-mo-glyph" aria-hidden="true">۞</div></div>
 
-
-</div><!-- end adhkar-view -->
-
-
-<!-- =================== DUAS VIEW =================== -->
-<div class="spa-view" id="duas-view" data-view="duas">
-  <div class="spa-header-bar">
-    <button class="icon-btn" data-action="open-search">🔍</button>
-    <button class="icon-btn" data-action="open-settings">⚙️</button>
-  </div>
-
-  <button id="duasCatBack" data-action="close-duas-cat"
-    style="display:none; align-items:center; gap:8px; background:none; border:none;
-    color:var(--gold); font-family:var(--fn); font-size:13px; letter-spacing:0.08em;
-    text-transform:uppercase; cursor:pointer; padding:4px 16px 12px;
-    -webkit-tap-highlight-color:transparent; touch-action:manipulation;">
-    ← Back to Duas
-  </button>
-
-<div id="duasIndex">
-    <!-- My Duas persistent section — always visible in Duas tab -->
-    <div id="duasMyDuasSection" style="padding:16px 16px 0 16px;">
-      <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:12px;padding:0 2px;">
-        <span style="font-family:var(--fs);font-size:16px;color:var(--text-d);">My Duas</span>
-        <span style="font-family:var(--fn);font-size:10px;color:var(--text-m);letter-spacing:0.1em;text-transform:uppercase;opacity:0.6;" id="duasMyDuasCount"></span>
-      </div>
-      <div id="duasMyDuasList"></div>
-    </div>
-    <div style="height:1px;background:var(--bdr);margin:16px 16px 0;" id="duasMyDuasDivider"></div>
-
-    <!-- Search bar -->
-    <div class="duas-index-search" style="padding:16px 16px 0;">
-      <span class="duas-index-search-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
-      <input type="search" class="duas-index-search-input" id="duasIndexSearch"
-        placeholder="Search categories…" autocomplete="off"
-        oninput="filterDuasIndex(this.value)" aria-label="Search Duas categories">
-    </div>
-    <div class="duas-index" id="duasIndexList">
-<div class="cat-grid">
-
-  <div class="cat-grid-header cat-grid-header-primary">Qur'an &amp; Sunnah</div>
-
-  <button class="cat-tile cat-tile-row cat-tile-primary" data-action="open-duas-cat-simple" data-cat="quran">
-    <div class="cat-tile-icon">📖</div>
-    <div class="cat-tile-body">
-      <div class="cat-tile-title">Duas from the Qur'an</div>
-      <div class="cat-tile-sub">Supplications from the Qur'an · 21</div>
-    </div>
-    <div class="cat-tile-chevron">›</div>
-  </button>
-
-  <button class="cat-tile cat-tile-row cat-tile-primary" data-action="open-duas-cat-simple" data-cat="prophets">
-    <div class="cat-tile-icon">🌿</div>
-    <div class="cat-tile-body">
-      <div class="cat-tile-title">Duas of the Prophets</div>
-      <div class="cat-tile-sub">Ibrahim, Musa, Yunus, Ayyub and more · 20</div>
-    </div>
-    <div class="cat-tile-chevron">›</div>
-  </button>
-
-  <button class="cat-tile cat-tile-row cat-tile-primary" data-action="open-duas-cat-simple" data-cat="sunnah">
-    <div class="cat-tile-icon">☪️</div>
-    <div class="cat-tile-body">
-      <div class="cat-tile-title">Prophetic Duas</div>
-      <div class="cat-tile-sub">Anxiety, debt, guidance, knowledge, character · 14</div>
-    </div>
-    <div class="cat-tile-chevron">›</div>
-  </button>
-
-  <div class="cat-grid-header">Situational</div>
-
-  <button class="cat-tile cat-tile-row" data-action="open-duas-cat-simple" data-cat="daily">
-    <div class="cat-tile-icon">🏡</div>
-    <div class="cat-tile-body">
-      <div class="cat-tile-title">Daily Life</div>
-      <div class="cat-tile-sub">Leaving home, entering, waking, sleeping · 23</div>
-    </div>
-    <div class="cat-tile-chevron">›</div>
-  </button>
-
-  <button class="cat-tile cat-tile-row" data-action="open-duas-cat-simple" data-cat="marriage">
-    <div class="cat-tile-icon">💍</div>
-    <div class="cat-tile-body">
-      <div class="cat-tile-title">Marriage</div>
-      <div class="cat-tile-sub">At nikah, with a new spouse, for family</div>
-    </div>
-    <div class="cat-tile-chevron">›</div>
-  </button>
-
-  <button class="cat-tile cat-tile-row" data-action="open-duas-cat-simple" data-cat="illness">
-    <div class="cat-tile-icon">🤲</div>
-    <div class="cat-tile-body">
-      <div class="cat-tile-title">Illness &amp; Hardship</div>
-      <div class="cat-tile-sub">Sick, in pain, overwhelmed · 6</div>
-    </div>
-    <div class="cat-tile-chevron">›</div>
-  </button>
-
-  <button class="cat-tile cat-tile-row" data-action="open-duas-cat-simple" data-cat="travel">
-    <div class="cat-tile-icon">✈️</div>
-    <div class="cat-tile-body">
-      <div class="cat-tile-title">Travel</div>
-      <div class="cat-tile-sub">Before and during any journey · 3</div>
-    </div>
-    <div class="cat-tile-chevron">›</div>
-  </button>
-
-  <button class="cat-tile cat-tile-row" data-action="open-duas-cat-simple" data-cat="eating">
-    <div class="cat-tile-icon">🍽️</div>
-    <div class="cat-tile-body">
-      <div class="cat-tile-title">Eating &amp; Drinking</div>
-      <div class="cat-tile-sub">Before eating, after eating, forgetting bismillah · 3</div>
-    </div>
-    <div class="cat-tile-chevron">›</div>
-  </button>
-
-  <div class="cat-grid-header">Reference</div>
-
-  <button class="cat-tile cat-tile-row" data-action="open-duas-cat-simple" data-cat="salawat">
-    <div class="cat-tile-icon">✨</div>
-    <div class="cat-tile-body">
-      <div class="cat-tile-title">Salawat</div>
-      <div class="cat-tile-sub">Send salawat — after adhan, in salah, always · 2</div>
-    </div>
-    <div class="cat-tile-chevron">›</div>
-  </button>
-
-  <button class="cat-tile cat-tile-row" data-action="open-duas-cat-simple" data-cat="istighfar">
-    <div class="cat-tile-icon">🤍</div>
-    <div class="cat-tile-body">
-      <div class="cat-tile-title">Istighfar</div>
-      <div class="cat-tile-sub">After sin, to repent, daily istighfar · 4</div>
-    </div>
-    <div class="cat-tile-chevron">›</div>
-  </button>
-
-  <button class="cat-tile cat-tile-row" data-action="open-duas-cat-simple" data-cat="istikharah">
-    <div class="cat-tile-icon">⭐</div>
-    <div class="cat-tile-body">
-      <div class="cat-tile-title">Salah al-Istikharah</div>
-      <div class="cat-tile-sub">When making a decision — full method included</div>
-    </div>
-    <div class="cat-tile-chevron">›</div>
-  </button>
-
-  <div class="cat-grid-header cat-grid-header-minor">Special Occasions</div>
-
-  <button class="cat-tile cat-tile-row cat-tile-minor" data-action="open-duas-cat-simple" data-cat="dhulhijjah-duas">
-    <div class="cat-tile-icon">🕋</div>
-    <div class="cat-tile-body">
-      <div class="cat-tile-title">Dhul Hijjah &amp; Arafah</div>
-      <div class="cat-tile-sub">Dhul Hijjah, Day of Arafah, Eid al-Adha · 5</div>
-    </div>
-    <div class="cat-tile-chevron">›</div>
-  </button>
-
-</div>
-</div>
-  </div>
-
-  <div id="duasContent" style="display:none;">
-<div class="view-subnav">
-    <button class="view-subnav-btn" data-action="scroll-section" data-section="quran">📖 Quranic</button>
-    <button class="view-subnav-btn" data-action="scroll-section" data-section="prophets">🕌 Prophets</button>
-    <button class="view-subnav-btn" data-action="scroll-section" data-section="sunnah">☪ Prophetic</button>
-    <button class="view-subnav-btn" data-action="scroll-section" data-section="daily">🗓 Daily Life</button>
-    <button class="view-subnav-btn" data-action="scroll-section" data-section="marriage">💍 Marriage</button>
-    <button class="view-subnav-btn" data-action="scroll-section" data-section="istikharah">🎯 Istikharah</button>
-    <button class="view-subnav-btn" data-action="scroll-section" data-section="dhikr-section">📿 Dhikr</button>
-  </div>
-
-<div id="duasSectionsContainer"></div>
-
-  </div><!-- close duasContent -->
-
-  <!-- Per-category detail view — shown by openDuasCategory() -->
-  <div id="duasCatDetail" style="display:none;">
-    <div class="duas-cat-detail-header">
-      <button class="duas-cat-back-btn" data-action="close-duas-cat">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-        Back to Duas
-      </button>
-    </div>
-    <div class="duas-cat-detail-hero">
-      <div class="duas-cat-detail-icon" id="duasCatDetailIcon"></div>
-      <div class="duas-cat-detail-titles">
-        <div class="duas-cat-detail-title" id="duasCatDetailTitle"></div>
-        <div class="duas-cat-detail-sub" id="duasCatDetailSub"></div>
-      </div>
-    </div>
-    <div class="duas-cat-detail-note" id="duasCatDetailNote" style="display:none;"></div>
-    <div id="duasCatDetailCards"></div>
-  </div><!-- end duasCatDetail -->
-
-</div><!-- end duas-view -->
-
-
-<div class="spa-view" id="dhikr-view" data-view="dhikr">
-  <div class="spa-header-bar">
-    <button class="icon-btn" data-action="open-search">🔍</button>
-    <button class="icon-btn" data-action="open-settings">⚙️</button>
-  </div>
+  <div class="session-section-header" style="margin-top: 24px;">Daily Dhikr</div>
   <div class="dhikr-view-header">
     <span class="mo mo-md" aria-hidden="true">۞</span>
     <h2>Daily Dhikr</h2>
@@ -6967,26 +7123,228 @@ body.dark .hps-dot-check svg { color: rgba(196,163,90,0.2); }
 
   <div class="divider-mo"><div class="divider-mo-glyph" aria-hidden="true">۞</div></div>
 
-</div><!-- end dhikr-view -->
+
+</div><!-- end adhkar-view -->
+
+
+<!-- =================== DUAS VIEW =================== -->
+<div class="spa-view" id="duas-view" data-view="duas">
+  <div class="spa-header-bar">
+    <button class="icon-btn" data-action="open-search" aria-label="Search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
+    <button class="icon-btn" data-action="open-settings" aria-label="Settings"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>
+  </div>
+
+  <button id="duasCatBack" data-action="close-duas-cat"
+    style="display:none; align-items:center; gap:8px; background:none; border:none;
+    color:var(--gold); font-family:var(--fn); font-size:13px; letter-spacing:0.08em;
+    text-transform:uppercase; cursor:pointer; padding:4px 16px 12px;
+    -webkit-tap-highlight-color:transparent; touch-action:manipulation;">
+    ← Back to Duas
+  </button>
+
+<div id="duasIndex">
+    <!-- My Duas persistent section — always visible in Duas tab -->
+    <div id="duasMyDuasSection" style="padding:16px 16px 0 16px;">
+      <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:12px;padding:0 2px;">
+        <span style="font-family:var(--fs);font-size:16px;color:var(--text-d);">My Duas</span>
+        <span style="font-family:var(--fn);font-size:10px;color:var(--text-m);letter-spacing:0.1em;text-transform:uppercase;opacity:0.6;" id="duasMyDuasCount"></span>
+      </div>
+      <div id="duasMyDuasList"></div>
+    </div>
+    <div style="height:1px;background:var(--bdr);margin:16px 16px 0;" id="duasMyDuasDivider"></div>
+
+    <!-- Search bar -->
+    <div class="duas-index-search" style="padding:16px 16px 0;">
+      <span class="duas-index-search-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
+      <input type="search" class="duas-index-search-input" id="duasIndexSearch"
+        placeholder="Search categories…" autocomplete="off"
+        oninput="filterDuasIndex(this.value)" aria-label="Search Duas categories">
+    </div>
+    <div class="duas-index" id="duasIndexList">
+<div class="cat-grid">
+
+  <div class="cat-grid-header cat-grid-header-primary">Qur'an &amp; Sunnah</div>
+
+  <button class="cat-tile cat-tile-row cat-tile-primary" data-action="open-duas-cat-simple" data-cat="quran">
+    <div class="cat-tile-icon" style="width:36px;height:36px;border:1px solid var(--gold-d);background:var(--gold-f);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-family:var(--fa);font-size:18px;color:var(--gold);opacity:0.65;flex-shrink:0;">﴾</div>
+    <div class="cat-tile-body">
+      <div class="cat-tile-title">Duas from the Qur'an</div>
+      <div class="cat-tile-sub">Supplications from the Qur'an · 21</div>
+    </div>
+    <div class="cat-tile-chevron">›</div>
+  </button>
+
+  <button class="cat-tile cat-tile-row cat-tile-primary" data-action="open-duas-cat-simple" data-cat="prophets">
+    <div class="cat-tile-icon" style="width:36px;height:36px;border:1px solid var(--gold-d);background:var(--gold-f);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-family:var(--fa);font-size:18px;color:var(--gold);opacity:0.65;flex-shrink:0;">✦</div>
+    <div class="cat-tile-body">
+      <div class="cat-tile-title">Duas of the Prophets</div>
+      <div class="cat-tile-sub">Ibrahim, Musa, Yunus, Ayyub and more · 20</div>
+    </div>
+    <div class="cat-tile-chevron">›</div>
+  </button>
+
+  <button class="cat-tile cat-tile-row cat-tile-primary" data-action="open-duas-cat-simple" data-cat="sunnah">
+    <div class="cat-tile-icon" style="width:36px;height:36px;border:1px solid var(--gold-d);background:var(--gold-f);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-family:var(--fa);font-size:18px;color:var(--gold);opacity:0.65;flex-shrink:0;">۞</div>
+    <div class="cat-tile-body">
+      <div class="cat-tile-title">Prophetic Duas</div>
+      <div class="cat-tile-sub">Anxiety, debt, guidance, knowledge, character · 14</div>
+    </div>
+    <div class="cat-tile-chevron">›</div>
+  </button>
+
+  <div class="cat-grid-header">Situational</div>
+
+  <button class="cat-tile cat-tile-row" data-action="open-duas-cat-simple" data-cat="daily">
+    <div class="cat-tile-icon" style="width:36px;height:36px;border:1px solid var(--gold-d);background:var(--gold-f);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-family:var(--fa);font-size:18px;color:var(--gold);opacity:0.65;flex-shrink:0;">☽</div>
+    <div class="cat-tile-body">
+      <div class="cat-tile-title">Daily Life</div>
+      <div class="cat-tile-sub">Leaving home, entering, waking, sleeping · 23</div>
+    </div>
+    <div class="cat-tile-chevron">›</div>
+  </button>
+
+  <button class="cat-tile cat-tile-row" data-action="open-duas-cat-simple" data-cat="marriage">
+    <div class="cat-tile-icon" style="width:36px;height:36px;border:1px solid var(--gold-d);background:var(--gold-f);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-family:var(--fa);font-size:18px;color:var(--gold);opacity:0.65;flex-shrink:0;">◇</div>
+    <div class="cat-tile-body">
+      <div class="cat-tile-title">Marriage</div>
+      <div class="cat-tile-sub">At nikah, with a new spouse, for family</div>
+    </div>
+    <div class="cat-tile-chevron">›</div>
+  </button>
+
+  <button class="cat-tile cat-tile-row" data-action="open-duas-cat-simple" data-cat="illness">
+    <div class="cat-tile-icon" style="width:36px;height:36px;border:1px solid var(--gold-d);background:var(--gold-f);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-family:var(--fa);font-size:18px;color:var(--gold);opacity:0.65;flex-shrink:0;">﴿</div>
+    <div class="cat-tile-body">
+      <div class="cat-tile-title">Illness &amp; Hardship</div>
+      <div class="cat-tile-sub">Sick, in pain, overwhelmed · 6</div>
+    </div>
+    <div class="cat-tile-chevron">›</div>
+  </button>
+
+  <button class="cat-tile cat-tile-row" data-action="open-duas-cat-simple" data-cat="travel">
+    <div class="cat-tile-icon" style="width:36px;height:36px;border:1px solid var(--gold-d);background:var(--gold-f);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-family:var(--fa);font-size:18px;color:var(--gold);opacity:0.65;flex-shrink:0;">◈</div>
+    <div class="cat-tile-body">
+      <div class="cat-tile-title">Travel</div>
+      <div class="cat-tile-sub">Before and during any journey · 3</div>
+    </div>
+    <div class="cat-tile-chevron">›</div>
+  </button>
+
+  <button class="cat-tile cat-tile-row" data-action="open-duas-cat-simple" data-cat="eating">
+    <div class="cat-tile-icon" style="width:36px;height:36px;border:1px solid var(--gold-d);background:var(--gold-f);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-family:var(--fa);font-size:18px;color:var(--gold);opacity:0.65;flex-shrink:0;">◉</div>
+    <div class="cat-tile-body">
+      <div class="cat-tile-title">Eating &amp; Drinking</div>
+      <div class="cat-tile-sub">Before eating, after eating, forgetting bismillah · 3</div>
+    </div>
+    <div class="cat-tile-chevron">›</div>
+  </button>
+
+  <div class="cat-grid-header">Reference</div>
+
+  <button class="cat-tile cat-tile-row" data-action="open-duas-cat-simple" data-cat="salawat">
+    <div class="cat-tile-icon" style="width:36px;height:36px;border:1px solid var(--gold-d);background:var(--gold-f);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-family:var(--fa);font-size:18px;color:var(--gold);opacity:0.65;flex-shrink:0;">✦</div>
+    <div class="cat-tile-body">
+      <div class="cat-tile-title">Salawat</div>
+      <div class="cat-tile-sub">Send salawat — after adhan, in salah, always · 2</div>
+    </div>
+    <div class="cat-tile-chevron">›</div>
+  </button>
+
+  <button class="cat-tile cat-tile-row" data-action="open-duas-cat-simple" data-cat="istighfar">
+    <div class="cat-tile-icon" style="width:36px;height:36px;border:1px solid var(--gold-d);background:var(--gold-f);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-family:var(--fa);font-size:18px;color:var(--gold);opacity:0.65;flex-shrink:0;">◎</div>
+    <div class="cat-tile-body">
+      <div class="cat-tile-title">Istighfar</div>
+      <div class="cat-tile-sub">After sin, to repent, daily istighfar · 4</div>
+    </div>
+    <div class="cat-tile-chevron">›</div>
+  </button>
+
+  <button class="cat-tile cat-tile-row" data-action="open-duas-cat-simple" data-cat="istikharah">
+    <div class="cat-tile-icon" style="width:36px;height:36px;border:1px solid var(--gold-d);background:var(--gold-f);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-family:var(--fa);font-size:18px;color:var(--gold);opacity:0.65;flex-shrink:0;">◈</div>
+    <div class="cat-tile-body">
+      <div class="cat-tile-title">Salah al-Istikharah</div>
+      <div class="cat-tile-sub">When making a decision — full method included</div>
+    </div>
+    <div class="cat-tile-chevron">›</div>
+  </button>
+
+  <div class="cat-grid-header cat-grid-header-minor">Special Occasions</div>
+
+  <button class="cat-tile cat-tile-row cat-tile-minor" data-action="open-duas-cat-simple" data-cat="dhulhijjah-duas">
+    <div class="cat-tile-icon" style="width:36px;height:36px;border:1px solid var(--gold-d);background:var(--gold-f);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-family:var(--fa);font-size:18px;color:var(--gold);opacity:0.65;flex-shrink:0;">۞</div>
+    <div class="cat-tile-body">
+      <div class="cat-tile-title">Dhul Hijjah &amp; Arafah</div>
+      <div class="cat-tile-sub">Dhul Hijjah, Day of Arafah, Eid al-Adha · 5</div>
+    </div>
+    <div class="cat-tile-chevron">›</div>
+  </button>
+
+</div>
+</div>
+  </div>
+
+  <div id="duasContent" style="display:none;">
+<div class="view-subnav">
+    <button class="view-subnav-btn" data-action="scroll-section" data-section="quran">Quranic</button>
+    <button class="view-subnav-btn" data-action="scroll-section" data-section="prophets">Prophets</button>
+    <button class="view-subnav-btn" data-action="scroll-section" data-section="sunnah">Prophetic</button>
+    <button class="view-subnav-btn" data-action="scroll-section" data-section="daily">Daily Life</button>
+    <button class="view-subnav-btn" data-action="scroll-section" data-section="marriage">Marriage</button>
+    <button class="view-subnav-btn" data-action="scroll-section" data-section="istikharah">Istikharah</button>
+    <button class="view-subnav-btn" data-action="scroll-section" data-section="dhikr-section">Dhikr</button>
+  </div>
+
+<div id="duasSectionsContainer"></div>
+
+  </div><!-- close duasContent -->
+
+  <!-- Per-category detail view — shown by openDuasCategory() -->
+  <div id="duasCatDetail" style="display:none;">
+    <div class="duas-cat-detail-header">
+      <button class="duas-cat-back-btn" data-action="close-duas-cat">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        Back to Duas
+      </button>
+    </div>
+    <div class="duas-cat-detail-hero">
+      <div class="duas-cat-detail-icon" id="duasCatDetailIcon"></div>
+      <div class="duas-cat-detail-titles">
+        <div class="duas-cat-detail-title" id="duasCatDetailTitle"></div>
+        <div class="duas-cat-detail-sub" id="duasCatDetailSub"></div>
+      </div>
+    </div>
+    <div class="duas-cat-detail-note" id="duasCatDetailNote" style="display:none;"></div>
+    <div id="duasCatDetailCards"></div>
+  </div><!-- end duasCatDetail -->
+
+</div><!-- end duas-view -->
+
+
+
 
 
 <!-- =================== LEARN VIEW =================== -->
 <div class="spa-view" id="learn-view" data-view="learn">
   <div class="spa-header-bar">
-    <button class="icon-btn" data-action="open-search">🔍</button>
-    <button class="icon-btn" data-action="open-settings">⚙️</button>
+    <button class="icon-btn" data-action="open-search" aria-label="Search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
+    <button class="icon-btn" data-action="open-settings" aria-label="Settings"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>
   </div>
   <div class="view-subnav" style="margin-bottom:0;">
-  <button class="view-subnav-btn" data-action="open-learn-topic" data-topic="qadr">⭐ Laylatul Qadr</button>
-  <button class="view-subnav-btn" data-action="open-learn-topic" data-topic="jumua">🕌 Jumu'ah</button>
-  <button class="view-subnav-btn" data-action="open-learn-topic" data-topic="ruqyah">🛡️ Ruqyah</button>
-  <button class="view-subnav-btn" data-action="open-learn-topic" data-topic="surahs">📖 Surahs</button>
+  <button class="view-subnav-btn" data-action="open-learn-topic" data-topic="qadr">Laylatul Qadr</button>
+  <button class="view-subnav-btn" data-action="open-learn-topic" data-topic="jumua">Jumu'ah</button>
+  <button class="view-subnav-btn" data-action="open-learn-topic" data-topic="ruqyah">Ruqyah</button>
+  <button class="view-subnav-btn" data-action="open-learn-topic" data-topic="surahs">Surahs</button>
 
 </div>
 
 <div id="learnIndex">
 
-  <div class="duas-index-search" style="padding: 16px 16px 0;">
+  <div style="padding: 24px 16px 8px; text-align: left;">
+  <div style="font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;">Knowledge &amp; Reflection</div>
+  <div style="font-family:var(--fs);font-size:clamp(20px,5vw,26px);color:var(--text);font-weight:400;line-height:1.2;margin-bottom:8px;">Deepen your practice</div>
+  <div style="font-size:12px;color:var(--text-d);line-height:1.7;max-width:420px;">Guides on sacred times, the 99 Names, and the art of du'a — grounded in Qur'an and Sunnah.</div>
+</div>
+<div class="duas-index-search" style="padding: 16px 16px 0;">
     <span class="duas-index-search-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
     <input id="learnIndexSearch" class="duas-index-search-input" type="search"
       placeholder="Search topics…"
@@ -6997,26 +7355,27 @@ body.dark .hps-dot-check svg { color: rgba(196,163,90,0.2); }
   <div id="learnIndexList">
 <div class="cat-grid">
 
-  <button class="cat-tile cat-tile-wide" data-action="open-learn-topic" data-topic="hub">
-    <div class="cat-tile-band band-gold">🤲</div>
+  <button class="cat-tile cat-tile-wide" data-action="open-learn-topic" data-topic="hub" style="border-left:2px solid rgba(196,163,90,0.4);padding-left:14px;">
+    <div class="cat-tile-icon" style="width:36px;height:36px;border:1px solid var(--gold-d);background:var(--gold-f);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-family:var(--fa);font-size:18px;color:var(--gold);opacity:0.65;flex-shrink:0;">﴾</div>
     <div class="cat-tile-body">
+      <div style="font-size:8px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);opacity:0.7;margin-bottom:4px;">Complete Guide</div>
       <div class="cat-tile-title">The Art of Du'a</div>
       <div class="cat-tile-sub">A complete guide · 26 cards</div>
     </div>
   </button>
 
   <button class="cat-tile cat-tile-wide" data-action="open-asma">
-    <div class="cat-tile-band band-forest">✨</div>
+    <div class="cat-tile-icon" style="width:36px;height:36px;border:1px solid var(--gold-d);background:var(--gold-f);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-family:var(--fa);font-size:18px;color:var(--gold);opacity:0.65;flex-shrink:0;">✦</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Asmāʾ al-Ḥusnā</div>
       <div class="cat-tile-sub">The 99 Beautiful Names of Allah · browse &amp; search</div>
     </div>
   </button>
 
-  <div class="cat-grid-header">Prayer Times &amp; Occasions</div>
+  <div class="cat-grid-header">Sacred Times</div>
 
   <button class="cat-tile" data-action="open-learn-topic" data-topic="times">
-    <div class="cat-tile-band band-navy">🕐</div>
+    <div class="cat-tile-icon" style="width:36px;height:36px;border:1px solid var(--gold-d);background:var(--gold-f);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-family:var(--fa);font-size:18px;color:var(--gold);opacity:0.65;flex-shrink:0;">☽</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Prayer Times</div>
       <div class="cat-tile-sub">When duas are answered</div>
@@ -7024,7 +7383,7 @@ body.dark .hps-dot-check svg { color: rgba(196,163,90,0.2); }
   </button>
 
   <button class="cat-tile" data-action="open-learn-topic" data-topic="qadr">
-    <div class="cat-tile-band band-plum">⭐</div>
+    <div class="cat-tile-icon" style="width:36px;height:36px;border:1px solid var(--gold-d);background:var(--gold-f);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-family:var(--fa);font-size:18px;color:var(--gold);opacity:0.65;flex-shrink:0;">✦</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Laylatul Qadr</div>
       <div class="cat-tile-sub">Better than 1000 months</div>
@@ -7032,7 +7391,7 @@ body.dark .hps-dot-check svg { color: rgba(196,163,90,0.2); }
   </button>
 
   <button class="cat-tile" data-action="open-learn-topic" data-topic="jumua">
-    <div class="cat-tile-band band-teal">🕌</div>
+    <div class="cat-tile-icon" style="width:36px;height:36px;border:1px solid var(--gold-d);background:var(--gold-f);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-family:var(--fa);font-size:18px;color:var(--gold);opacity:0.65;flex-shrink:0;">۞</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Jumu'ah</div>
       <div class="cat-tile-sub">Friday · Surah Kahf · The hour</div>
@@ -7040,7 +7399,7 @@ body.dark .hps-dot-check svg { color: rgba(196,163,90,0.2); }
   </button>
 
   <button class="cat-tile" data-action="open-learn-topic" data-topic="dhulhijjah">
-    <div class="cat-tile-band band-earth">🕋</div>
+    <div class="cat-tile-icon" style="width:36px;height:36px;border:1px solid var(--gold-d);background:var(--gold-f);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-family:var(--fa);font-size:18px;color:var(--gold);opacity:0.65;flex-shrink:0;">۞</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Dhul Hijjah &amp; Eid</div>
       <div class="cat-tile-sub">Ten blessed days</div>
@@ -7048,7 +7407,7 @@ body.dark .hps-dot-check svg { color: rgba(196,163,90,0.2); }
   </button>
 
   <button class="cat-tile" data-action="open-learn-topic" data-topic="arafah">
-    <div class="cat-tile-band band-gold">🌄</div>
+    <div class="cat-tile-icon" style="width:36px;height:36px;border:1px solid var(--gold-d);background:var(--gold-f);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-family:var(--fa);font-size:18px;color:var(--gold);opacity:0.65;flex-shrink:0;">◌</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Yawm Arafah</div>
       <div class="cat-tile-sub">Day of Arafah · guide &amp; duas</div>
@@ -7056,7 +7415,7 @@ body.dark .hps-dot-check svg { color: rgba(196,163,90,0.2); }
   </button>
 
   <button class="cat-tile" data-action="open-learn-topic" data-topic="ashura">
-    <div class="cat-tile-band band-slate">📅</div>
+    <div class="cat-tile-icon" style="width:36px;height:36px;border:1px solid var(--gold-d);background:var(--gold-f);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-family:var(--fa);font-size:18px;color:var(--gold);opacity:0.65;flex-shrink:0;">◈</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Ashura</div>
       <div class="cat-tile-sub">9th &amp; 10th Muharram</div>
@@ -7064,7 +7423,7 @@ body.dark .hps-dot-check svg { color: rgba(196,163,90,0.2); }
   </button>
 
   <button class="cat-tile" data-action="open-learn-topic" data-topic="shaban">
-    <div class="cat-tile-band band-rose">🌟</div>
+    <div class="cat-tile-icon" style="width:36px;height:36px;border:1px solid var(--gold-d);background:var(--gold-f);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-family:var(--fa);font-size:18px;color:var(--gold);opacity:0.65;flex-shrink:0;">✦</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Sha'ban</div>
       <div class="cat-tile-sub">The neglected month</div>
@@ -7072,17 +7431,17 @@ body.dark .hps-dot-check svg { color: rgba(196,163,90,0.2); }
   </button>
 
   <button class="cat-tile" data-action="open-learn-topic" data-topic="eid">
-    <div class="cat-tile-band band-forest">🎉</div>
+    <div class="cat-tile-icon" style="width:36px;height:36px;border:1px solid var(--gold-d);background:var(--gold-f);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-family:var(--fa);font-size:18px;color:var(--gold);opacity:0.65;flex-shrink:0;">◎</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Eid</div>
       <div class="cat-tile-sub">Sunnah of the celebration</div>
     </div>
   </button>
 
-  <div class="cat-grid-header">Knowledge</div>
+  <div class="cat-grid-header">Guides &amp; References</div>
 
   <button class="cat-tile" data-action="open-learn-topic" data-topic="ruqyah">
-    <div class="cat-tile-band band-slate">🛡️</div>
+    <div class="cat-tile-icon" style="width:36px;height:36px;border:1px solid var(--gold-d);background:var(--gold-f);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-family:var(--fa);font-size:18px;color:var(--gold);opacity:0.65;flex-shrink:0;">﴿</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Ruqyah</div>
       <div class="cat-tile-sub">Healing &amp; protection</div>
@@ -7090,7 +7449,7 @@ body.dark .hps-dot-check svg { color: rgba(196,163,90,0.2); }
   </button>
 
   <button class="cat-tile" data-action="open-learn-topic" data-topic="qunut">
-    <div class="cat-tile-band band-teal">🤲</div>
+    <div class="cat-tile-icon" style="width:36px;height:36px;border:1px solid var(--gold-d);background:var(--gold-f);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-family:var(--fa);font-size:18px;color:var(--gold);opacity:0.65;flex-shrink:0;">﴾</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Qunut al-Nazilah</div>
       <div class="cat-tile-sub">Dua in times of calamity</div>
@@ -7098,20 +7457,25 @@ body.dark .hps-dot-check svg { color: rgba(196,163,90,0.2); }
   </button>
 
   <button class="cat-tile" data-action="open-learn-topic" data-topic="surahs">
-    <div class="cat-tile-band band-forest">📖</div>
+    <div class="cat-tile-icon" style="width:36px;height:36px;border:1px solid var(--gold-d);background:var(--gold-f);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-family:var(--fa);font-size:18px;color:var(--gold);opacity:0.65;flex-shrink:0;">✦</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Key Surahs</div>
       <div class="cat-tile-sub">Al-Mulk, Al-Kahf and more</div>
     </div>
   </button>
 
-  <button class="cat-tile cat-tile-wide" data-action="open-learn-topic" data-topic="personal">
-    <div class="cat-tile-band band-plum">🤍</div>
+
+  <div class="divider-mo"><span class="divider-mo-glyph">✦</span></div>
+
+  <div class="cat-grid-header">Personal</div>
+<button class="cat-tile cat-tile-wide" data-action="open-learn-topic" data-topic="personal">
+    <div class="cat-tile-icon" style="width:36px;height:36px;border:1px solid var(--gold-d);background:var(--gold-f);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-family:var(--fa);font-size:18px;color:var(--gold);opacity:0.65;flex-shrink:0;">◎</div>
     <div class="cat-tile-body">
       <div class="cat-tile-title">Personal Duas</div>
       <div class="cat-tile-sub">Your own supplications — saved privately</div>
     </div>
   </button>
+
 
 </div>
 </div>
@@ -7175,7 +7539,8 @@ body.dark .hps-dot-check svg { color: rgba(196,163,90,0.2); }
 
     <div class="sv-section-title">Install App</div>
     <div class="sv-install-section">
-      <div class="sv-install-icon">📲</div>
+      <div style="font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;">Install App</div>
+      <div class="sv-install-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="color:var(--gold-l);opacity:0.8;"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18.01"/><polyline points="8 11 12 15 16 11"/><line x1="12" y1="7" x2="12" y2="15"/></svg></div>
       <div class="sv-install-desc">Add Naafi to your home screen for instant access and offline use — no app store needed.</div>
       <div class="sv-install-steps" id="settingsInstallSteps"></div>
       <button class="sv-install-btn" id="settingsInstallBtn" style="display:none">Install App</button>
@@ -7293,7 +7658,7 @@ body.dark .hps-dot-check svg { color: rgba(196,163,90,0.2); }
     <!-- Morning Adhkar -->
     <div class="sv-row">
       <div>
-        <div class="sv-label">🌅 Morning Adhkar</div>
+        <div class="sv-label">Morning Adhkar</div>
         <div class="sv-sub">After Fajr — opens Morning session</div>
       </div>
       <label class="sv-toggle">
@@ -7309,7 +7674,7 @@ body.dark .hps-dot-check svg { color: rgba(196,163,90,0.2); }
     <!-- Evening Adhkar -->
     <div class="sv-row">
       <div>
-        <div class="sv-label">🌆 Evening Adhkar</div>
+        <div class="sv-label">Evening Adhkar</div>
         <div class="sv-sub">After Asr — opens Evening session</div>
       </div>
       <label class="sv-toggle">
@@ -7325,7 +7690,7 @@ body.dark .hps-dot-check svg { color: rgba(196,163,90,0.2); }
     <!-- Before Sleep -->
     <div class="sv-row">
       <div>
-        <div class="sv-label">🌙 Before Sleep</div>
+        <div class="sv-label">Before Sleep</div>
         <div class="sv-sub">Opens Before Sleep session</div>
       </div>
       <label class="sv-toggle">
@@ -7341,7 +7706,7 @@ body.dark .hps-dot-check svg { color: rgba(196,163,90,0.2); }
     <!-- Custom Dua -->
     <div class="sv-row">
       <div>
-        <div class="sv-label">🤲 Custom Reminder</div>
+        <div class="sv-label">Custom Reminder</div>
         <div class="sv-sub">A daily nudge to make du'a</div>
       </div>
       <label class="sv-toggle">
@@ -7362,7 +7727,7 @@ body.dark .hps-dot-check svg { color: rgba(196,163,90,0.2); }
     <div class="sv-section-title">About</div>
 
     <div class="sv-row" data-action="replay-onboarding" style="cursor:pointer;">
-      <div class="sv-row-icon">🌙</div>
+      <div class="sv-row-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/></svg></div>
       <div class="sv-row-label">Replay Introduction</div>
       <div class="sv-row-value">›</div>
     </div>
@@ -7866,19 +8231,15 @@ body.dark .hps-dot-check svg { color: rgba(196,163,90,0.2); }
   </button>
   <button class="bn-tab" data-view="adhkar" data-action="show-adhkar">
     <span class="bn-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 6 12 12 16 14"/></svg></span>
-    <span class="bn-label">Adhkar</span>
+    <span class="bn-label">Practice</span>
   </button>
   <button class="bn-tab" data-view="duas" data-action="show-duas">
     <span class="bn-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>
     <span class="bn-label">Duas</span>
   </button>
-  <button class="bn-tab" data-view="dhikr" data-action="show-dhikr">
-    <span class="bn-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></span>
-    <span class="bn-label">Dhikr</span>
-  </button>
   <button class="bn-tab" data-view="learn" data-action="show-learn">
     <span class="bn-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></span>
-    <span class="bn-label">Learn</span>
+    <span class="bn-label">Deepen</span>
   </button>
 </nav>
 
@@ -8093,7 +8454,7 @@ function showView(name) {
   }
 
   // Reset dhikr tab — close focused counter if left open
-  if (name === 'dhikr') {
+  if (name === 'dhikr' || name === 'adhkar') {
     var dhoOverlay = document.getElementById('dhikrFocusedOverlay');
     if (dhoOverlay && dhoOverlay.classList.contains('dho-open')) {
       dhoOverlay.classList.remove('dho-open', 'is-open', 'is-closing');
@@ -8164,7 +8525,7 @@ function showView(name) {
     nav.appendChild(ind);
   }
 
-  var valid = ['home','adhkar','duas','dhikr','learn','settings'];
+  var valid = ['home','adhkar','duas','learn','settings'];
   var hash = location.hash.replace('#','');
   if(hash === 'guides') hash = 'learn';
   var initial = (valid.indexOf(hash) > -1) ? hash : 'home';
@@ -9114,8 +9475,13 @@ function renderFolderList(duaId) {
 function openFavSheet(duaId) {
   _favCurrentDuaId = duaId;
   renderFolderList(duaId);
-  var sheet = document.getElementById('favSheet') || document.querySelector('[data-sheet="favourites"]');
-  if (sheet) sheet.style.display = 'flex';
+  var sheet = document.getElementById('favSheet');
+  if (sheet) sheet.classList.add('fav-sheet-open');
+}
+
+function closeFavSheet() {
+  var sheet = document.getElementById('favSheet');
+  if (sheet) sheet.classList.remove('fav-sheet-open');
 }
 
 function renderFavFoldersSection() {
@@ -10574,7 +10940,7 @@ function obSelect(choice) {
     } else if (choice === 'sleep') {
       startGuidedSession('sleep');
     } else if (choice === 'dhikr') {
-      showView('dhikr');
+      showView('adhkar');
     } else if (choice === 'duas') {
       showView('duas');
     }
@@ -10583,6 +10949,77 @@ function obSelect(choice) {
 }
 
 // guidedState → APP_STATE.session (object reference)
+// ===== OVERLAY CONTROLLER =====
+var OverlayController = (function() {
+  var _registry = {};
+  var _stack = [];
+
+  function _register(id, el) {
+    if (!el) return;
+    _registry[id] = el;
+  }
+
+  function open(id) {
+    var el = _registry[id];
+    if (!el) return;
+    el.classList.remove('overlay-managed-closing');
+    el.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+    document.body.classList.add('overlay-open');
+    if (_stack.indexOf(id) === -1) _stack.push(id);
+    requestAnimationFrame(function() {
+      requestAnimationFrame(function() {
+        el.classList.add('overlay-managed-open');
+      });
+    });
+  }
+
+  function close(id) {
+    var el = _registry[id];
+    if (!el) return;
+    el.classList.remove('overlay-managed-open');
+    el.classList.add('overlay-managed-closing');
+    setTimeout(function() {
+      el.style.display = 'none';
+      el.classList.remove('overlay-managed-closing');
+      _stack = _stack.filter(function(s) { return s !== id; });
+      if (_stack.length === 0) {
+        document.body.style.overflow = '';
+        document.body.classList.remove('overlay-open');
+      }
+    }, 320);
+  }
+
+  function closeAll() {
+    var ids = _stack.slice().reverse();
+    ids.forEach(function(id) { close(id); });
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && _stack.length) close(_stack[_stack.length - 1]);
+  });
+
+  window.addEventListener('popstate', function() {
+    if (_stack.length) { closeAll(); history.pushState(null, '', location.href); }
+  });
+
+  return { _register: _register, open: open, close: close, closeAll: closeAll };
+})();
+// ===== END OVERLAY CONTROLLER =====
+
+// Change 2: Register overlays with controller
+(function() {
+  function registerOverlays() {
+    OverlayController._register('guidedOverlay', document.getElementById('guidedOverlay'));
+    OverlayController._register('duaReader', document.getElementById('duaReader'));
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', registerOverlays);
+  } else {
+    registerOverlays();
+  }
+})();
+
 var guidedState = APP_STATE.session;
 
 window.startGuidedSession = function(sessionKey, startStep){
@@ -10602,13 +11039,7 @@ window.startGuidedSession = function(sessionKey, startStep){
     }
   }
   renderGuidedStep();
-  if (_go) {
-    _go.classList.remove('is-open');
-    _go.style.display = 'flex';
-    requestAnimationFrame(function(){ requestAnimationFrame(function(){ _go.classList.add('is-open'); }); });
-  }
-  document.body.style.overflow = 'hidden';
-  document.body.classList.add('overlay-open');
+  OverlayController.open('guidedOverlay');
 };
 
 window.closeGuidedSession = function(){
@@ -10622,14 +11053,8 @@ window.closeGuidedSession = function(){
     if (_csSession && guidedState.step > 0 && guidedState.step < _csSession.steps.length - 1) {
       saveSessionProgress(guidedState.session, guidedState.step, _csSession.steps.length);
     }
-    _goC.classList.remove('is-open');
-    _goC.classList.add('is-closing');
-    setTimeout(function() {
-      _goC.style.display = 'none';
-      _goC.classList.remove('is-closing', 'session-jumuah');
-      document.body.style.overflow = '';
-      document.body.classList.remove('overlay-open');
-    }, 220);
+    _goC.classList.remove('session-jumuah');
+    OverlayController.close('guidedOverlay');
     return;
   }
   document.body.style.overflow = '';
@@ -10663,31 +11088,57 @@ window.showSessionCompletionMoment = function(sessionKey) {
   if (noteEl) noteEl.textContent = SESSION_COMPLETION_NOTES[sessionKey] || 'May Allah accept from you. Āmeen.';
 
   // Force reflow so animations restart cleanly
-  scm.classList.remove('scm-open', 'scm-exit');
+  scm.classList.remove('scm-visible');
   void scm.offsetWidth;
-  scm.classList.add('scm-open');
+  document.getElementById('scmNext').style.display = 'none';
+  populateScmNext(sessionKey);
+  scm.classList.add('scm-visible');
   document.body.style.overflow = 'hidden';
-
-  // Auto-dismiss after 3.2 seconds
-  setTimeout(function() {
-    scm.classList.add('scm-exit');
-    setTimeout(function() {
-      scm.classList.remove('scm-open', 'scm-exit');
-      document.body.style.overflow = '';
-    }, 520);
-  }, 3200);
 };
+
+
+var _scmNextTarget = null;
+
+var SCM_NEXT_MAP = {
+  morning:  { icon: '📖', title: 'The Art of Du’a', topic: 'hub' },
+  evening:  { icon: '🕐', title: 'When Duas Are Answered', topic: 'times' },
+  sleep:    { icon: '🛡️', title: 'Ruqyah — Protection & Healing', topic: 'ruqyah' },
+  salah:    { icon: '🤲', title: 'Qunut al-Nazilah', topic: 'qunut' },
+  'default':  { icon: '🤍', title: 'The Art of Du’a', topic: 'hub' }
+};
+
+function populateScmNext(sessionKey) {
+  var map = SCM_NEXT_MAP[sessionKey] || SCM_NEXT_MAP['default'];
+  _scmNextTarget = map.topic;
+  document.getElementById('scmNextIcon').textContent  = map.icon;
+  document.getElementById('scmNextTitle').textContent = map.title;
+  document.getElementById('scmNext').style.display    = 'block';
+}
+
+function dismissAndNavigate() {
+  var el = document.getElementById('sessionCompletionMoment');
+  el.classList.remove('scm-visible');
+  document.body.style.overflow = '';
+  document.getElementById('scmNext').style.display = 'none';
+  if (_scmNextTarget) {
+    openLearnTopic(_scmNextTarget);
+    _scmNextTarget = null;
+  }
+}
+function dismissSessionCompletion() {
+  var el = document.getElementById('sessionCompletionMoment');
+  el.classList.remove('scm-visible');
+  document.body.style.overflow = '';
+  document.getElementById('scmNext').style.display = 'none';
+  _scmNextTarget = null;
+}
 
 // Tap anywhere on completion moment to dismiss early
 (function() {
   document.addEventListener('click', function(e) {
     var scm = document.getElementById('sessionCompletionMoment');
-    if (scm && scm.classList.contains('scm-open') && !scm.classList.contains('scm-exit')) {
-      scm.classList.add('scm-exit');
-      setTimeout(function() {
-        scm.classList.remove('scm-open', 'scm-exit');
-        document.body.style.overflow = '';
-      }, 520);
+    if (scm && scm.classList.contains('scm-visible')) {
+      // clicks bubble up — let dismiss btn handle its own onclick
     }
   });
 })();
@@ -10727,9 +11178,9 @@ window.guidedNav = function(dir){
 
 // ---- SESSION RESUME SYSTEM ----
 var SESSION_RESUME_META = {
-  'morning': { label: 'Morning Adhkar', icon: '🌅' },
-  'evening': { label: 'Evening Adhkar', icon: '🌆' },
-  'sleep':   { label: 'Sleep Adhkar',   icon: '🌙' },
+  'morning': { label: 'Morning Adhkar', icon: null, iconHtml: '<span style="font-family:var(--fa);font-size:20px;color:var(--gold);">☽</span>' },
+  'evening': { label: 'Evening Adhkar', icon: null, iconHtml: '<span style="font-family:var(--fa);font-size:20px;color:var(--gold);">◑</span>' },
+  'sleep':   { label: 'Sleep Adhkar',   icon: null, iconHtml: '<span style="font-family:var(--fa);font-size:20px;color:var(--gold);">◐</span>' },
   'tahajjud':{ label: 'Tahajjud',       icon: '⭐' },
   'jumuah':  { label: "Jumu'ah Hour",   icon: '🕌' },
   'arafah':  { label: 'Yawm Arafah',   icon: '🕋' },
@@ -10766,8 +11217,13 @@ function renderResumeCard() {
     card.classList.remove('rc-visible');
     return;
   }
-  var meta = SESSION_RESUME_META[data.session] || { label: data.session, icon: '🤲' };
-  document.getElementById('resumeIcon').textContent = meta.icon;
+  var meta = SESSION_RESUME_META[data.session] || { label: data.session, iconHtml: '<span style="font-family:var(--fa);font-size:20px;color:var(--gold);">✦</span>' };
+  var resumeIconEl = document.getElementById('resumeIcon');
+  if (meta.iconHtml) {
+    resumeIconEl.innerHTML = meta.iconHtml;
+  } else {
+    resumeIconEl.textContent = meta.icon || '✦';
+  }
   document.getElementById('resumeTitle').textContent = meta.label;
   document.getElementById('resumeSub').textContent = 'Step ' + (data.step + 1) + ' of ' + data.total;
   card.classList.add('rc-visible');
@@ -11568,11 +12024,28 @@ loadPrayerTimes();
 //  ADHKAR TAB — reorder active card, Friday show, completion banner
 // ============================================================
 function updateAdhkarTab() {
-  var isFriday = new Date().getDay() === 5;
+  var now = new Date();
+  var isFriday = now.getDay() === 5;
 
-  // Show/hide Friday Hour card
+  // Friday Hour card — always visible; locked/unlocked based on day
   var jumuah = document.getElementById('gs-jumuah');
-  if (jumuah) jumuah.style.display = isFriday ? '' : 'none';
+  var unlockLabel = document.getElementById('gs-jumuah-unlock');
+  if (jumuah) {
+    if (isFriday) {
+      jumuah.classList.remove('session-card--locked');
+      jumuah.removeAttribute('aria-disabled');
+      if (unlockLabel) unlockLabel.textContent = 'Active today · Before Maghrib';
+    } else {
+      jumuah.classList.add('session-card--locked');
+      jumuah.setAttribute('aria-disabled', 'true');
+      if (unlockLabel) {
+        var daysUntil = (5 - now.getDay() + 7) % 7 || 7;
+        unlockLabel.textContent = daysUntil === 1
+          ? 'Unlocks tomorrow · Before Maghrib'
+          : 'Unlocks in ' + daysUntil + ' days · Before Maghrib';
+      }
+    }
+  }
 
   // Reorder daily session cards — active session first
   var activeSession = document.body.getAttribute('data-active-session') || '';
@@ -12199,14 +12672,7 @@ function openDuaReader(catId, startIndex) {
   if (!cat || !cat.duas.length) return;
   duaReaderCurrentCat = catId;
   document.getElementById('duaReaderTitle').textContent = cat.title;
-  var overlay = document.getElementById('duaReader');
-  overlay.style.display = 'flex';
-  overlay.classList.remove('is-open');
-  requestAnimationFrame(function(){ requestAnimationFrame(function(){
-    overlay.classList.add('is-open');
-  }); });
-  document.body.style.overflow = 'hidden';
-  document.body.classList.add('overlay-open');
+  OverlayController.open('duaReader');
 
   // Show intro card for categories with 8+ duas (only when opening fresh)
   if (cat.duas.length >= 8 && (startIndex === 0 || startIndex === undefined)) {
@@ -12260,18 +12726,15 @@ function renderDuaReaderIntro() {
 
 function closeDuaReader() {
   var _dr = document.getElementById('duaReader');
-  _dr.classList.remove('is-open');
-  _dr.classList.add('is-closing');
+  OverlayController.close('duaReader');
   setTimeout(function() {
-    _dr.style.display = 'none';
-    _dr.classList.remove('is-closing');
-    document.getElementById('duaReaderComplete').style.display = 'none';
-    document.getElementById('duaReaderBody').style.display = 'flex';
-    document.getElementById('duaReaderNav').style.display = 'flex';
-    document.body.style.overflow = '';
-    document.body.classList.remove('overlay-open');
+    if (_dr) {
+      document.getElementById('duaReaderComplete').style.display = 'none';
+      document.getElementById('duaReaderBody').style.display = 'flex';
+      document.getElementById('duaReaderNav').style.display = 'flex';
+    }
     duaReaderCurrentCat = null;
-  }, 200);
+  }, 320);
 }
 
 function renderDuaReaderCard() {
@@ -12618,7 +13081,7 @@ function filterDuasIndex(query) {
     'durood': ['salawat'],
     'prophet peace': ['salawat'],
     // Dhikr
-    'dhikr': ['salah'],
+    'adhkar': ['salah', 'dhikr'],
     'subhanallah': ['salah'],
     'alhamdulillah': ['salah'],
     'allahu akbar': ['salah'],
@@ -13615,7 +14078,7 @@ function shareAsImage() {
     'show-home':     function() { showView('home'); },
     'show-adhkar':   function() { showView('adhkar'); },
     'show-duas':     function() { showView('duas'); renderDuasTabFavs(); },
-    'show-dhikr':    function() { showView('dhikr'); },
+    'show-dhikr':    function() { showView('adhkar'); },
     'show-learn':    function() { showView('learn'); },
     'show-settings': function() { showView('settings'); },
 
@@ -14672,8 +15135,8 @@ window.satRestartTimer = function() {
       if (el) setTimeout(maybeShowTasbihHint, 80);
     });
     // Also check immediately (in case dhikr is the default view)
-    var dhikrView = document.getElementById('dhikr-view');
-    if (dhikrView && dhikrView.classList.contains('active')) maybeShowTasbihHint();
+    var adhkarView = document.getElementById('adhkar-view');
+    if (adhkarView && adhkarView.classList.contains('active')) maybeShowTasbihHint();
   });
 })();
 // ===== END TASBIH SEQUENCE HINT =====
@@ -14741,6 +15204,17 @@ window.satRestartTimer = function() {
     saveStreakData({ current: current, longest: longest, lastDate: today, history: history });
     renderStreakBadge(current);
 
+    // Milestone tracking
+    var milestones = JSON.parse(safeGet('naafi_streak_milestones', '{}') || '{}');
+    var thresholds = [7, 30, 100];
+    thresholds.forEach(function(n) {
+      if (current >= n && !milestones[n]) {
+        milestones[n] = true;
+        safeSet('naafi_streak_milestones', JSON.stringify(milestones));
+        showStreakMilestone(n, current);
+      }
+    });
+
     // Small pulse animation on badge
     var badge = document.getElementById('streakBadge');
     if (badge) {
@@ -14759,6 +15233,38 @@ window.satRestartTimer = function() {
     numEl.textContent = c;
     lblEl.textContent = c === 1 ? 'day streak' : 'day streak';
     badge.classList.toggle('streak-zero', c === 0);
+    badge.classList.remove('streak-milestone-7','streak-milestone-30','streak-milestone-100');
+    if (c >= 100) badge.classList.add('streak-milestone-100');
+    else if (c >= 30) badge.classList.add('streak-milestone-30');
+    else if (c >= 7) badge.classList.add('streak-milestone-7');
+  }
+
+
+  function showStreakMilestone(n, count) {
+    var titles = { 7: 'Seven days of remembrance', 30: 'Thirty days — a full month', 100: 'One hundred days' };
+    var arabic = { 7: 'مَاشَاءَ اللَّه', 30: 'سُبْحَانَ اللَّه', 100: 'الْحَمْدُ لِلَّه' };
+    var el = document.getElementById('streakMoment');
+    if (!el) {
+      el = document.createElement('div');
+      el.id = 'streakMoment';
+      el.style.cssText = 'position:fixed;inset:0;z-index:9998;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px 32px;background:var(--deep);text-align:center;';
+      el.innerHTML =
+        '<div id="smTitle" style="font-family:var(--fs);font-size:clamp(20px,5.5vw,30px);color:var(--gold-l);font-weight:400;margin-bottom:28px;letter-spacing:0.02em;"></div>' +
+        '<div style="display:flex;align-items:center;gap:14px;margin-bottom:28px;opacity:0.45;">' +
+          '<span style="font-family:var(--fa);font-size:0.9rem;color:var(--gold);">✦</span>' +
+          '<span id="smAr" style="font-family:var(--fa);font-size:2rem;color:var(--gold);line-height:1;"></span>' +
+          '<span style="font-family:var(--fa);font-size:0.9rem;color:var(--gold);">✦</span>' +
+        '</div>' +
+        '<div style="font-family:var(--fn);font-size:11px;color:var(--text-m);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:40px;" id="smNote"></div>' +
+        '<button id="smDismiss" style="font-family:var(--fn);font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-m);background:none;border:1px solid var(--bdr);border-radius:40px;padding:10px 28px;cursor:pointer;">Continue</button>';
+      document.body.appendChild(el);
+      document.getElementById('smDismiss').addEventListener('click', function() { el.style.display = 'none'; });
+    }
+    document.getElementById('smTitle').textContent = titles[n] || (count + ' day streak');
+    document.getElementById('smAr').textContent = arabic[n] || '✦';
+    document.getElementById('smNote').textContent = count + ' day streak';
+    el.style.display = 'flex';
+    setTimeout(function() { if (el.style.display !== 'none') el.style.display = 'none'; }, 5000);
   }
 
   // ── 14-DAY HISTORY GRID ──────────────────────────────────────
@@ -14767,18 +15273,44 @@ window.satRestartTimer = function() {
     if (!grid) return;
     var data = getStreakData();
     var history = data.history || {};
+    var longest = data.longest || 0;
     var days = getLastNDays(14);
+
+    // Build a boolean array and detect trailing run (consecutive from today backward)
+    var doneArr = days.map(function(day) { return !!history[day]; });
+    // Mark cells in the current trailing run
+    var runFlags = new Array(14).fill(false);
+    // Find trailing run from the END of the array (most recent day)
+    var runIdx = doneArr.length - 1;
+    while (runIdx >= 0 && doneArr[runIdx]) { runFlags[runIdx] = true; runIdx--; }
+
     var html = '';
-    days.forEach(function(day) {
-      var done = !!history[day];
+    days.forEach(function(day, i) {
+      var done = doneArr[i];
+      var inRun = runFlags[i];
       var d = new Date(day);
       var label = d.toLocaleDateString('en-GB', { weekday: 'narrow' });
-      html += '<div class="sh-cell' + (done ? ' sh-done' : '') + '" title="' + day + '">' +
+      var classes = 'sh-cell';
+      if (done) classes += ' sh-done';
+      if (inRun) classes += ' sh-run';
+      html += '<div class="' + classes + '" title="' + day + '">' +
               '<div class="sh-dot"></div>' +
               '<div class="sh-label">' + label + '</div>' +
               '</div>';
     });
     grid.innerHTML = html;
+
+    // Best streak row
+    var existing = grid.parentNode.querySelector('.sh-best-row');
+    if (existing) existing.remove();
+    if (longest > 0) {
+      var bestRow = document.createElement('div');
+      bestRow.className = 'sh-best-row';
+      bestRow.innerHTML =
+        '<span class="sh-best-label">Personal best</span>' +
+        '<span class="sh-best-value">' + longest + ' day' + (longest === 1 ? '' : 's') + '</span>';
+      grid.parentNode.appendChild(bestRow);
+    }
   }
 
   // Toggle grid on badge tap
@@ -14919,7 +15451,7 @@ window.satRestartTimer = function() {
     </div>
 
     <button data-action="share-text" style="display:flex;align-items:center;gap:14px;background:var(--gold-f);border:1px solid var(--bdr);border-radius:10px;padding:15px 16px;width:100%;cursor:pointer;text-align:left;-webkit-tap-highlight-color:transparent;touch-action:manipulation;">
-      <span style="width:42px;height:42px;border-radius:9px;background:rgba(196,163,90,0.12);border:1px solid var(--bdr);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:19px;">📋</span>
+      <span style="width:42px;height:42px;border-radius:9px;background:rgba(196,163,90,0.12);border:1px solid var(--bdr);flex-shrink:0;display:flex;align-items:center;justify-content:center;"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></span>
       <span style="flex:1;">
         <span style="display:block;font-family:var(--fn);font-size:15px;font-weight:700;color:var(--text);">Copy Text</span>
         <span style="display:block;font-family:var(--fn);font-size:12px;color:var(--text-d);margin-top:2px;">Arabic, transliteration &amp; translation</span>
@@ -14928,7 +15460,7 @@ window.satRestartTimer = function() {
     </button>
 
     <button data-action="share-image" style="display:flex;align-items:center;gap:14px;background:var(--gold-f);border:1px solid var(--bdr);border-radius:10px;padding:15px 16px;width:100%;cursor:pointer;text-align:left;-webkit-tap-highlight-color:transparent;touch-action:manipulation;">
-      <span style="width:42px;height:42px;border-radius:9px;background:rgba(196,163,90,0.12);border:1px solid var(--bdr);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:19px;">🖼️</span>
+      <span style="width:42px;height:42px;border-radius:9px;background:rgba(196,163,90,0.12);border:1px solid var(--bdr);flex-shrink:0;display:flex;align-items:center;justify-content:center;"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></span>
       <span style="flex:1;">
         <span style="display:block;font-family:var(--fn);font-size:15px;font-weight:700;color:var(--text);">Share as Image</span>
         <span style="display:block;font-family:var(--fn);font-size:12px;color:var(--text-d);margin-top:2px;">Share the card shown above</span>
@@ -15199,46 +15731,27 @@ window.satRestartTimer = function() {
   </div>
   <div class="scm-note" id="scmNote"></div>
   <div class="scm-session-label" id="scmLabel">تَقَبَّلَ اللَّهُ مِنَّا وَمِنكُم</div>
+  <div class="scm-next" id="scmNext" style="display:none;">
+    <div class="scm-next-label">Continue with</div>
+    <button class="scm-next-card" id="scmNextCard" onclick="dismissAndNavigate()">
+      <span class="scm-next-icon" id="scmNextIcon"></span>
+      <span class="scm-next-title" id="scmNextTitle"></span>
+      <span class="scm-next-arrow">›</span>
+    </button>
+  </div>
+  <button class="scm-dismiss-btn" onclick="dismissSessionCompletion()">Return</button>
 </div>
 
-<div id="favSheet" style="
-  display:none; position:fixed; inset:0; z-index:9999;
-  align-items:flex-end; justify-content:center;
-">
-  <div style="position:absolute;inset:0;background:rgba(0,0,0,0.55);"
-       onclick="document.getElementById('favSheet').style.display='none';"></div>
-  <div style="
-    position:relative; background:var(--card);
-    border-radius:20px 20px 0 0; padding:20px 16px 40px;
-    width:100%; max-width:520px; z-index:1;
-  ">
-    <div style="font-family:var(--fs);font-size:18px;color:var(--text);
-                margin-bottom:4px;">Save to Folder</div>
-    <div style="font-family:var(--fn);font-size:12px;color:var(--text-m);
-                margin-bottom:18px;letter-spacing:0.04em;">
-      Tap a folder to add or remove this dua
-    </div>
-    <div id="favFolderList" style="
-      max-height:240px; overflow-y:auto;
-      display:flex; flex-direction:column; gap:8px; margin-bottom:12px;
-    "></div>
-    <button id="favNewFolderBtn" style="
-      display:flex; align-items:center; gap:10px; width:100%;
-      background:transparent; border:1px dashed var(--bdr-h);
-      border-radius:10px; padding:12px 16px; cursor:pointer;
-      font-family:var(--fn); font-size:13px; color:var(--gold);
-      letter-spacing:0.04em; -webkit-tap-highlight-color:transparent;
-      margin-bottom:12px;
-    ">
-      <span style="font-size:18px;line-height:1;">+</span> New Folder
+<div id="favSheet" class="fav-sheet" role="dialog" aria-modal="true" aria-label="Save to Folder">
+  <div class="fav-sheet-backdrop" onclick="closeFavSheet()"></div>
+  <div class="fav-sheet-surface">
+    <div class="fav-sheet-title">Save to Folder</div>
+    <div class="fav-sheet-sub">Tap a folder to add or remove this dua</div>
+    <div id="favFolderList" class="fav-sheet-list"></div>
+    <button id="favNewFolderBtn" class="fav-sheet-new-btn">
+      <span class="fav-sheet-new-icon">+</span> New Folder
     </button>
-    <button onclick="document.getElementById('favSheet').style.display='none';"
-      style="width:100%;padding:14px;background:var(--gold-f);
-             border:1px solid var(--bdr);border-radius:12px;cursor:pointer;
-             font-family:var(--fn);font-size:14px;color:var(--text-d);
-             -webkit-tap-highlight-color:transparent;">
-      Done
-    </button>
+    <button class="fav-sheet-done-btn" onclick="closeFavSheet()">Done</button>
   </div>
 </div>
 
