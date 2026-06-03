@@ -739,7 +739,7 @@ body.dark .colophon { opacity: 0.22; }
   transition: border-color var(--t-fast) var(--ease-out);
 }
 .scm-next-card:active { border-color: var(--gold); }
-.scm-next-icon { font-size: 18px; flex-shrink: 0; }
+.scm-next-icon { font-family: var(--fa); font-size: 16px; color: var(--gold); opacity: 0.75; flex-shrink: 0; }
 .scm-next-title {
   font-family: var(--fs);
   font-size: 15px;
@@ -1970,7 +1970,10 @@ body.dark .search-overlay-header { background: rgba(8,12,18,0.99); }
   margin-top: 8px;
 }
 .dhikr-section-header-icon {
-  font-size: 20px;
+  font-family: var(--fa);
+  font-size: 18px;
+  color: var(--gold);
+  opacity: 0.7;
   line-height: 1;
 }
 .dhikr-section-header-title {
@@ -2419,7 +2422,7 @@ body.dark .search-overlay-header { background: rgba(8,12,18,0.99); }
   padding: max(72px, calc(env(safe-area-inset-top) + 56px)) 24px max(32px, env(safe-area-inset-bottom));
   flex: 1;
 }
-.ji-icon { font-size: 56px; margin-bottom: 16px; }
+.ji-icon { font-family: var(--fa); font-size: 40px; color: var(--gold); opacity: 0.7; margin-bottom: 16px; }
 .ji-eyebrow {
   font-family: var(--fn);
   font-size: 10px;
@@ -2473,7 +2476,7 @@ body.dark .search-overlay-header { background: rgba(8,12,18,0.99); }
   font-size: 14px;
   color: var(--text-d);
 }
-.ji-feat-icon { font-size: 20px; width: 28px; text-align: center; flex-shrink: 0; }
+.ji-feat-icon { font-family: var(--fa); font-size: 18px; color: var(--gold); opacity: 0.75; width: 28px; text-align: center; flex-shrink: 0; }
 .ji-begin {
   width: 100%;
   max-width: 340px;
@@ -2519,6 +2522,7 @@ body.dark .search-overlay-header { background: rgba(8,12,18,0.99); }
 }
 .guided-dot.active { background: var(--gold); width: 20px; border-radius: 4px; }
 .guided-dot.done { background: rgba(196,163,90,0.35); }
+.guided-dot--ellipsis { background: var(--bdr); width: 4px; height: 4px; opacity: 0.5; }
 
 /* ---- JUMUAH SESSION PREMIUM STYLES ---- */
 .guided-overlay.session-jumuah .step-tr,
@@ -2574,7 +2578,10 @@ body.dark .search-overlay-header { background: rgba(8,12,18,0.99); }
   padding-bottom: 24px;
 }
 .jstep-icon {
-  font-size: 52px;
+  font-family: var(--fa);
+  font-size: 44px;
+  color: var(--gold);
+  opacity: 0.65;
   margin-bottom: 20px;
   line-height: 1;
 }
@@ -2659,7 +2666,7 @@ body.dark .search-overlay-header { background: rgba(8,12,18,0.99); }
   align-items: center;
   text-align: center;
 }
-.jstep-pause-icon { font-size: 52px; margin-bottom: 16px; }
+.jstep-pause-icon { font-family: var(--fa); font-size: 44px; color: var(--gold); opacity: 0.65; margin-bottom: 16px; }
 .jstep-pause-title {
   font-family: var(--fs);
   font-size: 28px;
@@ -5050,7 +5057,7 @@ button, .bn-tab, .expand-trigger, .copy-btn, .fav-star,
   align-items: center; text-align: center;
   max-width: 340px; width: 100%;
 }
-.sat-complete-icon { font-size: 52px; margin-bottom: 16px; }
+.sat-complete-icon { font-family: var(--fa); font-size: 44px; color: var(--gold); opacity: 0.7; margin-bottom: 16px; }
 .sat-complete-arabic {
   font-family: var(--fa);
   font-size: calc(clamp(32px,9vw,48px) * var(--ar-scale));
@@ -5095,10 +5102,22 @@ button, .bn-tab, .expand-trigger, .copy-btn, .fav-star,
   border: 1px solid rgba(196,163,90,0.25);
   border-radius: 24px; padding: 7px 18px;
   font-family: var(--fn); font-size: 13px; color: var(--gold-l);
-  letter-spacing: .04em; transition: opacity .3s ease;
+  letter-spacing: .04em; transition: opacity .3s ease, border-color .3s ease, box-shadow .3s ease;
   box-shadow: 0 2px 12px rgba(196,163,90,0.06);
+  cursor: pointer;
 }
-.streak-badge .streak-fire { font-size: 18px; line-height: 1; }
+/* Active streak (> 0): visible presence */
+.streak-badge:not(.streak-zero) {
+  border-color: rgba(196,163,90,0.40);
+  box-shadow: 0 2px 16px rgba(196,163,90,0.12), 0 0 0 0 rgba(196,163,90,0);
+}
+.streak-badge .streak-fire {
+  font-family: var(--fa);
+  font-size: 16px;
+  color: var(--gold);
+  line-height: 1;
+  opacity: 0.8;
+}
 .streak-badge .streak-num {
   font-size: 22px; font-weight: 700; color: var(--gold);
   letter-spacing: -0.02em; line-height: 1;
@@ -5110,6 +5129,16 @@ button, .bn-tab, .expand-trigger, .copy-btn, .fav-star,
 .streak-badge.streak-zero { opacity: 0.35; }
 .streak-badge {
   background: rgba(122,92,18,.06); border-color: rgba(122,92,18,.2);
+}
+
+/* ── STREAK FLASH — fires once on session completion when streak > 0 ── */
+@keyframes streak-flash {
+  0%   { box-shadow: 0 0 0 0 rgba(196,163,90,0.55); border-color: var(--gold); }
+  40%  { box-shadow: 0 0 0 8px rgba(196,163,90,0.10); border-color: var(--gold-l); }
+  100% { box-shadow: 0 0 0 0 rgba(196,163,90,0); border-color: rgba(196,163,90,0.40); }
+}
+.streak-badge.streak-flash-anim {
+  animation: streak-flash 800ms var(--ease-velvet) forwards;
 }
 /* ===== END STREAK BADGE ===== */
 
@@ -5455,10 +5484,13 @@ body.overlay-open .spa-view.view-active {
   border-color: rgba(196,163,90,0.4);
 }
 .ob-card-icon {
-  font-size: 26px;
+  font-family: var(--fa);
+  font-size: 22px;
+  color: var(--gold);
   flex-shrink: 0;
   width: 36px;
   text-align: center;
+  opacity: 0.75;
 }
 .ob-card-body {
   flex: 1;
@@ -5534,7 +5566,10 @@ body.overlay-open .spa-view.view-active {
   background: rgba(196,163,90,0.14);
 }
 .resume-card-icon {
-  font-size: 22px;
+  font-family: var(--fa);
+  font-size: 18px;
+  color: var(--gold);
+  opacity: 0.75;
   flex-shrink: 0;
 }
 .resume-card-body {
@@ -6309,6 +6344,78 @@ body.dark .fav-sheet-backdrop {
   background: rgba(139,107,42,0.14);
 }
 
+/* ---- FAV FOLDER BUTTONS (replaces inline styles in renderFolderList) ---- */
+.fav-folder-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background: var(--card);
+  border: 1px solid var(--bdr);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  cursor: pointer;
+  font-family: var(--fn);
+  font-size: 14px;
+  color: var(--text);
+  text-align: left;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    background var(--t-fast) var(--ease-out),
+    border-color var(--t-fast) var(--ease-out);
+  margin-bottom: 8px;
+}
+.fav-folder-btn:active { background: var(--card2); }
+.fav-folder-btn.fav-folder-btn--active {
+  background: var(--gold-f);
+  border-color: var(--gold);
+}
+.fav-folder-btn__count {
+  font-size: 12px;
+  color: var(--text-m);
+  flex-shrink: 0;
+}
+
+/* ---- FAV FOLDER CARD (replaces inline styles in renderFavFoldersSection) ---- */
+.fav-folder-card {
+  background: var(--card);
+  border: 1px solid var(--bdr);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.fav-folder-card__name {
+  font-family: var(--fs);
+  font-size: 16px;
+  color: var(--text);
+  margin-bottom: 3px;
+}
+.fav-folder-card__count {
+  font-family: var(--fn);
+  font-size: 11px;
+  color: var(--text-m);
+}
+.fav-folder-card__delete {
+  background: none;
+  border: none;
+  color: var(--text-m);
+  font-size: 18px;
+  cursor: pointer;
+  padding: 4px;
+  -webkit-tap-highlight-color: transparent;
+  line-height: 1;
+}
+.fav-folder-empty {
+  font-family: var(--fn);
+  font-size: 13px;
+  color: var(--text-m);
+  text-align: center;
+  padding: 16px 0;
+}
+
 /* ============================================================
    SPRINT 2 — SESSION CARD VARIANTS
    ============================================================ */
@@ -6324,9 +6431,12 @@ body.dark .fav-sheet-backdrop {
 }
 .session-card-lock-icon {
   display: none;
-  font-size: 13px;
+  font-family: var(--fn);
+  font-size: 11px;
   color: var(--text-m);
+  opacity: 0.5;
   flex-shrink: 0;
+  letter-spacing: 0;
 }
 .session-card.session-card--locked .session-card-lock-icon {
   display: block;
@@ -6575,7 +6685,7 @@ body:not(.dark) .bismillah {
 <div class="search-overlay" id="searchOverlay" style="display:none;">
   <div class="search-overlay-header">
     <div class="search-overlay-inner">
-      <span class="search-icon" aria-hidden="true">🔍</span>
+      <span class="search-icon" aria-hidden="true">⌕</span>
       <input type="search" id="duaSearch" placeholder="Search duas, transliteration, topics…" autocomplete="off" autocorrect="off" spellcheck="false" aria-label="Search duas">
       <button class="search-clear" id="searchClear" aria-label="Clear search">✕</button>
     </div>
@@ -6614,7 +6724,7 @@ body:not(.dark) .bismillah {
 
   <!-- Resume card — shown by JS only when session in progress -->
   <div class="resume-card" id="resumeCard" data-action="resume-session">
-    <div class="resume-card-icon" id="resumeIcon">🌅</div>
+    <div class="resume-card-icon" id="resumeIcon">☀</div>
     <div class="resume-card-body">
       <div class="resume-card-eyebrow">Continue where you left off</div>
       <div class="resume-card-title" id="resumeTitle">Morning Adhkar</div>
@@ -6654,7 +6764,7 @@ body:not(.dark) .bismillah {
   <div class="home-meta-row">
     <div class="hijri-date loading" id="hijriDisplay"></div>
     <div class="streak-badge streak-zero" id="streakBadge" title="Tap to see your 14-day history">
-      <span class="streak-fire">🔥</span>
+      <span class="streak-fire">✦</span>
       <span class="streak-num" id="streakNum">0</span>
       <span class="streak-label" id="streakLabel">day streak</span>
     </div>
@@ -6800,7 +6910,7 @@ body:not(.dark) .bismillah {
         <div class="session-card-unlock-label" id="gs-jumuah-unlock"></div>
       </div>
       <div class="session-card-arrow">›</div>
-      <span class="session-card-lock-icon" aria-hidden="true">🔒</span>
+      <span class="session-card-lock-icon" aria-hidden="true">⊛</span>
     </div>
   </div>
 
@@ -7053,7 +7163,7 @@ body:not(.dark) .bismillah {
 
   <!-- First-open tasbih sequence hint — dismissed to localStorage -->
   <div id="tasbihHint" style="display:none;margin:0 0 4px;padding:10px 16px;background:var(--gold-f);border:1px solid var(--bdr);border-radius:var(--radius);display:flex;align-items:flex-start;gap:10px;">
-    <span style="font-size:16px;flex-shrink:0;line-height:1.4;">📿</span>
+    <span style="font-family:var(--fa);font-size:16px;color:var(--gold);opacity:0.7;flex-shrink:0;line-height:1.4;">◉</span>
     <span style="font-family:var(--fn);font-size:12px;color:var(--text-d);line-height:1.6;flex:1;">Complete each in order — tap SubḥānAllāh 33× to unlock Alḥamdulillāh, then Allāhu Akbar.</span>
     <button id="tasbihHintDismiss" aria-label="Dismiss hint" style="background:none;border:none;cursor:pointer;font-size:16px;color:var(--text-m);padding:0 0 0 4px;line-height:1;flex-shrink:0;-webkit-tap-highlight-color:transparent;">×</button>
   </div>
@@ -7112,7 +7222,7 @@ body:not(.dark) .bismillah {
 
   <section class="sec" id="dhikr-section">
     <div class="dhikr-section-header">
-      <span class="dhikr-section-header-icon">📿</span>
+      <span class="dhikr-section-header-icon">◉</span>
       <div>
         <div class="dhikr-section-header-title">Extended Dhikr</div>
         <div class="dhikr-section-header-sub">Tap any row to open the counter</div>
@@ -7521,7 +7631,7 @@ body:not(.dark) .bismillah {
         <div class="sv-label">Theme</div>
         <div class="sv-sub">Light or dark mode</div>
       </div>
-      <button class="theme-toggle sv-theme-btn" id="themeToggleSV" aria-label="Toggle theme">🌙</button>
+      <button class="theme-toggle sv-theme-btn" id="themeToggleSV" aria-label="Toggle theme">☽</button>
     </div>
 
     <div class="sv-row">
@@ -7770,7 +7880,7 @@ body:not(.dark) .bismillah {
     </div>
   </div>
   <div class="dua-reader-complete" id="duaReaderComplete" style="display:none;">
-    <div class="dua-reader-complete-icon">🤲</div>
+    <div class="dua-reader-complete-icon">◌</div>
     <div class="dua-reader-complete-title">Complete</div>
     <div class="dua-reader-complete-sub" id="duaReaderCompleteSub">May Allah accept every du'a.</div>
     <div class="colophon" aria-hidden="true">
@@ -7825,11 +7935,11 @@ body:not(.dark) .bismillah {
     <div class="ji-title">The Art of Du'a</div>
     <div class="ji-hadith">"Du'a is worship." — Abu Dawud 1479, Sahih</div>
     <div class="ji-features">
-      <div class="ji-feature"><span class="ji-feat-icon">📖</span><span>What du'a truly is</span></div>
-      <div class="ji-feature"><span class="ji-feat-icon">🕌</span><span>The 12 etiquettes of du'a</span></div>
-      <div class="ji-feature"><span class="ji-feat-icon">⏰</span><span>The best times to ask</span></div>
-      <div class="ji-feature"><span class="ji-feat-icon">💡</span><span>How Allah always answers</span></div>
-      <div class="ji-feature"><span class="ji-feat-icon">🌟</span><span>Special types & conditions</span></div>
+      <div class="ji-feature"><span class="ji-feat-icon">◈</span><span>What du'a truly is</span></div>
+      <div class="ji-feature"><span class="ji-feat-icon">﴾</span><span>The 12 etiquettes of du'a</span></div>
+      <div class="ji-feature"><span class="ji-feat-icon">☽</span><span>The best times to ask</span></div>
+      <div class="ji-feature"><span class="ji-feat-icon">✦</span><span>How Allah always answers</span></div>
+      <div class="ji-feature"><span class="ji-feat-icon">۞</span><span>Special types & conditions</span></div>
     </div>
     <button class="ji-begin" data-action="begin-learn-deck" data-topic="hub">Begin ›</button>
     <div class="ji-footer">26 cards · 9 sections</div>
@@ -8055,7 +8165,7 @@ body:not(.dark) .bismillah {
   <div class="ob-question">What brings you here today?</div>
   <div class="ob-cards">
     <button class="ob-card" data-action="ob-select" data-choice="morning" type="button">
-      <div class="ob-card-icon">🌅</div>
+      <div class="ob-card-icon">☀</div>
       <div class="ob-card-body">
         <div class="ob-card-title">Start my day right</div>
         <div class="ob-card-sub">Morning adhkar · protection &amp; barakah</div>
@@ -8063,7 +8173,7 @@ body:not(.dark) .bismillah {
       <div class="ob-card-arrow">›</div>
     </button>
     <button class="ob-card" data-action="ob-select" data-choice="sleep" type="button">
-      <div class="ob-card-icon">🌙</div>
+      <div class="ob-card-icon">☽</div>
       <div class="ob-card-body">
         <div class="ob-card-title">Wind down before sleep</div>
         <div class="ob-card-sub">Sleep adhkar · peace &amp; protection</div>
@@ -8071,7 +8181,7 @@ body:not(.dark) .bismillah {
       <div class="ob-card-arrow">›</div>
     </button>
     <button class="ob-card" data-action="ob-select" data-choice="dhikr" type="button">
-      <div class="ob-card-icon">📿</div>
+      <div class="ob-card-icon">◉</div>
       <div class="ob-card-body">
         <div class="ob-card-title">Build a dhikr habit</div>
         <div class="ob-card-sub">Daily remembrance · light on tongue, heavy on scales</div>
@@ -8079,7 +8189,7 @@ body:not(.dark) .bismillah {
       <div class="ob-card-arrow">›</div>
     </button>
     <button class="ob-card" data-action="ob-select" data-choice="duas" type="button">
-      <div class="ob-card-icon">🤲</div>
+      <div class="ob-card-icon">◈</div>
       <div class="ob-card-body">
         <div class="ob-card-title">Find a specific dua</div>
         <div class="ob-card-sub">188 authentic supplications · every occasion</div>
@@ -8101,10 +8211,10 @@ body:not(.dark) .bismillah {
     <div class="ji-bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
     <div class="ji-hadith">The Prophet ﷺ said: "On Friday there is a time when no Muslim stands and prays, asking Allah for something, except that Allah grants it to him." The strongest scholarly opinion: the last hour before Maghrib. (Bukhārī &amp; Muslim)</div>
     <div class="ji-features">
-      <div class="ji-feature"><span class="ji-feat-icon">🕐</span><span>Begin after Asr — end at Maghrib</span></div>
-      <div class="ji-feature"><span class="ji-feat-icon">📋</span><span>11 thematic sections of dua</span></div>
-      <div class="ji-feature"><span class="ji-feat-icon">🤲</span><span>Authentic duas with Arabic &amp; transliteration</span></div>
-      <div class="ji-feature"><span class="ji-feat-icon">☁️</span><span>Personal pause — speak to Allah freely</span></div>
+      <div class="ji-feature"><span class="ji-feat-icon">☽</span><span>Begin after Asr — end at Maghrib</span></div>
+      <div class="ji-feature"><span class="ji-feat-icon">◈</span><span>11 thematic sections of dua</span></div>
+      <div class="ji-feature"><span class="ji-feat-icon">﴾</span><span>Authentic duas with Arabic &amp; transliteration</span></div>
+      <div class="ji-feature"><span class="ji-feat-icon">◌</span><span>Personal pause — speak to Allah freely</span></div>
     </div>
     <button class="ji-begin" data-action="begin-jumuah">Begin Jumu'ah Hour</button>
     <div class="ji-footer">Find a quiet place &nbsp;·&nbsp; Face the qiblah &nbsp;·&nbsp; Open your heart</div>
@@ -8114,7 +8224,7 @@ body:not(.dark) .bismillah {
 <!-- SA'AT AL-ISTIJABAH COMPLETION -->
 <div class="sat-complete-overlay" id="satCompleteOverlay" style="display:none;">
   <div class="sat-complete-inner">
-    <div class="sat-complete-icon">🤲</div>
+    <div class="sat-complete-icon">◈</div>
     <div class="sat-complete-arabic">آمِينَ</div>
     <div class="sat-complete-title">May Allah accept every word</div>
     <div class="sat-complete-sub">The hour has passed. Your du'as have been heard. Allah never lets a sincere supplication go unanswered.</div>
@@ -8626,13 +8736,84 @@ function scrollToSection(id){
 // ============================================================
 
 // ---- SERVICE WORKER REGISTRATION ----
-// Only register when hosted on your own domain — SW files aren't served in preview sandboxes
-// Unregister any existing service workers to prevent stale cache
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.getRegistrations().then(function(regs) {
-    regs.forEach(function(reg) { reg.unregister(); });
-  });
-}
+// ================================================================
+// LAYER: OFFLINE — inline blob SW, cache-first strategy.
+// Expo migration: remove this block; RN handles offline natively.
+// ================================================================
+// Caches the app shell (this HTML file) so Naafi works fully
+// offline — at the masjid, travelling, or on a poor connection.
+// Strategy: cache-first with network revalidation in background.
+// Cache name is versioned — bump NAAFI_SW_VERSION to force refresh.
+(function() {
+  if (!('serviceWorker' in navigator)) return;
+
+  var NAAFI_SW_VERSION = 'naafi-v1';
+
+  var swCode = [
+    'var CACHE = "' + NAAFI_SW_VERSION + '";',
+    'var SHELL = ["/", location.pathname, self.location.href];',
+
+    // Install: pre-cache the app shell
+    'self.addEventListener("install", function(e) {',
+    '  e.waitUntil(',
+    '    caches.open(CACHE).then(function(c) {',
+    '      return Promise.all(',
+    '        SHELL.map(function(url) {',
+    '          return c.add(url).catch(function() {});',
+    '        })',
+    '      );',
+    '    }).then(function() { return self.skipWaiting(); })',
+    '  );',
+    '});',
+
+    // Activate: delete old caches
+    'self.addEventListener("activate", function(e) {',
+    '  e.waitUntil(',
+    '    caches.keys().then(function(keys) {',
+    '      return Promise.all(',
+    '        keys.filter(function(k) { return k !== CACHE; })',
+    '           .map(function(k) { return caches.delete(k); })',
+    '      );',
+    '    }).then(function() { return self.clients.claim(); })',
+    '  );',
+    '});',
+
+    // Fetch: cache-first, fall back to network, update cache in background
+    'self.addEventListener("fetch", function(e) {',
+    '  if (e.request.method !== "GET") return;',
+    '  var url = e.request.url;',
+    // Skip cross-origin requests (fonts, Aladhan API, etc.) — let them go to network
+    '  if (url.indexOf(self.location.origin) !== 0) return;',
+    '  e.respondWith(',
+    '    caches.match(e.request).then(function(cached) {',
+    '      var networkFetch = fetch(e.request).then(function(res) {',
+    '        if (res && res.status === 200) {',
+    '          var clone = res.clone();',
+    '          caches.open(CACHE).then(function(c) { c.put(e.request, clone); });',
+    '        }',
+    '        return res;',
+    '      }).catch(function() { return cached; });',
+    // Return cached immediately if available; network updates in background
+    '      return cached || networkFetch;',
+    '    })',
+    '  );',
+    '});'
+  ].join('\n');
+
+  var blob = new Blob([swCode], { type: 'application/javascript' });
+  var swUrl = URL.createObjectURL(blob);
+
+  navigator.serviceWorker.register(swUrl, { scope: '/' })
+    .then(function(reg) {
+      // Check for updates every time the app loads
+      reg.update();
+    })
+    .catch(function(err) {
+      // Blob SW registration can fail in some browsers (Firefox, some Android WebViews)
+      // when scope '/' is broader than the blob URL origin — fail silently.
+      console.info('[Naafi SW] Registration skipped:', err.message);
+    });
+})();
 
 // ---- SAFE LOCALSTORAGE HELPERS (iOS private browsing safe) ----
 function safeGet(key, fallback){
@@ -9440,20 +9621,14 @@ function renderFolderList(duaId) {
   if (!list) return;
   var folders = getFolders();
   if (folders.length === 0) {
-    list.innerHTML = '<div style="font-family:var(--fn);font-size:13px;color:var(--text-m);text-align:center;padding:16px 0;">No folders yet — create one below</div>';
+    list.innerHTML = '<div class="fav-folder-empty">No folders yet — create one below</div>';
     return;
   }
   list.innerHTML = folders.map(function(folder) {
     var isIn = folder.duaIds.indexOf(duaId) !== -1;
-    return '<button data-folder-id="' + folder.id + '" style="' +
-      'display:flex;align-items:center;justify-content:space-between;' +
-      'width:100%;background:' + (isIn ? 'rgba(196,163,90,0.1)' : 'var(--card)') + ';' +
-      'border:1px solid ' + (isIn ? 'var(--gold)' : 'var(--bdr)') + ';' +
-      'border-radius:10px;padding:12px 16px;cursor:pointer;' +
-      'font-family:var(--fn);font-size:14px;color:var(--text);text-align:left;' +
-      '-webkit-tap-highlight-color:transparent;">' +
+    return '<button data-folder-id="' + folder.id + '" class="fav-folder-btn' + (isIn ? ' fav-folder-btn--active' : '') + '">' +
       '<span>' + escapeHtml(folder.name) + '</span>' +
-      '<span style="font-size:12px;color:var(--text-m);">' + folder.duaIds.length + ' saved</span>' +
+      '<span class="fav-folder-btn__count">' + folder.duaIds.length + ' saved</span>' +
     '</button>';
   }).join('');
   list.querySelectorAll('[data-folder-id]').forEach(function(btn) {
@@ -9495,14 +9670,12 @@ function renderFavFoldersSection() {
   }
   if (section) section.style.display = 'block';
   grid.innerHTML = folders.map(function(folder) {
-    return '<div style="' +
-      'background:var(--card);border:1px solid var(--bdr);border-radius:12px;' +
-      'padding:14px 16px;display:flex;align-items:center;justify-content:space-between;">' +
+    return '<div class="fav-folder-card">' +
       '<div>' +
-        '<div style="font-family:var(--fs);font-size:16px;color:var(--text);margin-bottom:3px;">' + escapeHtml(folder.name) + '</div>' +
-        '<div style="font-family:var(--fn);font-size:11px;color:var(--text-m);">' + folder.duaIds.length + ' duas saved</div>' +
+        '<div class="fav-folder-card__name">' + escapeHtml(folder.name) + '</div>' +
+        '<div class="fav-folder-card__count">' + folder.duaIds.length + ' duas saved</div>' +
       '</div>' +
-      '<button data-delete-folder="' + folder.id + '" style="background:none;border:none;color:var(--text-m);font-size:18px;cursor:pointer;padding:4px;-webkit-tap-highlight-color:transparent;">×</button>' +
+      '<button data-delete-folder="' + folder.id + '" class="fav-folder-card__delete" aria-label="Delete folder">×</button>' +
     '</div>';
   }).join('');
   grid.querySelectorAll('[data-delete-folder]').forEach(function(btn) {
@@ -9581,7 +9754,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   function applyTheme(dark){
     document.body.classList.toggle('dark', dark);
-    var icon = dark ? '🌙' : '☀️';
+    var icon = dark ? '☽' : '☀';
     var btn = document.getElementById('themeToggle');
     if(btn) btn.textContent = icon;
     var btnSV = document.getElementById('themeToggleSV');
@@ -9608,7 +9781,7 @@ document.addEventListener('DOMContentLoaded', function() {
       tr: 'Lā ilāha illā Anta subḥānaka innī kuntu minaẓ-ẓālimīn',
       en: '"There is no deity except You; exalted are You. Indeed, I have been of the wrongdoers."',
       src: 'Qur\'an 21:87 — No Muslim says this in a difficulty except Allah relieves it — al-Tirmidhi (3505)',
-      section: '📖 Qur\'anic Duas'
+      section: '◈ Qur\'anic Duas'
     },
     {
       label: 'Sayyid al-Istighfar — Master Dua of Forgiveness',
@@ -9616,7 +9789,7 @@ document.addEventListener('DOMContentLoaded', function() {
       tr: 'Allāhumma Anta Rabbī lā ilāha illā Anta, khalaqtanī wa anā ʿabduka, wa anā ʿalā ʿahdika wa waʿdika mastaṭaʿtu, aʿūdhu bika min sharri mā ṣanaʿtu, abūʾu laka biniʿmatika ʿalayya, wa abūʾu laka bidhanbī faghfir lī, fa innahu lā yaghfirudh-dhunūba illā Ant',
       en: '"O Allah, You are my Lord. There is no god but You. You created me and I am Your servant. I am upon Your covenant and promise as best I can. I seek refuge in You from the evil of what I have done. I acknowledge Your favour upon me and I acknowledge my sin. So forgive me, for no one forgives sins except You."',
       src: 'Sahih al-Bukhari (6306) — Say morning & evening: dies that day → enters Paradise',
-      section: '☪ Prophetic Duas'
+      section: '✦ Prophetic Duas'
     },
     {
       label: 'For Good in This World & the Next',
@@ -9624,7 +9797,7 @@ document.addEventListener('DOMContentLoaded', function() {
       tr: 'Rabbanā ātinā fid-dunyā ḥasanatan wa fil-ākhirati ḥasanatan wa qinā ʿadhāban-nār',
       en: '"Our Lord, give us in this world that which is good and in the Hereafter that which is good, and protect us from the punishment of the Fire."',
       src: 'Qur\'an 2:201 — The Prophet ﷺ said most of their dua was this — Bukhari (4522)',
-      section: '📖 Qur\'anic Duas'
+      section: '◈ Qur\'anic Duas'
     },
     {
       label: 'For Firmness of Heart — Most Frequent Dua of the Prophet ﷺ',
@@ -9632,7 +9805,7 @@ document.addEventListener('DOMContentLoaded', function() {
       tr: 'Yā Muqallibul-qulūbi thabbit qalbī ʿalā dīnik',
       en: '"O Turner of the hearts, keep my heart firm upon Your religion."',
       src: 'al-Tirmidhi (3522) — Sahih',
-      section: '☪ Prophetic Duas'
+      section: '✦ Prophetic Duas'
     },
     {
       label: 'The Laylatul Qadr Dua',
@@ -9648,7 +9821,7 @@ document.addEventListener('DOMContentLoaded', function() {
       tr: 'Allāhumma innī aʿūdhu bika minal-hammi wal-ḥazan, wal-ʿajzi wal-kasal, wal-jubni wal-bukhl, wa ḍalaʿid-dayn, wa ghalabatir-rijāl',
       en: '"O Allah, I seek refuge in You from worry and grief, from incapacity and laziness, from cowardice and miserliness, from being overcome by debt, and from the overpowering of people."',
       src: 'Sahih al-Bukhari (2893)',
-      section: '☪ Prophetic Duas'
+      section: '✦ Prophetic Duas'
     },
     {
       label: 'Guidance, Piety & Contentment',
@@ -9656,7 +9829,7 @@ document.addEventListener('DOMContentLoaded', function() {
       tr: 'Allāhumma innī as\'alukal-hudā wat-tuqā wal-ʿafāfa wal-ghinā',
       en: '"O Allah, I ask You for guidance, piety, chastity, and self-sufficiency."',
       src: 'Sahih Muslim (2721)',
-      section: '☪ Prophetic Duas'
+      section: '✦ Prophetic Duas'
     },
     {
       label: 'For Complete Wellbeing — No Dua is Better',
@@ -9664,7 +9837,7 @@ document.addEventListener('DOMContentLoaded', function() {
       tr: 'Allāhumma innī asʾalukal-ʿāfiyata fid-dunyā wal-ākhirah',
       en: '"O Allah, I ask You for ʿāfiyah (wellbeing and wholeness) in this world and the next."',
       src: 'Ibn Majah (3871) — Sahih — The Prophet ﷺ said: no dua is better than asking for ʿāfiyah',
-      section: '☪ Prophetic Duas'
+      section: '✦ Prophetic Duas'
     },
     {
       label: 'Dua of Musa (AS) — For Clarity & Ease',
@@ -9672,7 +9845,7 @@ document.addEventListener('DOMContentLoaded', function() {
       tr: 'Rabbish-raḥ lī ṣadrī, wa yassir lī amrī, waḥlul ʿuqdatan min lisānī, yafqahū qawlī',
       en: '"My Lord, expand my chest, ease my task for me, and untie the knot from my tongue so they may understand my speech."',
       src: 'Qur\'an 20:25–28 — Perfect before an exam, interview, or presentation',
-      section: '📖 Qur\'anic Duas'
+      section: '◈ Qur\'anic Duas'
     },
     {
       label: 'Seeking Forgiveness & Mercy — Adam & Hawwa\'s Dua',
@@ -9680,7 +9853,7 @@ document.addEventListener('DOMContentLoaded', function() {
       tr: 'Rabbanā ẓalamnā anfusanā wa in lam taghfir lanā wa tarḥamnā lanakūnanna minal-khāsirīn',
       en: '"Our Lord, we have wronged ourselves, and if You do not forgive us and have mercy upon us, we will surely be among the losers."',
       src: 'Qur\'an 7:23 — The dua of Adam and Hawwa (AS)',
-      section: '📖 Qur\'anic Duas'
+      section: '◈ Qur\'anic Duas'
     },
     {
       label: 'Dua of Tawakkul — Complete Reliance on Allah',
@@ -9688,7 +9861,7 @@ document.addEventListener('DOMContentLoaded', function() {
       tr: 'Ḥasbunallāhu wa niʿmal-wakīl',
       en: '"Allah is sufficient for us, and He is the best Disposer of affairs."',
       src: 'Qur\'an 3:173 — Said by Ibrahim (AS) in the fire; by the Prophet ﷺ at Badr',
-      section: '📖 Qur\'anic Duas'
+      section: '◈ Qur\'anic Duas'
     },
     {
       label: 'Protection from the Fire — 7× after Fajr & Maghrib',
@@ -9696,7 +9869,7 @@ document.addEventListener('DOMContentLoaded', function() {
       tr: 'Allāhumma ajirni minan-nār',
       en: '"O Allah, protect me from the Fire."',
       src: 'Abu Dawud (5079) — Sahih — 7× after Fajr & Maghrib',
-      section: '☪ Prophetic Duas'
+      section: '✦ Prophetic Duas'
     },
     {
       label: 'For Parents — Al-Isra 17:24',
@@ -9704,7 +9877,7 @@ document.addEventListener('DOMContentLoaded', function() {
       tr: 'Rabbir-ḥamhumā kamā rabbayānī ṣaghīrā',
       en: '"My Lord, have mercy upon them both, as they raised me when I was small."',
       src: 'Qur\'an 17:24 — Recite for your parents; especially the ill or elderly',
-      section: '📖 Qur\'anic Duas'
+      section: '◈ Qur\'anic Duas'
     },
     {
       label: 'For Health in Body, Hearing & Sight — Morning & Evening',
@@ -9712,7 +9885,7 @@ document.addEventListener('DOMContentLoaded', function() {
       tr: 'Allāhumma ʿāfinī fī badanī, Allāhumma ʿāfinī fī samʿī, Allāhumma ʿāfinī fī baṣarī, lā ilāha illā Anta',
       en: '"O Allah, grant me health in my body. O Allah, grant me health in my hearing. O Allah, grant me health in my sight. There is no god but You."',
       src: 'Abu Dawud (5090) — Hasan — Say morning and evening',
-      section: '☪ Prophetic Duas'
+      section: '✦ Prophetic Duas'
     },
     {
       label: 'Sufficiency of Allah',
@@ -9720,7 +9893,7 @@ document.addEventListener('DOMContentLoaded', function() {
       tr: 'Ḥasbiyallāhu lā ilāha illā Hu, ʿalayhi tawakkaltu wa Huwa Rabbul-ʿArshil-ʿAẓīm',
       en: '"Allah is sufficient for me. There is no deity except Him. Upon Him I rely, and He is the Lord of the Mighty Throne."',
       src: 'Qur\'an 9:129, Abu Dawud (5081) — 7× every morning and evening',
-      section: '☪ Prophetic Duas'
+      section: '✦ Prophetic Duas'
     },
     {
       label: 'Morning Dua — Beginning the Day with Allah',
@@ -9728,7 +9901,7 @@ document.addEventListener('DOMContentLoaded', function() {
       tr: 'Aṣbaḥnā wa aṣbaḥal-mulku lillāh, wal-ḥamdu lillāh, lā ilāha illallāhu waḥdahu lā sharīka lah, lahul-mulku wa lahul-ḥamdu wa huwa ʿalā kulli shayʾin qadīr',
       en: '"We have entered a new morning and with it all dominion belongs to Allah. Praise be to Allah. There is no god except Allah, alone without partner. To Him belongs the dominion and all praise and He is capable of all things."',
       src: 'Abu Dawud (5077) — Sahih — Say every morning',
-      section: '🌅 Morning Adhkar'
+      section: '☀ Morning Adhkar'
     },
     {
       label: 'The Short Salawat — Say Throughout the Day',
@@ -9736,7 +9909,7 @@ document.addEventListener('DOMContentLoaded', function() {
       tr: 'Allāhumma ṣalli wa sallim ʿalā nabiyyinā Muḥammad',
       en: '"O Allah, send Your grace and peace upon our Prophet Muhammad."',
       src: 'Muslim (408) — Say as often as you can; 1 salawat → Allah sends 10 blessings on you',
-      section: '💛 Salawat'
+      section: '◌ Salawat'
     },
     {
       label: 'Master Dua — For All Goodness, Refuge from All Evil',
@@ -9752,7 +9925,7 @@ document.addEventListener('DOMContentLoaded', function() {
       tr: 'Allāhumma aʿinnī ʿalā dhikrika wa shukrika wa ḥusni ʿibādatik',
       en: '"O Allah, help me to remember You, thank You, and worship You well."',
       src: 'Abu Dawud (1522), Ahmad — Recommended by the Prophet ﷺ to Muʿādh (RA) after every salah',
-      section: '🕌 After Salah'
+      section: '✦ After Salah'
     },
     {
       label: 'Dua Ibrahim (AS) — For a Righteous Offspring',
@@ -9760,7 +9933,7 @@ document.addEventListener('DOMContentLoaded', function() {
       tr: 'Rabbi hab lī minas-ṣāliḥīn',
       en: '"My Lord, grant me a child from among the righteous."',
       src: 'Qur\'an 37:100 — The dua of Ibrahim (AS) for Ismail',
-      section: '📖 Qur\'anic Duas'
+      section: '◈ Qur\'anic Duas'
     },
     {
       label: 'Dua at Iftar — Breaking the Fast',
@@ -9768,7 +9941,7 @@ document.addEventListener('DOMContentLoaded', function() {
       tr: 'Allāhumma laka ṣumtu wa bika āmantu wa ʿalayka tawakkaltu wa ʿalā rizqika afṭartu',
       en: '"O Allah, for You I fasted, in You I believe, upon You I rely, and with Your provision I break my fast."',
       src: 'Abu Dawud (2358) — Hasan',
-      section: '☪ Prophetic Duas'
+      section: '✦ Prophetic Duas'
     },
     {
       label: 'Istighfar — The Prophet\'s ﷺ Daily Seeking of Forgiveness',
@@ -9776,7 +9949,7 @@ document.addEventListener('DOMContentLoaded', function() {
       tr: 'Astaghfirullāha wa atūbu ilayh',
       en: '"I seek the forgiveness of Allah and I repent to Him."',
       src: 'Bukhari — The Prophet ﷺ said this 70–100 times every day',
-      section: '🤍 Istighfar'
+      section: '◈ Istighfar'
     },
     {
       label: 'Kaffaratul Majlis — When Leaving a Gathering',
@@ -9784,7 +9957,7 @@ document.addEventListener('DOMContentLoaded', function() {
       tr: 'Subḥānaka Allāhumma wa biḥamdik, ash-hadu an lā ilāha illā Ant, astaghfiruka wa atūbu ilayk',
       en: '"Glory be to You, O Allah, and praise be to You. I bear witness that there is no god but You. I seek Your forgiveness and I repent to You."',
       src: 'Abu Dawud (4859), al-Tirmidhi (3433) — Expiation for idle speech in the gathering',
-      section: '🗓 Daily Life'
+      section: '◈ Daily Life'
     },
     {
       label: 'Dua Before Sleeping',
@@ -9792,7 +9965,7 @@ document.addEventListener('DOMContentLoaded', function() {
       tr: 'Bismika Allāhumma amūtu wa aḥyā',
       en: '"In Your name, O Allah, I die and I live."',
       src: 'Sahih al-Bukhari (6312) — Say when lying down to sleep',
-      section: '🌙 Sleep'
+      section: '☽ Sleep'
     },
     {
       label: 'Evening Dua — Entering the Night with Allah',
@@ -9800,7 +9973,7 @@ document.addEventListener('DOMContentLoaded', function() {
       tr: 'Amsaynā wa amsal-mulku lillāh, wal-ḥamdu lillāh, lā ilāha illallāhu waḥdahu lā sharīka lah',
       en: '"We have entered the evening and with it all dominion belongs to Allah. Praise be to Allah. There is no god except Allah, alone without partner."',
       src: 'Abu Dawud (5077) — Sahih — Say every evening',
-      section: '🌆 Evening Adhkar'
+      section: '☽ Evening Adhkar'
     },
     {
       label: 'Protection from All Harm — Bismillah 3× then Protection Dua 7×',
@@ -9808,7 +9981,7 @@ document.addEventListener('DOMContentLoaded', function() {
       tr: 'Bismillāhil-ladhī lā yaḍurru maʿasmihi shayʾun fil-arḍi wa lā fis-samāʾ, wa Huwas-Samīʿul-ʿAlīm',
       en: '"In the name of Allah with Whose name nothing can harm on earth or in the heavens, and He is the All-Hearing, All-Knowing."',
       src: 'Abu Dawud (5088), al-Tirmidhi (3388) — 3× morning & evening: nothing harms that person',
-      section: '🌅 Morning Adhkar'
+      section: '☀ Morning Adhkar'
     },
     {
       label: 'Dua of Salawat Ibrahimiyyah — The Complete Form',
@@ -9816,7 +9989,7 @@ document.addEventListener('DOMContentLoaded', function() {
       tr: 'Allāhumma ṣalli ʿalā Muḥammadin wa ʿalā āli Muḥammad, kamā ṣallayta ʿalā Ibrāhīma wa ʿalā āli Ibrāhīm, innaka Ḥamīdun Majīd',
       en: '"O Allah, send Your grace upon Muhammad and upon the family of Muhammad, as You sent Your grace upon Ibrahim and the family of Ibrahim. You are Praiseworthy, Glorious."',
       src: 'al-Bukhari (3370), Muslim (406) — The complete salawat as taught by the Prophet ﷺ',
-      section: '💛 Salawat'
+      section: '◌ Salawat'
     },
     {
       label: 'Dua for Entering the Mosque',
@@ -9824,7 +9997,7 @@ document.addEventListener('DOMContentLoaded', function() {
       tr: 'Allāhummaftaḥ lī abwāba raḥmatik',
       en: '"O Allah, open for me the doors of Your mercy."',
       src: 'Sahih Muslim (713) — Say upon entering any mosque',
-      section: '🗓 Daily Life'
+      section: '◈ Daily Life'
     },
     {
       label: 'Dua for Istikhara — Seeking Allah\'s Guidance',
@@ -9832,7 +10005,7 @@ document.addEventListener('DOMContentLoaded', function() {
       tr: 'Allāhumma innī astakhīruka biʿilmika wa astaqdiruka biqudratika wa as\'aluka min faḍlikal-ʿaẓīm',
       en: '"O Allah, I seek Your guidance through Your knowledge, and I seek ability through Your power, and I ask You from Your great bounty..."',
       src: 'Sahih al-Bukhari (1166) — Pray 2 rak\'ahs then recite the full dua',
-      section: '🎯 Istikharah'
+      section: '◎ Istikharah'
     },
     {
       label: 'Ruqyah — The Healing Dua of the Prophet ﷺ',
@@ -9840,7 +10013,7 @@ document.addEventListener('DOMContentLoaded', function() {
       tr: 'Allāhumma Rabban-nāsi adh-hibil-baʾs, Ishfi Antash-Shāfī, Lā shifāʾa illā shifāʾuk, Shifāʾan lā yughādiru saqamā',
       en: '"O Allah, Lord of mankind, remove the affliction. Heal — for You are the Healer. There is no healing except Your healing, a healing that leaves no illness behind."',
       src: 'Sahih al-Bukhari (5675, 5750), Muslim (2191)',
-      section: '🛡 Ruqyah'
+      section: '✦ Ruqyah'
     },
     {
       label: 'Dua al-Qunoot — Witr Prayer',
@@ -9848,7 +10021,7 @@ document.addEventListener('DOMContentLoaded', function() {
       tr: 'Allāhumma innā nastaʿīnuka wa nastaghfiruka wa nuʾminu bika wa natawakkalu ʿalayk, wa nuthnī ʿalaykal-khayr',
       en: '"O Allah, we seek Your help and ask Your forgiveness, and we believe in You and rely on You. We praise You with all goodness..."',
       src: 'Abu Dawud (1425) — Sahih — Recited in Witr prayer',
-      section: '☪ Prophetic Duas'
+      section: '✦ Prophetic Duas'
     }
   ];
 
@@ -10181,7 +10354,7 @@ var GUIDED_SESSIONS = {
     steps: [
       {
         label: "Section 1 — Open with Salawat",
-        icon: "🕌", title: "Salawat upon the Prophet", subtitle: "Begin every dua with praise of Allah and salawat",
+        icon: "✦", title: "Salawat upon the Prophet", subtitle: "Begin every dua with praise of Allah and salawat",
         note: "Open your heart. Begin by sending peace upon the Prophet ﷺ.",
         ar: "اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ كَمَا صَلَّيْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ إِنَّكَ حَمِيدٌ مَجِيدٌ اللَّهُمَّ بَارِكْ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ كَمَا بَارَكْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ إِنَّكَ حَمِيدٌ مَجِيدٌ",
         tr: "Allāhumma ṣalli ʿalā Muḥammadin wa ʿalā āli Muḥammad kamā ṣallayta ʿalā Ibrāhīma wa ʿalā āli Ibrāhīm innaka Ḥamīdun Majīd. Allāhumma bārik ʿalā Muḥammadin wa ʿalā āli Muḥammad kamā bārakta ʿalā Ibrāhīma wa ʿalā āli Ibrāhīm innaka Ḥamīdun Majīd",
@@ -10190,7 +10363,7 @@ var GUIDED_SESSIONS = {
       },
       {
         label: "Section 2 — Praise Allah",
-        icon: "✨", title: "Praise Allah", subtitle: "Glorify and remember Allah",
+        icon: "◈", title: "Praise Allah", subtitle: "Glorify and remember Allah",
         note: "Praise Allah before asking. Acknowledge His greatness.",
         ar: "سُبْحَانَكَ اللَّهُمَّ وَبِحَمْدِكَ وَتَبَارَكَ اسْمُكَ وَتَعَالَى جَدُّكَ وَلَا إِلَٰهَ غَيْرُكَ",
         tr: "Subḥānakallāhumma wa biḥamdika wa tabārakasmuka wa taʿālā jadduka wa lā ilāha ghayruk",
@@ -10199,7 +10372,7 @@ var GUIDED_SESSIONS = {
       },
       {
         label: "Section 3 — Seek Forgiveness (Istighfar)",
-        icon: "🤲", title: "Seek Forgiveness", subtitle: "Ask Allah to cleanse your heart",
+        icon: "◌", title: "Seek Forgiveness", subtitle: "Ask Allah to cleanse your heart",
         note: "Feel your sins and ask sincerely for forgiveness.",
         ar: "أَسْتَغْفِرُ اللَّهَ الَّذِي لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ وَأَتُوبُ إِلَيْهِ",
         tr: "Astaghfirullāha-l-ʿAẓīma-lladhī lā ilāha illā Huwa-l-Ḥayyu-l-Qayyūmu wa atūbu ilayh",
@@ -10216,7 +10389,7 @@ var GUIDED_SESSIONS = {
       },
       {
         label: "Section 4 — Deen and Akhirah",
-        icon: "⭐", title: "Deen & Ākhirah", subtitle: "Ask for guidance, steadfastness, and a good end",
+        icon: "◎", title: "Deen & Ākhirah", subtitle: "Ask for guidance, steadfastness, and a good end",
         ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْهُدَى وَالتُّقَى وَالْعَفَافَ وَالْغِنَى",
         tr: "Allāhumma innī asʾalukal-hudā wat-tuqā wal-ʿafāfa wal-ghinā",
         en: "O Allah I ask You for guidance, piety, chastity and self-sufficiency.",
@@ -10244,7 +10417,7 @@ var GUIDED_SESSIONS = {
       },
       {
         label: "Section 5 — Jannah and Protection from the Fire",
-        icon: "🌿", title: "Ask for Jannah, Refuge from the Fire", subtitle: "The greatest goal — ask with certainty",
+        icon: "◈", title: "Ask for Jannah, Refuge from the Fire", subtitle: "The greatest goal — ask with certainty",
         ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْجَنَّةَ وَمَا قَرَّبَ إِلَيْهَا مِنْ قَوْلٍ أَوْ عَمَلٍ وَأَعُوذُ بِكَ مِنَ النَّارِ وَمَا قَرَّبَ إِلَيْهَا مِنْ قَوْلٍ أَوْ عَمَلٍ",
         tr: "Allāhumma innī asʾalukal-jannata wa mā qarraba ilayhā min qawlin aw ʿamal wa aʿūdhu bika minan-nāri wa mā qarraba ilayhā min qawlin aw ʿamal",
         en: "O Allah I ask You for Paradise and whatever brings me near to it in word or deed, and I seek refuge from the Fire and whatever brings me near to it in word or deed.",
@@ -10273,7 +10446,7 @@ var GUIDED_SESSIONS = {
       },
       {
         label: "Section 6 — For This Dunya",
-        icon: "🌍", title: "This World", subtitle: "Ask for wellbeing, provision, and lawful blessings",
+        icon: "◉", title: "This World", subtitle: "Ask for wellbeing, provision, and lawful blessings",
         ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنَ الْخَيْرِ كُلِّهِ عَاجِلِهِ وَآجِلِهِ مَا عَلِمْتُ مِنْهُ وَمَا لَمْ أَعْلَمْ وَأَعُوذُ بِكَ مِنَ الشَّرِّ كُلِّهِ عَاجِلِهِ وَآجِلِهِ مَا عَلِمْتُ مِنْهُ وَمَا لَمْ أَعْلَمْ",
         tr: "Allāhumma innī asʾaluka minal-khayri kullihī ʿājilihī wa ājilihī mā ʿalimtu minhu wa mā lam aʿlam wa aʿūdhu bika minash-sharri kullihī ʿājilihī wa ājilihī mā ʿalimtu minhu wa mā lam aʿlam",
         en: "O Allah I ask You for all good — immediate and future, that which I know and that which I do not know. And I seek refuge in You from all evil — immediate and future, that which I know and that which I do not know.",
@@ -10301,7 +10474,7 @@ var GUIDED_SESSIONS = {
       },
       {
         label: "Section 7 — For Marriage and Family",
-        icon: "🧡", title: "Marriage & Family", subtitle: "For your loved ones and those yet to come",
+        icon: "◈", title: "Marriage & Family", subtitle: "For your loved ones and those yet to come",
         ar: "رَبَّنَا هَبْ لَنَا مِنْ أَزْوَاجِنَا وَذُرِّيَّاتِنَا قُرَّةَ أَعْيُنٍ وَاجْعَلْنَا لِلْمُتَّقِينَ إِمَامًا",
         tr: "Rabbanā hab lanā min azwājinā wa dhurriyyātinā qurrata aʿyunin wajʿalnā lil-muttaqīna imāmā",
         en: "Our Lord, grant us from our spouses and offspring comfort to our eyes and make us an example for the righteous.",
@@ -10323,7 +10496,7 @@ var GUIDED_SESSIONS = {
       },
       {
         label: "Section 8 — For Distress and Difficulty",
-        icon: "🌊", title: "Distress & Difficulty", subtitle: "Call on Allah in times of hardship",
+        icon: "◌", title: "Distress & Difficulty", subtitle: "Call on Allah in times of hardship",
         ar: "لَّا إِلَٰهَ إِلَّا أَنتَ سُبْحَانَكَ إِنِّي كُنتُ مِنَ الظَّالِمِينَ",
         tr: "Lā ilāha illā Anta subḥānaka innī kuntu minaẓ-ẓālimīn",
         en: "There is no god but You. Glory be to You. I have been of the wrongdoers.",
@@ -10346,7 +10519,7 @@ var GUIDED_SESSIONS = {
       },
       {
         label: "Section 9 — For the Ummah",
-        icon: "🌙", title: "The Ummah", subtitle: "Lift your hands for your brothers and sisters",
+        icon: '☽', title: "The Ummah", subtitle: "Lift your hands for your brothers and sisters",
         ar: "رَبَّنَا اغْفِرْ لَنَا وَلِإِخْوَانِنَا الَّذِينَ سَبَقُونَا بِالْإِيمَانِ وَلَا تَجْعَلْ فِي قُلُوبِنَا غِلًّا لِّلَّذِينَ آمَنُوا رَبَّنَا إِنَّكَ رَءُوفٌ رَّحِيمٌ",
         tr: "Rabbanā ighfir lanā wa li-ikhwāninadh-dhīna sabaqūnā bil-īmāni wa lā tajʿal fī qulūbinā ghillal-lilladhīna āmanū Rabbanā innaka Raʾūfur-Raḥīm",
         en: "Our Lord, forgive us and our brothers who preceded us in faith, and put not in our hearts any resentment toward those who have believed. Our Lord, You are Kind and Merciful.",
@@ -10355,13 +10528,13 @@ var GUIDED_SESSIONS = {
       },
       {
         label: "Section 10 — Your Personal Dua",
-        icon: "☁️", title: "Your Personal Du'ā", subtitle: "Speak to Allah in your own words",
+        icon: "◌", title: "Your Personal Du'ā", subtitle: "Speak to Allah in your own words",
         isPause: true,
         note: "This is the heart of the hour. Speak to Allah directly in your own words — English or Arabic. He hears every language of the heart.\n\nAsk for your deen and your dunya. Ask for your parents and family. Ask for forgiveness for your sins. Ask for a righteous spouse and children. Ask for provision that is halal and blessed. Ask for steadfastness on the Straight Path. Ask for a good death and to be with the Prophet ﷺ in Jannah.\n\nThe Prophet ﷺ said: Ask Allah for everything — even the strap of your sandal. Be specific. Be honest. Allah loves to hear from you."
       },
       {
         label: "Section 11 — Seal with Salawat and Closing",
-        icon: "🕌", title: "Closing Salawat & Seal", subtitle: "End as you began — with salawat",
+        icon: "✦", title: "Closing Salawat & Seal", subtitle: "End as you began — with salawat",
         ar: "اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ كَمَا صَلَّيْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ إِنَّكَ حَمِيدٌ مَجِيدٌ",
         tr: "Allāhumma ṣalli ʿalā Muḥammadin wa ʿalā āli Muḥammad kamā ṣallayta ʿalā Ibrāhīma wa ʿalā āli Ibrāhīm innaka Ḥamīdun Majīd",
         en: "O Allah, send Your grace upon Muhammad and the family of Muhammad as You sent grace upon Ibrahim and the family of Ibrahim — You are Praiseworthy, Glorious.",
@@ -10411,19 +10584,19 @@ var LEARN_DATA = {
 
   times: {
     intro: {
-      icon: '🕐',
+      icon: '☽',
       eyebrow: "DU'A ACCEPTANCE · PRAYER WINDOWS",
       title: "Best Times for Du'a",
       hadith: '"Du\'a between the adhan and iqamah is not rejected." — Abu Dawud 521',
       features: [
-        { icon: '🌙', text: '6 time windows for accepted du\'a' },
-        { icon: '🕐', text: '5 best times of day for du\'a' },
-        { icon: '🤲', text: 'When duas are answered' },
-        { icon: '🕌', text: 'Windows around salah' }
+        { icon: '☽', text: '6 time windows for accepted du\'a' },
+        { icon: '☽', text: '5 best times of day for du\'a' },
+        { icon: '◌', text: 'When duas are answered' },
+        { icon: '✦', text: 'Windows around salah' }
       ],
       btnText: 'Explore Time Windows'
     },
-    completeIcon: '🕐',
+    completeIcon: '☽',
     completeSub: 'Every salah carries windows for accepted du\'a. The last third of the night and Friday\'s blessed hour are yours — use them.',
     cards: [
       { eyebrow: 'TIME WINDOW 1', heading: 'The Last Third of the Night', body: 'The single most powerful time for du\'a.<br><br>Allah descends to the lowest heaven and says: <em>"Who is calling Me that I may answer? Who is asking Me that I may give? Who is seeking My forgiveness that I may forgive?"</em>', src: 'Sahih al-Bukhari 1145 · When: last 90 mins before Fajr' },
@@ -10437,15 +10610,15 @@ var LEARN_DATA = {
 
   qadr: {
     intro: {
-      icon: '⭐',
+      icon: '✦',
       eyebrow: 'NIGHT OF POWER · BETTER THAN 1000 MONTHS',
       title: 'Laylatul Qadr',
       hadith: '"Laylatul Qadr is better than a thousand months." — Surah Al-Qadr 97:3',
       features: [
-        { icon: '🤲', text: 'The one du\'a to say all night' },
-        { icon: '⭐', text: 'What Laylatul Qadr actually is' },
-        { icon: '📅', text: 'How to maximise the odd nights' },
-        { icon: '✨', text: 'The meaning of ʿAfw vs Maghfirah' }
+        { icon: '◌', text: 'The one du\'a to say all night' },
+        { icon: '✦', text: 'What Laylatul Qadr actually is' },
+        { icon: '✦', text: 'How to maximise the odd nights' },
+        { icon: '◈', text: 'The meaning of ʿAfw vs Maghfirah' }
       ],
       btnText: 'Enter the Night'
     },
@@ -10462,19 +10635,19 @@ var LEARN_DATA = {
 
   jumua: {
     intro: {
-      icon: '🕌',
+      icon: '✦',
       eyebrow: "SA'AT AL-ISTIJĀBAH · THE HOUR OF RESPONSE",
       title: "Jumu'ah — Friday",
       hadith: '"The best day on which the sun rises is Friday." — Sahih Muslim 854',
       features: [
-        { icon: '🕐', text: 'The special accepted hour' },
-        { icon: '📖', text: 'Surah Al-Kahf — when and why' },
-        { icon: '💛', text: 'Salawat on Friday' },
-        { icon: '🕌', text: "The Jumu'ah Hour guided session" }
+        { icon: '☽', text: 'The special accepted hour' },
+        { icon: '◈', text: 'Surah Al-Kahf — when and why' },
+        { icon: '◌', text: 'Salawat on Friday' },
+        { icon: '✦', text: "The Jumu'ah Hour guided session" }
       ],
       btnText: 'Learn About Friday'
     },
-    completeIcon: '🕌',
+    completeIcon: '✦',
     completeSub: "Friday's hour of response is the most accessible blessed window every week. Sit after Asr and pour out your duas.",
     cards: [
       { eyebrow: 'THE DAY', heading: 'Friday — The Master of Days', body: '<em>"The best day on which the sun rises is Friday. On it Adam was created. On it he was admitted to Paradise. On it he was expelled from it. And the Hour will not occur except on a Friday."</em><br><br>Every Friday carries immense spiritual weight.', src: 'Sahih Muslim 854' },
@@ -10487,19 +10660,19 @@ var LEARN_DATA = {
 
   dhulhijjah: {
     intro: {
-      icon: '🕋',
+      icon: '✦',
       eyebrow: 'THE GREATEST DAYS OF THE YEAR',
       title: 'Dhul Hijjah — The Ten Days',
       hadith: '"There are no days in which righteous deeds are more beloved to Allah than these ten days." — Sahih al-Bukhari 969',
       features: [
-        { icon: '📋', text: 'What to do in the first 10 days' },
-        { icon: '🔊', text: 'Takbeer al-Tashriq (Hanafi ruling)' },
-        { icon: '🕋', text: 'Yawm Arafah — fasting & du\'a' },
-        { icon: '🎉', text: 'Eid al-Adha & Qurbani' }
+        { icon: '◈', text: 'What to do in the first 10 days' },
+        { icon: '✦', text: 'Takbeer al-Tashriq (Hanafi ruling)' },
+        { icon: '✦', text: 'Yawm Arafah — fasting & du\'a' },
+        { icon: '◈', text: 'Eid al-Adha & Qurbani' }
       ],
       btnText: 'Enter the Greatest Days'
     },
-    completeIcon: '🕋',
+    completeIcon: '✦',
     completeSub: 'These ten days come once a year. Fast, give, remember Allah abundantly, and make du\'a on Arafah as if it may be your last.',
     cards: [
       { eyebrow: 'THE DAYS', heading: 'Why These Days Are the Greatest', body: 'Allah ﷻ swears by them in Surah Al-Fajr: <em>"By the dawn. And by the ten nights."</em> — 89:1-2<br><br>Ibn Hajar said these days combine all major acts of worship — prayer, fasting, charity, and Hajj — which does not occur in any other days.<br><br>Ibn Abbas: <em>"More beloved to Allah for good deeds than any other days."</em>' },
@@ -10514,19 +10687,19 @@ var LEARN_DATA = {
 
   ashura: {
     intro: {
-      icon: '📅',
+      icon: '✦',
       eyebrow: '9TH & 10TH MUHARRAM',
       title: 'Ashura',
       hadith: '"Fasting on the day of Ashura — I hope Allah will expiate the sins of the previous year." — Sahih Muslim 1162',
       features: [
-        { icon: '🌙', text: 'When to fast' },
-        { icon: '📋', text: 'Why the 9th matters' },
-        { icon: '📖', text: 'What Ashura commemorates' },
-        { icon: '⚠️', text: 'Warnings about innovations' }
+        { icon: '☽', text: 'When to fast' },
+        { icon: '◈', text: 'Why the 9th matters' },
+        { icon: '◈', text: 'What Ashura commemorates' },
+        { icon: '◎', text: 'Warnings about innovations' }
       ],
       btnText: 'Learn About Ashura'
     },
-    completeIcon: '📅',
+    completeIcon: '◈',
     completeSub: 'Fast the 9th and 10th of Muharram. Simple, sincere, and worth an entire year of expiation.',
     cards: [
       { eyebrow: 'THE DAY', heading: 'What is Ashura?', body: 'The 10th of Muharram. When the Prophet ﷺ arrived in Madinah and found the Jews fasting, he asked why. They said: <em>"This is the day Allah saved Musa from Pharaoh."</em><br><br>He ﷺ said: <em>"We have more right to Musa than you"</em> — and fasted it, and commanded the Muslims to fast.', src: 'Sahih al-Bukhari 3943' },
@@ -10538,19 +10711,19 @@ var LEARN_DATA = {
 
   shaban: {
     intro: {
-      icon: '🌟',
+      icon: '◈',
       eyebrow: 'THE NEGLECTED MONTH',
       title: "Sha'ban",
       hadith: '"That is a month people neglect between Rajab and Ramadan — a month in which deeds are raised to the Lord of the Worlds." — Ahmad, Nasai — Sahih',
       features: [
-        { icon: '🌙', text: "Why the Prophet ﷺ fasted most of Sha'ban" },
-        { icon: '⭐', text: "Laylat al-Bara'ah — the 15th night" },
-        { icon: '📋', text: 'Hanafi position on the 15th' },
-        { icon: '🌙', text: 'Preparing for Ramadan' }
+        { icon: '☽', text: "Why the Prophet ﷺ fasted most of Sha'ban" },
+        { icon: '✦', text: "Laylat al-Bara'ah — the 15th night" },
+        { icon: '◈', text: 'Hanafi position on the 15th' },
+        { icon: '☽', text: 'Preparing for Ramadan' }
       ],
       btnText: "Learn About Sha'ban"
     },
-    completeIcon: '🌟',
+    completeIcon: '◈',
     completeSub: "Don't let Sha'ban pass in neglect. Your deeds rise to Allah this month — let them rise while you are fasting and in worship.",
     cards: [
       { eyebrow: 'THE MONTH', heading: 'The Neglected Month', body: "Sha'ban falls between Rajab and Ramadan, so people neglect it. The Prophet ﷺ fasted more in Sha'ban than any month other than Ramadan.<br><br><em>\"It is a month in which deeds are raised to the Lord of the Worlds, and I love for my deeds to be raised while I am fasting.\"</em><br><br>Use Sha'ban to prepare your heart for Ramadan.", src: "Sahih al-Bukhari 1969 · Ahmad, Nasai — Sahih" },
@@ -10562,19 +10735,19 @@ var LEARN_DATA = {
 
   eid: {
     intro: {
-      icon: '🎉',
+      icon: '◈',
       eyebrow: 'EID AL-FITR & EID AL-ADHA',
       title: 'Eid',
       hadith: '"These are days of eating, drinking, and remembrance of Allah." — Sahih Muslim',
       features: [
-        { icon: '🌙', text: 'Sunnah acts of Eid' },
-        { icon: '🔊', text: 'Eid takbeer' },
-        { icon: '💬', text: 'The correct greeting' },
-        { icon: '📋', text: 'Eid al-Fitr vs Eid al-Adha differences' }
+        { icon: '☽', text: 'Sunnah acts of Eid' },
+        { icon: '✦', text: 'Eid takbeer' },
+        { icon: '◈', text: 'The correct greeting' },
+        { icon: '◈', text: 'Eid al-Fitr vs Eid al-Adha differences' }
       ],
       btnText: 'Celebrate the Sunnah Way'
     },
-    completeIcon: '🎉',
+    completeIcon: '◈',
     completeSub: 'Eid is a day of gratitude, worship, and community. Celebrate with the Sunnah and say: Taqabbalallahu minna wa minkum.',
     cards: [
       { eyebrow: 'EID AL-FITR', heading: 'Eid al-Fitr — Sunnah Acts', body: 'Ghusl before salah. Eat something sweet before going — the Prophet ﷺ ate dates. Wear your best clothes. Go one route to the masjid, return another. Say Eid takbeer aloud on the way. Listen to the khutbah. Give sadaqah to family and friends.' },
@@ -10586,19 +10759,19 @@ var LEARN_DATA = {
 
   ruqyah: {
     intro: {
-      icon: '🛡️',
+      icon: '✦',
       eyebrow: 'HEALING & PROTECTION',
       title: 'Ruqyah',
       hadith: '"We send down of the Qur\'an that which is a healing and a mercy for the believers." — Surah Al-Isra 17:82',
       features: [
-        { icon: '📋', text: 'The Ruqyah sequence' },
-        { icon: '🤲', text: 'How to perform it on yourself' },
-        { icon: '🌅', text: 'Protection duas for morning and evening' },
-        { icon: '👥', text: 'When to seek Ruqyah from others' }
+        { icon: '◈', text: 'The Ruqyah sequence' },
+        { icon: '◌', text: 'How to perform it on yourself' },
+        { icon: '☀', text: 'Protection duas for morning and evening' },
+        { icon: '◉', text: 'When to seek Ruqyah from others' }
       ],
       btnText: 'Learn Ruqyah'
     },
-    completeIcon: '🛡️',
+    completeIcon: '✦',
     completeSub: 'Ruqyah is your daily armour. The three Quls morning and evening. Ayatul Kursi after every salah. Your protection begins with you.',
     cards: [
       { eyebrow: 'WHAT IS RUQYAH', heading: 'What is Ruqyah?', body: 'Reciting Qur\'an and authentic supplications for healing and protection from illness, evil eye, jinn, and sihr. An established Sunnah — the Prophet ﷺ performed ruqyah on himself and others.<br><br>Recite over yourself by placing your hand on the area of ailment. Recite into cupped hands, blow gently, wipe over the body.', src: 'Sahih Muslim 2186' },
@@ -10611,19 +10784,19 @@ var LEARN_DATA = {
 
   surahs: {
     intro: {
-      icon: '📖',
+      icon: '◈',
       eyebrow: 'ESSENTIAL RECITATIONS',
       title: 'Key Surahs',
       hadith: '"Whoever recites Ayatul Kursi after every obligatory prayer — nothing will prevent him from entering Jannah except death." — Nasai 9928',
       features: [
-        { icon: '📋', text: '9 essential surahs and their virtues' },
-        { icon: '🕐', text: 'When and how often to recite each' },
-        { icon: '🛡️', text: 'Protection surahs' },
-        { icon: '✨', text: 'Intercession surahs' }
+        { icon: '◈', text: '9 essential surahs and their virtues' },
+        { icon: '☽', text: 'When and how often to recite each' },
+        { icon: '✦', text: 'Protection surahs' },
+        { icon: '◈', text: 'Intercession surahs' }
       ],
       btnText: 'Explore Key Surahs'
     },
-    completeIcon: '📖',
+    completeIcon: '◈',
     completeSub: 'Start with Al-Mulk every night. Add the three Quls morning and evening. Build from there — the Qur\'an is your daily shield and companion.',
     cards: [
       { eyebrow: 'SURAH 1', heading: 'Surah Al-Fatihah', body: 'The Opening. Recited in every rak\'ah — obligatory. <em>"It is the greatest surah in the Qur\'an."</em><br><br>It is Ruqyah — blow on the afflicted. Allah responds to each verse as you recite. Never miss it.', src: 'Bukhari 4703' },
@@ -10640,19 +10813,19 @@ var LEARN_DATA = {
 
   personal: {
     intro: {
-      icon: '🤍',
+      icon: '◌',
       eyebrow: 'YOUR OWN SUPPLICATIONS',
       title: 'Personal Duas',
       hadith: '"Let each of you ask Allah for all his needs — even the strap of his sandal if it breaks." — Ibn al-Qayyim, Madarij al-Salikin',
       features: [
-        { icon: '🤍', text: 'Yourself · Parents · Dunya · Akhirah · Ummah' },
-        { icon: '📋', text: "Prompt cards for what to make du'a for" },
-        { icon: '🤲', text: 'Space to reflect on your intentions' },
-        { icon: '✨', text: 'No wrong answer — pour your heart out' }
+        { icon: '◌', text: 'Yourself · Parents · Dunya · Akhirah · Ummah' },
+        { icon: '◈', text: "Prompt cards for what to make du'a for" },
+        { icon: '◌', text: 'Space to reflect on your intentions' },
+        { icon: '◈', text: 'No wrong answer — pour your heart out' }
       ],
       btnText: "Make Du'a"
     },
-    completeIcon: '🤍',
+    completeIcon: '◌',
     completeSub: 'Pour your heart out to Allah in your own words. He hears every word — in every language — at every moment.',
     cards: [
       { eyebrow: 'FOR YOURSELF', heading: 'For Yourself', body: 'Ask for forgiveness of all your sins — known and unknown. Ask for health, strength, tawfiq to worship. Ask for a good end. Ask for firmness on the deen.<br><br>Ask for your specific needs right now.' },
@@ -10665,19 +10838,19 @@ var LEARN_DATA = {
 
   arafah: {
     intro: {
-      icon: '🕋',
+      icon: '✦',
       eyebrow: 'YAWM ARAFAH · THE GREATEST DAY OF DU\'A',
       title: 'Day of Arafah',
       hadith: '"The best du\'a is the du\'a of Arafah." — Tirmidhi 3585',
       features: [
-        { icon: '🕋', text: 'The best du\'a of the year' },
-        { icon: '🤲', text: 'Sayyid al-Istighfar — Master of Forgiveness' },
-        { icon: '🔥', text: 'Allah frees souls from the Fire this day' },
-        { icon: '💎', text: '13 authenticated du\'as for Arafah' }
+        { icon: '✦', text: 'The best du\'a of the year' },
+        { icon: '◌', text: 'Sayyid al-Istighfar — Master of Forgiveness' },
+        { icon: '✦', text: 'Allah frees souls from the Fire this day' },
+        { icon: '◈', text: '13 authenticated du\'as for Arafah' }
       ],
       btnText: 'Begin Arafah Du\'a'
     },
-    completeIcon: '🕋',
+    completeIcon: '✦',
     completeSub: 'Keep repeating Lā ilāha illallāhu waḥdahu lā sharīka lah throughout the day. It is the best dhikr on the best day of the year.',
     cards: [
       { eyebrow: 'THE GREATEST DU\'A', heading: 'Best Du\'a of Arafah', arabic: 'لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ', tr: 'Lā ilāha illallāhu waḥdahu lā sharīka lah lahul-mulku wa lahul-ḥamdu wa Huwa ʿalā kulli shayʾin Qadīr', body: 'The Prophet ﷺ said: <em>"The best du\'a is the du\'a of Arafah. And the best thing I and the Prophets before me have said is this."</em><br><br>Repeat this constantly throughout the day. It is the core dhikr of Yawm Arafah.', src: 'Tirmidhi 3585 — Hasan' },
@@ -10691,19 +10864,19 @@ var LEARN_DATA = {
 
   qunut: {
     intro: {
-      icon: '🤲',
+      icon: '◌',
       eyebrow: "QUNUT AL-NAZILAH · DU'A IN CALAMITY",
       title: "Qunut al-Nazilah",
       hadith: '"The Prophet ﷺ performed Qunut for a month, making du\'a against those who had killed his Companions." — Sahih al-Bukhari 1002',
       features: [
-        { icon: '🤲', text: 'A special du\'a recited in salah during trials' },
-        { icon: '📖', text: 'Established Sunnah — Hanafi, Shafi\'i, Maliki positions' },
-        { icon: '🛡️', text: 'For calamities affecting the Ummah' },
-        { icon: '💧', text: 'The du\'a of the distressed — Allah responds' }
+        { icon: '◌', text: 'A special du\'a recited in salah during trials' },
+        { icon: '◈', text: 'Established Sunnah — Hanafi, Shafi\'i, Maliki positions' },
+        { icon: '✦', text: 'For calamities affecting the Ummah' },
+        { icon: '◌', text: 'The du\'a of the distressed — Allah responds' }
       ],
       btnText: 'Learn Qunut al-Nazilah'
     },
-    completeIcon: '🤲',
+    completeIcon: '◌',
     completeSub: 'Qunut al-Nazilah is a communal act of turning to Allah in hardship. When the Ummah suffers, the believer lifts his hands — in salah and outside it.',
     cards: [
       {
@@ -10875,16 +11048,49 @@ window.beginJumuahSession = function() {
 };
 
 // ---- GUIDED DOTS FUNCTION ----
+// Shows step position for all sessions.
+// Sessions > MAX_DOTS steps: renders a sliding window of dots centred on the current step.
+// Expo migration: this is pure UI state — no changes needed.
 function updateGuidedDots(currentStep, totalSteps, sessionId) {
   var container = document.getElementById('guidedDots');
   if (!container) return;
-  if (sessionId !== 'jumuah') { container.style.display = 'none'; return; }
+
+  var MAX_DOTS = 11; // max visible dots; odd number keeps active dot centred
   container.style.display = 'flex';
+
   var html = '';
-  for (var i = 0; i < totalSteps; i++) {
-    var cls = i < currentStep ? 'done' : (i === currentStep ? 'active' : '');
-    html += '<div class="guided-dot ' + cls + '"></div>';
+
+  if (totalSteps <= MAX_DOTS) {
+    // Short session — render one dot per step
+    for (var i = 0; i < totalSteps; i++) {
+      var cls = i < currentStep ? 'done' : (i === currentStep ? 'active' : '');
+      html += '<div class="guided-dot ' + cls + '"></div>';
+    }
+  } else {
+    // Long session — sliding window of MAX_DOTS dots
+    var half = Math.floor(MAX_DOTS / 2);
+    var start = currentStep - half;
+    var end = currentStep + half;
+
+    // Clamp window to valid range
+    if (start < 0) { end -= start; start = 0; }
+    if (end >= totalSteps) { start -= (end - totalSteps + 1); end = totalSteps - 1; }
+    start = Math.max(0, start);
+
+    // Leading ellipsis indicator
+    if (start > 0) {
+      html += '<div class="guided-dot guided-dot--ellipsis"></div>';
+    }
+    for (var j = start; j <= end; j++) {
+      var c = j < currentStep ? 'done' : (j === currentStep ? 'active' : '');
+      html += '<div class="guided-dot ' + c + '"></div>';
+    }
+    // Trailing ellipsis indicator
+    if (end < totalSteps - 1) {
+      html += '<div class="guided-dot guided-dot--ellipsis"></div>';
+    }
   }
+
   container.innerHTML = html;
 }
 
@@ -11094,17 +11300,32 @@ window.showSessionCompletionMoment = function(sessionKey) {
   populateScmNext(sessionKey);
   scm.classList.add('scm-visible');
   document.body.style.overflow = 'hidden';
+
+  // ── Streak flash — fire after completion moment settles (480ms)
+  // Only fires when streak > 0 so zero-state badge doesn't animate
+  setTimeout(function() {
+    var badge = document.getElementById('streakBadge');
+    var num = parseInt(document.getElementById('streakNum').textContent, 10);
+    if (badge && num > 0) {
+      badge.classList.remove('streak-flash-anim');
+      void badge.offsetWidth; // reflow to restart animation
+      badge.classList.add('streak-flash-anim');
+      badge.addEventListener('animationend', function() {
+        badge.classList.remove('streak-flash-anim');
+      }, { once: true });
+    }
+  }, 480);
 };
 
 
 var _scmNextTarget = null;
 
 var SCM_NEXT_MAP = {
-  morning:  { icon: '📖', title: 'The Art of Du’a', topic: 'hub' },
-  evening:  { icon: '🕐', title: 'When Duas Are Answered', topic: 'times' },
-  sleep:    { icon: '🛡️', title: 'Ruqyah — Protection & Healing', topic: 'ruqyah' },
-  salah:    { icon: '🤲', title: 'Qunut al-Nazilah', topic: 'qunut' },
-  'default':  { icon: '🤍', title: 'The Art of Du’a', topic: 'hub' }
+  morning:  { icon: '◈', title: 'The Art of Du’a', topic: 'hub' },
+  evening:  { icon: '☽', title: 'When Duas Are Answered', topic: 'times' },
+  sleep:    { icon: '✦', title: 'Ruqyah — Protection & Healing', topic: 'ruqyah' },
+  salah:    { icon: '◌', title: 'Qunut al-Nazilah', topic: 'qunut' },
+  'default':  { icon: '◌', title: 'The Art of Du’a', topic: 'hub' }
 };
 
 function populateScmNext(sessionKey) {
@@ -11181,10 +11402,10 @@ var SESSION_RESUME_META = {
   'morning': { label: 'Morning Adhkar', icon: null, iconHtml: '<span style="font-family:var(--fa);font-size:20px;color:var(--gold);">☽</span>' },
   'evening': { label: 'Evening Adhkar', icon: null, iconHtml: '<span style="font-family:var(--fa);font-size:20px;color:var(--gold);">◑</span>' },
   'sleep':   { label: 'Sleep Adhkar',   icon: null, iconHtml: '<span style="font-family:var(--fa);font-size:20px;color:var(--gold);">◐</span>' },
-  'tahajjud':{ label: 'Tahajjud',       icon: '⭐' },
-  'jumuah':  { label: "Jumu'ah Hour",   icon: '🕌' },
-  'arafah':  { label: 'Yawm Arafah',   icon: '🕋' },
-  'laylatul-qadr': { label: 'Laylatul Qadr', icon: '✨' }
+  'tahajjud':{ label: 'Tahajjud',       icon: '✦' },
+  'jumuah':  { label: "Jumu'ah Hour",   icon: '✦' },
+  'arafah':  { label: 'Yawm Arafah',   icon: '✦' },
+  'laylatul-qadr': { label: 'Laylatul Qadr', icon: '◈' }
 };
 
 function saveSessionProgress(sessionId, step, totalSteps) {
@@ -11327,7 +11548,7 @@ function renderGuidedStep(){
       var pDiv = document.createElement('div');
       pDiv.className = 'jstep-pause-wrap';
       pDiv.innerHTML =
-        '<div class="jstep-pause-icon">' + (step.icon || '🤲') + '</div>' +
+        '<div class="jstep-pause-icon">' + (step.icon || '◌') + '</div>' +
         '<div class="jstep-pause-title">' + (step.title || 'Your Personal Dua') + '</div>' +
         '<div class="jstep-pause-sub">' + (step.subtitle || 'Speak to Allah in your own words') + '</div>' +
         '<div class="jstep-pause-note">' + pauseLines.join('<br><br>') + '</div>' +
@@ -11423,7 +11644,7 @@ function renderGuidedStep(){
       oldExtras.forEach(function(el){ el.parentNode.removeChild(el); });
       var pauseDiv = document.createElement('div');
       pauseDiv.className = 'guided-pause-screen';
-      pauseDiv.innerHTML = '<div class="guided-pause-icon">🤲</div>' +
+      pauseDiv.innerHTML = '<div class="guided-pause-icon">◌</div>' +
         '<div class="guided-pause-title">Your Personal Dua</div>' +
         '<div class="guided-pause-body">' + (step.note || '').replace(/\n/g, '<br><br>') + '</div>' +
         '<div class="guided-pause-time">Take your time — there is no rush.</div>';
@@ -11485,7 +11706,7 @@ function renderGuidedStep(){
         html += '<div class="guided-ar" style="margin-top:8px;">' + (ex.ar || '') + '</div>';
         html += '<div class="guided-tr">' + (ex.tr || '') + '</div>';
         html += '<div class="guided-en">"' + (ex.en || '') + '"</div>';
-        html += '<div class="guided-src">📖 ' + (ex.src || '') + '</div>';
+        html += '<div class="guided-src">◈ ' + (ex.src || '') + '</div>';
         extraDiv.innerHTML = html;
         body.appendChild(extraDiv);
       });
@@ -11528,9 +11749,9 @@ function renderGuidedStep(){
   function syncSettingsTheme(){
     var isDark = document.body.classList.contains('dark');
     var btn = document.getElementById('themeToggleSV');
-    if(btn) btn.textContent = isDark ? '🌙' : '☀️';
+    if(btn) btn.textContent = isDark ? '☽' : '☀';
     var btn2 = document.getElementById('themeToggle');
-    if(btn2) btn2.textContent = isDark ? '🌙' : '☀️';
+    if(btn2) btn2.textContent = isDark ? '☽' : '☀';
   }
 
   var themeToggleSV = document.getElementById('themeToggleSV');
@@ -12332,7 +12553,7 @@ initInstallPrompt();
 var DUAS_STATIC_DATA = {
   'quran': {
     title: 'Duas from the Qur\'an',
-    icon: '📖',
+    icon: '◈',
     duas: [
       { title: 'For Good in Both Worlds — Al-Baqarah 2:201', ar: 'رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ', tr: 'Rabbanā ātinā fid-dunyā ḥasanatan wa fil-ākhirati ḥasanatan wa qinā ʿadhāban-nār', en: '"Our Lord, give us good in this world and good in the Hereafter, and protect us from the punishment of the Fire."', src: 'Source: Qur\'an 2:201 — The Prophet ﷺ made this dua most frequently of all', badge: '' },
       { title: 'For a Righteous Spouse & Family — Al-Furqan 25:74', ar: 'رَبَّنَا هَبْ لَنَا مِنْ أَزْوَاجِنَا وَذُرِّيَّاتِنَا قُرَّةَ أَعْيُنٍ وَاجْعَلْنَا لِلْمُتَّقِينَ إِمَامًا', tr: 'Rabbanā hab lanā min azwājinā wa dhurriyyātinā qurrata aʿyunin wajʿalnā lil-muttaqīna imāmā', en: '"Our Lord, grant us from our spouses and offspring comfort to our eyes, and make us a leader for the righteous."', src: 'Source: Qur\'an 25:74', badge: '' },
@@ -12359,7 +12580,7 @@ var DUAS_STATIC_DATA = {
   },
   'prophets': {
     title: 'Duas of the Prophets',
-    icon: '🌙',
+    icon: '☽',
     duas: [
       { title: 'Acceptance of Worship — Al-Baqarah 2:127', ar: 'رَبَّنَا تَقَبَّلْ مِنَّا إِنَّكَ أَنتَ السَّمِيعُ الْعَلِيمُ', tr: 'Rabbanā taqabbal minnā innaka Antas-Samīʿul-ʿAlīm', en: '"Our Lord, accept from us. Indeed You are the All-Hearing, the All-Knowing."', src: 'Source: Qur\'an 2:127', badge: '' },
       { title: 'Submitting to Allah and Righteous Descendants — Al-Baqarah 2:128', ar: 'رَبَّنَا وَاجْعَلْنَا مُسْلِمَيْنِ لَكَ وَمِن ذُرِّيَّتِنَا أُمَّةً مُّسْلِمَةً لَّكَ وَأَرِنَا مَنَاسِكَنَا وَتُبْ عَلَيْنَا إِنَّكَ أَنتَ التَّوَّابُ الرَّحِيمُ', tr: 'Rabbanā wajʿalnā muslimayni laka wa min dhurriyyatinā ummatan muslimatan lak, wa arinā manāsikanā wa tub ʿalaynā, innaka Antat-Tawwābur-Raḥīm', en: '"Our Lord, make us both submissive to You, and from our descendants a community submissive to You. Show us our rites of worship and accept our repentance. Indeed You are the Accepting of repentance, the Merciful."', src: 'Source: Qur\'an 2:128', badge: '' },
@@ -12385,7 +12606,7 @@ var DUAS_STATIC_DATA = {
   },
   'sunnah': {
     title: 'Prophetic Duas',
-    icon: '🤲',
+    icon: '◌',
     duas: [
       { title: 'For Health in Body, Hearing & Sight', ar: 'اللَّهُمَّ عَافِنِي فِي بَدَنِي ۙ اللَّهُمَّ عَافِنِي فِي سَمْعِي ۙ اللَّهُمَّ عَافِنِي فِي بَصَرِي ۙ لَا إِلَهَ إِلَّا أَنْتَ', tr: 'Allāhumma ʿāfinī fī badanī · Allāhumma ʿāfinī fī samʿī · Allāhumma ʿāfinī fī baṣarī · lā ilāha illā Anta', en: '"O Allah, grant me health in my body. O Allah, grant me health in my hearing. O Allah, grant me health in my sight. There is no god but You."', src: 'Source: Abu Dawud (5090) — Hasan — Say morning and evening; ideal for the ill', badge: '' },
       { title: 'For Relief from Anxiety, Grief & Debt', ar: 'اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْهَمِّ وَالْحَزَنِ ۙ وَالْعَجْزِ وَالْكَسَلِ ۙ وَالْجُبْنِ وَالْبُخْلِ ۙ وَضَلَعِ الدَّيْنِ وَغَلَبَةِ الرِّجَالِ', tr: 'Allāhumma innī aʿūdhu bika minal-hammi wal-ḥazan · wal-ʿajzi wal-kasal · wal-jubni wal-bukhl · wa ḍalaʿid-dayn · wa ghalabatir-rijāl', en: '"O Allah, I seek refuge in You from worry and grief, from incapacity and laziness, from cowardice and miserliness, from being overcome by debt, and from the overpowering of people."', src: 'Source: Sahih al-Bukhari (2893)', badge: '' },
@@ -12407,7 +12628,7 @@ var DUAS_STATIC_DATA = {
   },
   'daily': {
     title: 'Daily Life',
-    icon: '☀️',
+    icon: '☀',
     duas: [
       { title: 'Upon Waking Up', ar: 'الْحَمْدُ لِلَّهِ الَّذِي أَحْيَانَا بَعْدَ مَا أَمَاتَنَا وَإِلَيْهِ النُّشُورُ', tr: 'Alḥamdu lillāhil-ladhī aḥyānā baʿda mā amātanā wa ilayhin-nushūr', en: '', src: 'Source: Sahih al-Bukhari (6312), Muslim (2711)', badge: '' },
       { title: 'Entering the Home', ar: 'بِسْمِ اللَّهِ وَلَجْنَا وَبِسْمِ اللَّهِ خَرَجْنَا وَعَلَى اللَّهِ رَبِّنَا تَوَكَّلْنَا', tr: 'Bismillāhi walajanā wa bismillāhi kharajnā wa ʿalallāhi Rabbinā tawakkalnā', en: '', src: 'Source: Abu Dawud (5096) — Hasan', badge: '' },
@@ -12439,7 +12660,7 @@ var DUAS_STATIC_DATA = {
   },
   'salawat': {
     title: 'Salawat',
-    icon: '⭐',
+    icon: '✦',
     duas: [
       { title: 'Salawat Ibrahimiyyah — The Complete Form', ar: 'اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ كَمَا صَلَّيْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ إِنَّكَ حَمِيدٌ مَجِيدٌ ، اللَّهُمَّ بَارِكْ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ كَمَا بَارَكْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ إِنَّكَ حَمِيدٌ مَجِيدٌ', tr: 'Allāhumma ṣalli ʿalā Muḥammadin wa ʿalā āli Muḥammad, kamā ṣallayta ʿalā Ibrāhīma wa ʿalā āli Ibrāhīm, innaka Ḥamīdun Majīd. Allāhumma bārik ʿalā Muḥammadin wa ʿalā āli Muḥammad, kamā bārakta ʿalā Ibrāhīma wa ʿalā āli Ibrāhīm, innaka Ḥamīdun Majīd', en: '"O Allah, send Your grace upon Muhammad and upon the family of Muhammad, as You sent Your grace upon Ibrahim and the family of Ibrahim. You are Praiseworthy, Glorious. O Allah, send Your blessings upon Muhammad and upon the family of Muhammad, as You sent Your blessings upon Ibrahim and the family of Ibrahim. You are Praiseworthy, Glorious."', src: 'Source: al-Bukhari (3370), Muslim (406) — The complete salawat as taught by the Prophet ﷺ himself', badge: '' },
       { title: 'The Short Salawat — Say Throughout the Day', ar: 'اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ', tr: 'Allāhumma ṣalli wa sallim ʿalā nabiyyinā Muḥammad', en: '"O Allah, send Your grace and peace upon our Prophet Muhammad."', src: 'Source: Muslim (408) — Say as often as you can while walking, waiting, commuting', badge: '' },
@@ -12447,7 +12668,7 @@ var DUAS_STATIC_DATA = {
   },
   'istighfar': {
     title: 'Istighfar',
-    icon: '🌿',
+    icon: '◈',
     duas: [
       { title: 'Simple Istighfar — 100× daily', ar: 'أَسْتَغْفِرُ اللَّهَ', tr: 'Astaghfirullāh', en: '"I seek forgiveness from Allah." — The simplest form. Say throughout the day.', src: 'Source: Muslim (2702)', badge: '' },
       { title: 'Istighfar with Tawbah', ar: 'أَسْتَغْفِرُ اللَّهَ الَّذِي لَا إِلَهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ وَأَتُوبُ إِلَيْهِ', tr: 'Astaghfirullāhal-ladhī lā ilāha illā Huwal-Ḥayyul-Qayyūmu wa atūbu ilayh', en: '"I seek forgiveness from Allah, the One besides whom there is no god, the Ever-Living, the Sustainer of all, and I repent to Him." — Sins forgiven even if you fled from battle.', src: 'Source: Abu Dawud (1517), al-Tirmidhi (3577)', badge: '' },
@@ -12455,14 +12676,14 @@ var DUAS_STATIC_DATA = {
   },
   'istikharah': {
     title: 'Istikhara',
-    icon: '🌙',
+    icon: '☽',
     duas: [
       { title: 'Dua al-Istikharah — The Full Supplication', ar: 'اللَّهُمَّ إِنِّي أَسْتَخِيرُكَ بِعِلْمِكَ وَأَسْتَقْدِرُكَ بِقُدْرَتِكَ وَأَسْأَلُكَ مِنْ فَضْلِكَ الْعَظِيمِ فَإِنَّكَ تَقْدِرُ وَلَا أَقْدِرُ وَتَعْلَمُ وَلَا أَعْلَمُ وَأَنْتَ عَلَّامُ الْغُيُوبِ ، اللَّهُمَّ إِنْ كُنْتَ تَعْلَمُ أَنَّ هَذَا الْأَمْرَ خَيْرٌ لِي فِي دِينِي وَمَعَاشِي وَعَاقِبَةِ أَمْرِي فَاقْدُرْهُ لِي وَيَسِّرْهُ لِي ثُمَّ بَارِكْ لِي فِيهِ ، وَإِنْ كُنْتَ تَعْلَمُ أَنَّ هَذَا الْأَمْرَ شَرٌّ لِي فِي دِينِي وَمَعَاشِي وَعَاقِبَةِ أَمْرِي فَاصْرِفْهُ عَنِّي وَاصْرِفْنِي عَنْهُ وَاقْدُرْ لِيَ الْخَيْرَ حَيْثُ كَانَ ثُمَّ أَرْضِنِي بِهِ', tr: 'Allāhumma innī astakhīruka bi ʿilmik, wa astaqdiruka bi qudratik, wa asʾaluka min faḍlikal-ʿaẓīm. Fa innaka taqdiru wa lā aqdir, wa taʿlamu wa lā aʿlam, wa Anta ʿallāmul-ghuyūb. Allāhumma in kunta taʿlamu anna hādhal-amra khayrun lī fī dīnī wa maʿāshī wa ʿāqibati amrī — faqdurhu lī wa yassirhu lī thumma bārik lī fīh. Wa in kunta taʿlamu anna hādhal-amra sharrun lī fī dīnī wa maʿāshī wa ʿāqibati amrī — faṣrifhu ʿannī waṣrifnī ʿanhu waqdur liyal-khayra ḥaythu kān, thumma arḍinī bih', en: '"O Allah, I seek Your guidance through Your knowledge, and I seek ability through Your power, and I ask You from Your immense bounty. For You are able and I am not, You know and I do not, and You are the Knower of the unseen. O Allah, if You know that this matter is good for me in my religion, my livelihood, and my outcome — decree it for me, make it easy, and bless it. And if it is harmful — turn it away from me and turn me from it, and decree what is good wherever it may be, then make me content with it."', src: 'Source: al-Bukhari (1162) — At the words hādhal-amra mention your specific decision aloud', badge: '' },
     ]
   },
   'marriage': {
     title: 'Marriage & Family',
-    icon: '💛',
+    icon: '◌',
     duas: [
       { title: 'Congratulations for the newlyweds — said to the groom', ar: 'بَارَكَ اللَّهُ لَكَ وَبَارَكَ عَلَيْكَ وَجَمَعَ بَيْنَكُمَا فِي خَيْرٍ', tr: 'Bārakallāhu laka wa bāraka ʿalayka wa jamaʿa baynakumā fī khayr', en: '"May Allah bless you and bestow blessings upon you and unite you both in goodness."', src: 'Source: Abu Dawud (2130) — Sahih', badge: '' },
       { title: 'Dua when a husband sees his wife for the first time', ar: 'اللَّهُمَّ إِنِّي أَسْأَلُكَ خَيْرَهَا وَخَيْرَ مَا جَبَلْتَهَا عَلَيْهِ وَأَعُوذُ بِكَ مِنْ شَرِّهَا وَشَرِّ مَا جَبَلْتَهَا عَلَيْهِ', tr: 'Allāhumma innī asʾaluka khayrahā wa khayra mā jabaltahā ʿalayhi wa aʿūdhu bika min sharrihā wa sharri mā jabaltahā ʿalayh', en: '"O Allah, I ask You for the good in her and the good of what You have created in her nature, and I seek refuge in You from her evil and the evil of what You have created in her nature."', src: 'Source: Abu Dawud (2160) — Hasan', badge: '' },
@@ -12471,7 +12692,7 @@ var DUAS_STATIC_DATA = {
   },
   'dhulhijjah-duas': {
     title: 'Dhul Hijjah Du\'as',
-    icon: '🕋',
+    icon: '✦',
     duas: [
       { title: 'Du\'a of Yunus (AS) — Arafah and hardship', ar: 'لَّا إِلَٰهَ إِلَّا أَنتَ سُبْحَانَكَ إِنِّي كُنتُ مِنَ الظَّالِمِينَ', tr: 'Lā ilāha illā Anta subḥānaka innī kuntu minaẓ-ẓālimīn', en: '"There is no god but You. Glory be to You. Indeed I have been of the wrongdoers."', src: 'Source: Qur\'an 21:87 — No Muslim supplicates with this sincerely except Allah answers — al-Tirmidhi', badge: '' },
       { title: 'For Forgiveness — Arafah and Laylatul Qadr', ar: 'اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي', tr: 'Allāhumma innaka ʿafuwwun tuḥibbul-ʿafwa faʿfu ʿannī', en: '"O Allah, You are the Pardoner, You love to pardon, so pardon me."', src: 'Source: al-Tirmidhi (3513), Ibn Majah (3850) — Sahih · Best for Laylatul Qadr and Arafah', badge: '' },
@@ -12481,7 +12702,7 @@ var DUAS_STATIC_DATA = {
   },
   'illness': {
     title: 'Illness & Hardship',
-    icon: '🤲',
+    icon: '◌',
     duas: [
       { title: 'Dua of Ayyub (AS) — For Relief from Affliction', ar: 'أَنِّي مَسَّنِيَ الضُّرُّ وَأَنتَ أَرْحَمُ الرَّاحِمِينَ', tr: 'Annī massaniyaḍ-ḍurru wa Anta arḥamur-rāḥimīn', en: '"Indeed, adversity has touched me, and You are the Most Merciful of the merciful."', src: 'Source: Qur\'an 21:83 — Said by Ayyub (AS) after years of illness. Allah answered and removed his hardship entirely.', badge: '' },
       { title: 'Ruqyah — For Healing Oneself or Another', ar: 'اللَّهُمَّ رَبَّ النَّاسِ أَذْهِبِ الْبَأْسَ اشْفِ أَنْتَ الشَّافِي لَا شِفَاءَ إِلَّا شِفَاؤُكَ شِفَاءً لَا يُغَادِرُ سَقَمًا', tr: 'Allāhumma Rabban-nāsi adh-hibil-baʾs, ishfi Antash-Shāfī, lā shifāʾa illā shifāʾuk, shifāʾan lā yughādiru saqamā', en: '"O Allah, Lord of mankind, remove the affliction. Heal — for You are the Healer. There is no healing except Your healing, a healing that leaves no illness behind."', src: 'Source: Sahih al-Bukhari (5675), Sahih Muslim (2191) — Place hand on the area of pain, recite 3× Bismillah then this dua ×7', badge: '' },
@@ -12493,7 +12714,7 @@ var DUAS_STATIC_DATA = {
   },
   'travel': {
     title: 'Travel',
-    icon: '✈️',
+    icon: '◈',
     duas: [
       { title: 'Dua When Departing — Said Upon Leaving Home', ar: 'بِسْمِ اللَّهِ تَوَكَّلْتُ عَلَى اللَّهِ وَلَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ', tr: 'Bismillāhi tawakkaltu ʿalallāhi wa lā ḥawla wa lā quwwata illā billāh', en: '"In the name of Allah, I place my trust in Allah. There is no power or might except with Allah."', src: 'Source: Abu Dawud (5095), al-Tirmidhi (3426) — Sahih. Whoever says this is told: you are guided, protected and kept safe. Shaytan leaves him.', badge: '' },
       { title: 'Dua When Boarding Any Vehicle', ar: 'سُبْحَانَ الَّذِي سَخَّرَ لَنَا هَٰذَا وَمَا كُنَّا لَهُ مُقْرِنِينَ وَإِنَّا إِلَىٰ رَبِّنَا لَمُنقَلِبُونَ', tr: 'Subḥānal-ladhī sakhkhara lanā hādhā wa mā kunnā lahu muqrinīn, wa innā ilā Rabbinā la-munqalibūn', en: '"Glory be to the One who has subjected this to us, and we could not have done it ourselves. And indeed to our Lord we will return."', src: 'Source: Qur\'an 43:13–14 — The dua of the Prophet ﷺ whenever he mounted any vehicle.', badge: '' },
@@ -12502,7 +12723,7 @@ var DUAS_STATIC_DATA = {
   },
   'eating': {
     title: 'Eating & Drinking',
-    icon: '🍽️',
+    icon: '◈',
     duas: [
       { title: 'Before Eating — The Sunnah', ar: 'بِسْمِ اللَّهِ', tr: 'Bismillāh', en: '"In the name of Allah."', src: 'Source: Sahih al-Bukhari (5376) — The Prophet ﷺ said: When one of you eats, let him mention Allah\'s name. If he forgets at the start, let him say: Bismillāhi awwalahu wa ākhirahu.', badge: '' },
       { title: 'After Eating — Alhamdulillah', ar: 'الْحَمْدُ لِلَّهِ الَّذِي أَطْعَمَنِي هَٰذَا وَرَزَقَنِيهِ مِنْ غَيْرِ حَوْلٍ مِنِّي وَلَا قُوَّةٍ', tr: 'Al-ḥamdulillāhil-ladhī aṭʿamanī hādhā wa razaqanīhi min ghayri ḥawlin minnī wa lā quwwah', en: '"All praise is for Allah who fed me this and provided it for me without any power or strength from myself."', src: 'Source: Abu Dawud (4023), al-Tirmidhi (3458) — Hasan. Whoever says this after eating, his past sins are forgiven.', badge: '' },
@@ -12698,8 +12919,11 @@ function renderDuaReaderIntro() {
 
   document.getElementById('duaReaderLabel').textContent = '';
   var arEl = document.getElementById('duaReaderAr');
-  arEl.textContent = cat.icon || '🤲';
-  arEl.style.fontSize = '64px';
+  arEl.textContent = cat.icon || '◈';
+  arEl.style.fontSize = '52px';
+  arEl.style.fontFamily = 'var(--fa)';
+  arEl.style.color = 'var(--gold)';
+  arEl.style.opacity = '0.65';
   arEl.style.lineHeight = '1.2';
   arEl.style.direction = 'ltr';
   var trEl = document.getElementById('duaReaderTr');
@@ -13291,25 +13515,25 @@ var REMINDERS_KEY = 'naafi_reminders_v1';
 
 var REMINDER_CONFIG = {
   morning: {
-    icon: '🌅',
+    icon: '☀',
     title: 'Morning Adhkar',
     sub: 'Time for your morning remembrance',
     action: function() { startGuidedSession('morning'); }
   },
   evening: {
-    icon: '🌆',
+    icon: '☽',
     title: 'Evening Adhkar',
     sub: 'Time for your evening remembrance',
     action: function() { startGuidedSession('evening'); }
   },
   sleep: {
-    icon: '🌙',
+    icon: '☽',
     title: 'Before Sleep',
     sub: 'Wind down with your sleep adhkar',
     action: function() { startGuidedSession('sleep'); }
   },
   custom: {
-    icon: '🤲',
+    icon: '◌',
     title: 'Time to Make Du\'a',
     sub: 'Take a moment to remember Allah',
     action: function() { showView('duas'); }
@@ -14639,7 +14863,7 @@ function getContextualHome() {
     fajr: {
       greeting: 'Fajr Mubarak',
       sub: 'Complete your post-salah adhkar and morning remembrance',
-      icon: '🌅',
+      icon: '☀',
       cards: [
         { eyebrow: 'AFTER FAJR', title: 'Post-Salah Adhkar', sub: 'Istighfar ×3, Salam Dua, Tasbih, Ayatul Kursi', action: "showView('adhkar'); setTimeout(function(){document.getElementById('salah-interactive').scrollIntoView({behavior:'smooth'})},120);" },
         { eyebrow: 'BEST TIME', title: 'Morning Adhkar', sub: 'Protection for your entire day — 15 steps', action: "startGuidedSession('morning')" },
@@ -14649,7 +14873,7 @@ function getContextualHome() {
     morning: {
       greeting: 'Good Morning',
       sub: 'Start your day with the remembrance of Allah',
-      icon: '☀️',
+      icon: '☀',
       cards: [
         { eyebrow: 'MORNING ADHKAR', title: 'Morning Adhkar', sub: 'Protection for your entire day', action: "startGuidedSession('morning')" },
         { eyebrow: 'DUA OF THE DAY', title: 'Today\'s Dua', sub: 'Rotate through authentic duas daily', action: "document.getElementById('dotdSection').scrollIntoView({behavior:'smooth'})" },
@@ -14659,7 +14883,7 @@ function getContextualHome() {
     dhuhr: {
       greeting: 'Dhuhr Mubarak',
       sub: 'Complete your post-salah adhkar',
-      icon: '🕌',
+      icon: '✦',
       cards: [
         { eyebrow: 'AFTER DHUHR', title: 'Post-Salah Adhkar', sub: 'Istighfar, Salam Dua, Tasbih, Ayatul Kursi', action: "showView('adhkar'); setTimeout(function(){document.getElementById('salah-interactive').scrollIntoView({behavior:'smooth'})},120);" },
         { eyebrow: 'DAILY DUA', title: 'Dua of the Day', sub: 'Authentic supplication from the Sunnah', action: "document.getElementById('dotdSection').scrollIntoView({behavior:'smooth'})" },
@@ -14669,7 +14893,7 @@ function getContextualHome() {
     afternoon: {
       greeting: 'Good Afternoon',
       sub: 'Maintain your remembrance throughout the day',
-      icon: '🌤️',
+      icon: '◈',
       cards: [
         { eyebrow: 'DAILY DUA', title: 'Dua of the Day', sub: 'Authentic supplication from the Sunnah', action: "document.getElementById('dotdSection').scrollIntoView({behavior:'smooth'})" },
         { eyebrow: 'DHIKR', title: 'Daily Dhikr', sub: 'Tasbih, Istighfar, Salawat', action: "showView('duas'); setTimeout(function(){ scrollToSection('dhikr-section'); }, 120);" },
@@ -14679,7 +14903,7 @@ function getContextualHome() {
     asr: {
       greeting: 'Asr Mubarak',
       sub: 'Complete your post-salah adhkar and evening remembrance',
-      icon: '🌇',
+      icon: '◈',
       cards: [
         { eyebrow: 'AFTER ASR', title: 'Post-Salah Adhkar', sub: 'Istighfar, Salam Dua, Tasbih, Ayatul Kursi', action: "showView('adhkar'); setTimeout(function(){document.getElementById('salah-interactive').scrollIntoView({behavior:'smooth'})},120);" },
         { eyebrow: 'BEST TIME', title: 'Evening Adhkar', sub: 'Protection for your evening — 12 steps', action: "startGuidedSession('evening')" },
@@ -14689,7 +14913,7 @@ function getContextualHome() {
     maghrib: {
       greeting: 'Maghrib Mubarak',
       sub: 'Complete your post-salah adhkar',
-      icon: '🌆',
+      icon: '☽',
       cards: [
         { eyebrow: 'AFTER MAGHRIB', title: 'Post-Salah Adhkar', sub: 'Istighfar, Salam Dua, Tasbih, Ayatul Kursi', action: "showView('adhkar'); setTimeout(function(){document.getElementById('salah-interactive').scrollIntoView({behavior:'smooth'})},120);" },
         { eyebrow: 'STILL VALID', title: 'Evening Adhkar', sub: 'Best time has passed — still rewarded until midnight', action: "startGuidedSession('evening')" },
@@ -14699,7 +14923,7 @@ function getContextualHome() {
     isha: {
       greeting: 'Isha Mubarak',
       sub: 'Complete your post-salah adhkar and prepare for rest',
-      icon: '🌙',
+      icon: '☽',
       cards: [
         { eyebrow: 'AFTER ISHA', title: 'Post-Salah Adhkar', sub: 'Istighfar, Salam Dua, Tasbih, Ayatul Kursi', action: "showView('adhkar'); setTimeout(function(){document.getElementById('salah-interactive').scrollIntoView({behavior:'smooth'})},120);" },
         { eyebrow: 'TONIGHT', title: 'Before Sleep', sub: 'Seal your night with remembrance — 9 steps', action: "startGuidedSession('sleep')" },
@@ -14709,7 +14933,7 @@ function getContextualHome() {
     night: {
       greeting: 'Good Night',
       sub: 'The night is a gift — sleep and Tahajjud both have virtue',
-      icon: '🌙',
+      icon: '☽',
       cards: [
         { eyebrow: 'BEFORE SLEEP', title: 'Sleep Adhkar', sub: 'Protect yourself through the night — 9 steps', action: "startGuidedSession('sleep')" },
         { eyebrow: 'NIGHT PRAYER', title: 'Tahajjud Dua', sub: 'The best prayer after fard is the night prayer', action: "startGuidedSession('sleep')" },
@@ -14719,7 +14943,7 @@ function getContextualHome() {
     eid_adha: {
       greeting: 'Eid Mubarak',
       sub: 'Taqabbalallahu minna wa minkum — may Allah accept from us and from you',
-      icon: '🎉',
+      icon: '◈',
       cards: [
         { eyebrow: 'EID AL-ADHA', title: 'Eid Adhkar & Duas', sub: 'Ghusl, Eid takbeer, sunnah acts of the day', action: "showView('duas'); setTimeout(function(){ scrollToSection('eid'); }, 120);" },
         { eyebrow: 'AFTER SALAH', title: 'Post-Salah Adhkar', sub: 'Istighfar, Salam Dua, Tasbih, Ayatul Kursi', action: "showView('adhkar'); setTimeout(function(){document.getElementById('salah-interactive').scrollIntoView({behavior:'smooth'})},120);" },
@@ -14729,7 +14953,7 @@ function getContextualHome() {
     eid_fitr: {
       greeting: 'Eid Mubarak',
       sub: 'Taqabbalallahu minna wa minkum — may Allah accept from us and from you',
-      icon: '🌙',
+      icon: '☽',
       cards: [
         { eyebrow: 'EID AL-FITR', title: 'Eid Adhkar & Duas', sub: 'Eid takbeer, sunnah acts of the day', action: "showView('duas'); setTimeout(function(){ scrollToSection('eid'); }, 120);" },
         { eyebrow: 'AFTER SALAH', title: 'Post-Salah Adhkar', sub: 'Istighfar, Salam Dua, Tasbih, Ayatul Kursi', action: "showView('adhkar'); setTimeout(function(){document.getElementById('salah-interactive').scrollIntoView({behavior:'smooth'})},120);" },
@@ -14739,7 +14963,7 @@ function getContextualHome() {
     arafah_day: {
       greeting: 'Yawm Arafah',
       sub: 'The greatest day of the year for du\'a — fast if not on Hajj',
-      icon: '🕋',
+      icon: '✦',
       cards: [
         { eyebrow: 'TODAY\'S SUNNAH', title: 'Yawm Arafah Adhkar', sub: 'The guided session — 14 steps', action: "startGuidedSession('arafah')" },
         { eyebrow: 'FAST TODAY', title: 'The Arafah Fast', sub: 'Expiates sins of two years', action: "openLearnTopic('arafah')" },
@@ -14749,7 +14973,7 @@ function getContextualHome() {
     dhul_hijjah: {
       greeting: 'The Blessed Ten Days',
       sub: 'The greatest days of the year — increase in worship and good deeds',
-      icon: '🌙',
+      icon: '☽',
       cards: [
         { eyebrow: 'THESE DAYS', title: 'Dhul Hijjah — Full Guide', sub: 'Takbeer, fasting, deeds multiplied', action: "openLearnTopic('dhulhijjah')" },
         { eyebrow: 'DAILY DHIKR', title: 'Dhul Hijjah Takbeer', sub: 'Allahu Akbar, Allahu Akbar, La ilaha illallah...', action: "showView('duas'); setTimeout(function(){ scrollToSection('dhulhijjah-duas'); }, 120);" },
@@ -15389,7 +15613,7 @@ window.satRestartTimer = function() {
 
 <!-- In-app reminder banner -->
 <div id="reminderBanner" role="alert" aria-live="polite">
-  <div class="reminder-banner-icon" id="reminderBannerIcon">🌅</div>
+  <div class="reminder-banner-icon" id="reminderBannerIcon">☀</div>
   <div class="reminder-banner-text">
     <div class="reminder-banner-title" id="reminderBannerTitle">Morning Adhkar</div>
     <div class="reminder-banner-sub" id="reminderBannerSub">Time for your morning remembrance</div>
