@@ -142,6 +142,7 @@ body.dark::before {
   inset: 0;
   pointer-events: none;
   z-index: 0;
+  opacity: 1;
   background-image:
     radial-gradient(1px 1px at  6% 11%, rgba(196,163,90,0.65) 0%,transparent 100%),
     radial-gradient(1px 1px at 21% 57%, rgba(255,255,255,0.20) 0%,transparent 100%),
@@ -149,18 +150,16 @@ body.dark::before {
     radial-gradient(1px 1px at 53% 79%, rgba(255,255,255,0.16) 0%,transparent 100%),
     radial-gradient(1.5px 1.5px at 69%  7%, rgba(196,163,90,0.55) 0%,transparent 100%),
     radial-gradient(1px 1px at 83% 43%, rgba(255,255,255,0.18) 0%,transparent 100%),
-    radial-gradient(1px 1px at 91% 67%, rgba(196,163,90,0.35) 0%,transparent 100%),
     radial-gradient(1px 1px at 14% 87%, rgba(255,255,255,0.14) 0%,transparent 100%),
     radial-gradient(2px 2px at 59% 49%, rgba(196,163,90,0.28) 0%,transparent 100%),
-    radial-gradient(1px 1px at 75% 25%, rgba(196,163,90,0.40) 0%,transparent 100%),
-    radial-gradient(1px 1px at 29% 39%, rgba(255,255,255,0.12) 0%,transparent 100%),
-    radial-gradient(1.5px 1.5px at 64% 14%, rgba(196,163,90,0.45) 0%,transparent 100%),
-    radial-gradient(1px 1px at 87% 79%, rgba(255,255,255,0.13) 0%,transparent 100%),
-    radial-gradient(1px 1px at 41% 91%, rgba(196,163,90,0.25) 0%,transparent 100%),
-    radial-gradient(1px 1px at  4% 51%, rgba(255,255,255,0.09) 0%,transparent 100%),
-    radial-gradient(1.5px 1.5px at 32% 71%, rgba(196,163,90,0.32) 0%,transparent 100%),
-    radial-gradient(2px 2px at 95% 20%, rgba(196,163,90,0.20) 0%,transparent 100%);
+    radial-gradient(1.5px 1.5px at 64% 14%, rgba(196,163,90,0.45) 0%,transparent 100%);
+  /* Pause animation when user prefers reduced motion — also saves battery on older devices */
   animation: star-drift 12s ease-in-out infinite alternate;
+  /* opacity animation is compositor-safe — no layer flush per frame unlike translateY */
+  will-change: opacity;
+}
+@media (prefers-reduced-motion: reduce) {
+  body.dark::before { animation: none; }
 }
 body.dark .nav { background: rgba(8,12,18,0.88); }
 body.dark .nav-dropdown { background: rgba(8,12,18,0.98); }
@@ -175,15 +174,15 @@ body.dark .dhikr { background: transparent; border-bottom: 1px solid rgba(196,16
 body.dark .session-card { background: linear-gradient(160deg, rgba(196,163,90,0.04) 0%, rgba(13,18,25,0.9) 100%); border-color: rgba(196,163,90,0.12); }
 body.dark .sc-begin { background: transparent; border-color: rgba(196,163,90,0.38); color: var(--gold-l); }
 body.dark .sc-begin:active { background: rgba(196,163,90,0.10); }
-body.dark .ar { color: var(--gold-l); text-shadow: 0 0 40px rgba(196,163,90,0.18), 0 0 80px rgba(196,163,90,0.08); }
-body.dark .bismillah { text-shadow: 0 0 50px rgba(196,163,90,0.28), 0 0 100px rgba(196,163,90,0.12), 0 0 150px rgba(196,163,90,0.05); }
+body.dark .ar { color: var(--gold-l); text-shadow: 0 1px 0 rgba(196,163,90,0.15), 0 0 10px rgba(196,163,90,0.12); }
+body.dark .bismillah { text-shadow: 0 1px 0 rgba(196,163,90,0.18), 0 0 12px rgba(196,163,90,0.14), 0 0 8px rgba(196,163,90,0.08); }
 body.dark .dua { background: transparent; border-bottom-color: rgba(196,163,90,0.07); }
 body.dark .dua.feat { background: linear-gradient(160deg, rgba(196,163,90,0.055) 0%, transparent 55%); border-color: rgba(196,163,90,0.12); }
 body.dark .guided-overlay { background:
     radial-gradient(ellipse 100% 40% at 50% 0%,
       rgba(139,107,42,0.06) 0%, transparent 55%),
     #080C12; }
-body.dark .bottom-nav { background: rgba(8,12,18,0.92); border-top-color: rgba(196,163,90,0.10); box-shadow: none; }
+body.dark .bottom-nav { background: rgba(8,12,18,0.97); border-top-color: rgba(196,163,90,0.10); box-shadow: none; }
 
 /* ---- FONT SIZE CONTROLS ---- */
 .ar{
@@ -290,7 +289,7 @@ body.dark .bottom-nav { background: rgba(8,12,18,0.92); border-top-color: rgba(1
 }
 
 .session-card { background: transparent; }
-.session-card.sc-done:active { opacity: 0.5; }
+.session-card.sc-done:active { opacity: 0.88; background: var(--gbg); }
 
 
 /* Theme toggle button */
@@ -325,15 +324,21 @@ body.dark .bottom-nav { background: rgba(8,12,18,0.92); border-top-color: rgba(1
 
 /* ---- FAVOURITES STAR ---- */
 .fav-star{
-  position:absolute;top:10px;left:10px;
+  position:absolute;top:0;left:0;
   background:none;border:none;cursor:pointer;
-  font-size:16px;line-height:1;padding:5px;
+  font-size:16px;line-height:1;
   color:var(--text-m);
   display:flex;align-items:center;justify-content:center;
+  /* Visual size kept small; tap area extended via padding to meet 44×44px HIG minimum
+     without bleeding into the card's Arabic text column */
   width:28px;height:28px;
+  padding:8px;
+  /* Expand hit area outward (left/up) rather than inward toward text */
+  margin:-8px 0 0 -8px;
   transition: color var(--t-fast) var(--ease-out),
               transform 200ms var(--ease-spring);
   -webkit-tap-highlight-color:transparent;
+  touch-action: manipulation;
   z-index:2;
 }
 .fav-star svg { width:16px; height:16px; stroke:currentColor; fill:none; stroke-width:1.8; transition: fill var(--t-fast) var(--ease-out), stroke var(--t-fast) var(--ease-out); }
@@ -566,16 +571,26 @@ body.dark .colophon { opacity: 0.35; }
   position: fixed;
   inset: 0;
   z-index: 9999;
-  display: none;
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 48px 32px;
   background: var(--deep);
   text-align: center;
+  /* iOS Safari: dynamic viewport height */
+  height: 100dvh;
+  /* Visibility pattern: stays in render tree, no layout recalc on show */
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 400ms var(--ease-velvet), visibility 0s 400ms;
 }
 #sessionCompletionMoment.scm-visible {
-  display: flex;
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+  transition: opacity 400ms var(--ease-velvet), visibility 0s 0s;
 }
 .scm-title {
   font-family: var(--fs);
@@ -618,7 +633,7 @@ body.dark .colophon { opacity: 0.35; }
   direction: rtl;
   line-height: 2;
   margin-bottom: 48px;
-  text-shadow: 0 0 40px rgba(196,163,90,0.2);
+  text-shadow: 0 0 10px rgba(196,163,90,0.18);
 }
 
 .scm-bridge {
@@ -909,14 +924,20 @@ html { -webkit-text-size-adjust: none; text-size-adjust: none; }
 button, .tab-btn, .nav, .nav-tab, .fav-star, .copy-btn, .dhikr-count,
 .session-card, .tasbih-step, .dua-reader-nav-btn, .learn-topic-row,
 .expand-trigger, .cat-tile, .ob-path-btn, .settings-row,
-[role="button"], [role="tab"] {
+[role="button"], [role="tab"], [onclick] {
   user-select: none;
   -webkit-user-select: none;
+}
+/* Eliminate residual 300ms tap delay on all interactive elements */
+button, [onclick], [role="button"], [role="tab"], .fav-star, .copy-btn,
+.session-card, .cat-tile, .expand-trigger, .bn-tab, .dhikr, .dua,
+.learn-topic-row, .settings-row, .tasbih-step, .dua-reader-nav-btn {
+  touch-action: manipulation;
 }
 ::-webkit-scrollbar { display: none; }
 * { scrollbar-width: none; }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-html{scroll-behavior:smooth;font-size:16px;overscroll-behavior:none;}
+html{font-size:16px;}
 body{
   background: var(--deep);
   color:var(--text);
@@ -927,15 +948,15 @@ body{
   -webkit-font-smoothing:antialiased;
   -moz-osx-font-smoothing:grayscale;
   text-rendering:optimizeLegibility;
-  overscroll-behavior:none;
-  touch-action: manipulation;
+  /* overscroll-behavior is set per .spa-view via overscroll-behavior-y:contain
+     to allow native rubber-band bounce at the body level (iOS HIG-correct) */
 }
 
 /* body::before light mode: see Sprint 3 upgrade — body:not(.dark)::before */
 
 @keyframes star-drift {
-  0%   { opacity: 0.7; transform: translateY(0px); }
-  100% { opacity: 1.0; transform: translateY(-3px); }
+  0%   { opacity: 0.75; }
+  100% { opacity: 1; }
 }
 
 .page{position:relative;z-index:1;max-width:680px;margin:0 auto;padding:8px 24px 96px;}
@@ -1415,8 +1436,10 @@ body.dark .note { border-left-color: rgba(196,163,90,0.18); }
   font-family:var(--fn);
   transition:background .2s,color .2s,border-color .2s;
   -webkit-tap-highlight-color:transparent;
-  min-height:30px;
+  /* 44px min tap target per Apple HIG — was 30px */
+  min-height:44px;
   white-space:nowrap;
+  display:inline-flex;align-items:center;justify-content:center;
 }
 .copy-btn:hover{background:rgba(196,163,90,.14);color:var(--gold);border-color:rgba(196,163,90,.4);}
 .copy-btn.copied{
@@ -1476,10 +1499,12 @@ body.dark .note { border-left-color: rgba(196,163,90,0.18); }
 .spa-view {
   display: none;
   opacity: 0;
-  transform: translateY(12px);
-  will-change: transform, opacity;
-  transition: opacity 380ms var(--ease-velvet),
-              transform 380ms var(--ease-velvet);
+  transform: translateY(6px);
+  /* will-change is applied dynamically in showView() only during transitions,
+     then removed after transitionend — avoids promoting all 5 views simultaneously */
+  transition: opacity 280ms var(--ease-velvet), transform 280ms var(--ease-velvet);
+  /* Prevent scroll chaining to body at list boundaries */
+  overscroll-behavior-y: contain;
 }
 .spa-view.view-active {
   opacity: 1;
@@ -1488,7 +1513,7 @@ body.dark .note { border-left-color: rgba(196,163,90,0.18); }
 .spa-view.view-entering {
   display: block;
   opacity: 0;
-  transform: translateY(12px);
+  transform: translateY(6px);
 }
 .spa-view.view-active,
 .spa-view.view-entering {
@@ -1498,10 +1523,9 @@ body.dark .note { border-left-color: rgba(196,163,90,0.18); }
 .spa-view.view-leaving {
   display: block;
   opacity: 0;
-  transform: translateY(-6px);
+  transform: translateY(3px);
   pointer-events: none;
-  transition: opacity 200ms var(--ease-manuscript),
-              transform 200ms var(--ease-manuscript);
+  transition: opacity 160ms var(--ease-manuscript), transform 160ms var(--ease-manuscript);
 }
 
 /* Bottom tab bar — fixed, always visible */
@@ -1513,9 +1537,10 @@ body.dark .note { border-left-color: rgba(196,163,90,0.18); }
   z-index: 9999 !important;
   min-height: 64px;
   height: calc(64px + env(safe-area-inset-bottom, 0px));
-  background: rgba(247,242,232,0.92);
-  backdrop-filter: blur(24px) saturate(1.1);
-  -webkit-backdrop-filter: blur(24px) saturate(1.1);
+  background: rgba(247,242,232,0.97);
+  /* backdrop-filter removed — blur(16px) on a fixed always-visible element burns GPU
+     every frame. Near-opaque solid bg achieves 95% of the visual effect at near-zero cost.
+     Re-enable if device performance budget allows: backdrop-filter: blur(16px) saturate(1.1); */
   border-top: 1px solid rgba(139,107,42,0.07);
   box-shadow: none;
   display: flex !important;
@@ -1524,7 +1549,10 @@ body.dark .note { border-left-color: rgba(196,163,90,0.18); }
   /* iOS Safari: promote to own compositor layer — prevents fixed-nav flicker/disappear */
   transform: translateZ(0);
   -webkit-transform: translateZ(0);
-  will-change: transform;
+  /* will-change: removed — translateZ(0) already promotes this layer;
+     a permanent will-change: transform on the always-visible nav wastes a GPU layer */
+  /* Safety clip: prevents tab indicator from bleeding past last tab on layout drift */
+  overflow: hidden;
 }
 
 .bn-tab {
@@ -1551,20 +1579,17 @@ body.dark .note { border-left-color: rgba(196,163,90,0.18); }
 .bn-tab .bn-icon { display: flex; align-items: center; justify-content: center; width: 22px; height: 22px; }
 .bn-tab .bn-icon svg { width: 22px; height: 22px; }
 .bn-tab .bn-label { font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; white-space: nowrap; font-family: var(--fn); opacity: 1; }
+/* Filled vs outline icon swap: outline shown by default, filled shown when active */
+.bn-tab .bn-icon-outline { display: block; }
+.bn-tab .bn-icon-filled  { display: none; }
+.bn-tab.active .bn-icon-outline { display: none; }
+.bn-tab.active .bn-icon-filled  { display: block; }
 .bn-tab.active { color: var(--gold-l); }
-.bn-tab.active::after {
-  content: '';
-  position: absolute;
-  bottom: calc(env(safe-area-inset-bottom, 0px) + 4px);
-  left: 50%;
-  transform: translateX(-50%);
-  width: 3px;
-  height: 3px;
-  background: #8B6914;
-  border-radius: 50%;
-  opacity: 0.6;
+.bn-tab.active .bn-label {
+  font-weight: 600;
+  opacity: 1;
 }
-.bn-tab { color: rgba(139,107,42,0.65); }
+.bn-tab { color: rgba(139,107,42,0.55); }
 .bn-tab.active { color: #8B6914; }
 
 /* Body needs bottom padding so content clears the tab bar */
@@ -1696,6 +1721,9 @@ body.dark .note { border-left-color: rgba(196,163,90,0.18); }
   z-index: 5000;
   padding: 0 16px 80px;
   overflow-y: auto;
+  /* iOS Safari: dynamic viewport height + prevent scroll chaining */
+  height: 100dvh;
+  overscroll-behavior-y: contain;
 }
 .search-overlay { background: rgba(250,246,238,0.97); }
 body.dark .search-overlay { background: rgba(8,12,18,0.97); }
@@ -1975,6 +2003,8 @@ body.dark .search-overlay-header { background: rgba(8,12,18,0.99); }
   display: none;
   flex-direction: column;
   overflow: hidden;
+  /* iOS Safari: dynamic viewport height prevents address-bar clip */
+  height: 100dvh;
 }
 .dho-overlay.dho-open { display: flex; }
 
@@ -2758,6 +2788,8 @@ body.dark .jeb-btn { border-color: rgba(196,163,90,0.38); color: var(--gold-l); 
   overflow: hidden;
   will-change: transform, opacity;
   transform: translateZ(0);
+  /* iOS Safari: use dynamic viewport height so address-bar expansion doesn't clip overlay */
+  height: 100dvh;
 }
 /* ── GUIDED SESSION WATERMARK ───────────────────────────── */
 .gs-watermark{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:0;overflow:hidden;user-select:none;}
@@ -3289,19 +3321,20 @@ button, .bn-tab, .expand-trigger, .copy-btn, .fav-star,
 }
 
 /* ---- GPU ACCELERATION ---- */
-.guided-overlay, .bottom-nav, .dua, .btt, .search-overlay {
-  will-change: transform, opacity;
-}
+/* will-change is applied dynamically in JS for transient elements (overlays, views).
+   Static will-change declarations removed to prevent excess compositor layers on older iPhones. */
 
 /* ---- TAB INDICATOR ---- */
+/* width and transform are both driven by JS (_updateTabIndicator) using real measured pixel geometry */
 .bn-tab-indicator {
   position: absolute;
   top: 0; left: 0;
   height: 2px;
-  width: 20%;
+  width: 0; /* JS sets this to tabRect.width */
   background: var(--gold);
   border-radius: 0 0 2px 2px;
-  transition: transform 250ms cubic-bezier(0.4,0,0.2,1);
+  transition: transform 250ms cubic-bezier(0.4,0,0.2,1),
+              width 250ms cubic-bezier(0.4,0,0.2,1);
   pointer-events: none;
   z-index: 10;
 }
@@ -4532,11 +4565,15 @@ button, .bn-tab, .expand-trigger, .copy-btn, .fav-star,
   display: flex; flex-direction: column;
   overflow-y: auto; -webkit-overflow-scrolling: touch;
   padding: 0 0 40px 0;
+  /* iOS Safari: dynamic viewport height */
+  height: 100dvh;
 }
 .learn-deck {
   position: fixed; inset: 0; z-index: 201;
   background: var(--deep);
   display: flex; flex-direction: column;
+  /* iOS Safari: dynamic viewport height */
+  height: 100dvh;
 }
 .learn-deck-header {
   display: flex; align-items: center; justify-content: space-between;
@@ -5447,10 +5484,24 @@ button, .bn-tab, .expand-trigger, .copy-btn, .fav-star,
 
 /* ── CINEMATIC OVERLAY MOTION ─────────────────────────────────────────── */
 
-/* Velvet tray slide — heavy object easing, starts fast then settles */
+/* Tab switching: subtle lift-and-fade — 6px translateY gives native app feel without
+   the aggressive slide of a push navigation. Visually distinct from modal overlays. */
+.spa-view.view-entering {
+  display: block;
+  opacity: 0;
+  transform: translateY(6px);
+}
+.spa-view.view-leaving {
+  display: block;
+  opacity: 0;
+  transform: translateY(3px);
+  pointer-events: none;
+}
+
+/* Modal/overlay entry: bottom-sheet slide-up — distinguishes deep nav from tab switches */
 @keyframes overlayEnter {
-  0%   { opacity: 0;   transform: translateY(28px) scale(0.993); }
-  40%  { opacity: 1; }
+  0%   { opacity: 0;   transform: translateY(60px) scale(0.994); }
+  35%  { opacity: 1; }
   100% { opacity: 1;   transform: translateY(0)    scale(1);     }
 }
 
@@ -5582,13 +5633,20 @@ body.overlay-open .bottom-nav {
   pointer-events: none;
 }
 
+/* iOS Safari scroll lock: prevent body scrolling behind overlays */
+body.overlay-open {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+  /* top is set dynamically via JS (body.style.top = -scrollY + 'px') */
+}
+
 #home-view, #adhkar-view, #duas-view,  #learn-view, #settings-view {
-  transition: transform var(--t-slow),
-              opacity var(--t-slow);
+  transition: opacity var(--t-slow);
 }
 body.overlay-open .spa-view.view-active {
-  transform: scale(0.985) translateY(-4px);
-  opacity: 0.7;
+  transform: scale(0.97);
+  opacity: 0.6;
 }
 
 /* ---- LIST STAGGER ---- */
@@ -6735,14 +6793,12 @@ body:not(.dark)::before {
 body:not(.dark) .ar {
   text-shadow:
     0 1px 0 rgba(139,107,42,0.12),
-    0 2px 16px rgba(139,107,42,0.06),
-    0 0 32px rgba(139,107,42,0.04);
+    0 2px 8px rgba(139,107,42,0.06);
 }
 body:not(.dark) .bismillah {
   text-shadow:
     0 1px 0 rgba(139,107,42,0.14),
-    0 2px 20px rgba(139,107,42,0.08),
-    0 0 48px rgba(139,107,42,0.05);
+    0 2px 10px rgba(139,107,42,0.08);
 }
 
 /* ============================================================
@@ -8589,19 +8645,31 @@ body:not(.dark) .bismillah {
 <!-- BOTTOM TAB BAR -->
 <nav class="bottom-nav" role="navigation" aria-label="Main navigation">
   <button class="bn-tab" data-view="home" data-action="show-home">
-    <span class="bn-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12L12 3l9 9"/><path d="M9 21V12h6v9"/><path d="M3 12v9h18v-9"/></svg></span>
+    <span class="bn-icon">
+      <span class="bn-icon-outline"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12L12 3l9 9"/><path d="M9 21V12h6v9"/><path d="M3 12v9h18v-9"/></svg></span>
+      <span class="bn-icon-filled"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2.1L1 12.4h3V21h6v-6h4v6h6v-8.6h3L12 2.1z"/></svg></span>
+    </span>
     <span class="bn-label">Home</span>
   </button>
   <button class="bn-tab" data-view="adhkar" data-action="show-adhkar">
-    <span class="bn-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 6 12 12 16 14"/></svg></span>
+    <span class="bn-icon">
+      <span class="bn-icon-outline"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 6 12 12 16 14"/></svg></span>
+      <span class="bn-icon-filled"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 1C5.9 1 1 5.9 1 12s4.9 11 11 11 11-4.9 11-11S18.1 1 12 1zm.5 16.2l-4.8-2.8V6h2v7.4l3.8 2.2-.5.6z"/></svg></span>
+    </span>
     <span class="bn-label">Practice</span>
   </button>
   <button class="bn-tab" data-view="duas" data-action="show-duas">
-    <span class="bn-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>
+    <span class="bn-icon">
+      <span class="bn-icon-outline"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>
+      <span class="bn-icon-filled"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M18 2H6.5C4.6 2 3 3.6 3 5.5v13C3 20.4 4.6 22 6.5 22H19c.6 0 1-.4 1-1V3c0-.6-.4-1-1-1zm-1 18H6.5c-.8 0-1.5-.7-1.5-1.5S5.7 17 6.5 17H17v3z"/></svg></span>
+    </span>
     <span class="bn-label">Duas</span>
   </button>
   <button class="bn-tab" data-view="learn" data-action="show-learn">
-    <span class="bn-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></span>
+    <span class="bn-icon">
+      <span class="bn-icon-outline"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></span>
+      <span class="bn-icon-filled"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 1L1 7l11 6 9-4.9V17h2V7L12 1zm-9 13.5L12 20l9-5.5V11l-9 5-9-5v2.5z"/></svg></span>
+    </span>
     <span class="bn-label">Deepen</span>
   </button>
 </nav>
@@ -8712,13 +8780,47 @@ Object.defineProperty(window, '_spaCurrentView', {
   configurable: true
 });
 
-// Tab indicator updater
+// ── iOS Safari scroll-lock helpers ──────────────────────────────────────────
+// Saves scroll position and uses position:fixed on body to prevent the OS-level
+// scroll-behind-overlay bug on iOS Safari. All overlay open/close calls must use
+// these helpers instead of directly toggling 'overlay-open'.
+var _overlayScrollLockCount = 0;
+var _overlayScrollY = 0;
+
+function _lockBodyScroll() {
+  _overlayScrollLockCount++;
+  if (_overlayScrollLockCount > 1) return; // already locked
+  _overlayScrollY = window.scrollY || window.pageYOffset || 0;
+  document.body.style.top = '-' + _overlayScrollY + 'px';
+  document.body.classList.add('overlay-open');
+}
+
+function _unlockBodyScroll() {
+  _overlayScrollLockCount = Math.max(0, _overlayScrollLockCount - 1);
+  if (_overlayScrollLockCount > 0) return; // another overlay still open
+  // IMPORTANT: scrollTo must fire BEFORE removing position:fixed — otherwise Safari
+  // snaps to top for one frame as the fixed constraint lifts. Order is critical.
+  window.scrollTo(0, _overlayScrollY);
+  document.body.classList.remove('overlay-open');
+  document.body.style.top = '';
+}
+// ────────────────────────────────────────────────────────────────────────────
+
+// Tab indicator updater — uses real pixel geometry, immune to layout drift and safe area
 function _updateTabIndicator(name){
   var ind = document.getElementById('_bnInd');
   if(!ind) return;
   var tabs = Array.from(document.querySelectorAll('.bn-tab'));
   var idx = tabs.findIndex(function(t){ return t.getAttribute('data-view') === name; });
-  if(idx >= 0) ind.style.transform = 'translateX(' + (idx * 100) + '%)';
+  if(idx < 0) return;
+  var tab = tabs[idx];
+  var nav = tab.closest('.bottom-nav');
+  if(!nav) return;
+  var tabRect = tab.getBoundingClientRect();
+  var navRect = nav.getBoundingClientRect();
+  var left = tabRect.left - navRect.left;
+  ind.style.width = tabRect.width + 'px';
+  ind.style.transform = 'translateX(' + left + 'px)';
 }
 
 // Smooth search close helper
@@ -8813,7 +8915,7 @@ function showView(name) {
       el.style.display = 'none';
     });
     learnCurrentTopic = null;
-    document.body.classList.remove('overlay-open');
+    _unlockBodyScroll();
   }
 
   // Reset dhikr tab — close focused counter if left open
@@ -8822,7 +8924,7 @@ function showView(name) {
     if (dhoOverlay && dhoOverlay.classList.contains('dho-open')) {
       dhoOverlay.classList.remove('dho-open', 'is-open', 'is-closing');
       document.body.style.overflow = '';
-      document.body.classList.remove('overlay-open');
+      _unlockBodyScroll();
       renderDhikrIndex();
     }
   }
@@ -8834,6 +8936,13 @@ function showView(name) {
 
   var prev = _spaCurrentView;
   _spaCurrentView = name;
+
+  // ── Save scroll position of outgoing tab ──────────────────────────────────
+  // Restoring per-tab scroll makes tab switching feel native (like iOS tab bars
+  // where each tab remembers where you were). Expo migration: use useScrollToTop()
+  // on each navigator tab screen to handle this automatically.
+  if (!window._tabScrollPositions) window._tabScrollPositions = {};
+  if (prev) window._tabScrollPositions[prev] = window.scrollY || window.pageYOffset || 0;
 
   // Hide all non-relevant views
   document.querySelectorAll('.spa-view').forEach(function(v) {
@@ -8848,31 +8957,44 @@ function showView(name) {
   if (prev) {
     var prevEl = document.getElementById(prev + '-view');
     if (prevEl) {
+      // Set will-change only for the duration of the transition
+      prevEl.style.willChange = 'opacity, transform';
       prevEl.classList.remove('view-active');
       prevEl.classList.add('view-leaving');
       setTimeout(function() {
         prevEl.style.display = 'none';
         prevEl.classList.remove('view-leaving');
+        prevEl.style.willChange = 'auto';
       }, 80);
     }
   }
 
-  // Incoming view fades in
+  // Incoming view fades in, restoring its previous scroll position
   targetEl.style.display = 'block';
-  window.scrollTo(0, 0);
+  // Set will-change only for the duration of the incoming transition
+  targetEl.style.willChange = 'opacity, transform';
+  var savedScroll = (window._tabScrollPositions && window._tabScrollPositions[name]) || 0;
+  window.scrollTo(0, savedScroll);
   targetEl.classList.remove('view-active','view-leaving');
   targetEl.classList.add('view-entering');
   requestAnimationFrame(function() {
     requestAnimationFrame(function() {
       targetEl.classList.remove('view-entering');
       targetEl.classList.add('view-active');
-      // Retrigger list stagger animation on tab switch
-      var rows = targetEl.querySelectorAll('.duas-cat-row, .session-card, .dhikr-item, .learn-topic-row, .duas-cat-section-header');
-      rows.forEach(function(el) {
-        el.style.animation = 'none';
-        void el.offsetWidth;
-        el.style.animation = '';
+      // Remove will-change after transition completes — releases GPU layer
+      targetEl.addEventListener('transitionend', function cleanup() {
+        targetEl.style.willChange = 'auto';
+        targetEl.removeEventListener('transitionend', cleanup);
       });
+      // Retrigger list stagger animation only on first visit (scroll = 0)
+      if (savedScroll === 0) {
+        var rows = targetEl.querySelectorAll('.duas-cat-row, .session-card, .dhikr-item, .learn-topic-row, .duas-cat-section-header');
+        rows.forEach(function(el) {
+          el.style.animation = 'none';
+          void el.offsetWidth;
+          el.style.animation = '';
+        });
+      }
     });
   });
 }
@@ -8913,7 +9035,7 @@ function showView(name) {
       el.classList.remove('is-open','is-closing');
       el.style.display = 'none';
     });
-    document.body.classList.remove('overlay-open');
+    _unlockBodyScroll();
   }
 
   // Set active tab
@@ -8948,7 +9070,7 @@ function openSearch(){
   requestAnimationFrame(function(){ requestAnimationFrame(function(){
     o.classList.add('search-open');
     var inp = document.getElementById('duaSearch');
-    if(inp) setTimeout(function(){ inp.focus(); }, 80);
+    if(inp) setTimeout(function(){ inp.focus(); }, 150); // 150ms: Safari keyboard animation ~230ms, focus after keyboard is up
   }); });
 }
 
@@ -8996,76 +9118,46 @@ function scrollToSection(id){
 // Caches the app shell (this HTML file) so Naafi works fully
 // offline — at the masjid, travelling, or on a poor connection.
 // Strategy: cache-first with network revalidation in background.
-// Cache name is versioned — bump NAAFI_SW_VERSION to force refresh.
+// ── Asset-caching Service Worker ────────────────────────────────────────────
+// IMPORTANT: Blob-URL SW registration is blocked by CSP on CDN hosts and does
+// not function correctly in any production environment.
+//
+// PWA PRODUCTION FIX: Extract the SW code below into /sw.js at your site root,
+// then register it with: navigator.serviceWorker.register('/sw.js', { scope: '/' })
+//
+// The SW code to copy to /sw.js:
+// ---
+// var CACHE = 'naafi-v1';
+// var SHELL = ['/', self.location.href];
+// self.addEventListener('install', function(e) {
+//   e.waitUntil(caches.open(CACHE).then(function(c) {
+//     return Promise.all(SHELL.map(function(u) { return c.add(u).catch(function(){}); }));
+//   }).then(function() { return self.skipWaiting(); }));
+// });
+// self.addEventListener('activate', function(e) {
+//   e.waitUntil(caches.keys().then(function(keys) {
+//     return Promise.all(keys.filter(function(k){return k!==CACHE;}).map(function(k){return caches.delete(k);}));
+//   }).then(function() { return self.clients.claim(); }));
+// });
+// self.addEventListener('fetch', function(e) {
+//   if (e.request.method !== 'GET') return;
+//   if (e.request.url.indexOf(self.location.origin) !== 0) return;
+//   e.respondWith(caches.match(e.request).then(function(cached) {
+//     var net = fetch(e.request).then(function(r) {
+//       if (r && r.status === 200) caches.open(CACHE).then(function(c){c.put(e.request,r.clone());});
+//       return r;
+//     }).catch(function(){return cached;});
+//     return cached || net;
+//   }));
+// });
+// ---
 (function() {
-  if (!('serviceWorker' in navigator)) return;
-
-  var NAAFI_SW_VERSION = 'naafi-v1';
-
-  var swCode = [
-    'var CACHE = "' + NAAFI_SW_VERSION + '";',
-    'var SHELL = ["/", location.pathname, self.location.href];',
-
-    // Install: pre-cache the app shell
-    'self.addEventListener("install", function(e) {',
-    '  e.waitUntil(',
-    '    caches.open(CACHE).then(function(c) {',
-    '      return Promise.all(',
-    '        SHELL.map(function(url) {',
-    '          return c.add(url).catch(function() {});',
-    '        })',
-    '      );',
-    '    }).then(function() { return self.skipWaiting(); })',
-    '  );',
-    '});',
-
-    // Activate: delete old caches
-    'self.addEventListener("activate", function(e) {',
-    '  e.waitUntil(',
-    '    caches.keys().then(function(keys) {',
-    '      return Promise.all(',
-    '        keys.filter(function(k) { return k !== CACHE; })',
-    '           .map(function(k) { return caches.delete(k); })',
-    '      );',
-    '    }).then(function() { return self.clients.claim(); })',
-    '  );',
-    '});',
-
-    // Fetch: cache-first, fall back to network, update cache in background
-    'self.addEventListener("fetch", function(e) {',
-    '  if (e.request.method !== "GET") return;',
-    '  var url = e.request.url;',
-    // Skip cross-origin requests (fonts, Aladhan API, etc.) — let them go to network
-    '  if (url.indexOf(self.location.origin) !== 0) return;',
-    '  e.respondWith(',
-    '    caches.match(e.request).then(function(cached) {',
-    '      var networkFetch = fetch(e.request).then(function(res) {',
-    '        if (res && res.status === 200) {',
-    '          var clone = res.clone();',
-    '          caches.open(CACHE).then(function(c) { c.put(e.request, clone); });',
-    '        }',
-    '        return res;',
-    '      }).catch(function() { return cached; });',
-    // Return cached immediately if available; network updates in background
-    '      return cached || networkFetch;',
-    '    })',
-    '  );',
-    '});'
-  ].join('\n');
-
-  var blob = new Blob([swCode], { type: 'application/javascript' });
-  var swUrl = URL.createObjectURL(blob);
-
-  navigator.serviceWorker.register(swUrl, { scope: '/' })
-    .then(function(reg) {
-      // Check for updates every time the app loads
-      reg.update();
-    })
-    .catch(function(err) {
-      // Blob SW registration can fail in some browsers (Firefox, some Android WebViews)
-      // when scope '/' is broader than the blob URL origin — fail silently.
-      console.info('[Naafi SW] Registration skipped:', err.message);
-    });
+  // Disabled: Blob-URL SW registration fails silently in production.
+  // Uncomment and point to a real /sw.js file when deploying.
+  // if (!('serviceWorker' in navigator)) return;
+  // navigator.serviceWorker.register('/sw.js', { scope: '/' })
+  //   .then(function(reg) { reg.update(); })
+  //   .catch(function(err) { console.info('[Naafi SW]', err.message); });
 })();
 
 // ---- SAFE LOCALSTORAGE HELPERS (iOS private browsing safe) ----
@@ -9073,9 +9165,31 @@ function safeGet(key, fallback){
   try{ var v = localStorage.getItem(key); return v !== null ? v : (fallback !== undefined ? fallback : null); }
   catch(e){ return fallback !== undefined ? fallback : null; }
 }
+// Debounced localStorage writes — batches rapid successive calls (e.g. tasbih taps)
+// into a single write 300ms after the last call, reducing main-thread I/O pressure.
+var _lsWriteQueue = {};
+var _lsWriteTimers = {};
 function safeSet(key, val){
-  try{ localStorage.setItem(key, val); }catch(e){}
+  _lsWriteQueue[key] = val;
+  if (_lsWriteTimers[key]) clearTimeout(_lsWriteTimers[key]);
+  _lsWriteTimers[key] = setTimeout(function(){
+    try{ localStorage.setItem(key, _lsWriteQueue[key]); }catch(e){}
+    delete _lsWriteQueue[key];
+    delete _lsWriteTimers[key];
+  }, 300);
 }
+// Flush all pending writes immediately (call before page unload or on session complete)
+function safeSetFlush(){
+  Object.keys(_lsWriteQueue).forEach(function(key){
+    if (_lsWriteTimers[key]) clearTimeout(_lsWriteTimers[key]);
+    try{ localStorage.setItem(key, _lsWriteQueue[key]); }catch(e){}
+    delete _lsWriteQueue[key];
+    delete _lsWriteTimers[key];
+  });
+}
+// Flush on page hide (covers iOS app-switch / tab close)
+window.addEventListener('pagehide', safeSetFlush);
+window.addEventListener('visibilitychange', function(){ if(document.visibilityState === 'hidden') safeSetFlush(); });
 
 // ============================================================
 //  STORAGE ABSTRACTION LAYER
@@ -9091,19 +9205,38 @@ var Storage = (function() {
   var SCHEMA_VERSION = 1;
   var VERSION_KEY = 'naafi_schema_v';
 
-  // All known storage keys in one place
+  // ── All known storage keys in one place ────────────────────────────────────
+  // EXPO MIGRATION NOTE: Each key here maps 1-to-1 to an AsyncStorage entry.
+  //   Replace localStorage.get/setItem calls with AsyncStorage.getItem/setItem.
+  //   Keys prefixed 'naafi_' are app-specific; unprefixed keys are legacy.
   var KEYS = {
-    FAVOURITES:          'favourites',
-    FAVOURITES_LEGACY:   'dua_favourites',
-    PROGRESS_DATA:       'progress_data',
-    PROGRESS_DATE:       'progress_date',
-    STREAK_DATA:         'streak_data',
-    RESUME_SESSION:      'resume_session',
-    THEME:               'theme',
-    AR_SCALE:            'ar_scale',
-    ONBOARDING_DONE:     'onboarding_done',
-    INSTALL_DISMISSED:   'install_prompt_dismissed',
-    HIJRI_CACHE:         'hijri_cache'
+    // User data
+    FAVOURITES:             'favourites',           // JSON array of dua IDs
+    FAVOURITES_LEGACY:      'dua_favourites',        // old format, migrated on first open
+    FAV_FOLDERS:            'naafi_fav_folders',     // JSON array of folder objects
+    // Progress & streaks
+    PROGRESS_DATA:          'progress_data',         // JSON object: { [sessionId]: completionCount }
+    PROGRESS_DATE:          'progress_date',         // ISO date string of last progress write
+    STREAK_DATA:            'streak_data',           // JSON object: { count, lastDate }
+    RESUME_SESSION:         'resume_session',        // last open session ID for resume
+    // Learn module
+    LEARN_COMPLETE:         'naafi_learn_complete',  // JSON object: { [topicId]: true }
+    // Salah tracker
+    SALAH_DONE:             'salah_done',            // JSON array of completed salah names
+    SALAH_TASBIH:           'salah_tasbih',          // JSON object: tasbih counts per salah
+    SALAH_SAVED_DATE:       'salah_saved_date',      // Date string for daily reset
+    SALAH_ACTIVE:           'salah_active',          // currently active salah name
+    // Prayer times
+    PRAYER_TIMES_CACHE:     'prayer_times_cache',    // JSON { date, times } — daily cache
+    PRAYER_TIMES_MANUAL:    'naafi_prayer_times_manual', // user-set manual times
+    // Reminders
+    REMINDERS:              'naafi_reminders_v1',    // JSON object: reminder settings
+    // Preferences
+    THEME:                  'theme',                 // 'light' | 'dark'
+    AR_SCALE:               'ar_scale',              // float: Arabic text scale multiplier
+    ONBOARDING_DONE:        'onboarding_done',       // boolean string
+    INSTALL_DISMISSED:      'install_prompt_dismissed', // boolean string
+    HIJRI_CACHE:            'hijri_cache'            // JSON: cached Hijri date
   };
 
   function get(key, fallback) {
@@ -9481,10 +9614,10 @@ function openDhikrFocused(idx){
   overlay.classList.add('dho-open');
   requestAnimationFrame(function(){ requestAnimationFrame(function(){ overlay.classList.add('is-open'); }); });
   document.body.style.overflow = 'hidden';
-  document.body.classList.add('overlay-open');
+  _lockBodyScroll();
 }
 
-function closeDhikrFocused(){
+window.closeDhikrFocused = function closeDhikrFocused(){
   var overlay = document.getElementById('dhikrFocusedOverlay');
   if(overlay) {
     overlay.classList.remove('is-open');
@@ -9492,7 +9625,7 @@ function closeDhikrFocused(){
     setTimeout(function() {
       overlay.classList.remove('dho-open', 'is-closing');
       document.body.style.overflow = '';
-      document.body.classList.remove('overlay-open');
+      _unlockBodyScroll();
       renderDhikrIndex();
     }, 220);
   }
@@ -11366,7 +11499,7 @@ function openOnboarding() {
   var el = document.getElementById('onboardingOverlay');
   if (!el) return;
   el.classList.add('ob-open');
-  document.body.classList.add('overlay-open');
+  _lockBodyScroll();
   requestAnimationFrame(function(){ requestAnimationFrame(function(){
     el.classList.add('is-open');
   }); });
@@ -11389,7 +11522,7 @@ function closeOnboarding(callback) {
   if (!el) return;
   el.classList.remove('is-open');
   el.classList.add('is-closing');
-  document.body.classList.remove('overlay-open');
+  _unlockBodyScroll();
   setTimeout(function() {
     el.classList.remove('ob-open', 'is-closing');
     if (callback) callback();
@@ -11490,8 +11623,7 @@ var OverlayController = (function() {
     if (!el) return;
     el.classList.remove('overlay-managed-closing');
     el.style.display = 'flex';
-    document.body.style.overflow = 'hidden';
-    document.body.classList.add('overlay-open');
+    _lockBodyScroll();
     if (_stack.indexOf(id) === -1) _stack.push(id);
     requestAnimationFrame(function() {
       requestAnimationFrame(function() {
@@ -11511,7 +11643,7 @@ var OverlayController = (function() {
       _stack = _stack.filter(function(s) { return s !== id; });
       if (_stack.length === 0) {
         document.body.style.overflow = '';
-        document.body.classList.remove('overlay-open');
+        _unlockBodyScroll();
       }
     }, 320);
   }
@@ -11532,6 +11664,61 @@ var OverlayController = (function() {
   return { _register: _register, open: open, close: close, closeAll: closeAll };
 })();
 // ===== END OVERLAY CONTROLLER =====
+
+// ── Edge-swipe back gesture ──────────────────────────────────────────────────
+// Detects a left-edge swipe (starting within 28px of the left edge) and triggers
+// the back/close action for whichever overlay is currently on top.
+// In Expo this is replaced by the stack navigator's built-in back swipe.
+(function() {
+  var _swipeStartX = 0;
+  var _swipeStartY = 0;
+  var _swipeTracking = false;
+
+  // Map of overlay elements → their close function
+  // Extended as new overlays are registered.
+  var _swipeCloseMap = [
+    { id: 'guidedOverlay',       fn: function() { if (window.closeGuidedSession) window.closeGuidedSession(); } },
+    { id: 'dhikrFocusedOverlay', fn: function() { if (window.closeDhikrFocused) window.closeDhikrFocused(); } },
+    { id: 'duaReader',           fn: function() { OverlayController.close('duaReader'); } },
+    { id: 'learnIntroPanel',     fn: function() { if (window.closeLearnIntro) window.closeLearnIntro(); } },
+    { id: 'learnDeckPanel',      fn: function() { if (window.closeLearnDeck) window.closeLearnDeck(); } }
+  ];
+
+  function _getTopmostOverlay() {
+    // Walk the map in reverse priority to find the topmost visible overlay
+    for (var i = _swipeCloseMap.length - 1; i >= 0; i--) {
+      var entry = _swipeCloseMap[i];
+      var el = document.getElementById(entry.id);
+      if (el && el.style.display !== 'none' && el.style.display !== '') return entry;
+    }
+    return null;
+  }
+
+  document.addEventListener('touchstart', function(e) {
+    if (e.touches.length !== 1) return;
+    var t = e.touches[0];
+    _swipeStartX = t.clientX;
+    _swipeStartY = t.clientY;
+    // Only track if starting within 28px of the left edge
+    _swipeTracking = _swipeStartX <= 28;
+  }, { passive: true });
+
+  document.addEventListener('touchend', function(e) {
+    if (!_swipeTracking) return;
+    _swipeTracking = false;
+    var t = e.changedTouches[0];
+    var dx = t.clientX - _swipeStartX;
+    var dy = Math.abs(t.clientY - _swipeStartY);
+    // Rightward swipe > 60px, more horizontal than vertical
+    if (dx > 60 && dy < dx * 0.7) {
+      var overlay = _getTopmostOverlay();
+      if (overlay) {
+        overlay.fn();
+      }
+    }
+  }, { passive: true });
+})();
+// ────────────────────────────────────────────────────────────────────────────
 
 // Change 2: Register overlays with controller
 (function() {
@@ -11584,7 +11771,7 @@ window.closeGuidedSession = function(){
     return;
   }
   document.body.style.overflow = '';
-  document.body.classList.remove('overlay-open');
+  _unlockBodyScroll();
 };
 
 // ── SESSION COMPLETION MOMENT ──────────────────────────────
@@ -13850,7 +14037,7 @@ function openAsma() {
   if (!asmaRendered) { renderAsmaGrid(ASMA_DATA); asmaRendered = true; }
   el.style.display = 'flex';
   requestAnimationFrame(function() { requestAnimationFrame(function() { el.classList.add('is-open'); }); });
-  document.body.classList.add('overlay-open');
+  _lockBodyScroll();
   var search = document.getElementById('asmaSearch');
   if (search) search.value = '';
 }
@@ -13864,7 +14051,7 @@ function closeAsma() {
     el.style.display = 'none';
     el.classList.remove('is-closing');
   }, 240);
-  document.body.classList.remove('overlay-open');
+  _unlockBodyScroll();
 }
 
 // Close button wired directly (in case event delegation hasn't loaded yet)
@@ -14031,31 +14218,17 @@ function checkInAppReminders() {
 var _swReg = null;
 
 function registerReminderSW() {
-  if (!('serviceWorker' in navigator) || !('Notification' in window)) return;
-  // Minimal SW that handles push events
-  var swCode = [
-    'self.addEventListener("push", function(e) {',
-    '  var d = e.data ? e.data.json() : {};',
-    '  e.waitUntil(self.registration.showNotification(d.title || "Naafi", {',
-    '    body: d.body || "Time for your adhkar",',
-    '    icon: d.icon || "/icon-192.png",',
-    '    badge: "/icon-192.png",',
-    '    tag: d.tag || "naafi-reminder",',
-    '    data: { url: d.url || "/" }',
-    '  }));',
-    '});',
-    'self.addEventListener("notificationclick", function(e) {',
-    '  e.notification.close();',
-    '  e.waitUntil(clients.openWindow(e.notification.data.url || "/"));',
-    '});'
-  ].join('\n');
-  var blob = new Blob([swCode], { type: 'application/javascript' });
-  var swURL = URL.createObjectURL(blob);
-  navigator.serviceWorker.register(swURL, { scope: '/' }).then(function(reg) {
-    _swReg = reg;
-  }).catch(function() {
-    // SW registration can fail in some browsers with Blob URLs — in-app only fallback
-  });
+  // IMPORTANT: Blob-URL SW registration is blocked by CSP on most CDN hosts and
+  // will not work at all in Expo. This function is intentionally disabled.
+  //
+  // PWA production fix: move the SW code to a real /sw.js file at the site root
+  //   and call: navigator.serviceWorker.register('/sw.js', { scope: '/' })
+  //
+  // Expo migration: remove entirely — use expo-notifications instead.
+  //
+  // For now, the app relies on scheduleAllPushReminders() (setTimeout-based,
+  // works while the tab is open) for in-session reminder delivery.
+  return;
 }
 
 function scheduleAllPushReminders(data) {
@@ -14188,7 +14361,7 @@ function openLearnTopic(topicId) {
   learnCurrentCard = 0;
   var learnView = document.getElementById('learn-view');
   if (learnView) learnView.scrollTo(0, 0);
-  document.body.classList.add('overlay-open');
+  _lockBodyScroll();
 }
 
 function closeLearnTopic() {
@@ -14208,7 +14381,7 @@ function closeLearnTopic() {
   if (learnView) learnView.scrollTo(0, 0);
   var searchInput = document.getElementById('learnIndexSearch');
   if (searchInput) { searchInput.value = ''; filterLearnIndex(''); }
-  document.body.classList.remove('overlay-open');
+  _unlockBodyScroll();
 }
 
 function beginLearnDeck(topicId) {
@@ -16113,7 +16286,7 @@ window.satRestartTimer = function() {
 <div id="shareSheetOverlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9000;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);" data-action="close-share"></div>
 
 <div id="shareSheet" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:9001;background:var(--card);border-top:1px solid var(--bdr);border-radius:20px 20px 0 0;padding:0 0 calc(env(safe-area-inset-bottom, 0px) + 80px);max-width:520px;margin:0 auto;box-shadow:0 -8px 40px rgba(0,0,0,0.5);max-height:85dvh;overflow-y:auto;">
-  <div style="width:36px;height:4px;background:var(--bdr);border-radius:2px;margin:14px auto 0;"></div>
+  <div id="shareSheetHandle" style="width:36px;height:4px;background:var(--bdr);border-radius:2px;margin:14px auto 0;touch-action:none;cursor:grab;"></div>
   <div style="padding:18px 20px 8px;border-bottom:1px solid var(--bdr);">
     <div id="shareSheetTitle" style="font-family:var(--fn);font-size:16px;font-weight:700;color:var(--gold-l);margin-bottom:3px;letter-spacing:0.01em;"></div>
     <div style="font-family:var(--fn);font-size:11px;color:var(--text-m);letter-spacing:0.07em;text-transform:uppercase;">Share this dua</div>
@@ -16392,14 +16565,24 @@ window.satRestartTimer = function() {
     if (gs) guidedCounterObs.observe(gs, { characterData: true, childList: true, subtree: true });
     patchTsCounters();
   });
-  var _dhoObs = setInterval(function() {
-    var el = document.querySelector(".dho-count");
-    if (!el) return;
-    clearInterval(_dhoObs);
+  // Replace setInterval polling with MutationObserver on stable ancestor
+  // Watches the adhkar view container — dho-count lives inside it once rendered
+  document.addEventListener("DOMContentLoaded", function() {
+    var dhoAncestor = document.getElementById('adhkar-view') || document.body;
+    var _dhoEl = null;
     new MutationObserver(function() {
-      if (/[0-9]/.test(el.textContent)) el.textContent = toEA(el.textContent);
-    }).observe(el, { characterData: true, childList: true, subtree: true });
-  }, 800);
+      if (!_dhoEl) {
+        _dhoEl = document.querySelector('.dho-count');
+        if (!_dhoEl) return;
+        // Once found, observe just the target element for content changes
+        new MutationObserver(function() {
+          if (/[0-9]/.test(_dhoEl.textContent)) _dhoEl.textContent = toEA(_dhoEl.textContent);
+        }).observe(_dhoEl, { characterData: true, childList: true, subtree: true });
+        // Convert current value immediately
+        if (/[0-9]/.test(_dhoEl.textContent)) _dhoEl.textContent = toEA(_dhoEl.textContent);
+      }
+    }).observe(dhoAncestor, { childList: true, subtree: true });
+  });
   function initOverscroll() {
     var body = document.getElementById("guidedBody");
     if (!body || body.querySelector(".gs-marginalia")) return;
@@ -16462,6 +16645,10 @@ window.satRestartTimer = function() {
     el.style.display = '';
   }
   document.addEventListener('DOMContentLoaded', initHomeGreeting);
+  // Refresh greeting when app re-foregrounds (e.g. user left at Asr, returns at Isha)
+  document.addEventListener('visibilitychange', function() {
+    if (!document.hidden) initHomeGreeting();
+  });
 })();
 })();
 // ===== END EASTERN ARABIC NUMERALS + OVERSCROLL MARGINALIA =====
@@ -16492,6 +16679,7 @@ window.satRestartTimer = function() {
 <div id="favSheet" class="fav-sheet" role="dialog" aria-modal="true" aria-label="Save to Folder">
   <div class="fav-sheet-backdrop" onclick="closeFavSheet()"></div>
   <div class="fav-sheet-surface">
+    <div id="favSheetHandle" style="width:36px;height:4px;background:var(--bdr-h);border-radius:2px;margin:-4px auto 18px;touch-action:none;cursor:grab;"></div>
     <div class="fav-sheet-title">Keep this dua close</div>
     <div class="fav-sheet-sub">Your saved duas are your record of conversation with Allah. Choose a collection.</div>
     <div id="favFolderList" class="fav-sheet-list"></div>
@@ -16501,6 +16689,99 @@ window.satRestartTimer = function() {
     <button class="fav-sheet-done-btn" onclick="closeFavSheet()">Done</button>
   </div>
 </div>
+
+
+<script>
+/* ─────────────────────────────────────────────────────────────────────────
+   DRAG-TO-DISMISS — Share Sheet
+   The sheet already uses transform:translateY for open/close.
+   We track the drag on the handle pill and dismiss if dragged > 80px.
+───────────────────────────────────────────────────────────────────────── */
+(function() {
+  var sheet, startY, currentY, isDragging;
+
+  function onTouchStart(e) {
+    sheet = document.getElementById('shareSheet');
+    startY = e.touches[0].clientY;
+    currentY = 0;
+    isDragging = true;
+    sheet.style.transition = 'none';
+  }
+
+  function onTouchMove(e) {
+    if (!isDragging) return;
+    currentY = e.touches[0].clientY - startY;
+    if (currentY < 0) currentY = 0;
+    sheet.style.transform = 'translateY(' + currentY + 'px)';
+  }
+
+  function onTouchEnd() {
+    if (!isDragging) return;
+    isDragging = false;
+    sheet.style.transition = '';
+    if (currentY > 80) {
+      closeShareSheet();
+    } else {
+      sheet.style.transform = 'translateY(0)';
+    }
+    currentY = 0;
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var handle = document.getElementById('shareSheetHandle');
+    if (!handle) return;
+    handle.addEventListener('touchstart', onTouchStart, { passive: true });
+    handle.addEventListener('touchmove',  onTouchMove,  { passive: true });
+    handle.addEventListener('touchend',   onTouchEnd);
+  });
+})();
+
+/* ─────────────────────────────────────────────────────────────────────────
+   DRAG-TO-DISMISS — Fav Sheet
+   The fav sheet uses a CSS class toggle (fav-sheet-open) not inline
+   transforms, so we manipulate the surface element directly and reset
+   after closeFavSheet() takes over.
+───────────────────────────────────────────────────────────────────────── */
+(function() {
+  var surface, startY, currentY, isDragging;
+
+  function onTouchStart(e) {
+    surface = document.querySelector('.fav-sheet-surface');
+    startY = e.touches[0].clientY;
+    currentY = 0;
+    isDragging = true;
+    if (surface) surface.style.transition = 'none';
+  }
+
+  function onTouchMove(e) {
+    if (!isDragging || !surface) return;
+    currentY = e.touches[0].clientY - startY;
+    if (currentY < 0) currentY = 0;
+    surface.style.transform = 'translateY(' + currentY + 'px)';
+  }
+
+  function onTouchEnd() {
+    if (!isDragging || !surface) return;
+    isDragging = false;
+    surface.style.transition = '';
+    if (currentY > 80) {
+      surface.style.transform = '';
+      if (typeof closeFavSheet === 'function') closeFavSheet();
+    } else {
+      surface.style.transform = '';
+    }
+    currentY = 0;
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var handle = document.getElementById('favSheetHandle');
+    if (!handle) return;
+    handle.addEventListener('touchstart', onTouchStart, { passive: true });
+    handle.addEventListener('touchmove',  onTouchMove,  { passive: true });
+    handle.addEventListener('touchend',   onTouchEnd);
+  });
+})();
+</script>
 
 </body>
 </html>
